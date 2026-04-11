@@ -14,10 +14,7 @@ body {
   min-height: 100vh;
   font-family: Georgia, "Times New Roman", serif;
   color: var(--ink);
-  background:
-    radial-gradient(circle at top, rgba(189, 75, 49, 0.18), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(23, 76, 97, 0.14), transparent 24%),
-    linear-gradient(180deg, #f8f3ea 0%, var(--bg) 100%);
+  background: #f8f3ea;
 }
 
 .shell {
