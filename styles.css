@@ -3,6 +3,7 @@
   --bg: #f3efe7;
   --ink: #1d1a17;
   --accent: #d73f15;
+  --photo: url("https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/01KNXW25XW5A8XHACVKGXY11Y3.jpg");
 }
 
 * {
@@ -26,16 +27,31 @@ body {
 }
 
 .hero {
-  width: 559px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 501px;
 }
 
 h1 {
   margin: 0;
   color: var(--accent);
-  font-family: "Gloock", Georgia, "Times New Roman", serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 84px;
+  font-weight: 200;
   line-height: 0.95;
   text-align: center;
+  width: 451px;
+}
+
+.portrait {
+  width: 501px;
+  height: 669px;
+  margin-top: 17px;
+  border-radius: 46px;
+  background-image: var(--photo);
+  background-position: center;
+  background-size: cover;
 }
 
 @media (max-width: 640px) {
@@ -44,10 +60,17 @@ h1 {
   }
 
   .hero {
-    width: min(559px, 100%);
+    width: min(501px, 100%);
   }
 
   h1 {
     font-size: clamp(3rem, 14vw, 84px);
+    width: 100%;
+  }
+
+  .portrait {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 501 / 669;
   }
 }
