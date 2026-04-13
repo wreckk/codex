@@ -3,22 +3,168 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>codex</title>
+    <title>Eric Centeno</title>
     <meta
       name="description"
-      content="A minimal starter project wired for GitHub and Vercel."
+      content="Executive design leader timeline and portfolio."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <main class="shell">
-      <section class="hero">
-        <h1>Eric Centeno</h1>
-        <div
-          class="portrait"
-          role="img"
-          aria-label="Portrait of Eric Centeno"
-        ></div>
+    <main class="page-shell">
+      <header class="page-header">
+        <h1>ERIC CENTENO</h1>
+        <p>EXECUTIVE DESIGN LEADER</p>
+      </header>
+
+      <section class="page-body">
+        <aside class="sidebar-card">
+          <div class="portrait-shell">
+            <div class="portrait portrait-base" aria-hidden="true"></div>
+            <div class="portrait portrait-overlay" aria-hidden="true"></div>
+            <div class="portrait-frame" aria-hidden="true"></div>
+            <div class="hello-pill">Hey There <span>👋</span></div>
+          </div>
+
+          <div class="sidebar-copy">
+            <p>
+              With 25+ years of experience elevating UX quality and building
+              scalable products and experiences across consumer and SaaS
+              companies. Known for building exceptional teams and strong
+              cultures, partnering with C-suite and board leaders on strategic
+              initiatives, and leading company-wide product and brand
+              transformations.
+            </p>
+
+            <div class="sidebar-rule"></div>
+
+            <nav class="sidebar-links" aria-label="Profile links">
+              <a href="https://www.linkedin.com/in/ericcenteno/" target="_blank" rel="noreferrer">in</a>
+              <a href="https://www.discogs.com/user/wreckk/collection" target="_blank" rel="noreferrer">◎</a>
+              <a href="https://www.librarything.com/catalog/wreckk" target="_blank" rel="noreferrer">📚</a>
+            </nav>
+          </div>
+        </aside>
+
+        <section class="timeline-column" aria-label="Timeline">
+          <div class="timeline-head">
+            <h2>TIMELINE</h2>
+            <span class="timeline-hint">Scroll to see more</span>
+          </div>
+
+          <div class="timeline-track">
+            <div class="timeline-line" aria-hidden="true"></div>
+            <div class="timeline-microticks" aria-hidden="true"></div>
+            <div class="timeline-fade-top" aria-hidden="true"></div>
+            <div class="timeline-fade-bottom" aria-hidden="true"></div>
+
+            <div class="today-row">
+              <div class="today-accent"></div>
+              <div class="today-pill">
+                <strong>TODAY</strong>
+                <span>Time Off</span>
+              </div>
+            </div>
+
+            <div class="timeline-entry minor" style="--y: 154px">
+              <span class="month">APR</span><span class="label">Tooling Deep Dive</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 186px">
+              <span class="month">MAR</span><span class="label">Paper / Code Sync</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 218px">
+              <span class="month">FEB</span><span class="label">Left GoodRx</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 250px">
+              <span class="month">JAN</span><span class="label">GLP-1 Launch</span>
+            </div>
+
+            <div class="timeline-entry year" style="--y: 280px">
+              <span class="year-mark">2026</span><span class="company">GoodRx</span>
+            </div>
+
+            <div class="timeline-entry minor" style="--y: 340px">
+              <span class="month">NOV</span><span class="label">Hair Loss Launch</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 372px">
+              <span class="month">SEPT</span><span class="label">Men's ED Launch</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 404px">
+              <span class="month">JUL</span><span class="label">Homepage Refresh</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 436px">
+              <span class="month">MAY</span><span class="label">Pricing Tests</span>
+            </div>
+
+            <div class="timeline-entry year" style="--y: 472px">
+              <span class="year-mark">2025</span><span class="company">GoodRx</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 530px">
+              <span class="month">OCT</span><span class="label">Brand Refresh</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 562px">
+              <span class="month">AUG</span><span class="label">Benefit Flow Refresh</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 594px">
+              <span class="month">MAR</span><span class="label">Retention Push</span>
+            </div>
+
+            <div class="timeline-entry year" style="--y: 630px">
+              <span class="year-mark">2024</span><span class="company">GoodRx</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 688px">
+              <span class="month">DEC</span><span class="label">IA Reset</span>
+            </div>
+            <div class="timeline-entry minor" style="--y: 720px">
+              <span class="month">SEPT</span><span class="label">PDP Overhaul</span>
+            </div>
+            <div class="timeline-entry minor tail" style="--y: 752px">
+              <span class="month">MAY</span><span class="label">Pricing Simplification</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="story-card">
+          <div class="story-head">
+            <span class="story-kicker">TODAY</span>
+            <h2>Time Off</h2>
+          </div>
+
+          <p class="story-copy">
+            Using this stretch between roles to explore vibe coding, modern
+            design systems, deployment loops, and faster end-to-end workflows.
+            This panel can swap screenshots, launch notes, links, and dated
+            callouts as the active point on the timeline changes.
+          </p>
+
+          <div class="story-pills">
+            <span>Period: Feb-Apr</span>
+            <span>Mode: Ship Fast</span>
+            <span>Output: Sites + UI</span>
+          </div>
+
+          <div class="story-image-shell">
+            <div class="story-image" aria-hidden="true"></div>
+          </div>
+
+          <div class="story-notes">
+            <p>
+              This is placeholder narrative to test how much content the
+              browser-height panel can comfortably hold before we need to
+              introduce an internal scroll region or collapse sections.
+            </p>
+            <p>
+              Launch notes: built a tighter delivery loop between concept,
+              Paper preview, code sync, GitHub push, and Vercel deploy.
+            </p>
+          </div>
+        </section>
       </section>
     </main>
   </body>
