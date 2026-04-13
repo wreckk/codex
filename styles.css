@@ -96,8 +96,9 @@ body {
   flex-direction: column;
   gap: 16px;
   padding: 18px;
-  background: var(--card);
-  border: 1px solid var(--soft-border);
+  background: var(--plum);
+  border: 1px solid rgba(255, 252, 247, 0.12);
+  color: #fcfaf4;
   height: calc(100vh - 198px);
   position: sticky;
   top: 30px;
@@ -205,8 +206,8 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 999px;
-  background: #f4efe8;
-  color: var(--muted);
+  background: rgba(255, 252, 247, 0.14);
+  color: #fcfaf4;
   text-decoration: none;
   font-size: 17px;
   transition:
@@ -217,7 +218,7 @@ body {
 
 .sidebar-links a:hover {
   transform: translateY(-1px);
-  background: #fff;
+  background: rgba(255, 252, 247, 0.24);
   color: var(--accent);
 }
 
@@ -247,10 +248,10 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 6px 8px;
-  border: 1px solid #dedcd6;
+  border: 1px solid rgba(255, 252, 247, 0.2);
   border-radius: 999px;
-  background: #fff;
-  color: var(--ink);
+  background: rgba(255, 252, 247, 0.1);
+  color: #fcfaf4;
   font-size: 9px;
   line-height: 1;
   text-transform: uppercase;
@@ -498,9 +499,9 @@ body {
   position: sticky;
   top: 30px;
   overflow: hidden;
-  background: var(--plum);
-  border: 1px solid rgba(255, 252, 247, 0.12);
-  color: #fcfaf4;
+  background: var(--card);
+  border: 1px solid var(--soft-border);
+  color: var(--ink);
 }
 
 .story-head {
@@ -515,7 +516,7 @@ body {
   font-size: 14px;
   letter-spacing: 0.24em;
   line-height: 1;
-  color: rgba(252, 250, 244, 0.82);
+  color: var(--muted);
 }
 
 .story-head h2 {
@@ -524,7 +525,7 @@ body {
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   font-weight: 300;
   line-height: 0.94;
-  color: #fff2ea;
+  color: var(--accent);
 }
 
 .story-copy,
@@ -532,7 +533,7 @@ body {
   margin: 0;
   font-size: 15px;
   line-height: 1.32;
-  color: rgba(252, 250, 244, 0.92);
+  color: var(--ink);
 }
 
 .story-copy {
@@ -551,27 +552,28 @@ body {
   align-items: center;
   padding: 7px 12px;
   border-radius: 999px;
-  background: rgba(255, 252, 247, 0.12);
-  color: #fcfaf4;
+  background: #f4efe8;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1;
 }
 
 .story-pills span.primary,
 .story-pills span:first-child {
-  background: rgba(255, 70, 50, 0.18);
+  background: #f7e9df;
+  color: var(--accent);
 }
 
 .story-image-shell {
   height: 440px;
-  border: 2px solid rgba(255, 252, 247, 0.18);
+  border: 2px solid #e7ded3;
   border-radius: 12px;
   overflow-y: auto;
   overflow-x: hidden;
   background: #fff;
   flex-shrink: 0;
   scrollbar-width: thin;
-  scrollbar-color: rgba(252, 250, 244, 0.22) transparent;
+  scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
 }
 
 .story-image {
@@ -592,7 +594,7 @@ body {
   padding-right: 6px;
   font-size: 14px;
   line-height: 1.38;
-  color: rgba(252, 250, 244, 0.86);
+  color: var(--muted);
 }
 
 @keyframes wave {
