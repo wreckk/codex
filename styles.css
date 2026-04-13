@@ -62,9 +62,9 @@ body {
 
 .page-body {
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 4fr);
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) minmax(0, 5fr);
   gap: 28px;
-  margin-top: 30px;
+  margin-top: 0;
   height: calc(100vh - 198px);
 }
 
