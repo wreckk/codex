@@ -109,10 +109,6 @@
           </div>
 
           <div class="timeline-track">
-            <div class="timeline-sticky-year" id="timeline-sticky-year">
-              <span class="sticky-year-mark" id="sticky-year-mark">2026</span>
-              <span class="sticky-year-company" id="sticky-year-company"></span>
-            </div>
             <div class="timeline-content">
               <div class="timeline-line" aria-hidden="true"></div>
               <div class="timeline-shortticks" aria-hidden="true"></div>
@@ -122,11 +118,11 @@
               <div class="timeline-top-glow" aria-hidden="true"></div>
               <div class="timeline-bottom-fade" aria-hidden="true"></div>
 
-              <div class="timeline-entry year year-anchor" style="--y: 0px" data-year="2026" data-company="">
+              <div class="timeline-entry year" style="--y: 0px" data-year="2026" data-company="">
                 <div class="entry-pill"><span class="year-mark">2026</span></div>
               </div>
 
-              <div class="timeline-entry minor" style="--y: 35px" data-story="time-off" data-year="2026">
+              <div class="timeline-entry minor" style="--y: 74px" data-story="time-off" data-year="2026">
                 <div class="entry-pill"><span class="month">TODAY</span><span class="label">Time Off</span></div>
               </div>
 
@@ -474,11 +470,6 @@
       };
 
       const track = document.querySelector(".timeline-track");
-      const stickyYear = document.getElementById("timeline-sticky-year");
-      const stickyYearMark = document.getElementById("sticky-year-mark");
-      const stickyYearCompany = document.getElementById("sticky-year-company");
-      const progressLine = document.getElementById("timeline-progress-line");
-      const progressTicks = document.getElementById("timeline-progress-ticks");
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
@@ -491,6 +482,7 @@
       const yearEntries = [...document.querySelectorAll(".timeline-entry.year")];
       const timelineTargets = [...document.querySelectorAll(".timeline-entry.minor")];
       const stickyOffset = 35;
+      const yearPushGap = 6;
 
       function fitHeadingText(node, { minSize, maxSize, baseLetterSpacing = 0, tighten = false }) {
         if (!node || !sidebarHeading) return;
@@ -527,8 +519,8 @@
 
       function fitSidebarHeading() {
         fitHeadingText(sidebarName, {
-          minSize: 32,
-          maxSize: 40,
+          minSize: 34,
+          maxSize: 44,
           baseLetterSpacing: -1.8,
           tighten: true,
         });
@@ -566,36 +558,24 @@
         });
       }
 
-      function updateStickyYear() {
-        const stickyHeight = stickyYear.offsetHeight;
-        const yearForTop =
-          [...yearEntries]
-            .reverse()
-            .find((entry) => entry.offsetTop <= track.scrollTop + stickyOffset + 6) || yearEntries[0];
+      function updateYearPositions() {
+        yearEntries.forEach((entry, index) => {
+          const entryHeight = entry.offsetHeight || 32;
+          const naturalTop = entry.offsetTop;
+          const nextEntry = yearEntries[index + 1];
+          const stickyTranslate = Math.max(0, track.scrollTop + stickyOffset - naturalTop);
+          const maxTranslate = nextEntry
+            ? Math.max(0, nextEntry.offsetTop - naturalTop - entryHeight - yearPushGap)
+            : stickyTranslate;
+          const translateY = Math.min(stickyTranslate, maxTranslate);
 
-        const year = yearForTop?.dataset.year || "2026";
-        const company = yearForTop?.dataset.company || "";
-
-        stickyYearMark.textContent = year;
-        stickyYearCompany.textContent = company;
-        stickyYearCompany.style.display = company ? "inline" : "none";
-
-        const nextIndex = yearEntries.indexOf(yearForTop) + 1;
-        const nextEntry = yearEntries[nextIndex];
-        if (nextEntry) {
-          const nextTop = nextEntry.offsetTop - track.scrollTop;
-          const offset = Math.min(
-            0,
-            nextTop - stickyOffset - stickyHeight - 6
-          );
-          stickyYear.style.transform = `translateY(${offset}px)`;
-        } else {
-          stickyYear.style.transform = "translateY(0)";
-        }
+          entry.style.transform = `translateY(${translateY}px)`;
+          entry.style.zIndex = translateY > 0 ? "4" : "1";
+        });
       }
 
       function updateActiveTimeline() {
-        const center = track.scrollTop + track.clientHeight * 0.25;
+        const center = track.scrollTop + stickyOffset + 24;
         let active = timelineTargets[0];
         let bestDistance = Infinity;
 
@@ -611,7 +591,7 @@
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
-        updateStickyYear();
+        updateYearPositions();
       }
 
       const headingObserver = new ResizeObserver(() => fitSidebarHeading());
