@@ -43,22 +43,22 @@ body {
 .sidebar-heading h1 {
   margin: 0;
   font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
-  font-size: clamp(2.45rem, 3.55vw, 3.4rem);
+  font-size: clamp(2.18rem, 3vw, 3rem);
   line-height: 0.92;
   color: var(--accent);
   letter-spacing: -0.04em;
   font-weight: 900;
   text-transform: uppercase;
-  white-space: normal;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 
 .sidebar-heading p {
-  margin: 8px 0 0 0;
+  margin: 6px 0 0 0;
   color: var(--muted);
   width: 100%;
-  font-size: 13px;
-  letter-spacing: 0.48em;
+  font-family: "SF Pro Rounded", "SF Pro Display", ui-rounded, "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
   line-height: 1;
   white-space: nowrap;
   text-transform: uppercase;
@@ -297,7 +297,7 @@ body {
   position: sticky;
   top: 30px;
   overflow: hidden;
-  padding-top: 18px;
+  padding-top: 0;
 }
 
 .timeline-head {
@@ -424,28 +424,11 @@ body {
 }
 
 .timeline-progress-line {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2px;
-  height: 0;
-  background: rgba(255, 70, 50, 0.85);
-  z-index: 0;
+  display: none;
 }
 
 .timeline-progress-ticks {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 12px;
-  height: 0;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 70, 50, 0.82) 0 1px,
-    transparent 1px 5px
-  );
-  overflow: hidden;
-  z-index: 0;
+  display: none;
 }
 
 .timeline-top-glow {
@@ -488,7 +471,7 @@ body {
 .entry-pill {
   display: inline-flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 0;
   padding: 6px 10px;
   border-radius: 999px;
   transition:
@@ -502,7 +485,7 @@ body {
   content: "";
   display: block;
   margin-left: 0;
-  margin-right: 8px;
+  margin-right: 6px;
   height: 1px;
   width: 46px;
   background: #b9ad9f;
@@ -518,13 +501,23 @@ body {
 .timeline-entry.minor .month {
   color: #b7a998;
   font-weight: 700;
-  margin-right: 4px;
-  min-width: 30px;
+  margin-right: 6px;
+  min-width: auto;
 }
 
 .timeline-entry.year {
   color: var(--muted);
   line-height: 1;
+}
+
+.year-anchor {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.year-anchor::before,
+.year-anchor .entry-pill {
+  visibility: hidden;
 }
 
 .year-mark {
@@ -559,14 +552,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 18px 22px 22px;
+  padding: 0 22px 22px;
   height: 100%;
   min-height: 0;
   position: sticky;
   top: 30px;
   overflow-x: hidden;
   overflow-y: auto;
-  background: var(--card);
+  background: #fff;
   border: 1px solid var(--soft-border);
   color: var(--ink);
 }
@@ -574,9 +567,9 @@ body {
 .story-head {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 4px;
-  text-align: left;
+  text-align: center;
 }
 
 .story-kicker {
@@ -589,7 +582,7 @@ body {
 .story-head h2 {
   margin: 0;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  font-size: clamp(2.5rem, 4vw, 3.6rem);
+  font-size: clamp(2.25rem, 3.5vw, 3.2rem);
   font-weight: 500;
   line-height: 0.96;
   color: var(--accent);

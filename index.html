@@ -122,6 +122,10 @@
               <div class="timeline-top-glow" aria-hidden="true"></div>
               <div class="timeline-bottom-fade" aria-hidden="true"></div>
 
+              <div class="timeline-entry year year-anchor" style="--y: 0px" data-year="2026" data-company="">
+                <div class="entry-pill"><span class="year-mark">2026</span></div>
+              </div>
+
               <div class="timeline-entry minor" style="--y: 35px" data-story="time-off" data-year="2026">
                 <div class="entry-pill"><span class="month">TODAY</span><span class="label">Time Off</span></div>
               </div>
@@ -540,7 +544,7 @@
       }
 
       function updateActiveTimeline() {
-        const center = track.scrollTop + track.clientHeight * 0.38;
+        const center = track.scrollTop + track.clientHeight * 0.25;
         let active = timelineTargets[0];
         let bestDistance = Infinity;
 
@@ -556,15 +560,6 @@
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
-        const progressHeight = Math.max(
-          0,
-          Math.min(
-            track.scrollHeight,
-            center + 16
-          )
-        );
-        progressLine.style.height = `${progressHeight}px`;
-        progressTicks.style.height = `${progressHeight}px`;
         updateStickyYear();
       }
 
