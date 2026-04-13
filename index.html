@@ -52,7 +52,9 @@
               rel="noreferrer"
               title="LinkedIn"
               aria-label="LinkedIn"
-              >in</a
+              ><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3ZM20.44 12.74c0-3.46-1.85-5.07-4.32-5.07-1.99 0-2.88 1.1-3.38 1.86V8.5H9.37c.04.68 0 11.5 0 11.5h3.37v-6.42c0-.34.03-.68.12-.92.27-.68.88-1.39 1.9-1.39 1.34 0 1.88 1.02 1.88 2.52V20H20v-6.91Z"/>
+              </svg></a
             >
             <a
               href="https://www.discogs.com/user/wreckk/collection"
@@ -60,7 +62,7 @@
               rel="noreferrer"
               title="Discogs"
               aria-label="Discogs"
-              >◎</a
+              >💿</a
             >
             <a
               href="https://www.librarything.com/catalog/wreckk"
@@ -120,18 +122,8 @@
               <div class="timeline-top-glow" aria-hidden="true"></div>
               <div class="timeline-bottom-fade" aria-hidden="true"></div>
 
-              <div class="timeline-entry year top-year" style="--y: 0px" data-year="2026" data-company="">
-                <div class="entry-pill">
-                  <span class="year-mark">2026</span>
-                </div>
-              </div>
-
-              <div class="today-row" data-story="time-off" data-year="2026" style="--y: 35px">
-                <div class="today-accent"></div>
-                <div class="today-pill">
-                  <strong>TODAY</strong>
-                  <span>Time Off</span>
-                </div>
+              <div class="timeline-entry minor" style="--y: 35px" data-story="time-off" data-year="2026">
+                <div class="entry-pill"><span class="month">TODAY</span><span class="label">Time Off</span></div>
               </div>
 
               <div class="timeline-entry minor" style="--y: 118px" data-story="tooling" data-year="2026">
@@ -490,10 +482,7 @@
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
       const yearEntries = [...document.querySelectorAll(".timeline-entry.year")];
-      const timelineTargets = [
-        document.querySelector(".today-row"),
-        ...document.querySelectorAll(".timeline-entry.minor"),
-      ];
+      const timelineTargets = [...document.querySelectorAll(".timeline-entry.minor")];
       const stickyOffset = 35;
 
       function renderStory(id) {
@@ -556,10 +545,7 @@
         let bestDistance = Infinity;
 
         timelineTargets.forEach((node) => {
-          const y =
-            node.classList.contains("today-row")
-              ? node.offsetTop + node.offsetHeight / 2
-              : node.offsetTop + node.offsetHeight / 2;
+          const y = node.offsetTop + node.offsetHeight / 2;
           const distance = Math.abs(center - y);
           if (distance < bestDistance) {
             bestDistance = distance;

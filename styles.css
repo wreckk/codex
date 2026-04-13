@@ -43,13 +43,14 @@ body {
 .sidebar-heading h1 {
   margin: 0;
   font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
-  font-size: clamp(2.9rem, 4.2vw, 4.15rem);
+  font-size: clamp(2.45rem, 3.55vw, 3.4rem);
   line-height: 0.92;
   color: var(--accent);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   font-weight: 900;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .sidebar-heading p {
@@ -105,6 +106,7 @@ body {
 .sidebar-intro {
   display: block;
   flex-shrink: 0;
+  margin-top: 10px;
 }
 
 .portrait-shell {
@@ -241,6 +243,12 @@ body {
     color 180ms ease;
 }
 
+.sidebar-links a svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
 .sidebar-links a:hover {
   transform: translateY(-1px);
   background: #fff;
@@ -289,6 +297,7 @@ body {
   position: sticky;
   top: 30px;
   overflow: hidden;
+  padding-top: 18px;
 }
 
 .timeline-head {
@@ -305,6 +314,7 @@ body {
   letter-spacing: 0.16em;
   font-weight: 400;
   line-height: 1;
+  color: var(--muted);
 }
 
 .timeline-hint {
@@ -410,17 +420,7 @@ body {
 }
 
 .timeline-mediumticks {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 100%;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0 24px,
-    rgba(191, 179, 168, 0.92) 24px 25px,
-    transparent 25px 50px
-  );
+  display: none;
 }
 
 .timeline-progress-line {
@@ -437,20 +437,13 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 24px;
+  width: 12px;
   height: 0;
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255, 70, 50, 0.82) 0 1px,
-      transparent 1px 5px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0 24px,
-      rgba(255, 70, 50, 0.72) 24px 25px,
-      transparent 25px 50px
-    );
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 70, 50, 0.82) 0 1px,
+    transparent 1px 5px
+  );
   overflow: hidden;
   z-index: 0;
 }
@@ -483,48 +476,6 @@ body {
   filter: blur(3px);
 }
 
-.today-row {
-  position: absolute;
-  left: 0;
-  top: var(--y, 35px);
-  display: flex;
-  align-items: center;
-  z-index: 2;
-}
-
-.today-accent {
-  width: 58px;
-  height: 1px;
-  background: #b9ad9f;
-}
-
-.today-pill {
-  margin-left: -2px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 0;
-  padding: 6px 10px;
-  border: 1px solid rgba(255, 70, 50, 0.28);
-  border-radius: 999px;
-  background: rgba(255, 252, 247, 0.98);
-  box-shadow: 0 10px 20px rgba(216, 198, 176, 0.12);
-}
-
-.today-pill strong {
-  color: var(--accent);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-.today-pill span {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1;
-}
-
 .timeline-entry {
   position: absolute;
   left: 0;
@@ -537,7 +488,7 @@ body {
 .entry-pill {
   display: inline-flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
   padding: 6px 10px;
   border-radius: 999px;
   transition:
@@ -551,9 +502,9 @@ body {
   content: "";
   display: block;
   margin-left: 0;
-  margin-right: 10px;
+  margin-right: 8px;
   height: 1px;
-  width: 58px;
+  width: 46px;
   background: #b9ad9f;
   flex-shrink: 0;
 }
@@ -567,8 +518,8 @@ body {
 .timeline-entry.minor .month {
   color: #b7a998;
   font-weight: 700;
-  margin-right: 8px;
-  min-width: 34px;
+  margin-right: 4px;
+  min-width: 30px;
 }
 
 .timeline-entry.year {
@@ -576,27 +527,18 @@ body {
   line-height: 1;
 }
 
-.top-year {
-  z-index: 2;
-}
-
-.top-year::before {
-  width: 58px;
-}
-
 .year-mark {
   font-size: 26px;
   letter-spacing: -0.04em;
   font-weight: 700;
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .company {
   font-size: 15px;
 }
 
-.timeline-entry.active::before,
-.today-row.active .today-accent {
+.timeline-entry.active::before {
   background: var(--accent);
 }
 
@@ -617,7 +559,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 22px;
+  padding: 18px 22px 22px;
   height: 100%;
   min-height: 0;
   position: sticky;
@@ -632,9 +574,9 @@ body {
 .story-head {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  text-align: center;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
 }
 
 .story-kicker {
@@ -646,10 +588,10 @@ body {
 
 .story-head h2 {
   margin: 0;
-  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   font-size: clamp(2.5rem, 4vw, 3.6rem);
-  font-weight: 300;
-  line-height: 0.94;
+  font-weight: 500;
+  line-height: 0.96;
   color: var(--accent);
 }
 
