@@ -324,6 +324,34 @@ body {
   overscroll-behavior: contain;
 }
 
+.timeline-sticky-year {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  min-height: 34px;
+  margin-bottom: 12px;
+  padding: 0 0 10px 70px;
+  background: linear-gradient(to bottom, var(--bg) 74%, rgba(248, 243, 234, 0));
+  transition: transform 160ms ease;
+}
+
+.sticky-year-mark {
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.sticky-year-company {
+  font-size: 15px;
+  line-height: 1;
+  color: var(--muted);
+}
+
 .timeline-track::-webkit-scrollbar {
   width: 8px;
 }
@@ -335,12 +363,14 @@ body {
 
 .timeline-content {
   position: relative;
-  height: 3900px;
+  height: 3500px;
 }
 
 .timeline-line,
 .timeline-shortticks,
 .timeline-mediumticks,
+.timeline-progress-line,
+.timeline-progress-ticks,
 .timeline-top-glow,
 .timeline-bottom-fade {
   pointer-events: none;
@@ -382,6 +412,38 @@ body {
   );
 }
 
+.timeline-progress-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: rgba(255, 70, 50, 0.85);
+  z-index: 0;
+}
+
+.timeline-progress-ticks {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 0;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 70, 50, 0.82) 0 1px,
+      transparent 1px 5px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 24px,
+      rgba(255, 70, 50, 0.72) 24px 25px,
+      transparent 25px 50px
+    );
+  overflow: hidden;
+  z-index: 0;
+}
+
 .timeline-top-glow {
   position: absolute;
   left: 0;
@@ -413,7 +475,7 @@ body {
 .today-row {
   position: absolute;
   left: 0;
-  top: 140px;
+  top: var(--y, 35px);
   display: flex;
   align-items: center;
   z-index: 2;
@@ -429,24 +491,25 @@ body {
   margin-left: -2px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-height: 72px;
-  padding: 0 18px;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 14px;
   border: 1px solid rgba(255, 70, 50, 0.4);
   border-radius: 999px;
   background: rgba(255, 252, 247, 0.98);
-  box-shadow: 0 16px 34px rgba(216, 198, 176, 0.22);
+  box-shadow: 0 10px 24px rgba(216, 198, 176, 0.16);
 }
 
 .today-pill strong {
   color: var(--accent);
-  font-size: 22px;
+  font-size: 16px;
+  letter-spacing: 0.08em;
   line-height: 1;
 }
 
 .today-pill span {
   color: var(--muted);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
 }
 
@@ -457,6 +520,19 @@ body {
   display: flex;
   align-items: center;
   z-index: 1;
+}
+
+.entry-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .timeline-entry::before {
@@ -488,6 +564,14 @@ body {
   line-height: 1;
 }
 
+.top-year {
+  z-index: 2;
+}
+
+.top-year::before {
+  width: 58px;
+}
+
 .year-mark {
   font-size: 26px;
   letter-spacing: -0.04em;
@@ -509,6 +593,12 @@ body {
 .timeline-entry.active .label,
 .timeline-entry.active .company {
   color: var(--accent);
+}
+
+.timeline-entry.active .entry-pill {
+  background: rgba(255, 252, 247, 0.96);
+  border: 1px solid rgba(255, 70, 50, 0.28);
+  box-shadow: 0 10px 20px rgba(216, 198, 176, 0.12);
 }
 
 .story-card {

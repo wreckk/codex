@@ -107,14 +107,26 @@
           </div>
 
           <div class="timeline-track">
+            <div class="timeline-sticky-year" id="timeline-sticky-year">
+              <span class="sticky-year-mark" id="sticky-year-mark">2026</span>
+              <span class="sticky-year-company" id="sticky-year-company"></span>
+            </div>
             <div class="timeline-content">
               <div class="timeline-line" aria-hidden="true"></div>
               <div class="timeline-shortticks" aria-hidden="true"></div>
               <div class="timeline-mediumticks" aria-hidden="true"></div>
+              <div class="timeline-progress-line" id="timeline-progress-line" aria-hidden="true"></div>
+              <div class="timeline-progress-ticks" id="timeline-progress-ticks" aria-hidden="true"></div>
               <div class="timeline-top-glow" aria-hidden="true"></div>
               <div class="timeline-bottom-fade" aria-hidden="true"></div>
 
-              <div class="today-row active" data-story="time-off">
+              <div class="timeline-entry year top-year" style="--y: 0px" data-story="goodrx-2026" data-year="2026" data-company="">
+                <div class="entry-pill">
+                  <span class="year-mark">2026</span>
+                </div>
+              </div>
+
+              <div class="today-row active" data-story="time-off" data-year="2026" style="--y: 35px">
                 <div class="today-accent"></div>
                 <div class="today-pill">
                   <strong>TODAY</strong>
@@ -122,137 +134,124 @@
                 </div>
               </div>
 
-              <div class="timeline-entry minor" style="--y: 186px" data-story="tooling">
-                <span class="month">APR</span><span class="label">Tooling Deep Dive</span>
+              <div class="timeline-entry minor" style="--y: 118px" data-story="tooling" data-year="2026">
+                <div class="entry-pill"><span class="month">APR</span><span class="label">Tooling Deep Dive</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 248px" data-story="tooling">
-                <span class="month">MAR</span><span class="label">Paper / Code Sync</span>
+              <div class="timeline-entry minor" style="--y: 180px" data-story="tooling" data-year="2026">
+                <div class="entry-pill"><span class="month">MAR</span><span class="label">Paper / Code Sync</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 318px" data-story="left-goodrx">
-                <span class="month">FEB</span><span class="label">Left GoodRx</span>
+              <div class="timeline-entry minor" style="--y: 242px" data-story="left-goodrx" data-year="2026">
+                <div class="entry-pill"><span class="month">FEB</span><span class="label">Left GoodRx</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 388px" data-story="glp1">
-                <span class="month">JAN</span><span class="label">GLP-1 Launch</span>
-              </div>
-
-              <div class="timeline-entry year" style="--y: 486px" data-story="goodrx-2026">
-                <span class="year-mark">2026</span><span class="company">GoodRx</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 590px" data-story="goodrx-2025">
-                <span class="month">NOV</span><span class="label">Hair Loss Launch</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 654px" data-story="goodrx-2025">
-                <span class="month">SEPT</span><span class="label">Men's ED Launch</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 718px" data-story="goodrx-2025">
-                <span class="month">JUL</span><span class="label">Homepage Refresh</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 782px" data-story="goodrx-2025">
-                <span class="month">MAY</span><span class="label">Pricing Tests</span>
+              <div class="timeline-entry minor" style="--y: 304px" data-story="glp1" data-year="2026">
+                <div class="entry-pill"><span class="month">JAN</span><span class="label">GLP-1 Launch</span></div>
               </div>
 
-              <div class="timeline-entry year" style="--y: 918px" data-story="goodrx-2025">
-                <span class="year-mark">2025</span><span class="company">GoodRx</span>
+              <div class="timeline-entry year" style="--y: 434px" data-story="goodrx-2025" data-year="2025" data-company="GoodRx">
+                <div class="entry-pill"><span class="year-mark">2025</span><span class="company">GoodRx</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 1022px" data-story="goodrx-2025">
-                <span class="month">OCT</span><span class="label">Brand Refresh</span>
+              <div class="timeline-entry minor" style="--y: 540px" data-story="goodrx-2025" data-year="2025">
+                <div class="entry-pill"><span class="month">NOV</span><span class="label">Hair Loss Launch</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 1086px" data-story="goodrx-2025">
-                <span class="month">AUG</span><span class="label">Benefit Flow Refresh</span>
+              <div class="timeline-entry minor" style="--y: 604px" data-story="goodrx-2025" data-year="2025">
+                <div class="entry-pill"><span class="month">SEPT</span><span class="label">Men's ED Launch</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 1150px" data-story="goodrx-2025">
-                <span class="month">MAR</span><span class="label">Retention Push</span>
+              <div class="timeline-entry minor" style="--y: 668px" data-story="goodrx-2025" data-year="2025">
+                <div class="entry-pill"><span class="month">JUL</span><span class="label">Homepage Refresh</span></div>
               </div>
-
-              <div class="timeline-entry year" style="--y: 1290px" data-story="goodrx-2024">
-                <span class="year-mark">2024</span><span class="company">GoodRx</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 1394px" data-story="goodrx-2024">
-                <span class="month">DEC</span><span class="label">IA Reset</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 1458px" data-story="goodrx-2024">
-                <span class="month">SEPT</span><span class="label">PDP Overhaul</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 1522px" data-story="goodrx-2024">
-                <span class="month">MAY</span><span class="label">Pricing Simplification</span>
+              <div class="timeline-entry minor" style="--y: 732px" data-story="goodrx-2025" data-year="2025">
+                <div class="entry-pill"><span class="month">MAY</span><span class="label">Pricing Tests</span></div>
               </div>
 
-              <div class="timeline-entry year" style="--y: 1660px" data-story="goodrx-2023">
-                <span class="year-mark">2023</span><span class="company">GoodRx</span>
+              <div class="timeline-entry year" style="--y: 874px" data-story="goodrx-2024" data-year="2024" data-company="GoodRx">
+                <div class="entry-pill"><span class="year-mark">2024</span><span class="company">GoodRx</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 1764px" data-story="goodrx-2023">
-                <span class="month">NOV</span><span class="label">Growth Loops</span>
+              <div class="timeline-entry minor" style="--y: 978px" data-story="goodrx-2024" data-year="2024">
+                <div class="entry-pill"><span class="month">DEC</span><span class="label">IA Reset</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 1828px" data-story="goodrx-2023">
-                <span class="month">JUL</span><span class="label">Benefit Discovery</span>
+              <div class="timeline-entry minor" style="--y: 1042px" data-story="goodrx-2024" data-year="2024">
+                <div class="entry-pill"><span class="month">SEPT</span><span class="label">PDP Overhaul</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 1892px" data-story="goodrx-2023">
-                <span class="month">FEB</span><span class="label">Navigation Cleanup</span>
-              </div>
-
-              <div class="timeline-entry year" style="--y: 2030px" data-story="goodrx-2022">
-                <span class="year-mark">2022</span><span class="company">Joined GoodRx</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 2134px" data-story="goodrx-2022">
-                <span class="month">OCT</span><span class="label">Org Setup</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 2198px" data-story="goodrx-2022">
-                <span class="month">AUG</span><span class="label">Design Reset</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 2262px" data-story="goodrx-2022">
-                <span class="month">MAY</span><span class="label">Team Formation</span>
+              <div class="timeline-entry minor" style="--y: 1106px" data-story="goodrx-2024" data-year="2024">
+                <div class="entry-pill"><span class="month">MAY</span><span class="label">Pricing Simplification</span></div>
               </div>
 
-              <div class="timeline-entry year" style="--y: 2410px" data-story="career-2020">
-                <span class="year-mark">2020</span><span class="company">Outreach / Navan</span>
+              <div class="timeline-entry year" style="--y: 1248px" data-story="goodrx-2023" data-year="2023" data-company="GoodRx">
+                <div class="entry-pill"><span class="year-mark">2023</span><span class="company">GoodRx</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 2514px" data-story="career-2020">
-                <span class="month">NOV</span><span class="label">Sales UX Refresh</span>
+              <div class="timeline-entry minor" style="--y: 1352px" data-story="goodrx-2023" data-year="2023">
+                <div class="entry-pill"><span class="month">NOV</span><span class="label">Growth Loops</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 2578px" data-story="career-2020">
-                <span class="month">JUN</span><span class="label">Consumer Travel</span>
+              <div class="timeline-entry minor" style="--y: 1416px" data-story="goodrx-2023" data-year="2023">
+                <div class="entry-pill"><span class="month">JUL</span><span class="label">Benefit Discovery</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 2642px" data-story="career-2020">
-                <span class="month">FEB</span><span class="label">Product Reframe</span>
-              </div>
-
-              <div class="timeline-entry year" style="--y: 2788px" data-story="career-2017">
-                <span class="year-mark">2017</span><span class="company">Slack</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 2892px" data-story="career-2017">
-                <span class="month">NOV</span><span class="label">Activation Lift</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 2956px" data-story="career-2017">
-                <span class="month">JUN</span><span class="label">Growth Rituals</span>
-              </div>
-              <div class="timeline-entry minor" style="--y: 3020px" data-story="career-2017">
-                <span class="month">MAR</span><span class="label">Global Systems</span>
+              <div class="timeline-entry minor" style="--y: 1480px" data-story="goodrx-2023" data-year="2023">
+                <div class="entry-pill"><span class="month">FEB</span><span class="label">Navigation Cleanup</span></div>
               </div>
 
-              <div class="timeline-entry year" style="--y: 3168px" data-story="career-2014">
-                <span class="year-mark">2014</span><span class="company">Disney</span>
+              <div class="timeline-entry year" style="--y: 1622px" data-story="goodrx-2022" data-year="2022" data-company="Joined GoodRx">
+                <div class="entry-pill"><span class="year-mark">2022</span><span class="company">Joined GoodRx</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 3272px" data-story="career-2014">
-                <span class="month">OCT</span><span class="label">Streaming Foundations</span>
+              <div class="timeline-entry minor" style="--y: 1726px" data-story="goodrx-2022" data-year="2022">
+                <div class="entry-pill"><span class="month">OCT</span><span class="label">Org Setup</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 3336px" data-story="career-2014">
-                <span class="month">JUN</span><span class="label">Platform Design</span>
+              <div class="timeline-entry minor" style="--y: 1790px" data-story="goodrx-2022" data-year="2022">
+                <div class="entry-pill"><span class="month">AUG</span><span class="label">Design Reset</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 3400px" data-story="career-2014">
-                <span class="month">FEB</span><span class="label">Leadership Buildout</span>
+              <div class="timeline-entry minor" style="--y: 1854px" data-story="goodrx-2022" data-year="2022">
+                <div class="entry-pill"><span class="month">MAY</span><span class="label">Team Formation</span></div>
               </div>
 
-              <div class="timeline-entry year" style="--y: 3548px" data-story="career-2005">
-                <span class="year-mark">2005</span><span class="company">AWeber</span>
+              <div class="timeline-entry year" style="--y: 1996px" data-story="career-2020" data-year="2020" data-company="Outreach / Navan">
+                <div class="entry-pill"><span class="year-mark">2020</span><span class="company">Outreach / Navan</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 3652px" data-story="career-2005">
-                <span class="month">SEP</span><span class="label">Creative Direction</span>
+              <div class="timeline-entry minor" style="--y: 2100px" data-story="career-2020" data-year="2020">
+                <div class="entry-pill"><span class="month">NOV</span><span class="label">Sales UX Refresh</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 3716px" data-story="career-2005">
-                <span class="month">JUN</span><span class="label">Brand Engine</span>
+              <div class="timeline-entry minor" style="--y: 2164px" data-story="career-2020" data-year="2020">
+                <div class="entry-pill"><span class="month">JUN</span><span class="label">Consumer Travel</span></div>
               </div>
-              <div class="timeline-entry minor" style="--y: 3780px" data-story="career-2005">
-                <span class="month">JAN</span><span class="label">Team Scale-Up</span>
+              <div class="timeline-entry minor" style="--y: 2228px" data-story="career-2020" data-year="2020">
+                <div class="entry-pill"><span class="month">FEB</span><span class="label">Product Reframe</span></div>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 2370px" data-story="career-2017" data-year="2017" data-company="Slack">
+                <div class="entry-pill"><span class="year-mark">2017</span><span class="company">Slack</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2474px" data-story="career-2017" data-year="2017">
+                <div class="entry-pill"><span class="month">NOV</span><span class="label">Activation Lift</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2538px" data-story="career-2017" data-year="2017">
+                <div class="entry-pill"><span class="month">JUN</span><span class="label">Growth Rituals</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2602px" data-story="career-2017" data-year="2017">
+                <div class="entry-pill"><span class="month">MAR</span><span class="label">Global Systems</span></div>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 2744px" data-story="career-2014" data-year="2014" data-company="Disney">
+                <div class="entry-pill"><span class="year-mark">2014</span><span class="company">Disney</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2848px" data-story="career-2014" data-year="2014">
+                <div class="entry-pill"><span class="month">OCT</span><span class="label">Streaming Foundations</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2912px" data-story="career-2014" data-year="2014">
+                <div class="entry-pill"><span class="month">JUN</span><span class="label">Platform Design</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2976px" data-story="career-2014" data-year="2014">
+                <div class="entry-pill"><span class="month">FEB</span><span class="label">Leadership Buildout</span></div>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 3120px" data-story="career-2005" data-year="2005" data-company="AWeber">
+                <div class="entry-pill"><span class="year-mark">2005</span><span class="company">AWeber</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3224px" data-story="career-2005" data-year="2005">
+                <div class="entry-pill"><span class="month">SEP</span><span class="label">Creative Direction</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3288px" data-story="career-2005" data-year="2005">
+                <div class="entry-pill"><span class="month">JUN</span><span class="label">Brand Engine</span></div>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3352px" data-story="career-2005" data-year="2005">
+                <div class="entry-pill"><span class="month">JAN</span><span class="label">Team Scale-Up</span></div>
               </div>
             </div>
           </div>
@@ -470,12 +469,18 @@
       };
 
       const track = document.querySelector(".timeline-track");
+      const stickyYear = document.getElementById("timeline-sticky-year");
+      const stickyYearMark = document.getElementById("sticky-year-mark");
+      const stickyYearCompany = document.getElementById("sticky-year-company");
+      const progressLine = document.getElementById("timeline-progress-line");
+      const progressTicks = document.getElementById("timeline-progress-ticks");
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
       const storyPills = document.getElementById("story-pills");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
+      const yearEntries = [...document.querySelectorAll(".timeline-entry.year")];
       const timelineTargets = [
         document.querySelector(".today-row"),
         ...document.querySelectorAll(".timeline-entry"),
@@ -506,6 +511,31 @@
         });
       }
 
+      function updateStickyYear() {
+        const stickyHeight = stickyYear.offsetHeight;
+        const yearForTop =
+          [...yearEntries]
+            .reverse()
+            .find((entry) => entry.offsetTop <= track.scrollTop + 40) || yearEntries[0];
+
+        const year = yearForTop?.dataset.year || "2026";
+        const company = yearForTop?.dataset.company || "";
+
+        stickyYearMark.textContent = year;
+        stickyYearCompany.textContent = company;
+        stickyYearCompany.style.display = company ? "inline" : "none";
+
+        const nextIndex = yearEntries.indexOf(yearForTop) + 1;
+        const nextEntry = yearEntries[nextIndex];
+        if (nextEntry) {
+          const nextTop = nextEntry.offsetTop - track.scrollTop;
+          const offset = Math.min(0, nextTop - stickyHeight - 6);
+          stickyYear.style.transform = `translateY(${offset}px)`;
+        } else {
+          stickyYear.style.transform = "translateY(0)";
+        }
+      }
+
       function updateActiveTimeline() {
         const center = track.scrollTop + track.clientHeight * 0.38;
         let active = timelineTargets[0];
@@ -526,6 +556,16 @@
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
+        const progressHeight = Math.max(
+          0,
+          Math.min(
+            track.scrollHeight,
+            center + 16
+          )
+        );
+        progressLine.style.height = `${progressHeight}px`;
+        progressTicks.style.height = `${progressHeight}px`;
+        updateStickyYear();
       }
 
       track.addEventListener("scroll", updateActiveTimeline, { passive: true });
