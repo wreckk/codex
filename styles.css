@@ -114,7 +114,7 @@ body {
   min-width: 118px;
   max-width: 128px;
   height: 164px;
-  margin: 2px 14px 4px 0;
+  margin: 2px 14px 0 0;
   border-radius: 12px;
   overflow: hidden;
   background: #fff;
@@ -204,9 +204,9 @@ body {
 .sidebar-bio p {
   margin: 0;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 1.9;
+  line-height: 1.62;
   color: color-mix(in srgb, var(--muted) 88%, white);
   text-wrap: pretty;
 }
