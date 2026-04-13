@@ -201,9 +201,10 @@ body {
 
 .sidebar-bio p {
   margin: 0;
-  font-size: 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
   line-height: 1.44;
-  color: var(--ink);
+  color: var(--muted);
 }
 
 .wave {
@@ -646,7 +647,7 @@ body {
   margin: 0;
   font-size: 15px;
   line-height: 1.32;
-  color: var(--ink);
+  color: var(--muted);
 }
 
 .story-copy {
@@ -681,8 +682,7 @@ body {
   height: 440px;
   border: 2px solid #e7ded3;
   border-radius: 12px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   background: #fff;
   flex-shrink: 0;
   scrollbar-width: thin;
@@ -691,11 +691,8 @@ body {
 
 .story-image {
   width: 100%;
-  min-height: 760px;
-  background-image: var(--story-image);
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  height: 100%;
+  background: linear-gradient(140deg, rgba(255, 70, 50, 0.12), rgba(116, 102, 118, 0.18) 62%, rgba(248, 243, 234, 0.78));
 }
 
 .story-notes {
