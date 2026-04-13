@@ -485,9 +485,60 @@
       const storyPills = document.getElementById("story-pills");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
+      const sidebarHeading = document.querySelector(".sidebar-heading");
+      const sidebarName = sidebarHeading?.querySelector("h1");
+      const sidebarRole = sidebarHeading?.querySelector("p");
       const yearEntries = [...document.querySelectorAll(".timeline-entry.year")];
       const timelineTargets = [...document.querySelectorAll(".timeline-entry.minor")];
       const stickyOffset = 35;
+
+      function fitHeadingText(node, { minSize, maxSize, baseLetterSpacing = 0, tighten = false }) {
+        if (!node || !sidebarHeading) return;
+        const available = sidebarHeading.clientWidth;
+        const text = node.textContent.trim();
+        const computed = getComputedStyle(node);
+        const family = computed.fontFamily;
+        const weight = computed.fontWeight;
+        const style = computed.fontStyle;
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        let size = maxSize;
+        ctx.font = `${style} ${weight} ${size}px ${family}`;
+        let width = ctx.measureText(text).width;
+
+        if (width > available) {
+          size = Math.max(minSize, Math.floor((available / width) * size));
+          ctx.font = `${style} ${weight} ${size}px ${family}`;
+          width = ctx.measureText(text).width;
+        }
+
+        let spacing = baseLetterSpacing;
+        if (text.length > 1) {
+          const remaining = available - width;
+          spacing = Math.max(baseLetterSpacing, remaining / (text.length - 1));
+          if (tighten) spacing = Math.min(spacing, baseLetterSpacing);
+        }
+
+        node.style.fontSize = `${size}px`;
+        node.style.letterSpacing = `${spacing}px`;
+      }
+
+      function fitSidebarHeading() {
+        fitHeadingText(sidebarName, {
+          minSize: 32,
+          maxSize: 40,
+          baseLetterSpacing: -1.8,
+          tighten: true,
+        });
+
+        fitHeadingText(sidebarRole, {
+          minSize: 9,
+          maxSize: 11,
+          baseLetterSpacing: 2.6,
+        });
+      }
 
       function renderStory(id) {
         const story = storyContent[id];
@@ -563,9 +614,18 @@
         updateStickyYear();
       }
 
+      const headingObserver = new ResizeObserver(() => fitSidebarHeading());
+      if (sidebarHeading) headingObserver.observe(sidebarHeading);
+
       track.addEventListener("scroll", updateActiveTimeline, { passive: true });
-      window.addEventListener("load", updateActiveTimeline);
-      window.addEventListener("resize", updateActiveTimeline);
+      window.addEventListener("load", () => {
+        fitSidebarHeading();
+        updateActiveTimeline();
+      });
+      window.addEventListener("resize", () => {
+        fitSidebarHeading();
+        updateActiveTimeline();
+      });
     </script>
   </body>
 </html>

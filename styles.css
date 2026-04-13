@@ -43,7 +43,7 @@ body {
 .sidebar-heading h1 {
   margin: 0;
   font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
-  font-size: clamp(2.18rem, 3vw, 3rem);
+  font-size: 40px;
   line-height: 0.92;
   color: var(--accent);
   letter-spacing: -0.04em;
@@ -62,6 +62,7 @@ body {
   line-height: 1;
   white-space: nowrap;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .page-body {
@@ -106,7 +107,7 @@ body {
 .sidebar-intro {
   display: block;
   flex-shrink: 0;
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 .portrait-shell {
@@ -297,7 +298,7 @@ body {
   position: sticky;
   top: 30px;
   overflow: hidden;
-  padding-top: 0;
+  padding-top: 18px;
 }
 
 .timeline-head {
@@ -348,7 +349,7 @@ body {
   gap: 8px;
   min-height: 34px;
   margin-bottom: 12px;
-  padding: 0 0 10px 70px;
+  padding: 0 0 10px 60px;
   background: linear-gradient(
     to bottom,
     rgba(248, 243, 234, 0) 0,
@@ -485,7 +486,7 @@ body {
   content: "";
   display: block;
   margin-left: 0;
-  margin-right: 6px;
+  margin-right: 5px;
   height: 1px;
   width: 46px;
   background: #b9ad9f;
@@ -501,7 +502,7 @@ body {
 .timeline-entry.minor .month {
   color: #b7a998;
   font-weight: 700;
-  margin-right: 6px;
+  margin-right: 5px;
   min-width: auto;
 }
 
@@ -552,7 +553,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 0 22px 22px;
+  padding: 18px 22px 22px;
   height: 100%;
   min-height: 0;
   position: sticky;
@@ -573,7 +574,7 @@ body {
 }
 
 .story-kicker {
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0.24em;
   line-height: 1;
   color: var(--muted);
@@ -581,18 +582,18 @@ body {
 
 .story-head h2 {
   margin: 0;
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  font-size: clamp(2.25rem, 3.5vw, 3.2rem);
-  font-weight: 500;
-  line-height: 0.96;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 54px;
+  font-weight: 400;
+  line-height: 0.94;
   color: var(--accent);
 }
 
 .story-copy,
 .story-notes p {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.32;
+  font-size: 16px;
+  line-height: 1.4;
   color: var(--muted);
 }
 
