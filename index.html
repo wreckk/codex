@@ -19,8 +19,20 @@
   <body>
     <main class="page-shell">
       <header class="page-header">
-        <h1>ERIC CENTENO</h1>
-        <p>EXECUTIVE DESIGN LEADER</p>
+        <div class="header-title">
+          <h1>ERIC CENTENO</h1>
+          <p>EXECUTIVE DESIGN LEADER</p>
+        </div>
+
+        <div class="header-blurb">
+          <p>
+            With 25+ years of experience elevating UX quality and building
+            scalable products and experiences across consumer and SaaS
+            companies. Known for building exceptional teams and strong
+            cultures, partnering with C-suite and board leaders on strategic
+            initiatives, and leading product and brand transformation at scale.
+          </p>
+        </div>
       </header>
 
       <section class="page-body">
@@ -29,26 +41,61 @@
             <div class="portrait portrait-base" aria-hidden="true"></div>
             <div class="portrait portrait-overlay" aria-hidden="true"></div>
             <div class="portrait-frame" aria-hidden="true"></div>
-            <div class="hello-pill">Hey There <span>👋</span></div>
+            <div class="hello-pill">Hey There <span class="wave">👋</span></div>
           </div>
 
-          <div class="sidebar-copy">
-            <p>
-              With 25+ years of experience elevating UX quality and building
-              scalable products and experiences across consumer and SaaS
-              companies. Known for building exceptional teams and strong
-              cultures, partnering with C-suite and board leaders on strategic
-              initiatives, and leading company-wide product and brand
-              transformations.
-            </p>
+          <nav class="sidebar-links" aria-label="Profile links">
+            <a
+              href="https://www.linkedin.com/in/ericcenteno/"
+              target="_blank"
+              rel="noreferrer"
+              title="LinkedIn"
+              aria-label="LinkedIn"
+              >in</a
+            >
+            <a
+              href="https://www.discogs.com/user/wreckk/collection"
+              target="_blank"
+              rel="noreferrer"
+              title="Discogs"
+              aria-label="Discogs"
+              >◎</a
+            >
+            <a
+              href="https://www.librarything.com/catalog/wreckk"
+              target="_blank"
+              rel="noreferrer"
+              title="LibraryThing"
+              aria-label="LibraryThing"
+              >📚</a
+            >
+          </nav>
 
-            <div class="sidebar-rule"></div>
+          <div class="rail-section">
+            <h2>Strengths</h2>
+            <div class="mini-pills">
+              <span>🧠 Org Scale</span>
+              <span>🏗️ Executive Partnership</span>
+              <span>⚙️ Design Systems</span>
+              <span>💼 Growth &amp; Monetization</span>
+              <span>🛠️ AI Prototyping</span>
+              <span>🎛️ Culture Building</span>
+              <span>📊 XFN Alignment</span>
+            </div>
+          </div>
 
-            <nav class="sidebar-links" aria-label="Profile links">
-              <a href="https://www.linkedin.com/in/ericcenteno/" target="_blank" rel="noreferrer">in</a>
-              <a href="https://www.discogs.com/user/wreckk/collection" target="_blank" rel="noreferrer">◎</a>
-              <a href="https://www.librarything.com/catalog/wreckk" target="_blank" rel="noreferrer">📚</a>
-            </nav>
+          <div class="rail-section">
+            <h2>Interests</h2>
+            <div class="mini-pills">
+              <span>👟 Sneakers</span>
+              <span>📺 The Golden Girls</span>
+              <span>🎮 Classic Gaming</span>
+              <span>🍱 Cooking</span>
+              <span>💽 Vinyl &amp; Minidisc</span>
+              <span>📷 Photography</span>
+              <span>🎩 Bird Watching</span>
+              <span>🧢 Dadding</span>
+            </div>
           </div>
         </aside>
 
@@ -59,101 +106,181 @@
           </div>
 
           <div class="timeline-track">
-            <div class="timeline-line" aria-hidden="true"></div>
-            <div class="timeline-microticks" aria-hidden="true"></div>
-            <div class="timeline-fade-top" aria-hidden="true"></div>
-            <div class="timeline-fade-bottom" aria-hidden="true"></div>
+            <div class="timeline-content">
+              <div class="timeline-line" aria-hidden="true"></div>
+              <div class="timeline-shortticks" aria-hidden="true"></div>
+              <div class="timeline-mediumticks" aria-hidden="true"></div>
+              <div class="timeline-top-glow" aria-hidden="true"></div>
+              <div class="timeline-bottom-fade" aria-hidden="true"></div>
 
-            <div class="today-row">
-              <div class="today-accent"></div>
-              <div class="today-pill">
-                <strong>TODAY</strong>
-                <span>Time Off</span>
+              <div class="today-row active" data-story="time-off">
+                <div class="today-accent"></div>
+                <div class="today-pill">
+                  <strong>TODAY</strong>
+                  <span>Time Off</span>
+                </div>
               </div>
-            </div>
 
-            <div class="timeline-entry minor" style="--y: 154px">
-              <span class="month">APR</span><span class="label">Tooling Deep Dive</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 186px">
-              <span class="month">MAR</span><span class="label">Paper / Code Sync</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 218px">
-              <span class="month">FEB</span><span class="label">Left GoodRx</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 250px">
-              <span class="month">JAN</span><span class="label">GLP-1 Launch</span>
-            </div>
+              <div class="timeline-entry minor" style="--y: 186px" data-story="tooling">
+                <span class="month">APR</span><span class="label">Tooling Deep Dive</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 248px" data-story="tooling">
+                <span class="month">MAR</span><span class="label">Paper / Code Sync</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 318px" data-story="left-goodrx">
+                <span class="month">FEB</span><span class="label">Left GoodRx</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 388px" data-story="glp1">
+                <span class="month">JAN</span><span class="label">GLP-1 Launch</span>
+              </div>
 
-            <div class="timeline-entry year" style="--y: 280px">
-              <span class="year-mark">2026</span><span class="company">GoodRx</span>
-            </div>
+              <div class="timeline-entry year" style="--y: 486px" data-story="goodrx-2026">
+                <span class="year-mark">2026</span><span class="company">GoodRx</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 590px" data-story="goodrx-2025">
+                <span class="month">NOV</span><span class="label">Hair Loss Launch</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 654px" data-story="goodrx-2025">
+                <span class="month">SEPT</span><span class="label">Men's ED Launch</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 718px" data-story="goodrx-2025">
+                <span class="month">JUL</span><span class="label">Homepage Refresh</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 782px" data-story="goodrx-2025">
+                <span class="month">MAY</span><span class="label">Pricing Tests</span>
+              </div>
 
-            <div class="timeline-entry minor" style="--y: 340px">
-              <span class="month">NOV</span><span class="label">Hair Loss Launch</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 372px">
-              <span class="month">SEPT</span><span class="label">Men's ED Launch</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 404px">
-              <span class="month">JUL</span><span class="label">Homepage Refresh</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 436px">
-              <span class="month">MAY</span><span class="label">Pricing Tests</span>
-            </div>
+              <div class="timeline-entry year" style="--y: 918px" data-story="goodrx-2025">
+                <span class="year-mark">2025</span><span class="company">GoodRx</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1022px" data-story="goodrx-2025">
+                <span class="month">OCT</span><span class="label">Brand Refresh</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1086px" data-story="goodrx-2025">
+                <span class="month">AUG</span><span class="label">Benefit Flow Refresh</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1150px" data-story="goodrx-2025">
+                <span class="month">MAR</span><span class="label">Retention Push</span>
+              </div>
 
-            <div class="timeline-entry year" style="--y: 472px">
-              <span class="year-mark">2025</span><span class="company">GoodRx</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 530px">
-              <span class="month">OCT</span><span class="label">Brand Refresh</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 562px">
-              <span class="month">AUG</span><span class="label">Benefit Flow Refresh</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 594px">
-              <span class="month">MAR</span><span class="label">Retention Push</span>
-            </div>
+              <div class="timeline-entry year" style="--y: 1290px" data-story="goodrx-2024">
+                <span class="year-mark">2024</span><span class="company">GoodRx</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1394px" data-story="goodrx-2024">
+                <span class="month">DEC</span><span class="label">IA Reset</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1458px" data-story="goodrx-2024">
+                <span class="month">SEPT</span><span class="label">PDP Overhaul</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1522px" data-story="goodrx-2024">
+                <span class="month">MAY</span><span class="label">Pricing Simplification</span>
+              </div>
 
-            <div class="timeline-entry year" style="--y: 630px">
-              <span class="year-mark">2024</span><span class="company">GoodRx</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 688px">
-              <span class="month">DEC</span><span class="label">IA Reset</span>
-            </div>
-            <div class="timeline-entry minor" style="--y: 720px">
-              <span class="month">SEPT</span><span class="label">PDP Overhaul</span>
-            </div>
-            <div class="timeline-entry minor tail" style="--y: 752px">
-              <span class="month">MAY</span><span class="label">Pricing Simplification</span>
+              <div class="timeline-entry year" style="--y: 1660px" data-story="goodrx-2023">
+                <span class="year-mark">2023</span><span class="company">GoodRx</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1764px" data-story="goodrx-2023">
+                <span class="month">NOV</span><span class="label">Growth Loops</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1828px" data-story="goodrx-2023">
+                <span class="month">JUL</span><span class="label">Benefit Discovery</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 1892px" data-story="goodrx-2023">
+                <span class="month">FEB</span><span class="label">Navigation Cleanup</span>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 2030px" data-story="goodrx-2022">
+                <span class="year-mark">2022</span><span class="company">Joined GoodRx</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2134px" data-story="goodrx-2022">
+                <span class="month">OCT</span><span class="label">Org Setup</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2198px" data-story="goodrx-2022">
+                <span class="month">AUG</span><span class="label">Design Reset</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2262px" data-story="goodrx-2022">
+                <span class="month">MAY</span><span class="label">Team Formation</span>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 2410px" data-story="career-2020">
+                <span class="year-mark">2020</span><span class="company">Outreach / Navan</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2514px" data-story="career-2020">
+                <span class="month">NOV</span><span class="label">Sales UX Refresh</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2578px" data-story="career-2020">
+                <span class="month">JUN</span><span class="label">Consumer Travel</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2642px" data-story="career-2020">
+                <span class="month">FEB</span><span class="label">Product Reframe</span>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 2788px" data-story="career-2017">
+                <span class="year-mark">2017</span><span class="company">Slack</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2892px" data-story="career-2017">
+                <span class="month">NOV</span><span class="label">Activation Lift</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 2956px" data-story="career-2017">
+                <span class="month">JUN</span><span class="label">Growth Rituals</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3020px" data-story="career-2017">
+                <span class="month">MAR</span><span class="label">Global Systems</span>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 3168px" data-story="career-2014">
+                <span class="year-mark">2014</span><span class="company">Disney</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3272px" data-story="career-2014">
+                <span class="month">OCT</span><span class="label">Streaming Foundations</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3336px" data-story="career-2014">
+                <span class="month">JUN</span><span class="label">Platform Design</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3400px" data-story="career-2014">
+                <span class="month">FEB</span><span class="label">Leadership Buildout</span>
+              </div>
+
+              <div class="timeline-entry year" style="--y: 3548px" data-story="career-2005">
+                <span class="year-mark">2005</span><span class="company">AWeber</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3652px" data-story="career-2005">
+                <span class="month">SEP</span><span class="label">Creative Direction</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3716px" data-story="career-2005">
+                <span class="month">JUN</span><span class="label">Brand Engine</span>
+              </div>
+              <div class="timeline-entry minor" style="--y: 3780px" data-story="career-2005">
+                <span class="month">JAN</span><span class="label">Team Scale-Up</span>
+              </div>
             </div>
           </div>
         </section>
 
         <section class="story-card">
           <div class="story-head">
-            <span class="story-kicker">TODAY</span>
-            <h2>Time Off</h2>
+            <span class="story-kicker" id="story-kicker">TODAY</span>
+            <h2 id="story-title">Time Off</h2>
           </div>
 
-          <p class="story-copy">
+          <p class="story-copy" id="story-copy">
             Using this stretch between roles to explore vibe coding, modern
             design systems, deployment loops, and faster end-to-end workflows.
             This panel can swap screenshots, launch notes, links, and dated
             callouts as the active point on the timeline changes.
           </p>
 
-          <div class="story-pills">
+          <div class="story-pills" id="story-pills">
             <span>Period: Feb-Apr</span>
             <span>Mode: Ship Fast</span>
             <span>Output: Sites + UI</span>
           </div>
 
           <div class="story-image-shell">
-            <div class="story-image" aria-hidden="true"></div>
+            <div class="story-image" id="story-image" aria-hidden="true"></div>
           </div>
 
-          <div class="story-notes">
+          <div class="story-notes" id="story-notes">
             <p>
               This is placeholder narrative to test how much content the
               browser-height panel can comfortably hold before we need to
@@ -163,9 +290,240 @@
               Launch notes: built a tighter delivery loop between concept,
               Paper preview, code sync, GitHub push, and Vercel deploy.
             </p>
+            <p>
+              Current experiments: sharper tick hierarchy, better scroll rhythm,
+              and a more editorial relationship between the timeline and the
+              active story card.
+            </p>
           </div>
         </section>
       </section>
     </main>
+    <script>
+      const storyContent = {
+        "time-off": {
+          kicker: "TODAY",
+          title: "Time Off",
+          copy:
+            "Using this stretch between roles to explore vibe coding, modern design systems, deployment loops, and faster end-to-end workflows.",
+          pills: ["Period: Feb-Apr", "Mode: Ship Fast", "Output: Sites + UI"],
+          image:
+            "https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png",
+          notes: [
+            "This is placeholder narrative to test how much content the browser-height panel can comfortably hold before we need to introduce an internal scroll region or collapse sections.",
+            "Launch notes: built a tighter delivery loop between concept, Paper preview, code sync, GitHub push, and Vercel deploy.",
+            "Current experiments: sharper tick hierarchy, better scroll rhythm, and a more editorial relationship between the timeline and the active story card.",
+          ],
+        },
+        tooling: {
+          kicker: "APR 2026",
+          title: "Tooling Deep Dive",
+          copy:
+            "Focused on the mechanics of faster making: AI-assisted layout work, production-friendly animation, and moving from sketch to deploy without losing fidelity.",
+          pills: ["Mode: Explore", "Stack: Paper + Code", "Theme: Speed"],
+          image:
+            "https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png",
+          notes: [
+            "Pressure-testing a more editorial portfolio shell with richer interaction and better narrative pacing.",
+            "Looking at what should stay tactile in Paper and what belongs in the browser runtime.",
+          ],
+        },
+        "left-goodrx": {
+          kicker: "FEB 2026",
+          title: "Left GoodRx",
+          copy:
+            "Wrapped a major chapter leading design and shifted into a short reset period with room to reflect, ship experiments, and reset the next act.",
+          pills: ["Transition", "Leadership", "Next Chapter"],
+          image:
+            "https://www.ericcenteno.com/_assets/v11/f399eb10c9860951b3b4884d9bc7f9e1ec33c4d0.png",
+          notes: [
+            "Using the gap to revisit craft, systems thinking, and how new tools can change operating tempo.",
+          ],
+        },
+        glp1: {
+          kicker: "JAN 2026",
+          title: "GLP-1 Launch",
+          copy:
+            "A flagship launch moment centered on demand shaping, clearer pricing communication, and a more integrated product-and-brand story.",
+          pills: ["Launch", "Growth", "Pricing"],
+          image:
+            "https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png",
+          notes: [
+            "The right card can eventually rotate real screenshots, links, and performance notes for milestone moments like this.",
+          ],
+        },
+        "goodrx-2026": {
+          kicker: "2026",
+          title: "GoodRx",
+          copy:
+            "Leading design across a period that mixed platform polish, commercial launches, and a more aggressive operating rhythm around health programs.",
+          pills: ["Role: SVP Design", "Focus: Growth", "Users: Scale"],
+          image:
+            "https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png",
+          notes: [
+            "Key themes included launch coordination, organizational scale, and increasingly tight loops between product, brand, and go-to-market.",
+          ],
+        },
+        "goodrx-2025": {
+          kicker: "2025",
+          title: "GoodRx",
+          copy:
+            "A year of category storytelling, sharper product surfaces, and clearer value communication across growth and care experiences.",
+          pills: ["Brand", "Funnels", "Care Journeys"],
+          image:
+            "https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png",
+          notes: [
+            "Placeholder milestones here represent launches and optimization work that can be replaced with exact dates and screenshots.",
+          ],
+        },
+        "goodrx-2024": {
+          kicker: "2024",
+          title: "GoodRx",
+          copy:
+            "Tightened navigation, PDP clarity, and pricing communication while laying groundwork for future launch surfaces.",
+          pills: ["IA", "Pricing", "Experience"],
+          image:
+            "https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png",
+          notes: [
+            "This is the kind of section where the timeline can call up smaller before/after moments with denser proof points.",
+          ],
+        },
+        "goodrx-2023": {
+          kicker: "2023",
+          title: "GoodRx",
+          copy:
+            "Shifted from foundation work toward growth loops, benefit discovery, and clearer pathways through a more complex ecosystem.",
+          pills: ["Discovery", "Growth", "Navigation"],
+          image:
+            "https://www.ericcenteno.com/_assets/v11/3e2c1deb01c86e972423afc0ca5b3ec6bfa950b8.png",
+          notes: [
+            "The layout now supports years as parent anchors with individual launches and improvements nested underneath.",
+          ],
+        },
+        "goodrx-2022": {
+          kicker: "2022",
+          title: "Joined GoodRx",
+          copy:
+            "Started by reshaping the org, resetting design quality expectations, and building the operating model needed for broader transformation.",
+          pills: ["Org", "Reset", "Team Build"],
+          image:
+            "https://www.ericcenteno.com/_assets/v11/f399eb10c9860951b3b4884d9bc7f9e1ec33c4d0.png",
+          notes: [
+            "This section can later hold the actual team, hiring, and operating-story artifacts you want to show.",
+          ],
+        },
+        "career-2020": {
+          kicker: "2020",
+          title: "Outreach / Navan",
+          copy:
+            "A compressed period spanning leadership in SaaS and travel, with a focus on product clarity, scaling teams, and consumer-facing quality.",
+          pills: ["SaaS", "Travel", "Leadership"],
+          image:
+            "https://www.ericcenteno.com/_assets/v11/f399eb10c9860951b3b4884d9bc7f9e1ec33c4d0.png",
+          notes: [
+            "This slot is currently using placeholder copy, but the card system is ready for real chronology and milestones.",
+          ],
+        },
+        "career-2017": {
+          kicker: "2017",
+          title: "Slack",
+          copy:
+            "Scaled through a high-growth period with emphasis on activation, platform systems, and making a rapidly growing product feel coherent.",
+          pills: ["Activation", "Systems", "Scale"],
+          image:
+            "https://www.ericcenteno.com/_assets/v11/3e2c1deb01c86e972423afc0ca5b3ec6bfa950b8.png",
+          notes: [
+            "This section can later point to IPO-era work, metrics, and broader product-system wins.",
+          ],
+        },
+        "career-2014": {
+          kicker: "2014",
+          title: "Disney",
+          copy:
+            "Helped shape early platform foundations and streaming-era product thinking that later scaled into a massive consumer footprint.",
+          pills: ["Streaming", "Platform", "Leadership"],
+          image:
+            "https://www.ericcenteno.com/_assets/v11/f399eb10c9860951b3b4884d9bc7f9e1ec33c4d0.png",
+          notes: [
+            "This narrative is especially well suited to larger proof points and selected screenshots as we refine the portfolio.",
+          ],
+        },
+        "career-2005": {
+          kicker: "2005",
+          title: "AWeber",
+          copy:
+            "A long formative chapter scaling creative leadership, evolving the brand engine, and growing both product maturity and team scope.",
+          pills: ["Brand", "Creative Direction", "Scale-Up"],
+          image:
+            "https://www.ericcenteno.com/_assets/v11/3e2c1deb01c86e972423afc0ca5b3ec6bfa950b8.png",
+          notes: [
+            "This lower section is intentionally longer so we can test how far down the timeline should travel before the browser layout feels too dense.",
+          ],
+        },
+      };
+
+      const track = document.querySelector(".timeline-track");
+      const storyKicker = document.getElementById("story-kicker");
+      const storyTitle = document.getElementById("story-title");
+      const storyCopy = document.getElementById("story-copy");
+      const storyPills = document.getElementById("story-pills");
+      const storyImage = document.getElementById("story-image");
+      const storyNotes = document.getElementById("story-notes");
+      const timelineTargets = [
+        document.querySelector(".today-row"),
+        ...document.querySelectorAll(".timeline-entry"),
+      ];
+
+      function renderStory(id) {
+        const story = storyContent[id];
+        if (!story) return;
+
+        storyKicker.textContent = story.kicker;
+        storyTitle.textContent = story.title;
+        storyCopy.textContent = story.copy;
+        storyImage.style.backgroundImage = `url("${story.image}")`;
+
+        storyPills.innerHTML = "";
+        story.pills.forEach((pill, index) => {
+          const span = document.createElement("span");
+          span.textContent = pill;
+          if (index === 0) span.classList.add("primary");
+          storyPills.appendChild(span);
+        });
+
+        storyNotes.innerHTML = "";
+        story.notes.forEach((note) => {
+          const p = document.createElement("p");
+          p.textContent = note;
+          storyNotes.appendChild(p);
+        });
+      }
+
+      function updateActiveTimeline() {
+        const center = track.scrollTop + track.clientHeight * 0.38;
+        let active = timelineTargets[0];
+        let bestDistance = Infinity;
+
+        timelineTargets.forEach((node) => {
+          const y =
+            node.classList.contains("today-row")
+              ? node.offsetTop + node.offsetHeight / 2
+              : node.offsetTop + node.offsetHeight / 2;
+          const distance = Math.abs(center - y);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            active = node;
+          }
+        });
+
+        timelineTargets.forEach((node) => node.classList.remove("active"));
+        active.classList.add("active");
+        renderStory(active.dataset.story || "time-off");
+      }
+
+      track.addEventListener("scroll", updateActiveTimeline, { passive: true });
+      window.addEventListener("load", updateActiveTimeline);
+      window.addEventListener("resize", updateActiveTimeline);
+    </script>
   </body>
 </html>
