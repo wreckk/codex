@@ -80,7 +80,7 @@ body {
 
 .page-body {
   display: grid;
-  grid-template-columns: 250px 400px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 4fr);
   gap: 28px;
   margin-top: 24px;
   height: calc(100vh - 198px);
@@ -96,9 +96,9 @@ body {
   flex-direction: column;
   gap: 16px;
   padding: 18px;
-  background: var(--plum);
-  border: 1px solid rgba(255, 252, 247, 0.12);
-  color: #fcfaf4;
+  background: var(--card);
+  border: 1px solid var(--soft-border);
+  color: var(--ink);
   height: calc(100vh - 198px);
   position: sticky;
   top: 30px;
@@ -206,8 +206,8 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 999px;
-  background: rgba(255, 252, 247, 0.14);
-  color: #fcfaf4;
+  background: #f4efe8;
+  color: var(--muted);
   text-decoration: none;
   font-size: 17px;
   transition:
@@ -218,7 +218,7 @@ body {
 
 .sidebar-links a:hover {
   transform: translateY(-1px);
-  background: rgba(255, 252, 247, 0.24);
+  background: #fff;
   color: var(--accent);
 }
 
@@ -248,10 +248,10 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 6px 8px;
-  border: 1px solid rgba(255, 252, 247, 0.2);
+  border: 1px solid #dedcd6;
   border-radius: 999px;
-  background: rgba(255, 252, 247, 0.1);
-  color: #fcfaf4;
+  background: #fff;
+  color: var(--ink);
   font-size: 9px;
   line-height: 1;
   text-transform: uppercase;
