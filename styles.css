@@ -1372,20 +1372,47 @@ body.preload-layout .page-loader {
     transform-origin: left center;
   }
 
-  .sidebar-mobile-toggle__chevron {
-    display: none;
-  }
-
-  .sidebar-mobile-toggle::after {
-    content: "";
+  .sidebar-mobile-toggle__pullbar {
     position: absolute;
     left: 50%;
     bottom: 7px;
     width: 44px;
-    height: 5px;
-    border-radius: 999px;
     transform: translateX(-50%);
-    background: #d9d0c6;
+    display: block;
+    line-height: 0;
+  }
+
+  .sidebar-mobile-toggle__pullbar svg {
+    display: block;
+    width: 44px;
+    height: 8px;
+    overflow: visible;
+  }
+
+  .sidebar-mobile-toggle__pullbar path,
+  .sidebar-mobile-toggle__pullbar circle {
+    stroke: #d9d0c6;
+    fill: #d9d0c6;
+  }
+
+  .sidebar-mobile-toggle__pullbar path {
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .pullbar-dot {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .pullbar-dot--left,
+  .pullbar-dot--right {
+    animation: pullbar-breathe 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .pullbar-dot--right {
+    animation-delay: 0.12s;
   }
 
   .sidebar-heading h1,
@@ -1459,7 +1486,7 @@ body.preload-layout .page-loader {
   .timeline-column {
     position: fixed;
     left: 50%;
-    bottom: 16px;
+    bottom: 8px;
     top: auto;
     transform: translateX(-50%);
     height: 190px;
@@ -1526,5 +1553,17 @@ body.preload-layout .page-loader {
 
   .story-pills {
     margin: 8px 0;
+  }
+}
+
+@keyframes pullbar-breathe {
+  0%,
+  72%,
+  100% {
+    transform: translateY(0);
+  }
+
+  84% {
+    transform: translateY(-4px);
   }
 }
