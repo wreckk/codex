@@ -544,6 +544,7 @@ body {
 
 .timeline-line,
 .timeline-shortticks,
+.timeline-tailticks,
 .timeline-mediumticks,
 .timeline-progress-line,
 .timeline-progress-ticks {
@@ -572,8 +573,13 @@ body {
     #ded9cf 0 1px,
     transparent 1px 5px
   );
-  mask-image: linear-gradient(to bottom, #000 0%, #000 calc(100% - 50px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 calc(100% - 50px), transparent 100%);
+}
+
+.timeline-tailticks {
+  position: absolute;
+  left: var(--timeline-gutter);
+  width: 12px;
+  background-repeat: no-repeat;
 }
 
 .timeline-mediumticks {

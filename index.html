@@ -125,6 +125,7 @@
               <div class="timeline-content">
                 <div class="timeline-line" aria-hidden="true"></div>
                 <div class="timeline-shortticks" aria-hidden="true"></div>
+                <div class="timeline-tailticks" aria-hidden="true"></div>
                 <div class="timeline-mediumticks" aria-hidden="true"></div>
                 <div class="timeline-progress-line" id="timeline-progress-line" aria-hidden="true"></div>
                 <div class="timeline-progress-ticks" id="timeline-progress-ticks" aria-hidden="true"></div>
@@ -480,6 +481,8 @@
       const trackWrap = document.querySelector(".timeline-track-wrap");
       const track = document.querySelector(".timeline-track");
       const timelineContent = document.querySelector(".timeline-content");
+      const timelineShortTicks = document.querySelector(".timeline-shortticks");
+      const timelineTailTicks = document.querySelector(".timeline-tailticks");
       const timelineMediumTicks = document.querySelector(".timeline-mediumticks");
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
@@ -504,6 +507,10 @@
         itemStep: 108,
         yearGapRatio: 0.576,
         bottomPadding: 220,
+      };
+      const TAIL_TICKS = {
+        count: 20,
+        step: 5,
       };
       const EDGE_FADE = {
         startRatio: 0.119,
@@ -692,6 +699,24 @@
             mediumTickFragment.appendChild(tick);
           });
           timelineMediumTicks.appendChild(mediumTickFragment);
+        }
+
+        const lastTarget = timelineTargets[timelineTargets.length - 1];
+        const lastTargetY = lastTarget ? getEntryCenter(lastTarget) : currentY;
+        const tailLength = TAIL_TICKS.count * TAIL_TICKS.step;
+        if (timelineShortTicks) {
+          timelineShortTicks.style.height = `${lastTargetY}px`;
+        }
+        if (timelineTailTicks) {
+          timelineTailTicks.style.top = `${lastTargetY}px`;
+          timelineTailTicks.style.height = `${tailLength}px`;
+          const tailStops = Array.from({ length: TAIL_TICKS.count }, (_, index) => {
+            const start = index * TAIL_TICKS.step;
+            const end = start + 1;
+            const alpha = Math.max(0, 1 - (index + 1) / TAIL_TICKS.count);
+            return `rgba(222, 217, 207, ${alpha.toFixed(3)}) ${start}px ${end}px, transparent ${end}px ${start + TAIL_TICKS.step}px`;
+          }).join(", ");
+          timelineTailTicks.style.backgroundImage = `linear-gradient(to bottom, ${tailStops})`;
         }
 
         timelineContent.style.height = `${currentY + TIMELINE_LAYOUT.bottomPadding}px`;
