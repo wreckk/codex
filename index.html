@@ -571,6 +571,10 @@
         });
       }
 
+      function getEntryY(entry) {
+        return Number.parseFloat(entry.style.getPropertyValue("--y")) || 0;
+      }
+
       function layoutTimeline() {
         if (!timelineContent) return;
 
@@ -578,18 +582,23 @@
         const itemStep = 96;
         const todayExtraGap = 36;
 
-        timelineEntries.forEach((entry, index) => {
+        timelineTargets.forEach((entry) => {
           entry.style.setProperty("--y", `${currentY}px`);
-
-          const nextEntry = timelineEntries[index + 1];
-          if (!nextEntry) return;
-
-          if (entry.classList.contains("year") && nextEntry.dataset.story === "time-off") {
-            currentY += itemStep + todayExtraGap;
-            return;
-          }
-
           currentY += itemStep;
+
+          if (entry.dataset.story === "time-off") {
+            currentY += todayExtraGap;
+          }
+        });
+
+        yearEntries.forEach((entry) => {
+          const peers = timelineTargets.filter((node) => node.dataset.year === entry.dataset.year);
+          if (!peers.length) return;
+
+          const firstY = getEntryY(peers[0]);
+          const lastY = getEntryY(peers[peers.length - 1]);
+          const midY = (firstY + lastY) / 2;
+          entry.style.setProperty("--y", `${midY}px`);
         });
 
         timelineContent.style.height = `${currentY + 220}px`;

@@ -490,8 +490,8 @@ body {
   color: var(--muted);
   line-height: 1;
   z-index: 4;
-  left: -24px;
-  width: 48px;
+  left: -36px;
+  width: 40px;
   justify-content: flex-start;
 }
 
@@ -512,7 +512,7 @@ body {
 
 .timeline-entry.year::before {
   position: absolute;
-  left: 38px;
+  left: 48px;
   top: 50%;
   margin: 0;
   transform: translateY(-50%);
