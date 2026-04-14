@@ -792,11 +792,10 @@ body {
   top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
-  background: linear-gradient(
+  background: repeating-linear-gradient(
     to right,
-    var(--timeline-ink-mid) 0%,
-    var(--timeline-ink-mid) 88%,
-    transparent 100%
+    var(--timeline-ink-mid) 0 1px,
+    transparent 1px 5px
   );
   mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
