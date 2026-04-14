@@ -603,7 +603,7 @@
       function layoutTimeline() {
         if (!timelineContent) return;
 
-        let currentY = 140;
+        let currentY = 90;
         const itemStep = 108;
         const yearGapStep = itemStep * 0.576;
 
@@ -726,7 +726,7 @@
       }
 
       function updateActiveTimeline() {
-        const triggerBandCenter = Math.max(stickyOffset + 42, track.clientHeight * 0.3 - 70);
+        const triggerBandCenter = Math.max(stickyOffset - 8, track.clientHeight * 0.3 - 120);
         const monthTriggerHalf = 54;
         const monthTriggerLift = 0;
         const triggerLine = track.scrollTop + triggerBandCenter;
