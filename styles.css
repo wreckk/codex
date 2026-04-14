@@ -389,7 +389,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .rail-section h2 {
@@ -411,7 +411,7 @@ body {
 .mini-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 8px 11px;
+  padding: 7px 10px;
   border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: #fff;
@@ -460,7 +460,7 @@ body {
 
 .timeline-track-wrap {
   position: relative;
-  height: calc(100% - 40px);
+  height: calc(100% - 50px);
   overflow: hidden;
 }
 
@@ -752,8 +752,8 @@ body {
 .year-mark {
   display: block;
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 18px;
+  line-height: 24px;
   letter-spacing: 0.01em;
   font-weight: 700;
   color: #ab9faa;
@@ -930,9 +930,9 @@ body {
 .story-notes {
   display: block;
   padding: 2px 6px 0 0;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.35;
-  color: color-mix(in srgb, #b7a998 48%, white 52%);
+  color: #c7bcc7;
   font-style: italic;
   text-align: center;
   white-space: nowrap;
