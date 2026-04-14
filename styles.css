@@ -428,6 +428,11 @@ body.preload-layout .page-loader {
   transition: transform 180ms ease;
 }
 
+.sidebar-links a .icon-discogs {
+  width: 20px;
+  height: 20px;
+}
+
 .sidebar-links a:hover {
   color: var(--accent);
 }
