@@ -275,7 +275,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #b7a998;
 }
 
 .mini-pills {
@@ -310,14 +310,15 @@ body {
 
 .timeline-head {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: 16px;
   padding-left: 0;
+  min-height: 18px;
 }
 
 .timeline-head h2 {
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 0.14em;
   font-weight: 400;
   line-height: 1;
@@ -471,6 +472,7 @@ body {
 }
 
 .timeline-trigger-debug {
+  display: none;
   position: absolute;
   left: 0;
   right: 0;
@@ -556,7 +558,7 @@ body {
 }
 
 .timeline-entry.year[data-year="2026"] {
-  z-index: 4;
+  z-index: 2;
 }
 
 .timeline-entry.year[data-year="2026"]::before {
@@ -668,7 +670,7 @@ body {
 .story-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   padding: 18px 22px 22px;
   height: 100%;
   min-height: 0;
@@ -685,15 +687,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   text-align: center;
-  padding-top: 3px;
+  padding-top: 0;
 }
 
 .story-kicker {
   font-size: 13px;
   letter-spacing: 0.2em;
-  line-height: 1;
+  line-height: 1.1;
   color: var(--muted);
   font-weight: 400;
 }
@@ -711,8 +713,8 @@ body {
 .story-copy,
 .story-notes p {
   margin: 0;
-  font-size: 16px;
-  line-height: 1.52;
+  font-size: 14px;
+  line-height: 1.68;
   color: #857785;
   font-weight: 400;
 }
@@ -755,7 +757,7 @@ body {
 }
 
 .story-image-shell {
-  height: 440px;
+  height: 388px;
   border: 2px solid #e7ded3;
   border-radius: 12px;
   overflow: hidden;
@@ -774,10 +776,10 @@ body {
 .story-notes {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   padding-right: 6px;
   font-size: 14px;
-  line-height: 1.38;
+  line-height: 1.52;
   color: var(--muted);
 }
 
