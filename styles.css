@@ -487,6 +487,8 @@ body {
 
 .timeline-entry.year .entry-pill {
   align-items: center;
+  padding: 0;
+  border-radius: 999px;
 }
 
 .year-mark {
@@ -504,6 +506,21 @@ body {
 
 .timeline-entry.active::before {
   background: var(--accent);
+}
+
+.timeline-entry.year.is-pinned::before {
+  opacity: 0;
+}
+
+.timeline-entry.year.is-pinned .entry-pill {
+  padding: 8px 14px;
+  background: var(--plum-deep);
+  box-shadow: 0 10px 24px rgba(70, 61, 71, 0.16);
+}
+
+.timeline-entry.year.is-pinned .year-mark,
+.timeline-entry.year.is-pinned .company {
+  color: #fcfaf4;
 }
 
 .timeline-entry.active .month,

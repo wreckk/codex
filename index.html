@@ -576,12 +576,18 @@
 
         let currentY = 0;
         const itemStep = 64;
+        const todayExtraGap = 26;
 
         timelineEntries.forEach((entry, index) => {
           entry.style.setProperty("--y", `${currentY}px`);
 
           const nextEntry = timelineEntries[index + 1];
           if (!nextEntry) return;
+
+          if (entry.classList.contains("year") && nextEntry.dataset.story === "time-off") {
+            currentY += itemStep + todayExtraGap;
+            return;
+          }
 
           currentY += itemStep;
         });
@@ -599,9 +605,11 @@
             ? Math.max(0, nextEntry.offsetTop - naturalTop - entryHeight - yearPushGap)
             : stickyTranslate;
           const translateY = Math.round(Math.min(stickyTranslate, maxTranslate));
+          const isPinned = translateY > 0;
 
           entry.style.transform = `translateY(${translateY}px)`;
           entry.style.zIndex = translateY > 0 ? "4" : "1";
+          entry.classList.toggle("is-pinned", isPinned);
         });
       }
 
