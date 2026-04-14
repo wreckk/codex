@@ -371,15 +371,11 @@ body {
 }
 
 .sidebar-links a img {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   display: block;
+  filter: brightness(0) saturate(100%) invert(44%) sepia(9%) saturate(569%) hue-rotate(258deg) brightness(92%) contrast(88%);
   transition: transform 180ms ease;
-}
-
-.sidebar-links a[aria-label="Discogs"] svg {
-  width: 24px;
-  height: 24px;
 }
 
 .sidebar-links a:hover {
@@ -391,6 +387,11 @@ body {
 .sidebar-links a:hover img,
 .sidebar-links a:focus-visible img {
   transform: scale(1.08);
+}
+
+.sidebar-links a:hover img,
+.sidebar-links a:focus-visible img {
+  filter: brightness(0) saturate(100%) invert(45%) sepia(81%) saturate(4335%) hue-rotate(343deg) brightness(102%) contrast(102%);
 }
 
 .sidebar-links a:hover::after,
@@ -765,20 +766,7 @@ body {
 }
 
 .timeline-entry.year::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: -28px;
-  top: var(--line-bottom, 0px);
-  height: 1px;
-  margin: 0;
-  background: repeating-linear-gradient(
-    to right,
-    var(--timeline-ink-mid) 0 1px,
-    transparent 1px 5px
-  );
-  mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
+  display: none;
 }
 
 .year-mark {
