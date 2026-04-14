@@ -250,7 +250,7 @@ body {
   margin: 0;
   font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 300;
   font-style: italic;
   line-height: 1.82;
   color: color-mix(in srgb, var(--muted) 88%, white);
@@ -592,13 +592,14 @@ body {
 }
 
 .timeline-entry.minor {
-  color: var(--muted);
+  color: #b7a998;
   font-size: 13px;
   line-height: 1;
 }
 
 .timeline-entry.minor .month {
-  color: #b7a998;
+  color: var(--muted);
+  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
   margin-right: 5px;
   min-width: auto;
@@ -803,27 +804,32 @@ body {
 .story-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 5px 9px;
+  padding: 6px 8px;
+  border: 1px solid #e1d5c1;
   border-radius: 999px;
-  background: #f1ebe4;
-  color: var(--muted);
-  font-size: 11px;
+  background: #fff;
+  color: #b7a998;
+  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;
   line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
 }
 
 .story-pills span.primary,
 .story-pills span:first-child {
-  background: #eee7df;
-  color: var(--muted);
+  background: #fff;
+  color: #b7a998;
 }
 
 .story-pills span:nth-child(2) {
-  background: #ece7eb;
+  background: #fff;
 }
 
 .story-pills span:nth-child(3) {
-  background: #f0ede7;
-  color: var(--muted);
+  background: #fff;
+  color: #b7a998;
 }
 
 .story-image-shell {
