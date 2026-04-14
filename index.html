@@ -708,7 +708,7 @@
         const fadeZoneStart = trackRect.height * EDGE_FADE.startRatio;
         const fullFadeZone = trackRect.height * EDGE_FADE.fullFadeRatio;
         const yearFocusCenter = trackRect.height * 0.5;
-        const yearFocusRadius = 110;
+        const yearFocusRadius = 165;
         const triggerCenterInTrack = triggerLine - track.scrollTop;
         const triggerBandHalf = TRIGGER_ZONE.halfHeight;
         const triggerBandTop = triggerCenterInTrack - triggerBandHalf;
@@ -738,9 +738,9 @@
           if (isYear) {
             const yearDistance = Math.abs(entryCenterInTrack - yearFocusCenter);
             const yearProgress = smoothstep(Math.max(0, 1 - yearDistance / yearFocusRadius));
-            const yearScale = 0.7 + yearProgress * 0.3;
-            const yearOpacity = 0.5 + yearProgress * 0.5;
-            const yearBlur = (1 - yearProgress) * 1.4;
+            const yearScale = 0.78 + yearProgress * 0.22;
+            const yearOpacity = 0.58 + yearProgress * 0.42;
+            const yearBlur = (1 - yearProgress) * 1.8;
             const yearColor = yearProgress > 0.5 ? "var(--muted)" : "#ab9faa";
             entry.style.opacity = "1";
             entry.style.filter = "none";
