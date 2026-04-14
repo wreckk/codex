@@ -1533,20 +1533,20 @@ body.preload-layout .page-loader {
   .timeline-shortticks,
   .timeline-tailticks,
   .timeline-mediumticks {
-    top: 76px;
+    top: 74px;
   }
 
   .timeline-shortticks,
   .timeline-tailticks {
-    top: 62px;
+    top: 60px;
   }
 
   .timeline-mediumticks {
-    top: 52px;
+    top: 50px;
   }
 
   .timeline-entry {
-    top: 18px;
+    top: 13px;
   }
 
   .timeline-entry.year {
