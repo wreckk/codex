@@ -504,7 +504,7 @@ body {
   position: absolute;
   left: -40px;
   right: auto;
-  top: 50%;
+  top: calc(50% + 5px);
   padding: 0;
   margin: 0;
   background: transparent;
