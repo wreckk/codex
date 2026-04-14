@@ -119,8 +119,7 @@ body.preload-layout .page-loader {
   line-height: 0.92;
   font-weight: 900;
   letter-spacing: -0.05em;
-  text-transform: uppercase;
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .page-loader__wordmark::after {
@@ -129,9 +128,9 @@ body.preload-layout .page-loader {
   inset: -10% -6%;
   background: linear-gradient(
     90deg,
-    rgba(255, 70, 50, 0.05) 0%,
-    rgba(255, 183, 174, 0.5) 50%,
-    rgba(255, 70, 50, 0.05) 100%
+    rgba(116, 102, 118, 0.05) 0%,
+    rgba(183, 169, 152, 0.45) 50%,
+    rgba(116, 102, 118, 0.05) 100%
   );
   filter: blur(14px);
   animation: loader-pulse 1.2s ease-in-out infinite alternate;
