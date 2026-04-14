@@ -586,6 +586,7 @@
 
         let currentY = 156;
         const itemStep = 108;
+        const yearGapStep = itemStep * 0.8;
 
         timelineTargets.forEach((entry, index) => {
           entry.style.setProperty("--y", `${currentY}px`);
@@ -593,7 +594,7 @@
 
           const nextEntry = timelineTargets[index + 1];
           if (nextEntry && nextEntry.dataset.year !== entry.dataset.year) {
-            currentY += itemStep;
+            currentY += yearGapStep;
           }
         });
 
@@ -617,10 +618,10 @@
 
           const topBoundary = previousPeers.length
             ? (getEntryCenter(previousPeers[previousPeers.length - 1]) + firstCenter) / 2
-            : firstCenter - itemStep;
+            : firstCenter - yearGapStep;
           const bottomBoundary = nextPeers.length
             ? (lastCenter + getEntryCenter(nextPeers[0])) / 2
-            : lastCenter + itemStep;
+            : lastCenter + yearGapStep;
           const snappedTopBoundary = snapToTick(topBoundary);
           const snappedBottomBoundary = snapToTick(bottomBoundary);
           const midY = (snappedTopBoundary + snappedBottomBoundary) / 2;
