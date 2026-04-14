@@ -15,6 +15,7 @@
   --overlay-headshot: url("https://www.ericcenteno.com/_assets/v11/3e2c1deb01c86e972423afc0ca5b3ec6bfa950b8.png");
   --story-image: url("https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png");
   --timeline-sticky-offset: 35px;
+  --timeline-gutter: 74px;
 }
 
 * {
@@ -329,7 +330,7 @@ body {
   height: calc(100% - 40px);
   overflow-y: auto;
   overflow-x: hidden;
-  padding-left: 10px;
+  padding-left: 0;
   padding-right: 4px;
   position: relative;
   scrollbar-width: thin;
@@ -341,7 +342,7 @@ body {
 .timeline-track::after {
   content: "";
   position: sticky;
-  left: 10px;
+  left: var(--timeline-gutter);
   display: block;
   width: 60px;
   height: 52px;
@@ -395,7 +396,7 @@ body {
 
 .timeline-line {
   position: absolute;
-  left: 10px;
+  left: var(--timeline-gutter);
   top: 0;
   bottom: 0;
   width: 1px;
@@ -404,7 +405,7 @@ body {
 
 .timeline-shortticks {
   position: absolute;
-  left: 10px;
+  left: var(--timeline-gutter);
   top: 0;
   width: 12px;
   height: 100%;
@@ -434,7 +435,7 @@ body {
 
 .timeline-entry {
   position: absolute;
-  left: 10px;
+  left: var(--timeline-gutter);
   top: var(--y);
   display: flex;
   align-items: center;
@@ -490,15 +491,15 @@ body {
   color: var(--muted);
   line-height: 1;
   z-index: 2;
-  left: 10px;
-  width: calc(100% - 10px);
+  left: var(--timeline-gutter);
+  width: calc(100% - var(--timeline-gutter));
   justify-content: flex-start;
 }
 
 .timeline-entry.year .entry-pill {
   display: block;
   position: absolute;
-  left: -74px;
+  left: -62px;
   right: auto;
   top: 50%;
   padding: 0;
