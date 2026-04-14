@@ -515,6 +515,10 @@
         minOpacity: 0.08,
         blurAmount: 5.5,
       };
+      const ACTIVE_SCALE = {
+        max: 1.15,
+        influenceRange: 92,
+      };
       const TRIGGER_ZONE = {
         baseOffset: -8,
         minHeightRatio: 0.3,
@@ -718,7 +722,7 @@
         });
       }
 
-      function updateEntryDepth(activeEntry) {
+      function updateEntryDepth(activeEntry, triggerLine) {
         const trackRect = track.getBoundingClientRect();
         const fadeZoneStart = trackRect.height * EDGE_FADE.startRatio;
         const fullFadeZone = trackRect.height * EDGE_FADE.fullFadeRatio;
@@ -727,18 +731,31 @@
           const pill = entry.querySelector(".entry-pill");
           const isActive = entry === activeEntry;
           const isYear = entry.classList.contains("year");
+          const entryCenterInTrack = getEntryCenter(entry) - track.scrollTop;
+          const triggerDistance = Math.abs(entryCenterInTrack - (triggerLine - track.scrollTop));
+          const activeProgress = Math.max(
+            0,
+            1 - triggerDistance / ACTIVE_SCALE.influenceRange
+          );
+          const scale = 1 + (ACTIVE_SCALE.max - 1) * activeProgress;
 
           if (isActive) {
             entry.style.opacity = "1";
             entry.style.filter = "none";
-            if (pill) pill.style.filter = "none";
+            if (pill) {
+              pill.style.filter = "none";
+              pill.style.setProperty("--entry-scale", `${scale}`);
+            }
             return;
           }
 
           if (isYear) {
             entry.style.opacity = "1";
             entry.style.filter = "none";
-            if (pill) pill.style.filter = "none";
+            if (pill) {
+              pill.style.filter = "none";
+              pill.style.setProperty("--entry-scale", "1");
+            }
             return;
           }
 
@@ -760,7 +777,10 @@
           const blur = (1 - progress) * EDGE_FADE.blurAmount;
           entry.style.opacity = `${opacity}`;
           entry.style.filter = "none";
-          if (pill) pill.style.filter = `blur(${blur}px)`;
+          if (pill) {
+            pill.style.filter = `blur(${blur}px)`;
+            pill.style.setProperty("--entry-scale", `${scale}`);
+          }
         });
       }
 
@@ -800,7 +820,7 @@
 
         renderStory(active.dataset.story || "time-off");
         updateYearPositions();
-        updateEntryDepth(active);
+        updateEntryDepth(active, triggerLine);
       }
 
       const headingObserver = new ResizeObserver(() => fitSidebarHeading());
