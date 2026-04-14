@@ -27,6 +27,30 @@
 }
 
 @font-face {
+  font-family: "SF Pro Text Local";
+  src: url("/fonts/SF-Pro-Text-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Text Local";
+  src: url("/fonts/SF-Pro-Text-Ultralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display Local";
+  src: url("/fonts/SF-Pro-Display-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "SF Pro Rounded Local";
   src: url("/fonts/SF-Pro-Rounded-Bold.otf") format("opentype");
   font-weight: 700;
@@ -251,7 +275,7 @@ body {
   margin: 0;
   font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 200;
   font-style: italic;
   line-height: 1.82;
   color: color-mix(in srgb, var(--muted) 88%, white);
@@ -767,14 +791,14 @@ body {
   line-height: 1.1;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .story-head h2 {
   margin: 0;
-  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-family: "SF Pro Display Local", "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 48px;
-  font-weight: 400;
+  font-weight: 100;
   letter-spacing: -0.02em;
   line-height: 0.98;
   color: var(--accent);
