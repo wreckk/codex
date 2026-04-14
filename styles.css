@@ -525,7 +525,7 @@ body {
 .timeline-entry.year .entry-pill {
   display: block;
   position: absolute;
-  left: -38px;
+  left: -37px;
   right: auto;
   top: 50%;
   padding: 0;
