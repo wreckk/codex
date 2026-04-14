@@ -1076,19 +1076,164 @@ body.preload-layout .page-loader {
 
 @media (max-width: 1200px) {
   .page-body {
-    grid-template-columns: 1fr;
-    height: auto;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+    grid-template-areas:
+      "sidebar story"
+      "timeline timeline";
+    row-gap: 18px;
+    height: calc(100vh - 58px);
+  }
+
+  .sidebar-card {
+    grid-area: sidebar;
+  }
+
+  .story-card {
+    grid-area: story;
+  }
+
+  .timeline-column {
+    grid-area: timeline;
   }
 
   .sidebar-card,
-  .timeline-column,
   .story-card {
     position: static;
-    height: auto;
+    height: min(68vh, 760px);
+  }
+
+  .timeline-column {
+    position: static;
+    height: 210px;
+    min-height: 210px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .timeline-head {
+    margin-bottom: 8px;
+    min-height: auto;
+    padding-top: 0;
+  }
+
+  .timeline-track-wrap {
+    height: 180px;
+    overflow: hidden;
   }
 
   .timeline-track {
-    height: 820px;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 0 8px;
+  }
+
+  .timeline-track::before,
+  .timeline-track::after,
+  .timeline-first-year-line {
+    display: none;
+  }
+
+  .timeline-content {
+    min-width: 100%;
+    height: 210px;
+  }
+
+  .timeline-line {
+    top: 110px;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 50px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 50px), transparent 100%);
+  }
+
+  .timeline-shortticks,
+  .timeline-tailticks {
+    top: 110px;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    background-image: repeating-linear-gradient(
+      to right,
+      #ded9cf 0 1px,
+      transparent 1px 5px
+    );
+  }
+
+  .timeline-tailticks {
+    background-repeat: no-repeat;
+  }
+
+  .timeline-mediumticks {
+    top: 110px;
+    left: 0;
+    width: 100%;
+    height: 28px;
+    mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 50px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 50px), transparent 100%);
+  }
+
+  .timeline-mediumtick {
+    top: 0;
+    width: 1px;
+    height: 28px;
+  }
+
+  .timeline-entry {
+    left: var(--x);
+    top: 40px;
+    transform: translateX(-50%);
+    transform-origin: center center;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .timeline-entry::before {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 2px);
+    transform: translateX(-50%);
+    width: 1px;
+    height: 34px;
+  }
+
+  .entry-pill {
+    transform-origin: center center;
+  }
+
+  .timeline-entry.year {
+    left: var(--x);
+    right: auto;
+    top: 138px;
+    min-height: 0;
+    width: auto;
+    transform: translateX(-50%);
+    justify-content: center;
+  }
+
+  .timeline-entry.year::before {
+    display: none;
+  }
+
+  .timeline-entry.year .entry-pill {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    filter: blur(var(--year-blur, 1.25px));
+  }
+
+  .year-mark {
+    transform: none;
+  }
+
+  .timeline-backtotop {
+    top: 28px;
+    transform: translateX(-50%);
   }
 
   .sidebar-intro {
@@ -1106,5 +1251,83 @@ body.preload-layout .page-loader {
 
   .story-image-shell {
     height: 360px;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    padding: 16px;
+  }
+
+  .page-body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "story"
+      "timeline";
+    height: auto;
+    row-gap: 14px;
+  }
+
+  .sidebar-card,
+  .story-card,
+  .timeline-column {
+    width: min(100%, 420px);
+    margin: 0 auto;
+  }
+
+  .sidebar-card,
+  .story-card {
+    height: auto;
+    min-height: 0;
+  }
+
+  .timeline-column {
+    height: 190px;
+    min-height: 190px;
+  }
+
+  .timeline-track-wrap {
+    height: 170px;
+  }
+
+  .timeline-content {
+    height: 190px;
+  }
+
+  .timeline-line,
+  .timeline-shortticks,
+  .timeline-tailticks,
+  .timeline-mediumticks {
+    top: 102px;
+  }
+
+  .timeline-entry {
+    top: 34px;
+  }
+
+  .timeline-entry.year {
+    top: 128px;
+  }
+
+  .sidebar-heading h1 {
+    font-size: 38px;
+  }
+
+  .sidebar-heading p {
+    font-size: 12px;
+  }
+
+  .story-title {
+    font-size: 64px;
+    line-height: 0.94;
+  }
+
+  .story-copy {
+    font-size: 15px;
+  }
+
+  .story-image-shell {
+    height: 300px;
   }
 }

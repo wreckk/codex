@@ -526,11 +526,22 @@
         map.get(year).push(entry);
         return map;
       }, new Map());
+      const RESPONSIVE_BREAKPOINTS = {
+        compact: 1200,
+        mobile: 720,
+      };
       const TIMELINE_LAYOUT = {
         startY: 90,
         itemStep: 108,
         yearGapRatio: 0.576,
         bottomPadding: 220,
+      };
+      const COMPACT_TIMELINE_LAYOUT = {
+        startX: 124,
+        itemStep: 172,
+        yearGapRatio: 0.66,
+        endPadding: 180,
+        tailOffset: 84,
       };
       const TAIL_TICKS = {
         count: 20,
@@ -559,6 +570,14 @@
       let activeTimelineEntry = null;
       let activeStoryId = null;
       let timelineFrame = null;
+
+      function isCompactTimeline() {
+        return window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact;
+      }
+
+      function isMobileLayout() {
+        return window.innerWidth <= RESPONSIVE_BREAKPOINTS.mobile;
+      }
 
       function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
         if (!node || !sidebarHeading) return;
@@ -617,19 +636,25 @@
         return Number.parseFloat(entry.style.getPropertyValue("--y")) || 0;
       }
 
+      function getEntryX(entry) {
+        return Number.parseFloat(entry.style.getPropertyValue("--x")) || 0;
+      }
+
       function getEntryCenter(entry) {
-        return getEntryY(entry);
+        return isCompactTimeline() ? getEntryX(entry) : getEntryY(entry);
       }
 
       function getMajorTickPositions() {
         const positions = timelineTargets.map((entry) => getEntryCenter(entry));
 
-        yearEntries.forEach((entry) => {
-          const center = getEntryY(entry);
-          const lineTop = Number.parseFloat(entry.style.getPropertyValue("--line-top")) || 0;
-          const lineBottom = Number.parseFloat(entry.style.getPropertyValue("--line-bottom")) || 0;
-          positions.push(center + lineTop, center + lineBottom);
-        });
+        if (!isCompactTimeline()) {
+          yearEntries.forEach((entry) => {
+            const center = getEntryY(entry);
+            const lineTop = Number.parseFloat(entry.style.getPropertyValue("--line-top")) || 0;
+            const lineBottom = Number.parseFloat(entry.style.getPropertyValue("--line-bottom")) || 0;
+            positions.push(center + lineTop, center + lineBottom);
+          });
+        }
 
         return [...new Set(positions.map((value) => snapToTick(value)))].sort((a, b) => a - b);
       }
@@ -660,7 +685,7 @@
         return 1;
       }
 
-      function layoutTimeline() {
+      function layoutTimelineVertical() {
         if (!timelineContent) return;
 
         let currentY = TIMELINE_LAYOUT.startY;
@@ -747,6 +772,92 @@
         }
 
         timelineContent.style.height = `${currentY + TIMELINE_LAYOUT.bottomPadding}px`;
+        timelineContent.style.width = "";
+      }
+
+      function layoutTimelineCompact() {
+        if (!timelineContent) return;
+
+        const itemStep = isMobileLayout() ? 152 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const startX = isMobileLayout() ? 104 : COMPACT_TIMELINE_LAYOUT.startX;
+        const yearGapStep = itemStep * COMPACT_TIMELINE_LAYOUT.yearGapRatio;
+        let currentX = startX;
+
+        timelineTargets.forEach((entry, index) => {
+          const snappedX = snapToTick(currentX);
+          entry.style.setProperty("--x", `${snappedX}px`);
+          entry.style.removeProperty("--y");
+          currentX += itemStep;
+
+          const nextEntry = timelineTargets[index + 1];
+          if (nextEntry && nextEntry.dataset.year !== entry.dataset.year) {
+            currentX += yearGapStep;
+          }
+        });
+
+        yearEntries.forEach((entry) => {
+          const peers = timelineTargetsByYear.get(entry.dataset.year) || [];
+          if (!peers.length) return;
+          const firstCenter = getEntryX(peers[0]);
+          const lastCenter = getEntryX(peers[peers.length - 1]);
+          const midX = snapToTick((firstCenter + lastCenter) / 2);
+          entry.style.setProperty("--x", `${midX}px`);
+          entry.style.removeProperty("--y");
+          entry.style.removeProperty("--line-top");
+          entry.style.removeProperty("--line-bottom");
+        });
+
+        if (timelineMediumTicks) {
+          timelineMediumTicks.innerHTML = "";
+          const majorTickPositions = getMajorTickPositions();
+          const mediumTickFragment = document.createDocumentFragment();
+          majorTickPositions.slice(0, -1).forEach((currentValue, index) => {
+            const nextValue = majorTickPositions[index + 1];
+            const mediumValue = snapToTick((currentValue + nextValue) / 2);
+            const tick = document.createElement("span");
+            tick.className = "timeline-mediumtick";
+            tick.style.left = `${mediumValue}px`;
+            mediumTickFragment.appendChild(tick);
+          });
+          timelineMediumTicks.appendChild(mediumTickFragment);
+        }
+
+        const lastTarget = timelineTargets[timelineTargets.length - 1];
+        const lastTargetX = lastTarget ? getEntryCenter(lastTarget) : currentX;
+        const tailLength = TAIL_TICKS.count * TAIL_TICKS.step;
+
+        if (timelineBackToTop) {
+          timelineBackToTop.style.left = `${lastTargetX + COMPACT_TIMELINE_LAYOUT.tailOffset}px`;
+          timelineBackToTop.style.top = "";
+        }
+        if (timelineShortTicks) {
+          timelineShortTicks.style.width = `${lastTargetX}px`;
+          timelineShortTicks.style.height = "";
+        }
+        if (timelineTailTicks) {
+          timelineTailTicks.style.left = `${lastTargetX}px`;
+          timelineTailTicks.style.width = `${tailLength}px`;
+          timelineTailTicks.style.height = "";
+          const tailStops = Array.from({ length: TAIL_TICKS.count }, (_, index) => {
+            const start = index * TAIL_TICKS.step;
+            const end = start + 1;
+            const alpha = Math.max(0, 1 - (index + 1) / TAIL_TICKS.count);
+            return `rgba(222, 217, 207, ${alpha.toFixed(3)}) ${start}px ${end}px, transparent ${end}px ${start + TAIL_TICKS.step}px`;
+          }).join(", ");
+          timelineTailTicks.style.backgroundImage = `linear-gradient(to right, ${tailStops})`;
+        }
+
+        timelineContent.style.width = `${currentX + COMPACT_TIMELINE_LAYOUT.endPadding}px`;
+        timelineContent.style.height = isMobileLayout() ? "190px" : "210px";
+      }
+
+      function layoutTimeline() {
+        if (isCompactTimeline()) {
+          layoutTimelineCompact();
+          return;
+        }
+
+        layoutTimelineVertical();
       }
 
       function updateYearPositions() {
@@ -758,6 +869,67 @@
       }
 
       function updateEntryDepth(activeEntry, triggerLine) {
+        if (isCompactTimeline()) {
+          const trackRect = track.getBoundingClientRect();
+          const centerX = triggerLine - track.scrollLeft;
+          const activeBandHalf = trackRect.width * 0.425;
+          const yearFocusLeft = centerX - activeBandHalf;
+          const yearFocusRight = centerX + activeBandHalf;
+          const edgeFade = Math.max(48, trackRect.width * 0.18);
+          const compactBandHalf = 74;
+          const bandLeft = centerX - compactBandHalf;
+          const bandRight = centerX + compactBandHalf;
+
+          timelineEntries.forEach((entry) => {
+            const pill = entry.querySelector(".entry-pill");
+            const isActive = entry === activeEntry;
+            const isYear = entry.classList.contains("year");
+            const entryCenterInTrack = getEntryCenter(entry) - track.scrollLeft;
+            const compactBandProgress = Math.min(
+              1,
+              Math.max(0, (entryCenterInTrack - bandLeft) / (bandRight - bandLeft))
+            );
+            const bandScale = getScaleForBandProgress(compactBandProgress);
+
+            if (isActive) {
+              entry.style.opacity = "1";
+              entry.style.filter = "none";
+              if (pill) {
+                pill.style.filter = "none";
+                pill.style.setProperty("--entry-scale", `${bandScale}`);
+              }
+              return;
+            }
+
+            if (isYear) {
+              let yearProgress = 1;
+              if (entryCenterInTrack < yearFocusLeft) {
+                yearProgress = Math.max(0, 1 - (yearFocusLeft - entryCenterInTrack) / edgeFade);
+              } else if (entryCenterInTrack > yearFocusRight) {
+                yearProgress = Math.max(0, 1 - (entryCenterInTrack - yearFocusRight) / edgeFade);
+              }
+              yearProgress = smoothstep(Math.min(1, yearProgress));
+              const yearScale = 0.68 + yearProgress * 0.32;
+              const yearBlur = (1 - yearProgress) * 2.4;
+              entry.style.opacity = "1";
+              entry.style.filter = "none";
+              if (pill) {
+                pill.style.setProperty("--entry-scale", `${yearScale}`);
+                pill.style.setProperty("--year-blur", `${yearBlur}px`);
+              }
+              return;
+            }
+
+            entry.style.opacity = "1";
+            entry.style.filter = "none";
+            if (pill) {
+              pill.style.filter = "none";
+              pill.style.setProperty("--entry-scale", `${bandScale}`);
+            }
+          });
+          return;
+        }
+
         const trackRect = track.getBoundingClientRect();
         const fadeZoneStart = trackRect.height * EDGE_FADE.startRatio;
         const fullFadeZone = trackRect.height * EDGE_FADE.fullFadeRatio;
@@ -848,8 +1020,10 @@
       }
 
       function updateActiveTimeline() {
-        const triggerBandCenter = TRIGGER_ZONE.fixedOffset;
-        const triggerLine = track.scrollTop + triggerBandCenter;
+        const triggerBandCenter = isCompactTimeline() ? track.clientWidth / 2 : TRIGGER_ZONE.fixedOffset;
+        const triggerLine = isCompactTimeline()
+          ? track.scrollLeft + triggerBandCenter
+          : track.scrollTop + triggerBandCenter;
         trackWrap?.style.setProperty(
           "--trigger-debug-top-y",
           `${triggerBandCenter - TRIGGER_ZONE.halfHeight - TRIGGER_ZONE.visualLift}px`
@@ -892,6 +1066,10 @@
 
       track.addEventListener("scroll", scheduleTimelineUpdate, { passive: true });
       timelineBackToTop?.addEventListener("click", () => {
+        if (isCompactTimeline()) {
+          track.scrollTo({ left: 0, behavior: "smooth" });
+          return;
+        }
         track.scrollTo({ top: 0, behavior: "smooth" });
       });
       async function initializePageLayout() {
