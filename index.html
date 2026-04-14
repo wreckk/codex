@@ -592,11 +592,14 @@
         });
 
         yearEntries.forEach((entry) => {
-          const peers = timelineTargets.filter((node) => node.dataset.year === entry.dataset.year);
-          if (!peers.length) return;
+          const peersAll = timelineTargets.filter((node) => node.dataset.year === entry.dataset.year);
+          if (!peersAll.length) return;
 
-          const firstY = getEntryY(peers[0]);
-          const lastY = getEntryY(peers[peers.length - 1]);
+          const peers = peersAll.filter((node) => node.dataset.story !== "time-off");
+          const scopedPeers = peers.length ? peers : peersAll;
+
+          const firstY = getEntryY(scopedPeers[0]);
+          const lastY = getEntryY(scopedPeers[scopedPeers.length - 1]);
           const entryIndex = yearEntries.indexOf(entry);
           const previousYear = yearEntries[entryIndex - 1];
           const nextYear = yearEntries[entryIndex + 1];
@@ -607,7 +610,10 @@
             ? timelineTargets.filter((node) => node.dataset.year === nextYear.dataset.year)
             : [];
 
-          const topBoundary = previousPeers.length
+          const hasLeadInItem = peersAll.length !== scopedPeers.length;
+          const topBoundary = hasLeadInItem
+            ? (getEntryY(peersAll[0]) + firstY) / 2
+            : previousPeers.length
             ? (getEntryY(previousPeers[previousPeers.length - 1]) + firstY) / 2
             : firstY - itemStep * 0.7;
           const bottomBoundary = nextPeers.length

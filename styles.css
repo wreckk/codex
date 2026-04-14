@@ -515,7 +515,7 @@ body {
   content: "";
   position: absolute;
   left: 0;
-  right: 0;
+  right: -28px;
   top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
@@ -526,7 +526,7 @@ body {
   content: "";
   position: absolute;
   left: 0;
-  right: 0;
+  right: -28px;
   top: var(--line-bottom, 0px);
   height: 1px;
   margin: 0;
