@@ -600,11 +600,11 @@
 
           const topBoundary = previousPeers.length
             ? (getEntryY(previousPeers[previousPeers.length - 1]) + firstY) / 2
-            : firstY - itemStep;
+            : firstY - itemStep / 2;
           const bottomBoundary = nextPeers.length
             ? (lastY + getEntryY(nextPeers[0])) / 2
-            : lastY + itemStep * 0.7;
-          const midY = (firstY + lastY) / 2;
+            : lastY + itemStep / 2;
+          const midY = (topBoundary + bottomBoundary) / 2;
 
           entry.style.setProperty("--y", `${midY}px`);
           entry.style.setProperty("--line-top", `${topBoundary - midY}px`);
