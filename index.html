@@ -739,8 +739,9 @@
         const trackRect = track.getBoundingClientRect();
         const fadeZoneStart = trackRect.height * EDGE_FADE.startRatio;
         const fullFadeZone = trackRect.height * EDGE_FADE.fullFadeRatio;
-        const yearFocusCenter = trackRect.height * 0.5;
-        const yearFocusRadius = trackRect.height * 0.425;
+        const yearFocusTop = trackRect.height * 0.2;
+        const yearFocusBottom = trackRect.height * 0.8;
+        const yearFadeBand = trackRect.height * 0.2;
         const triggerCenterInTrack = triggerLine - track.scrollTop;
         const triggerBandHalf = TRIGGER_ZONE.halfHeight;
         const triggerBandTop = triggerCenterInTrack - triggerBandHalf;
@@ -768,19 +769,24 @@
           }
 
           if (isYear) {
-            const yearDistance = Math.abs(entryCenterInTrack - yearFocusCenter);
-            const yearProgress = smoothstep(Math.max(0, 1 - yearDistance / yearFocusRadius));
+            let yearProgress = 1;
+            if (entryCenterInTrack < yearFocusTop) {
+              yearProgress = Math.max(0, entryCenterInTrack / yearFadeBand);
+            } else if (entryCenterInTrack > yearFocusBottom) {
+              yearProgress = Math.max(
+                0,
+                (trackRect.height - entryCenterInTrack) / yearFadeBand
+              );
+            }
+            yearProgress = smoothstep(Math.min(1, yearProgress));
             const yearScale = 0.6 + yearProgress * 0.4;
             const yearBlur = (1 - yearProgress) * 2.4;
-            const yearColor = yearProgress > 0.5 ? "var(--muted)" : "#c2b8c3";
             entry.style.opacity = "1";
             entry.style.filter = "none";
             if (pill) {
               pill.style.setProperty("--entry-scale", `${yearScale}`);
               pill.style.setProperty("--year-blur", `${yearBlur}px`);
             }
-            const yearMark = entry.querySelector(".year-mark");
-            if (yearMark) yearMark.style.color = yearColor;
             return;
           }
 
