@@ -159,6 +159,22 @@ body {
   z-index: 2;
 }
 
+.sidebar-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -20px;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(253, 250, 243, 1) 0%,
+    rgba(253, 250, 243, 0.82) 48%,
+    rgba(253, 250, 243, 0) 100%
+  );
+}
+
 .sidebar-scroll {
   min-height: 0;
   overflow-y: auto;
@@ -363,7 +379,7 @@ body {
 .mini-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 6px 8px;
+  padding: 7px 10px;
   border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: #fff;
@@ -705,7 +721,7 @@ body {
   line-height: 26px;
   letter-spacing: 0.01em;
   font-weight: 700;
-  color: #b7a998;
+  color: color-mix(in srgb, var(--muted) 70%, white 30%);
   margin-right: 0;
 }
 
@@ -831,7 +847,7 @@ body {
 .story-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 6px 8px;
+  padding: 7px 10px;
   border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: #f1ebe4;
@@ -881,7 +897,7 @@ body {
   padding: 2px 6px 0 0;
   font-size: 13px;
   line-height: 1.35;
-  color: color-mix(in srgb, #b7a998 72%, white);
+  color: color-mix(in srgb, #b7a998 48%, white 52%);
   font-style: italic;
   text-align: center;
   white-space: nowrap;
