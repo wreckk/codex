@@ -848,6 +848,7 @@ body.preload-layout .page-loader {
   display: block;
   left: 0;
   right: 0;
+  width: auto;
   top: var(--line-top, 0px);
   margin: 0;
 }
