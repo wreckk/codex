@@ -589,7 +589,8 @@
         const yearGapStep = itemStep * 0.576;
 
         timelineTargets.forEach((entry, index) => {
-          entry.style.setProperty("--y", `${currentY}px`);
+          const snappedY = snapToTick(currentY);
+          entry.style.setProperty("--y", `${snappedY}px`);
           currentY += itemStep;
 
           const nextEntry = timelineTargets[index + 1];
