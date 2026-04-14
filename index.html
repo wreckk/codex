@@ -104,8 +104,10 @@
 
         <section class="timeline-column" aria-label="Timeline">
           <div class="timeline-head">
-            <h2>EXPERIENCES</h2>
-            <span class="timeline-hint">Scroll to see more</span>
+            <h2 class="timeline-label">
+              EXPERIENCE
+              <span class="timeline-hint">Scroll to see more</span>
+            </h2>
           </div>
 
           <div class="timeline-track">
@@ -477,6 +479,7 @@
       const storyPills = document.getElementById("story-pills");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
+      const timelineLabel = document.querySelector(".timeline-label");
       const sidebarHeading = document.querySelector(".sidebar-heading");
       const sidebarName = sidebarHeading?.querySelector("h1");
       const sidebarRole = sidebarHeading?.querySelector("p");
@@ -486,7 +489,10 @@
       const stickyOffset = 35;
       const yearPushGap = 6;
 
-      function fitHeadingText(node, { minSize, maxSize, baseLetterSpacing = 0, tighten = false }) {
+      function fitHeadingText(
+        node,
+        { minSize, maxSize, baseLetterSpacing = 0, tighten = false, fillWidth = false }
+      ) {
         if (!node || !sidebarHeading) return;
         const available = sidebarHeading.clientWidth;
         const text = node.textContent.trim();
@@ -517,6 +523,15 @@
 
         node.style.fontSize = `${size}px`;
         node.style.letterSpacing = `${spacing}px`;
+        node.style.transform = "";
+
+        if (fillWidth) {
+          const fittedWidth = node.scrollWidth;
+          if (fittedWidth > 0) {
+            const scaleX = available / fittedWidth;
+            node.style.transform = `scaleX(${Math.max(1, scaleX)})`;
+          }
+        }
       }
 
       function fitSidebarHeading() {
@@ -524,7 +539,7 @@
           minSize: 34,
           maxSize: 44,
           baseLetterSpacing: -1.8,
-          tighten: true,
+          fillWidth: true,
         });
 
         fitHeadingText(sidebarRole, {
@@ -564,7 +579,7 @@
         if (!timelineContent) return;
 
         let currentY = 0;
-        const yearToItemGap = 74;
+        const yearToItemGap = 64;
         const itemStep = 64;
         const itemToYearGap = 110;
 
@@ -606,6 +621,14 @@
         let active = timelineTargets[0];
         let bestDistance = Infinity;
 
+        if (track.scrollTop <= 4) {
+          timelineTargets.forEach((node) => node.classList.remove("active"));
+          active.classList.add("active");
+          renderStory(active.dataset.story || "time-off");
+          updateYearPositions();
+          return;
+        }
+
         timelineTargets.forEach((node) => {
           const y = node.offsetTop + node.offsetHeight / 2;
           const distance = Math.abs(center - y);
@@ -629,6 +652,12 @@
         layoutTimeline();
         fitSidebarHeading();
         updateActiveTimeline();
+        if (timelineLabel) {
+          timelineLabel.classList.add("show-hint");
+          window.setTimeout(() => {
+            timelineLabel.classList.remove("show-hint");
+          }, 1800);
+        }
       });
       window.addEventListener("resize", () => {
         layoutTimeline();
