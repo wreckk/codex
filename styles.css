@@ -533,6 +533,7 @@ body {
   border-radius: 999px;
   will-change: transform, filter, opacity;
   transform: translateZ(0) scale(var(--entry-scale, 1));
+  transform-origin: left center;
   transition:
     background-color 180ms ease,
     border-color 180ms ease,
