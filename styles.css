@@ -491,7 +491,7 @@ body {
   line-height: 1;
   z-index: 4;
   left: -24px;
-  width: calc(100% + 24px);
+  width: 48px;
   justify-content: flex-end;
 }
 
@@ -512,9 +512,10 @@ body {
 }
 
 .timeline-entry.year::before {
+  content: "";
   position: absolute;
-  left: 34px;
-  right: 0;
+  left: 58px;
+  width: calc(100% + 24px);
   top: 50%;
   height: 1px;
   margin: 0;
