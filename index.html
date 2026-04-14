@@ -50,6 +50,17 @@
                       keySplines="0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1"
                       values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,1 22,5 42,1; 2,5 22,5 42,5"
                     />
+                    <animateTransform
+                      attributeName="transform"
+                      attributeType="XML"
+                      type="translate"
+                      dur="6s"
+                      repeatCount="indefinite"
+                      keyTimes="0;0.42;0.56;0.64;0.74;1"
+                      calcMode="spline"
+                      keySplines="0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1"
+                      values="0 0;0 0;0 0;0 1.25;0 0;0 0"
+                    />
                   </polyline>
                 </svg>
               </span>
@@ -868,8 +879,8 @@
       function layoutTimelineCompact() {
         if (!timelineContent) return;
 
-        const itemStep = isMobileLayout() ? 152 : COMPACT_TIMELINE_LAYOUT.itemStep;
-        const startX = isMobileLayout() ? 104 : COMPACT_TIMELINE_LAYOUT.startX;
+        const itemStep = isMobileLayout() ? 188 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const startX = isMobileLayout() ? 118 : COMPACT_TIMELINE_LAYOUT.startX;
         const yearGapStep = itemStep * COMPACT_TIMELINE_LAYOUT.yearGapRatio;
         let currentX = startX;
 

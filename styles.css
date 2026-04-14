@@ -1276,24 +1276,28 @@ body.preload-layout .page-loader {
   }
 
   .page-shell {
-    padding: 16px;
+    padding: 0;
     height: 100dvh;
     min-height: 100dvh;
     overflow: hidden;
   }
 
   .page-body {
-    display: block;
-    height: 100%;
-    min-height: 100%;
-    padding-top: 0;
+    position: fixed;
+    inset: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 8px) 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    row-gap: 12px;
+    height: auto;
+    min-height: 0;
     overflow: hidden;
   }
 
   .sidebar-card,
   .story-card,
   .timeline-column {
-    width: min(calc(100vw - 32px), 420px);
+    width: 100%;
     margin: 0;
   }
 
@@ -1303,21 +1307,25 @@ body.preload-layout .page-loader {
   }
 
   .sidebar-card {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 40;
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    z-index: 30;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
     padding: 0 18px;
     height: auto;
-    max-height: calc(100vh - 32px);
+    max-height: none;
     overflow: hidden;
   }
 
   .sidebar-card.is-mobile-open {
-    height: calc(100vh - 32px);
+    position: absolute;
+    inset: 0;
+    height: auto;
+    max-height: none;
+    z-index: 50;
   }
 
   .sidebar-heading {
@@ -1431,7 +1439,7 @@ body.preload-layout .page-loader {
   .sidebar-scroll {
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: none;
+    min-height: 0;
     padding-top: 4px;
     padding-bottom: 8px;
     scrollbar-gutter: auto;
@@ -1468,13 +1476,14 @@ body.preload-layout .page-loader {
   }
 
   .story-card {
-    position: fixed;
-    left: 50%;
-    top: calc(16px + var(--mobile-header-height, 110px) + 14px);
-    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + 20px);
-    transform: translateX(-50%);
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
     padding: 0 12px;
     z-index: 20;
+    height: 100%;
   }
 
   .timeline-track-wrap {
@@ -1482,11 +1491,11 @@ body.preload-layout .page-loader {
   }
 
   .timeline-column {
-    position: fixed;
-    left: 50%;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+    position: relative;
+    left: auto;
+    bottom: auto;
     top: auto;
-    transform: translateX(-50%);
+    transform: none;
     height: 190px;
     min-height: 190px;
     z-index: 25;
@@ -1517,7 +1526,7 @@ body.preload-layout .page-loader {
   }
 
   .timeline-entry.year {
-    top: 128px;
+    top: 116px;
   }
 
   .timeline-head {
