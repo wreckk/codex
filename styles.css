@@ -546,10 +546,12 @@ body {
 
 .year-mark {
   display: block;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue", system-ui, sans-serif;
   font-size: 26px;
   line-height: 32px;
   letter-spacing: -0.04em;
   font-weight: 300;
+  color: #b7a998;
   margin-right: 0;
 }
 
