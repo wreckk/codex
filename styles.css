@@ -16,9 +16,9 @@
   --story-image: url("https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png");
   --timeline-sticky-offset: 35px;
   --timeline-gutter: 23px;
-  --timeline-ink-strong: #746676;
-  --timeline-ink-mid: #928494;
-  --timeline-ink-soft: #b6a9b5;
+  --timeline-ink-strong: #857785;
+  --timeline-ink-mid: #b7aabb;
+  --timeline-ink-soft: #ddd5de;
 }
 
 @font-face {
@@ -94,13 +94,13 @@ body {
 
 .sidebar-heading h1 {
   margin: 0;
-  width: 100%;
-  display: inline-block;
+  width: max-content;
+  display: block;
   font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 46px;
   line-height: 0.92;
   color: var(--accent);
-  letter-spacing: -0.085em;
+  letter-spacing: -0.045em;
   font-weight: 900;
   text-transform: uppercase;
   white-space: nowrap;
@@ -110,7 +110,7 @@ body {
 .sidebar-heading p {
   margin: 6px 0 0 0;
   color: var(--muted);
-  width: 100%;
+  width: max-content;
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 0.32em;
@@ -167,8 +167,8 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -12px;
-  height: 16px;
+  bottom: -16px;
+  height: 14px;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
@@ -329,14 +329,38 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 999px;
-  background: #f4efe8;
+  background: transparent;
   color: var(--muted);
   text-decoration: none;
   font-size: 17px;
+  position: relative;
   transition:
     transform 180ms ease,
-    background-color 180ms ease,
     color 180ms ease;
+}
+
+.sidebar-links a::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(4px);
+  padding: 5px 8px;
+  border: 1px solid #e1d5c1;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
 }
 
 .sidebar-links a svg {
@@ -352,8 +376,13 @@ body {
 
 .sidebar-links a:hover {
   transform: translateY(-1px);
-  background: #fff;
   color: var(--accent);
+}
+
+.sidebar-links a:hover::after,
+.sidebar-links a:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .rail-section {
@@ -382,7 +411,7 @@ body {
 .mini-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 7px 10px;
+  padding: 8px 11px;
   border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: #fff;
@@ -411,7 +440,7 @@ body {
   margin-bottom: 16px;
   padding-left: 0;
   min-height: 18px;
-  padding-top: 36px;
+  padding-top: 16px;
 }
 
 .timeline-head h2 {
@@ -509,7 +538,7 @@ body {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: var(--timeline-ink-soft);
+  background: #e1dbe2;
 }
 
 .timeline-shortticks {
@@ -520,7 +549,7 @@ body {
   height: 100%;
   background-image: repeating-linear-gradient(
     to bottom,
-    var(--timeline-ink-soft) 0 1px,
+    #e4dde5 0 1px,
     transparent 1px 5px
   );
 }
@@ -540,7 +569,7 @@ body {
   top: 0;
   width: 37px;
   height: 1px;
-  background: var(--timeline-ink-soft);
+  background: #d7cfd8;
 }
 
 .timeline-progress-line {
@@ -564,8 +593,8 @@ body {
   height: 1px;
   background: repeating-linear-gradient(
     to right,
-    var(--timeline-ink-mid) 0 7px,
-    transparent 7px 13px
+    var(--timeline-ink-mid) 0 1px,
+    transparent 1px 5px
   );
   mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
@@ -632,7 +661,7 @@ body {
   margin-right: 0;
   height: 1px;
   width: 46px;
-  background: var(--timeline-ink-mid);
+  background: #beb1c0;
   flex-shrink: 0;
 }
 
@@ -696,8 +725,8 @@ body {
   margin: 0;
   background: repeating-linear-gradient(
     to right,
-    var(--timeline-ink-mid) 0 7px,
-    transparent 7px 13px
+    var(--timeline-ink-mid) 0 1px,
+    transparent 1px 5px
   );
   mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
@@ -713,8 +742,8 @@ body {
   margin: 0;
   background: repeating-linear-gradient(
     to right,
-    var(--timeline-ink-mid) 0 7px,
-    transparent 7px 13px
+    var(--timeline-ink-mid) 0 1px,
+    transparent 1px 5px
   );
   mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
@@ -727,7 +756,7 @@ body {
   line-height: 26px;
   letter-spacing: 0.01em;
   font-weight: 700;
-  color: color-mix(in srgb, var(--timeline-ink-strong) 70%, white 30%);
+  color: #ab9faa;
   margin-right: 0;
 }
 
@@ -813,7 +842,7 @@ body {
   line-height: 1.1;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 28px;
+  margin-top: 16px;
 }
 
 .story-head h2 {
@@ -853,7 +882,7 @@ body {
 .story-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 7px 10px;
+  padding: 8px 11px;
   border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: #f1ebe4;
