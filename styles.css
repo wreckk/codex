@@ -237,13 +237,25 @@ body {
   order: 99;
   position: sticky;
   bottom: 0;
+  z-index: 2;
   background: linear-gradient(
     to top,
     rgba(253, 250, 243, 1) 0%,
-    rgba(253, 250, 243, 0.94) 68%,
+    rgba(253, 250, 243, 0.98) 60%,
     rgba(253, 250, 243, 0) 100%
   );
   padding-bottom: 0;
+}
+
+.sidebar-links::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 14px;
+  background: #fdfaf3;
+  pointer-events: none;
 }
 
 .sidebar-links a {
