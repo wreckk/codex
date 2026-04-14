@@ -653,7 +653,7 @@ body {
     box-shadow 180ms ease,
     filter 180ms ease,
     opacity 180ms ease,
-    transform 180ms ease;
+    transform 120ms linear;
 }
 
 .timeline-entry::before {
@@ -844,7 +844,7 @@ body {
   line-height: 1.1;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 0;
+  margin-top: 15px;
 }
 
 .story-head h2 {
@@ -932,9 +932,9 @@ body {
 .story-notes {
   display: block;
   padding: 2px 6px 0 0;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.35;
-  color: #c7bcc7;
+  color: #b8b2b8;
   font-style: italic;
   text-align: center;
   white-space: nowrap;
