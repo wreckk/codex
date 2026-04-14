@@ -579,7 +579,7 @@
         if (!timelineContent) return;
 
         let currentY = 0;
-        const yearToItemGap = 86;
+        const yearToItemGap = 99;
         const itemStep = 64;
         const itemToYearGap = 110;
 
@@ -616,11 +616,23 @@
         });
       }
 
-      function updateEntryDepth() {
+      function updateEntryDepth(activeEntry) {
         const trackRect = track.getBoundingClientRect();
         const zoneHeight = trackRect.height * 0.1;
+        const activeYear = activeEntry?.dataset.year;
 
         timelineEntries.forEach((entry) => {
+          const pill = entry.querySelector(".entry-pill");
+          const isPinnedYear =
+            entry.classList.contains("year") && activeYear && entry.dataset.year === activeYear;
+          const isActive = entry === activeEntry || isPinnedYear;
+
+          if (isActive) {
+            entry.style.opacity = "1";
+            if (pill) pill.style.filter = "blur(0px)";
+            return;
+          }
+
           const entryRect = entry.getBoundingClientRect();
           const entryCenter = entryRect.top + entryRect.height / 2;
           const topDistance = entryCenter - trackRect.top;
@@ -635,12 +647,12 @@
           const opacity = 0.18 + progress * 0.82;
           const blur = (1 - progress) * 5;
           entry.style.opacity = `${opacity}`;
-          entry.style.filter = `blur(${blur}px)`;
+          if (pill) pill.style.filter = `blur(${blur}px)`;
         });
       }
 
       function updateActiveTimeline() {
-        const center = track.scrollTop + stickyOffset + 24;
+        const triggerLine = track.scrollTop + Math.max(stickyOffset + 104, track.clientHeight * 0.28);
         let active = timelineTargets[0];
         let bestDistance = Infinity;
 
@@ -649,13 +661,13 @@
           active.classList.add("active");
           renderStory(active.dataset.story || "time-off");
           updateYearPositions();
-          updateEntryDepth();
+          updateEntryDepth(active);
           return;
         }
 
         timelineTargets.forEach((node) => {
           const y = node.offsetTop + node.offsetHeight / 2;
-          const distance = Math.abs(center - y);
+          const distance = Math.abs(triggerLine - y);
           if (distance < bestDistance) {
             bestDistance = distance;
             active = node;
@@ -666,7 +678,7 @@
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
         updateYearPositions();
-        updateEntryDepth();
+        updateEntryDepth(active);
       }
 
       const headingObserver = new ResizeObserver(() => fitSidebarHeading());
