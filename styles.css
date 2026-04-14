@@ -1349,7 +1349,7 @@ body.preload-layout .page-loader {
   .sidebar-mobile-toggle__name {
     display: block;
     font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-    font-size: 26px;
+    font-size: 28px;
     line-height: 0.94;
     letter-spacing: -0.045em;
     font-weight: 900;
@@ -1459,7 +1459,7 @@ body.preload-layout .page-loader {
   .timeline-column {
     position: fixed;
     left: 50%;
-    bottom: 0;
+    bottom: 16px;
     top: auto;
     transform: translateX(-50%);
     height: 190px;
@@ -1478,6 +1478,15 @@ body.preload-layout .page-loader {
     top: 102px;
   }
 
+  .timeline-shortticks,
+  .timeline-tailticks {
+    top: 86px;
+  }
+
+  .timeline-mediumticks {
+    top: 74px;
+  }
+
   .timeline-entry {
     top: 34px;
   }
@@ -1490,7 +1499,7 @@ body.preload-layout .page-loader {
     display: none;
   }
 
-  .story-title {
+  .story-head h2 {
     font-size: 32px;
     line-height: 0.98;
   }

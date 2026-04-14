@@ -642,7 +642,7 @@
           const available = sidebarMobileToggleCopy.clientWidth;
           const width = sidebarMobileToggleName.scrollWidth;
           if (available && width) {
-            const scale = Math.min(1.18, Math.max(0.92, available / width));
+            const scale = Math.min(1.36, Math.max(0.94, available / width));
             sidebarMobileToggleName.style.transform = `scaleX(${scale})`;
           }
         }
@@ -653,9 +653,10 @@
           const available = sidebarMobileToggleCopy.clientWidth;
           const width = sidebarMobileToggleRole.scrollWidth;
           const characters = Math.max(1, sidebarMobileToggleRole.textContent.trim().length - 1);
-          if (available && width && width < available) {
+          if (available && width && characters > 0) {
             const extra = (available - width) / characters;
-            sidebarMobileToggleRole.style.letterSpacing = `calc(0.24em + ${extra}px)`;
+            const trackingPx = Math.max(0, extra);
+            sidebarMobileToggleRole.style.letterSpacing = `calc(0.24em + ${trackingPx}px)`;
           }
         }
       }
