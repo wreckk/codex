@@ -430,10 +430,10 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 20px;
+  width: 16px;
   height: 1px;
-  background: rgba(185, 173, 159, 0.7);
-  transform: translateY(-50%);
+  background: rgba(217, 208, 197, 0.72);
+  transform: translateY(-0.5px);
 }
 
 .timeline-progress-line {
