@@ -108,6 +108,8 @@
           </div>
 
           <div class="timeline-track">
+            <div class="timeline-trigger-debug timeline-trigger-debug-top" aria-hidden="true"></div>
+            <div class="timeline-trigger-debug timeline-trigger-debug-bottom" aria-hidden="true"></div>
             <div class="timeline-content">
               <div class="timeline-line" aria-hidden="true"></div>
               <div class="timeline-shortticks" aria-hidden="true"></div>
@@ -117,8 +119,6 @@
               <div class="timeline-top-glow" aria-hidden="true"></div>
               <div class="timeline-bottom-fade" aria-hidden="true"></div>
               <div class="timeline-first-year-line" aria-hidden="true"></div>
-              <div class="timeline-trigger-debug timeline-trigger-debug-top" aria-hidden="true"></div>
-              <div class="timeline-trigger-debug timeline-trigger-debug-bottom" aria-hidden="true"></div>
 
               <div class="timeline-entry year" style="--y: 0px" data-year="2026" data-company="Sabbatical">
                 <div class="entry-pill"><span class="year-mark">2026</span><span class="company">Sabbatical</span></div>
@@ -725,6 +725,9 @@
       function updateActiveTimeline() {
         const triggerBandCenter = Math.max(stickyOffset + 112, track.clientHeight * 0.3);
         const triggerLine = track.scrollTop + triggerBandCenter;
+        const monthTriggerHalf = 54;
+        track.style.setProperty("--trigger-debug-top-y", `${triggerBandCenter - monthTriggerHalf}px`);
+        track.style.setProperty("--trigger-debug-bottom-y", `${triggerBandCenter + monthTriggerHalf}px`);
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
         let bestDistance = Infinity;
@@ -740,22 +743,6 @@
 
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
-
-        const activeIndex = timelineTargets.indexOf(active);
-        const activeCenter = getEntryCenter(active);
-        const previousEntry = activeIndex > 0 ? timelineTargets[activeIndex - 1] : null;
-        const nextEntry = activeIndex < timelineTargets.length - 1 ? timelineTargets[activeIndex + 1] : null;
-        const previousCenter = previousEntry ? getEntryCenter(previousEntry) : activeCenter;
-        const nextCenter = nextEntry ? getEntryCenter(nextEntry) : activeCenter;
-        const topBoundary = previousEntry
-          ? snapToTick((previousCenter + activeCenter) / 2)
-          : snapToTick(activeCenter - (nextCenter - activeCenter) / 2);
-        const bottomBoundary = nextEntry
-          ? snapToTick((activeCenter + nextCenter) / 2)
-          : snapToTick(activeCenter + (activeCenter - previousCenter) / 2);
-
-        timelineContent.style.setProperty("--trigger-debug-top-y", `${topBoundary}px`);
-        timelineContent.style.setProperty("--trigger-debug-bottom-y", `${bottomBoundary}px`);
 
         renderStory(active.dataset.story || "time-off");
         updateYearPositions(active);
