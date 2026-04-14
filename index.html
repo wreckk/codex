@@ -519,9 +519,7 @@
         [1, 1],
       ];
       const TRIGGER_ZONE = {
-        baseOffset: -8,
-        minHeightRatio: 0.3,
-        lift: 120,
+        fixedOffset: 96,
         halfHeight: 54,
         visualLift: 0,
       };
@@ -761,11 +759,7 @@
       }
 
       function updateActiveTimeline() {
-        const triggerBandCenter = Math.max(
-          Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--timeline-sticky-offset")) +
-            TRIGGER_ZONE.baseOffset,
-          track.clientHeight * TRIGGER_ZONE.minHeightRatio - TRIGGER_ZONE.lift
-        );
+        const triggerBandCenter = TRIGGER_ZONE.fixedOffset;
         const triggerLine = track.scrollTop + triggerBandCenter;
         trackWrap?.style.setProperty(
           "--trigger-debug-top-y",
