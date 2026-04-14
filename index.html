@@ -616,8 +616,8 @@
 
       function updateEntryDepth(activeEntry) {
         const trackRect = track.getBoundingClientRect();
-        const fadeZoneStart = trackRect.height * 0.2;
-        const fullFadeZone = trackRect.height * 0.25;
+        const fadeZoneStart = trackRect.height * 0.18;
+        const fullFadeZone = trackRect.height * 0.08;
 
         timelineEntries.forEach((entry) => {
           const pill = entry.querySelector(".entry-pill");
@@ -637,8 +637,11 @@
           const edgeDistance = Math.min(topDistance, bottomDistance);
 
           let progress = 1;
-          if (edgeDistance < fullFadeZone) {
-            progress = Math.max(0, (edgeDistance - fadeZoneStart) / (fullFadeZone - fadeZoneStart));
+          if (edgeDistance < fadeZoneStart) {
+            progress = Math.max(
+              0,
+              Math.min(1, (edgeDistance - fullFadeZone) / (fadeZoneStart - fullFadeZone))
+            );
           }
 
           const opacity = entry.classList.contains("year")

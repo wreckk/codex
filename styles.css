@@ -490,15 +490,16 @@ body {
   color: var(--muted);
   line-height: 1;
   z-index: 4;
-  left: -36px;
-  width: 40px;
-  justify-content: flex-start;
+  left: -78px;
+  width: 62px;
+  justify-content: flex-end;
 }
 
 .timeline-entry.year .entry-pill {
   display: block;
   position: absolute;
-  left: 0;
+  right: 0;
+  left: auto;
   top: 50%;
   padding: 0;
   margin: 0;
@@ -511,11 +512,7 @@ body {
 }
 
 .timeline-entry.year::before {
-  position: absolute;
-  left: 48px;
-  top: 50%;
-  margin: 0;
-  transform: translateY(-50%);
+  display: none;
 }
 
 .year-mark {
