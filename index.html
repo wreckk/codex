@@ -538,19 +538,20 @@
       let activeStoryId = null;
       let timelineFrame = null;
 
-      function fitSidebarHeadingLine(node, minScale = 0.88) {
+      function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
         if (!node || !sidebarHeading) return;
         node.style.transform = "";
         const available = sidebarHeading.clientWidth;
         const width = node.scrollWidth;
         if (!available || !width) return;
-        const scale = width > available ? Math.max(minScale, available / width) : 1;
+        const rawScale = available / width;
+        const scale = Math.min(maxScale, Math.max(minScale, rawScale));
         node.style.transform = `scaleX(${scale})`;
       }
 
       function fitSidebarHeading() {
-        fitSidebarHeadingLine(sidebarName, 0.9);
-        fitSidebarHeadingLine(sidebarRole, 0.94);
+        fitSidebarHeadingLine(sidebarName, { minScale: 0.9, maxScale: 1.08 });
+        fitSidebarHeadingLine(sidebarRole, { minScale: 0.94, maxScale: 1.02 });
       }
 
       function renderStory(id) {
