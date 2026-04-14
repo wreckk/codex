@@ -738,15 +738,19 @@
           if (isYear) {
             const yearDistance = Math.abs(entryCenterInTrack - yearFocusCenter);
             const yearProgress = smoothstep(Math.max(0, 1 - yearDistance / yearFocusRadius));
-            const yearScale = 0.8 + yearProgress * 0.2;
+            const yearScale = 0.7 + yearProgress * 0.3;
             const yearOpacity = 0.5 + yearProgress * 0.5;
+            const yearBlur = (1 - yearProgress) * 1.4;
+            const yearColor = yearProgress > 0.5 ? "var(--muted)" : "#ab9faa";
             entry.style.opacity = "1";
             entry.style.filter = "none";
             if (pill) {
-              pill.style.filter = "none";
               pill.style.setProperty("--entry-scale", `${yearScale}`);
               pill.style.setProperty("--year-opacity", `${yearOpacity}`);
+              pill.style.setProperty("--year-blur", `${yearBlur}px`);
             }
+            const yearMark = entry.querySelector(".year-mark");
+            if (yearMark) yearMark.style.color = yearColor;
             return;
           }
 

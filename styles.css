@@ -729,6 +729,7 @@ body {
   white-space: nowrap;
   overflow: visible;
   opacity: var(--year-opacity, 0.5);
+  filter: blur(var(--year-blur, 1.25px));
 }
 
 .timeline-entry.year::before {
