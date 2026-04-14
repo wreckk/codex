@@ -94,7 +94,7 @@
               title="Discogs"
               aria-label="Discogs"
               ><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm0 15.25A5.25 5.25 0 1 1 17.25 12 5.26 5.26 0 0 1 12 17.25Zm0-7A1.75 1.75 0 1 0 13.75 12 1.75 1.75 0 0 0 12 10.25Z"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm0 14.5A4.5 4.5 0 1 1 16.5 12 4.5 4.5 0 0 1 12 16.5Zm0-3A1.5 1.5 0 1 0 10.5 12 1.5 1.5 0 0 0 12 13.5Z"/>
               </svg></a
             >
             <a
@@ -707,6 +707,8 @@
         const trackRect = track.getBoundingClientRect();
         const fadeZoneStart = trackRect.height * EDGE_FADE.startRatio;
         const fullFadeZone = trackRect.height * EDGE_FADE.fullFadeRatio;
+        const yearFocusCenter = trackRect.height * 0.5;
+        const yearFocusRadius = 110;
         const triggerCenterInTrack = triggerLine - track.scrollTop;
         const triggerBandHalf = TRIGGER_ZONE.halfHeight;
         const triggerBandTop = triggerCenterInTrack - triggerBandHalf;
@@ -734,7 +736,8 @@
           }
 
           if (isYear) {
-            const yearProgress = smoothstep(clampedBandProgress);
+            const yearDistance = Math.abs(entryCenterInTrack - yearFocusCenter);
+            const yearProgress = smoothstep(Math.max(0, 1 - yearDistance / yearFocusRadius));
             const yearScale = 0.8 + yearProgress * 0.2;
             const yearOpacity = 0.5 + yearProgress * 0.5;
             entry.style.opacity = "1";
@@ -743,6 +746,16 @@
               pill.style.filter = "none";
               pill.style.setProperty("--entry-scale", `${yearScale}`);
               pill.style.setProperty("--year-opacity", `${yearOpacity}`);
+            }
+            return;
+          }
+
+          if (clampedBandProgress > 0 && clampedBandProgress < 1) {
+            entry.style.opacity = "1";
+            entry.style.filter = "none";
+            if (pill) {
+              pill.style.filter = "none";
+              pill.style.setProperty("--entry-scale", `${bandScale}`);
             }
             return;
           }
