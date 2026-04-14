@@ -788,7 +788,7 @@ body {
   content: "";
   position: absolute;
   left: 0;
-  right: -28px;
+  right: 0;
   top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
@@ -797,8 +797,8 @@ body {
     var(--timeline-ink-mid) 0 1px,
     transparent 1px 5px
   );
-  mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
 }
 
 .timeline-entry.year::after {
