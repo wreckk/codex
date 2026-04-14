@@ -480,6 +480,7 @@
       const pinnedYear = document.getElementById("timeline-pinned-year");
       const pinnedYearMark = document.getElementById("timeline-pinned-year-mark");
       const pinnedCompany = document.getElementById("timeline-pinned-company");
+      let currentPinnedYear = pinnedYearMark?.textContent || "";
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
@@ -605,19 +606,40 @@
         timelineContent.style.height = `${currentY + 220}px`;
       }
 
-      function updateYearPositions(activeEntry) {
-        const activeYear = activeEntry?.dataset.year || yearEntries[0]?.dataset.year || "2026";
-        const activeYearEntry = yearEntries.find((entry) => entry.dataset.year === activeYear);
+      function updateYearPositions() {
+        const pinnedLine = 56;
+        let activeYearEntry = yearEntries[0];
 
-        if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
-        if (pinnedCompany) {
-          pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
-          pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
+        yearEntries.forEach((entry) => {
+          if (entry.offsetTop - track.scrollTop <= pinnedLine) {
+            activeYearEntry = entry;
+          }
+        });
+
+        const activeYear = activeYearEntry?.dataset.year || "2026";
+
+        if (activeYear !== currentPinnedYear && pinnedYear) {
+          pinnedYear.classList.add("is-swapping");
+          window.setTimeout(() => {
+            if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
+            if (pinnedCompany) {
+              pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
+              pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
+            }
+            currentPinnedYear = activeYear;
+            pinnedYear.classList.remove("is-swapping");
+          }, 90);
+        } else {
+          if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
+          if (pinnedCompany) {
+            pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
+            pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
+          }
+          currentPinnedYear = activeYear;
         }
 
         yearEntries.forEach((entry) => {
           const isActiveYear = entry.dataset.year === activeYear;
-          entry.classList.remove("is-pinned");
           entry.style.transform = "none";
           entry.style.zIndex = "4";
           entry.style.opacity = isActiveYear ? "0" : entry.style.opacity;
@@ -671,7 +693,6 @@
       function updateActiveTimeline() {
         const triggerLine = track.scrollTop + Math.max(stickyOffset + 156, track.clientHeight * 0.42);
         const firstEntry = timelineTargets[0];
-        const secondEntry = timelineTargets[1];
         let active = firstEntry;
         let bestDistance = Infinity;
 
@@ -679,18 +700,9 @@
           timelineTargets.forEach((node) => node.classList.remove("active"));
           firstEntry.classList.add("active");
           renderStory(firstEntry.dataset.story || "time-off");
-          updateYearPositions(firstEntry);
+          updateYearPositions();
           updateEntryDepth(firstEntry);
           return;
-        }
-
-        if (secondEntry && track.scrollTop < 28) {
-            timelineTargets.forEach((node) => node.classList.remove("active"));
-            firstEntry.classList.add("active");
-            renderStory(firstEntry.dataset.story || "time-off");
-            updateYearPositions(firstEntry);
-            updateEntryDepth(firstEntry);
-            return;
         }
 
         timelineTargets.forEach((node) => {
@@ -705,7 +717,7 @@
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
-        updateYearPositions(active);
+        updateYearPositions();
         updateEntryDepth(active);
       }
 

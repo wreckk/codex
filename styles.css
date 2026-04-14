@@ -328,9 +328,17 @@ body {
 .timeline-pinned-year {
   position: absolute;
   left: 46px;
-  top: 122px;
+  top: 56px;
   z-index: 8;
   pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    filter 180ms ease;
+}
+
+.timeline-pinned-year.is-swapping {
+  opacity: 0.78;
+  filter: blur(4px);
 }
 
 .timeline-pinned-year .entry-pill {
