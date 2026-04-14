@@ -530,6 +530,9 @@
       const sidebarCard = document.querySelector(".sidebar-card");
       const sidebarHeading = document.querySelector(".sidebar-heading");
       const sidebarMobileToggle = document.querySelector(".sidebar-mobile-toggle");
+      const sidebarMobileToggleCopy = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__copy");
+      const sidebarMobileToggleName = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__name");
+      const sidebarMobileToggleRole = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__role");
       const sidebarName = sidebarHeading?.querySelector("h1");
       const sidebarRole = sidebarHeading?.querySelector("p");
       const timelineEntries = [...document.querySelectorAll(".timeline-entry")];
@@ -631,6 +634,28 @@
           if (available && width && width < available) {
             const extra = (available - width) / characters;
             sidebarRole.style.letterSpacing = `${3 + extra}px`;
+          }
+        }
+
+        if (sidebarMobileToggleCopy && sidebarMobileToggleName) {
+          sidebarMobileToggleName.style.transform = "";
+          const available = sidebarMobileToggleCopy.clientWidth;
+          const width = sidebarMobileToggleName.scrollWidth;
+          if (available && width) {
+            const scale = Math.min(1.18, Math.max(0.92, available / width));
+            sidebarMobileToggleName.style.transform = `scaleX(${scale})`;
+          }
+        }
+
+        if (sidebarMobileToggleCopy && sidebarMobileToggleRole) {
+          sidebarMobileToggleRole.style.transform = "";
+          sidebarMobileToggleRole.style.letterSpacing = "0.24em";
+          const available = sidebarMobileToggleCopy.clientWidth;
+          const width = sidebarMobileToggleRole.scrollWidth;
+          const characters = Math.max(1, sidebarMobileToggleRole.textContent.trim().length - 1);
+          if (available && width && width < available) {
+            const extra = (available - width) / characters;
+            sidebarMobileToggleRole.style.letterSpacing = `calc(0.24em + ${extra}px)`;
           }
         }
       }
