@@ -117,6 +117,8 @@
               <div class="timeline-top-glow" aria-hidden="true"></div>
               <div class="timeline-bottom-fade" aria-hidden="true"></div>
               <div class="timeline-first-year-line" aria-hidden="true"></div>
+              <div class="timeline-trigger-debug timeline-trigger-debug-top" aria-hidden="true"></div>
+              <div class="timeline-trigger-debug timeline-trigger-debug-bottom" aria-hidden="true"></div>
 
               <div class="timeline-entry year" style="--y: 0px" data-year="2026" data-company="Sabbatical">
                 <div class="entry-pill"><span class="year-mark">2026</span><span class="company">Sabbatical</span></div>
@@ -721,7 +723,11 @@
       }
 
       function updateActiveTimeline() {
-        const triggerLine = track.scrollTop + Math.max(stickyOffset + 112, track.clientHeight * 0.3);
+        const triggerBandCenter = Math.max(stickyOffset + 112, track.clientHeight * 0.3);
+        const triggerBandHalf = 18;
+        const triggerLine = track.scrollTop + triggerBandCenter;
+        timelineContent.style.setProperty("--trigger-debug-top-y", `${triggerLine - triggerBandHalf}px`);
+        timelineContent.style.setProperty("--trigger-debug-bottom-y", `${triggerLine + triggerBandHalf}px`);
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
         let bestDistance = Infinity;

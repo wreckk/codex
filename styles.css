@@ -463,6 +463,25 @@ body {
   pointer-events: none;
 }
 
+.timeline-trigger-debug {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 2px solid #39ff14;
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.45);
+  pointer-events: none;
+  z-index: 8;
+}
+
+.timeline-trigger-debug-top {
+  top: var(--trigger-debug-top-y, 0px);
+}
+
+.timeline-trigger-debug-bottom {
+  top: var(--trigger-debug-bottom-y, 0px);
+}
+
 .timeline-entry {
   position: absolute;
   left: var(--timeline-gutter);
