@@ -228,6 +228,7 @@ body {
 
 .sidebar-links {
   display: flex;
+  justify-content: center;
   gap: 10px;
   flex-shrink: 0;
   clear: both;
@@ -242,7 +243,7 @@ body {
     rgba(253, 250, 243, 0.94) 68%,
     rgba(253, 250, 243, 0) 100%
   );
-  padding-bottom: 2px;
+  padding-bottom: 0;
 }
 
 .sidebar-links a {
@@ -690,6 +691,11 @@ body {
   gap: 24px;
   text-align: center;
   padding-top: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  padding-bottom: 10px;
 }
 
 .story-kicker {
@@ -705,7 +711,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 48px;
   font-weight: 200;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 0.98;
   color: var(--accent);
 }
@@ -721,7 +727,8 @@ body {
 
 .story-copy {
   width: 100%;
-  margin: 12px 0 18px;
+  margin: 10px 0 5px;
+  line-height: 1.8;
 }
 
 .story-pills {
@@ -729,7 +736,7 @@ body {
   flex-wrap: wrap;
   gap: 6px;
   justify-content: center;
-  margin: 6px 0 14px;
+  margin: 2px 0 4px;
 }
 
 .story-pills span {
