@@ -259,8 +259,8 @@ body {
 }
 
 .sidebar-links a[aria-label="Discogs"] svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .sidebar-links a:hover {
@@ -557,7 +557,7 @@ body {
 .timeline-entry.year {
   color: var(--muted);
   line-height: 1;
-  z-index: 2;
+  z-index: 1;
   left: var(--timeline-gutter);
   width: calc(100% - var(--timeline-gutter));
   min-height: 54px;
@@ -566,7 +566,7 @@ body {
 }
 
 .timeline-entry.year[data-year="2026"] {
-  z-index: 2;
+  z-index: 1;
 }
 
 .timeline-entry.year[data-year="2026"]::before {
@@ -678,8 +678,8 @@ body {
 .story-card {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 22px 26px 26px;
+  gap: 22px;
+  padding: 22px 26px 30px;
   height: 100%;
   min-height: 0;
   position: sticky;
@@ -695,7 +695,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   text-align: center;
   padding-top: 5px;
 }
@@ -729,7 +729,7 @@ body {
 
 .story-copy {
   width: 100%;
-  margin: 4px 0 8px;
+  margin: 10px 0 14px;
 }
 
 .story-pills {
@@ -737,13 +737,13 @@ body {
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
-  margin: 2px 0 10px;
+  margin: 6px 0 16px;
 }
 
 .story-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 7px 12px;
+  padding: 8px 13px;
   border-radius: 999px;
   background: #f1ebe4;
   color: var(--muted);
