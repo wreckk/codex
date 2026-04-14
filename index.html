@@ -478,6 +478,7 @@
       const track = document.querySelector(".timeline-track");
       const timelineContent = document.querySelector(".timeline-content");
       const pinnedYear = document.getElementById("timeline-pinned-year");
+      const pinnedYearPill = pinnedYear?.querySelector(".entry-pill");
       const pinnedYearMark = document.getElementById("timeline-pinned-year-mark");
       const pinnedCompany = document.getElementById("timeline-pinned-company");
       let currentPinnedYear = pinnedYearMark?.textContent || "";
@@ -606,8 +607,15 @@
         timelineContent.style.height = `${currentY + 220}px`;
       }
 
+      function sizePinnedYearPill() {
+        if (!pinnedYearPill) return;
+        pinnedYearPill.style.width = "auto";
+        const width = pinnedYearPill.scrollWidth;
+        pinnedYearPill.style.width = `${width}px`;
+      }
+
       function updateYearPositions() {
-        const pinnedLine = 56;
+        const pinnedLine = 86;
         let activeYearEntry = yearEntries[0];
 
         yearEntries.forEach((entry) => {
@@ -626,6 +634,7 @@
               pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
               pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
             }
+            sizePinnedYearPill();
             currentPinnedYear = activeYear;
             pinnedYear.classList.remove("is-swapping");
           }, 90);
@@ -635,6 +644,7 @@
             pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
             pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
           }
+          sizePinnedYearPill();
           currentPinnedYear = activeYear;
         }
 
@@ -728,11 +738,13 @@
       window.addEventListener("load", () => {
         layoutTimeline();
         fitSidebarHeading();
+        sizePinnedYearPill();
         updateActiveTimeline();
       });
       window.addEventListener("resize", () => {
         layoutTimeline();
         fitSidebarHeading();
+        sizePinnedYearPill();
         updateActiveTimeline();
       });
     </script>

@@ -328,17 +328,9 @@ body {
 .timeline-pinned-year {
   position: absolute;
   left: 46px;
-  top: 56px;
+  top: 86px;
   z-index: 8;
   pointer-events: none;
-  transition:
-    opacity 180ms ease,
-    filter 180ms ease;
-}
-
-.timeline-pinned-year.is-swapping {
-  opacity: 0.78;
-  filter: blur(4px);
 }
 
 .timeline-pinned-year .entry-pill {
@@ -347,11 +339,24 @@ body {
   border-radius: 999px;
   background: var(--plum-deep);
   box-shadow: 0 10px 24px rgba(70, 61, 71, 0.16);
+  transition:
+    width 180ms ease,
+    padding 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .timeline-pinned-year .year-mark,
 .timeline-pinned-year .company {
   color: #fcfaf4;
+  transition:
+    opacity 180ms ease,
+    filter 180ms ease;
+}
+
+.timeline-pinned-year.is-swapping .year-mark,
+.timeline-pinned-year.is-swapping .company {
+  opacity: 0.72;
+  filter: blur(4px);
 }
 
 .timeline-track {
