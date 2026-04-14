@@ -544,7 +544,7 @@ body {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: #c9c2ca;
+  background: #ded9cf;
 }
 
 .timeline-shortticks {
@@ -555,7 +555,7 @@ body {
   height: 100%;
   background-image: repeating-linear-gradient(
     to bottom,
-    #c9c2ca 0 1px,
+    #ded9cf 0 1px,
     transparent 1px 5px
   );
 }
@@ -575,7 +575,7 @@ body {
   top: 0;
   width: 37px;
   height: 1px;
-  background: #c9c2ca;
+  background: #ded9cf;
 }
 
 .timeline-progress-line {
@@ -667,7 +667,7 @@ body {
   margin-right: 0;
   height: 1px;
   width: 46px;
-  background: #ad9daf;
+  background: #cdc6b8;
   flex-shrink: 0;
 }
 
