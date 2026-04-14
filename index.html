@@ -43,12 +43,12 @@
                   >
                     <animate
                       attributeName="points"
-                      dur="3.6s"
+                      dur="4.8s"
                       repeatCount="indefinite"
-                      keyTimes="0;0.72;0.84;1"
+                      keyTimes="0;0.38;0.52;0.72;1"
                       calcMode="spline"
-                      keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"
-                      values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,5 22,5 42,5"
+                      keySplines="0.42 0 0.22 1;0.42 0 0.22 1;0.42 0 0.22 1;0.42 0 0.22 1"
+                      values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,1 22,5 42,1; 2,5 22,5 42,5"
                     />
                   </polyline>
                 </svg>
@@ -533,6 +533,7 @@
 
       const trackWrap = document.querySelector(".timeline-track-wrap");
       const track = document.querySelector(".timeline-track");
+      const timelineColumn = document.querySelector(".timeline-column");
       const timelineContent = document.querySelector(".timeline-content");
       const timelineBackToTop = document.querySelector(".timeline-backtotop");
       const timelineShortTicks = document.querySelector(".timeline-shortticks");
@@ -544,6 +545,7 @@
       const storyPills = document.getElementById("story-pills");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
+      const storyCard = document.querySelector(".story-card");
       const sidebarCard = document.querySelector(".sidebar-card");
       const sidebarHeading = document.querySelector(".sidebar-heading");
       const sidebarMobileToggle = document.querySelector(".sidebar-mobile-toggle");
@@ -627,6 +629,21 @@
         sidebarCard.classList.remove("is-mobile-open");
         sidebarMobileToggle.setAttribute("aria-expanded", "false");
         document.body.classList.remove("mobile-sidebar-open");
+      }
+
+      function syncMobileLayoutMetrics() {
+        if (!sidebarCard || !timelineColumn || !storyCard) return;
+
+        if (!isMobileLayout()) {
+          document.documentElement.style.removeProperty("--mobile-header-height");
+          document.documentElement.style.removeProperty("--mobile-timeline-height");
+          return;
+        }
+
+        const headerHeight = Math.ceil(sidebarCard.getBoundingClientRect().height);
+        const timelineHeight = Math.ceil(timelineColumn.getBoundingClientRect().height);
+        document.documentElement.style.setProperty("--mobile-header-height", `${headerHeight}px`);
+        document.documentElement.style.setProperty("--mobile-timeline-height", `${timelineHeight}px`);
       }
 
       function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
@@ -1151,6 +1168,7 @@
         sidebarCard.classList.toggle("is-mobile-open", nextOpen);
         sidebarMobileToggle.setAttribute("aria-expanded", String(nextOpen));
         document.body.classList.toggle("mobile-sidebar-open", nextOpen);
+        requestAnimationFrame(syncMobileLayoutMetrics);
       });
       async function initializePageLayout() {
         if (document.fonts?.ready) {
@@ -1161,6 +1179,7 @@
         layoutTimeline();
         fitSidebarHeading();
         syncMobileSidebarState();
+        syncMobileLayoutMetrics();
         renderStory(timelineTargets[0]?.dataset.story || "tooling");
         updateActiveTimeline();
         requestAnimationFrame(() => {
@@ -1175,6 +1194,7 @@
         layoutTimeline();
         fitSidebarHeading();
         syncMobileSidebarState();
+        syncMobileLayoutMetrics();
         scheduleTimelineUpdate();
       });
     </script>

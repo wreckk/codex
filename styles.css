@@ -1263,6 +1263,12 @@ body.preload-layout .page-loader {
     overflow: hidden;
   }
 
+  body.mobile-sidebar-open .story-card,
+  body.mobile-sidebar-open .timeline-column {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .page-shell {
     padding: 16px;
   }
@@ -1454,8 +1460,8 @@ body.preload-layout .page-loader {
   .story-card {
     position: fixed;
     left: 50%;
-    top: 122px;
-    bottom: 218px;
+    top: calc(16px + var(--mobile-header-height, 110px) + 14px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + 20px);
     transform: translateX(-50%);
     padding: 0 12px;
     z-index: 20;
@@ -1468,7 +1474,7 @@ body.preload-layout .page-loader {
   .timeline-column {
     position: fixed;
     left: 50%;
-    bottom: 8px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
     top: auto;
     transform: translateX(-50%);
     height: 190px;
