@@ -445,13 +445,17 @@ body {
   padding-top: 16px;
 }
 
-.timeline-head h2 {
-  margin: 0;
+.timeline-head h2,
+.story-kicker {
   font-family: "SF Compact Text Local", "SF Compact Text", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 11px;
   letter-spacing: 0.2em;
-  font-weight: 400;
   line-height: 1.1;
+  font-weight: 400;
+}
+
+.timeline-head h2 {
+  margin: 0;
   color: var(--timeline-ink-strong);
 }
 
@@ -839,11 +843,7 @@ body {
 }
 
 .story-kicker {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  line-height: 1.1;
   color: var(--muted);
-  font-weight: 400;
   margin-top: 15px;
 }
 
