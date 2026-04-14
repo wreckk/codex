@@ -752,7 +752,8 @@ body {
   line-height: 1;
   z-index: 1;
   left: var(--timeline-gutter);
-  width: calc(100% - var(--timeline-gutter));
+  right: 0;
+  width: auto;
   min-height: 54px;
   justify-content: flex-start;
   overflow: visible;
@@ -787,8 +788,9 @@ body {
 .timeline-entry.year::before {
   content: "";
   position: absolute;
+  display: block;
   left: 0;
-  width: 100%;
+  right: 0;
   top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
