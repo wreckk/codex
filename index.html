@@ -573,7 +573,7 @@
       }
 
       function getEntryCenter(entry) {
-        return getEntryY(entry) + entry.offsetHeight / 2;
+        return getEntryY(entry);
       }
 
       function snapToTick(value) {
@@ -584,7 +584,7 @@
       function layoutTimeline() {
         if (!timelineContent) return;
 
-        let currentY = 156;
+        let currentY = 170;
         const itemStep = 108;
         const yearGapStep = itemStep * 0.576;
 

@@ -456,6 +456,7 @@ body {
   display: flex;
   align-items: center;
   z-index: 1;
+  transform: translateY(-50%);
   transform-origin: left center;
   transition:
     opacity 160ms ease,
