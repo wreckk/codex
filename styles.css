@@ -367,10 +367,11 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 6px 8px;
-  border: 1px solid #dedcd6;
+  border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: #fff;
-  color: #b7a998;
+  color: #857785;
+  font-family: "SF Pro Rounded", "SF Pro Display", ui-rounded, "Helvetica Neue", Arial, sans-serif;
   font-size: 10px;
   line-height: 1;
   text-transform: uppercase;
