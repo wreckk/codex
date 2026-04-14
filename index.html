@@ -577,9 +577,14 @@
         let currentY = 156;
         const itemStep = 108;
 
-        timelineTargets.forEach((entry) => {
+        timelineTargets.forEach((entry, index) => {
           entry.style.setProperty("--y", `${currentY}px`);
           currentY += itemStep;
+
+          const nextEntry = timelineTargets[index + 1];
+          if (nextEntry && nextEntry.dataset.year !== entry.dataset.year) {
+            currentY += itemStep;
+          }
         });
 
         yearEntries.forEach((entry) => {
@@ -600,10 +605,10 @@
 
           const topBoundary = previousPeers.length
             ? (getEntryY(previousPeers[previousPeers.length - 1]) + firstY) / 2
-            : firstY - itemStep / 2;
+            : firstY - itemStep;
           const bottomBoundary = nextPeers.length
             ? (lastY + getEntryY(nextPeers[0])) / 2
-            : lastY + itemStep / 2;
+            : lastY + itemStep;
           const midY = (topBoundary + bottomBoundary) / 2;
 
           entry.style.setProperty("--y", `${midY}px`);
