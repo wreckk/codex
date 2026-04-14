@@ -1490,16 +1490,16 @@ body.preload-layout .page-loader {
   .timeline-column {
     position: fixed;
     left: 50%;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 4px);
     top: auto;
     transform: translateX(-50%);
-    height: 190px;
-    min-height: 190px;
+    height: 176px;
+    min-height: 176px;
     z-index: 25;
   }
 
   .timeline-content {
-    height: 190px;
+    height: 176px;
   }
 
   .timeline-line,
@@ -1523,7 +1523,7 @@ body.preload-layout .page-loader {
   }
 
   .timeline-entry.year {
-    top: 118px;
+    top: 112px;
   }
 
   .timeline-head {
