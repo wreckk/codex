@@ -391,12 +391,13 @@ body {
   border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: #fff;
-  color: #857785;
-  font-family: "SF Compact Text Local", "SF Compact Text", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
+  color: #b7a998;
+  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 10px;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  font-weight: 700;
 }
 
 .timeline-column {
