@@ -498,7 +498,7 @@ body {
 .timeline-entry.year .entry-pill {
   display: block;
   position: absolute;
-  left: -92px;
+  left: -74px;
   right: auto;
   top: 50%;
   padding: 0;
@@ -522,7 +522,7 @@ body {
   background: linear-gradient(
     to right,
     rgba(185, 173, 159, 0.24) 0%,
-    rgba(185, 173, 159, 0.18) 72%,
+    rgba(185, 173, 159, 0.18) 88%,
     rgba(185, 173, 159, 0) 100%
   );
 }
@@ -538,7 +538,7 @@ body {
   background: linear-gradient(
     to right,
     rgba(185, 173, 159, 0.24) 0%,
-    rgba(185, 173, 159, 0.18) 72%,
+    rgba(185, 173, 159, 0.18) 88%,
     rgba(185, 173, 159, 0) 100%
   );
 }

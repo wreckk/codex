@@ -574,8 +574,8 @@
       function layoutTimeline() {
         if (!timelineContent) return;
 
-        let currentY = 60;
-        const itemStep = 96;
+        let currentY = 156;
+        const itemStep = 108;
 
         timelineTargets.forEach((entry) => {
           entry.style.setProperty("--y", `${currentY}px`);
@@ -604,7 +604,7 @@
           const bottomBoundary = nextPeers.length
             ? (lastY + getEntryY(nextPeers[0])) / 2
             : lastY + itemStep * 0.7;
-          const midY = (topBoundary + bottomBoundary) / 2;
+          const midY = (firstY + lastY) / 2;
 
           entry.style.setProperty("--y", `${midY}px`);
           entry.style.setProperty("--line-top", `${topBoundary - midY}px`);
@@ -667,7 +667,7 @@
       }
 
       function updateActiveTimeline() {
-        const triggerLine = track.scrollTop + Math.max(stickyOffset + 156, track.clientHeight * 0.42);
+        const triggerLine = track.scrollTop + Math.max(stickyOffset + 112, track.clientHeight * 0.3);
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
         let bestDistance = Infinity;
