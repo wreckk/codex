@@ -727,8 +727,8 @@
 
       function updateActiveTimeline() {
         const triggerBandCenter = Math.max(stickyOffset + 112, track.clientHeight * 0.3);
-        const monthTriggerHalf = 60;
-        const monthTriggerLift = 61;
+        const monthTriggerHalf = 54;
+        const monthTriggerLift = 0;
         const triggerLine = track.scrollTop + triggerBandCenter;
         trackWrap?.style.setProperty(
           "--trigger-debug-top-y",
