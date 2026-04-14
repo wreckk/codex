@@ -614,17 +614,9 @@
         pinnedYearPill.style.width = `${width}px`;
       }
 
-      function updateYearPositions() {
-        const pinnedLine = 86;
-        let activeYearEntry = yearEntries[0];
-
-        yearEntries.forEach((entry) => {
-          if (entry.offsetTop - track.scrollTop <= pinnedLine) {
-            activeYearEntry = entry;
-          }
-        });
-
-        const activeYear = activeYearEntry?.dataset.year || "2026";
+      function updateYearPositions(activeEntry) {
+        const activeYear = activeEntry?.dataset.year || yearEntries[0]?.dataset.year || "2026";
+        const activeYearEntry = yearEntries.find((entry) => entry.dataset.year === activeYear) || yearEntries[0];
 
         if (activeYear !== currentPinnedYear && pinnedYear) {
           pinnedYear.classList.add("is-swapping");
@@ -710,7 +702,7 @@
           timelineTargets.forEach((node) => node.classList.remove("active"));
           firstEntry.classList.add("active");
           renderStory(firstEntry.dataset.story || "time-off");
-          updateYearPositions();
+          updateYearPositions(firstEntry);
           updateEntryDepth(firstEntry);
           return;
         }
@@ -727,7 +719,7 @@
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
-        updateYearPositions();
+        updateYearPositions(active);
         updateEntryDepth(active);
       }
 
