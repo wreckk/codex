@@ -532,6 +532,7 @@ body {
   padding: 6px 10px;
   border-radius: 999px;
   will-change: transform, filter, opacity;
+  transform: translateZ(0) scale(var(--entry-scale, 1));
   transition:
     background-color 180ms ease,
     border-color 180ms ease,
@@ -663,7 +664,6 @@ body {
   background: rgba(255, 252, 247, 0.96);
   border: 1px solid rgba(255, 70, 50, 0.28);
   box-shadow: 0 10px 20px rgba(216, 198, 176, 0.12);
-  transform: translateZ(0) scale(var(--entry-scale, 1));
 }
 
 .story-card {

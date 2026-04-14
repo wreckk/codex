@@ -517,7 +517,6 @@
       };
       const ACTIVE_SCALE = {
         max: 1.15,
-        influenceRange: 92,
       };
       const TRIGGER_ZONE = {
         baseOffset: -8,
@@ -726,18 +725,18 @@
         const trackRect = track.getBoundingClientRect();
         const fadeZoneStart = trackRect.height * EDGE_FADE.startRatio;
         const fullFadeZone = trackRect.height * EDGE_FADE.fullFadeRatio;
+        const triggerCenterInTrack = triggerLine - track.scrollTop;
+        const triggerBandHalf = TRIGGER_ZONE.halfHeight;
 
         timelineEntries.forEach((entry) => {
           const pill = entry.querySelector(".entry-pill");
           const isActive = entry === activeEntry;
           const isYear = entry.classList.contains("year");
           const entryCenterInTrack = getEntryCenter(entry) - track.scrollTop;
-          const triggerDistance = Math.abs(entryCenterInTrack - (triggerLine - track.scrollTop));
-          const activeProgress = Math.max(
-            0,
-            1 - triggerDistance / ACTIVE_SCALE.influenceRange
-          );
-          const scale = 1 + (ACTIVE_SCALE.max - 1) * activeProgress;
+          const triggerDistance = Math.abs(entryCenterInTrack - triggerCenterInTrack);
+          const bandProgress = Math.max(0, 1 - triggerDistance / triggerBandHalf);
+          const easedBandProgress = bandProgress <= 0 ? 0 : Math.sin((bandProgress * Math.PI) / 2);
+          const scale = 1 + (ACTIVE_SCALE.max - 1) * easedBandProgress;
 
           if (isActive) {
             entry.style.opacity = "1";
