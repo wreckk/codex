@@ -303,9 +303,17 @@
           "Placeholder story copy for this active timeline moment. Final copy can describe what happened, why it mattered, and what proof should appear here.",
         pills: ["Placeholder", "Needs Notes", "Needs Links"],
         fill,
-        notes: Array.from({ length: notes }, (_, index) =>
-          `Dummy item ${index + 1} for this state.`
-        ),
+        notes: Array.from({ length: notes }, (_, index) => {
+          const lines = [
+            "Info: placeholder metadata can live here until the real launch notes are written.",
+            "Context: this line can hold a quick explanation of what changed or shipped.",
+            "Signal: use this slot for a metric, outcome, or short supporting detail.",
+            "Link: this can become a proof point, artifact, or reference to supporting work.",
+            "Note: leave room here for a short reflection or implementation takeaway.",
+            "Detail: this is filler for structure, rhythm, and content density checks.",
+          ];
+          return lines[index] || `Note ${index + 1}: placeholder supporting detail.`;
+        }),
       });
 
       const storyContent = {
