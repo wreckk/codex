@@ -727,15 +727,15 @@ body {
 .story-pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   justify-content: center;
-  margin: 10px 0 20px;
+  margin: 6px 0 14px;
 }
 
 .story-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 6px 11px;
+  padding: 5px 9px;
   border-radius: 999px;
   background: #f1ebe4;
   color: var(--muted);
