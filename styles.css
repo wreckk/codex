@@ -479,12 +479,8 @@ body {
   z-index: 8;
 }
 
-.timeline-trigger-debug-top {
-  top: var(--trigger-debug-top-y, 0px);
-}
-
-.timeline-trigger-debug-bottom {
-  top: var(--trigger-debug-bottom-y, 0px);
+.timeline-trigger-debug-line {
+  top: var(--trigger-debug-line-y, 0px);
 }
 
 .timeline-entry {

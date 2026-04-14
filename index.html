@@ -108,8 +108,7 @@
           </div>
 
           <div class="timeline-track-wrap">
-            <div class="timeline-trigger-debug timeline-trigger-debug-top" aria-hidden="true"></div>
-            <div class="timeline-trigger-debug timeline-trigger-debug-bottom" aria-hidden="true"></div>
+            <div class="timeline-trigger-debug timeline-trigger-debug-line" aria-hidden="true"></div>
             <div class="timeline-track">
             <div class="timeline-content">
               <div class="timeline-line" aria-hidden="true"></div>
@@ -728,9 +727,7 @@
       function updateActiveTimeline() {
         const triggerBandCenter = Math.max(stickyOffset + 112, track.clientHeight * 0.3);
         const triggerLine = track.scrollTop + triggerBandCenter;
-        const monthTriggerHalf = 54;
-        trackWrap?.style.setProperty("--trigger-debug-top-y", `${triggerBandCenter - monthTriggerHalf}px`);
-        trackWrap?.style.setProperty("--trigger-debug-bottom-y", `${triggerBandCenter + monthTriggerHalf}px`);
+        trackWrap?.style.setProperty("--trigger-debug-line-y", `${triggerBandCenter}px`);
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
         let bestDistance = Infinity;
