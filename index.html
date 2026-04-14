@@ -467,6 +467,7 @@
 
       const track = document.querySelector(".timeline-track");
       const timelineContent = document.querySelector(".timeline-content");
+      const timelineMediumTicks = document.querySelector(".timeline-mediumticks");
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
@@ -635,6 +636,19 @@
             timelineContent.style.setProperty("--first-year-line-y", `${snappedTopBoundary}px`);
           }
         });
+
+        if (timelineMediumTicks) {
+          timelineMediumTicks.innerHTML = "";
+          timelineTargets.slice(0, -1).forEach((entry, index) => {
+            const currentCenter = getEntryCenter(entry);
+            const nextCenter = getEntryCenter(timelineTargets[index + 1]);
+            const mediumY = snapToTick((currentCenter + nextCenter) / 2);
+            const tick = document.createElement("span");
+            tick.className = "timeline-mediumtick";
+            tick.style.top = `${mediumY}px`;
+            timelineMediumTicks.appendChild(tick);
+          });
+        }
 
         timelineContent.style.height = `${currentY + 220}px`;
       }

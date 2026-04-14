@@ -418,7 +418,22 @@ body {
 }
 
 .timeline-mediumticks {
-  display: none;
+  position: absolute;
+  left: var(--timeline-gutter);
+  top: 0;
+  width: 24px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.timeline-mediumtick {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 1px;
+  background: rgba(185, 173, 159, 0.7);
+  transform: translateY(-50%);
 }
 
 .timeline-progress-line {
