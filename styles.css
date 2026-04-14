@@ -1283,21 +1283,16 @@ body.preload-layout .page-loader {
   }
 
   .page-body {
-    position: fixed;
-    inset: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 8px) 16px;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    row-gap: 12px;
-    height: auto;
-    min-height: 0;
+    position: relative;
+    height: 100%;
+    min-height: 100%;
     overflow: hidden;
   }
 
   .sidebar-card,
   .story-card,
   .timeline-column {
-    width: 100%;
+    width: min(calc(100vw - 32px), 420px);
     margin: 0;
   }
 
@@ -1307,25 +1302,27 @@ body.preload-layout .page-loader {
   }
 
   .sidebar-card {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 30;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
     padding: 0 18px;
     height: auto;
-    max-height: none;
+    max-height: calc(100dvh - 32px);
     overflow: hidden;
   }
 
   .sidebar-card.is-mobile-open {
-    position: absolute;
-    inset: 0;
+    position: fixed;
+    inset: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 8px) 16px;
+    width: auto;
     height: auto;
     max-height: none;
     z-index: 50;
+    transform: none;
   }
 
   .sidebar-heading {
@@ -1476,14 +1473,14 @@ body.preload-layout .page-loader {
   }
 
   .story-card {
-    position: relative;
-    left: auto;
-    top: auto;
-    bottom: auto;
-    transform: none;
+    position: fixed;
+    left: 50%;
+    top: calc(16px + var(--mobile-header-height, 110px) + 14px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + 18px);
+    transform: translateX(-50%);
     padding: 0 12px;
     z-index: 20;
-    height: 100%;
+    height: auto;
   }
 
   .timeline-track-wrap {
@@ -1491,11 +1488,11 @@ body.preload-layout .page-loader {
   }
 
   .timeline-column {
-    position: relative;
-    left: auto;
-    bottom: auto;
+    position: fixed;
+    left: 50%;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
     top: auto;
-    transform: none;
+    transform: translateX(-50%);
     height: 190px;
     min-height: 190px;
     z-index: 25;
@@ -1526,7 +1523,7 @@ body.preload-layout .page-loader {
   }
 
   .timeline-entry.year {
-    top: 116px;
+    top: 108px;
   }
 
   .timeline-head {
