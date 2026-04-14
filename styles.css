@@ -46,10 +46,10 @@ body {
   width: 100%;
   display: inline-block;
   font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
-  font-size: 44px;
+  font-size: 46px;
   line-height: 0.92;
   color: var(--accent);
-  letter-spacing: -0.07em;
+  letter-spacing: -0.085em;
   font-weight: 900;
   text-transform: uppercase;
   white-space: nowrap;
@@ -61,9 +61,9 @@ body {
   color: var(--muted);
   width: 100%;
   font-family: "SF Pro Rounded", "SF Pro Display", ui-rounded, "Helvetica Neue", Arial, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.32em;
-  line-height: 0.84;
+  line-height: 0.8;
   white-space: nowrap;
   text-transform: uppercase;
   font-weight: 600;
@@ -332,12 +332,12 @@ body {
   margin-bottom: 16px;
   padding-left: 0;
   min-height: 18px;
-  padding-top: 10px;
+  padding-top: 15px;
 }
 
 .timeline-head h2 {
   margin: 0;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.14em;
   font-weight: 400;
   line-height: 1;
