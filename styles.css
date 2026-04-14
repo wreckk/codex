@@ -674,11 +674,8 @@ body.preload-layout .page-loader {
   display: none;
 }
 
-.timeline-first-year-line {
-  position: absolute;
-  left: var(--timeline-gutter);
-  width: calc(100% - var(--timeline-gutter));
-  top: var(--first-year-line-y, 0px);
+.timeline-first-year-line,
+.timeline-entry.year::before {
   height: 1px;
   background: repeating-linear-gradient(
     to right,
@@ -687,6 +684,13 @@ body.preload-layout .page-loader {
   );
   mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
+}
+
+.timeline-first-year-line {
+  position: absolute;
+  left: var(--timeline-gutter);
+  width: calc(100% - var(--timeline-gutter));
+  top: var(--first-year-line-y, 0px);
   pointer-events: none;
 }
 
@@ -845,15 +849,7 @@ body.preload-layout .page-loader {
   left: 0;
   right: 0;
   top: var(--line-top, 0px);
-  height: 1px;
   margin: 0;
-  background: repeating-linear-gradient(
-    to right,
-    var(--timeline-ink-mid) 0 1px,
-    transparent 1px 5px
-  );
-  mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
 }
 
 .timeline-entry.year::after {
