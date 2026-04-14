@@ -367,6 +367,7 @@ body {
   width: 18px;
   height: 18px;
   fill: currentColor;
+  display: block;
   transition: transform 180ms ease;
 }
 
@@ -374,8 +375,11 @@ body {
   width: 18px;
   height: 18px;
   display: block;
+  transform-origin: center;
   filter: brightness(0) saturate(100%) invert(44%) sepia(9%) saturate(569%) hue-rotate(258deg) brightness(92%) contrast(88%);
-  transition: transform 180ms ease;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
 }
 
 .sidebar-links a:hover {
