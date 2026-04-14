@@ -1259,6 +1259,12 @@ body.preload-layout .page-loader {
 }
 
 @media (max-width: 720px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
   body.mobile-sidebar-open {
     overflow: hidden;
   }
@@ -1271,13 +1277,17 @@ body.preload-layout .page-loader {
 
   .page-shell {
     padding: 16px;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
   }
 
   .page-body {
     display: block;
-    height: 100vh;
-    min-height: 100vh;
+    height: 100%;
+    min-height: 100%;
     padding-top: 0;
+    overflow: hidden;
   }
 
   .sidebar-card,
@@ -1537,6 +1547,7 @@ body.preload-layout .page-loader {
   .story-scroll {
     padding-top: 10px;
     padding-bottom: 14px;
+    height: 100%;
   }
 
   .story-pills {
