@@ -43,23 +43,23 @@
                   >
                     <animate
                       attributeName="points"
-                      dur="6s"
+                      dur="6.8s"
                       repeatCount="indefinite"
-                      keyTimes="0;0.42;0.56;0.74;1"
+                      keyTimes="0;0.5;0.66;0.8;1"
                       calcMode="spline"
-                      keySplines="0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1"
+                      keySplines="0.3 0 0.2 1;0.22 0 0.18 1;0.22 0 0.18 1;0.3 0 0.2 1"
                       values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,1 22,5 42,1; 2,5 22,5 42,5"
                     />
                     <animateTransform
                       attributeName="transform"
                       attributeType="XML"
                       type="translate"
-                      dur="6s"
+                      dur="6.8s"
                       repeatCount="indefinite"
-                      keyTimes="0;0.42;0.56;0.64;0.74;1"
+                      keyTimes="0;0.5;0.66;0.72;0.78;0.84;1"
                       calcMode="spline"
-                      keySplines="0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1;0.32 0 0.16 1"
-                      values="0 0;0 0;0 0;0 1.25;0 0;0 0"
+                      keySplines="0.3 0 0.2 1;0.18 0 0.18 1;0.18 0 0.18 1;0.18 0 0.18 1;0.18 0 0.18 1;0.3 0 0.2 1"
+                      values="0 0;0 0;0 0;0 1.6;0 0.3;0 0;0 0"
                     />
                   </polyline>
                 </svg>
@@ -889,8 +889,8 @@
       function layoutTimelineCompact() {
         if (!timelineContent) return;
 
-        const itemStep = isMobileLayout() ? 228 : COMPACT_TIMELINE_LAYOUT.itemStep;
-        const startX = isMobileLayout() ? 132 : COMPACT_TIMELINE_LAYOUT.startX;
+        const itemStep = isMobileLayout() ? 252 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const startX = isMobileLayout() ? 146 : COMPACT_TIMELINE_LAYOUT.startX;
         const yearGapStep = itemStep * COMPACT_TIMELINE_LAYOUT.yearGapRatio;
         let currentX = startX;
 
@@ -938,8 +938,11 @@
         const tailLength = TAIL_TICKS.count * TAIL_TICKS.step;
 
         if (timelineBackToTop) {
-          timelineBackToTop.style.left = `${lastTargetX + COMPACT_TIMELINE_LAYOUT.tailOffset}px`;
-          timelineBackToTop.style.top = "";
+          const tailOffset = isMobileLayout()
+            ? COMPACT_TIMELINE_LAYOUT.tailOffset + 26
+            : COMPACT_TIMELINE_LAYOUT.tailOffset;
+          timelineBackToTop.style.left = `${lastTargetX + tailOffset}px`;
+          timelineBackToTop.style.top = isMobileLayout() ? "48px" : "";
         }
         if (timelineShortTicks) {
           timelineShortTicks.style.width = `${lastTargetX}px`;
