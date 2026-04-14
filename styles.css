@@ -512,6 +512,10 @@ body {
   opacity: 0;
 }
 
+.timeline-entry.year.is-pinned {
+  z-index: 6 !important;
+}
+
 .timeline-entry.year.is-pinned .entry-pill {
   padding: 8px 14px;
   background: var(--plum-deep);

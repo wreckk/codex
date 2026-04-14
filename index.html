@@ -117,8 +117,8 @@
               <div class="timeline-top-glow" aria-hidden="true"></div>
               <div class="timeline-bottom-fade" aria-hidden="true"></div>
 
-              <div class="timeline-entry year" style="--y: 0px" data-year="2026" data-company="">
-                <div class="entry-pill"><span class="year-mark">2026</span></div>
+              <div class="timeline-entry year" style="--y: 0px" data-year="2026" data-company="Sabbatical">
+                <div class="entry-pill"><span class="year-mark">2026</span><span class="company">Sabbatical</span></div>
               </div>
 
               <div class="timeline-entry minor" style="--y: 74px" data-story="time-off" data-year="2026">
@@ -626,7 +626,8 @@
 
           if (isActive) {
             entry.style.opacity = "1";
-            if (pill) pill.style.filter = "blur(0px)";
+            entry.style.filter = "none";
+            if (pill) pill.style.filter = "none";
             return;
           }
 
@@ -644,6 +645,7 @@
           const opacity = 0.12 + progress * 0.88;
           const blur = (1 - progress) * 5;
           entry.style.opacity = `${opacity}`;
+          entry.style.filter = "none";
           if (pill) pill.style.filter = `blur(${blur}px)`;
         });
       }
