@@ -638,13 +638,11 @@
         timelineContent.style.height = `${currentY + 220}px`;
       }
 
-      function updateYearPositions(activeEntry) {
-        const activeYear = activeEntry?.dataset.year || yearEntries[0]?.dataset.year || "2026";
+      function updateYearPositions() {
         yearEntries.forEach((entry) => {
-          const isActiveYear = entry.dataset.year === activeYear;
-          entry.classList.toggle("is-active-year", isActiveYear);
+          entry.classList.remove("is-active-year");
           entry.style.transform = "none";
-          entry.style.zIndex = isActiveYear ? "5" : "4";
+          entry.style.zIndex = entry.dataset.year === "2026" ? "4" : "2";
         });
       }
 
