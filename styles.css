@@ -325,28 +325,6 @@ body {
   align-items: center;
 }
 
-.timeline-pinned-year {
-  position: absolute;
-  left: 46px;
-  top: 74px;
-  z-index: 8;
-  pointer-events: none;
-}
-
-.timeline-pinned-year .entry-pill {
-  align-items: center;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: var(--plum-deep);
-  box-shadow: 0 10px 24px rgba(70, 61, 71, 0.16);
-  transition: width 160ms ease;
-}
-
-.timeline-pinned-year .year-mark,
-.timeline-pinned-year .company {
-  color: #fcfaf4;
-}
-
 .timeline-track {
   height: calc(100% - 40px);
   overflow-y: auto;
@@ -511,25 +489,32 @@ body {
   color: var(--muted);
   line-height: 1;
   z-index: 4;
+  left: -34px;
+  width: 84px;
+  justify-content: flex-start;
 }
 
 .timeline-entry.year .entry-pill {
-  align-items: center;
+  display: block;
   padding: 0;
-  border-radius: 999px;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transform: rotate(-90deg);
+  transform-origin: left top;
 }
 
 .year-mark {
-  font-size: 26px;
+  display: block;
+  font-size: 38px;
   letter-spacing: -0.04em;
   font-weight: 700;
-  margin-right: 6px;
+  margin-right: 0;
 }
 
 .company {
-  font-size: 15px;
-  line-height: 1;
-  transform: translateY(1px);
+  display: none;
 }
 
 .timeline-entry.active::before {
@@ -537,7 +522,6 @@ body {
 }
 
 .timeline-entry.active .month,
-.timeline-entry.active .year-mark,
 .timeline-entry.active .label,
 .timeline-entry.active .company {
   color: var(--accent);
@@ -549,6 +533,10 @@ body {
   box-shadow: 0 10px 20px rgba(216, 198, 176, 0.12);
   transform: translateZ(0) scale(1);
   animation: active-pill-resolve 180ms ease;
+}
+
+.timeline-entry.year.is-active-year .year-mark {
+  color: var(--muted);
 }
 
 @keyframes active-pill-resolve {

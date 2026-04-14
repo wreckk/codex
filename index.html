@@ -107,13 +107,6 @@
             <h2 class="timeline-label">EXPERIENCE</h2>
           </div>
 
-          <div class="timeline-pinned-year" id="timeline-pinned-year" aria-hidden="true">
-            <div class="entry-pill">
-              <span class="year-mark" id="timeline-pinned-year-mark">2026</span>
-              <span class="company" id="timeline-pinned-company">Sabbatical</span>
-            </div>
-          </div>
-
           <div class="timeline-track">
             <div class="timeline-content">
               <div class="timeline-line" aria-hidden="true"></div>
@@ -477,11 +470,6 @@
 
       const track = document.querySelector(".timeline-track");
       const timelineContent = document.querySelector(".timeline-content");
-      const pinnedYear = document.getElementById("timeline-pinned-year");
-      const pinnedYearPill = pinnedYear?.querySelector(".entry-pill");
-      const pinnedYearMark = document.getElementById("timeline-pinned-year-mark");
-      const pinnedCompany = document.getElementById("timeline-pinned-company");
-      let currentPinnedYear = pinnedYearMark?.textContent || "";
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
@@ -607,30 +595,13 @@
         timelineContent.style.height = `${currentY + 220}px`;
       }
 
-      function sizePinnedYearPill() {
-        if (!pinnedYearPill) return;
-        pinnedYearPill.style.width = "auto";
-        const width = pinnedYearPill.scrollWidth;
-        pinnedYearPill.style.width = `${width}px`;
-      }
-
       function updateYearPositions(activeEntry) {
         const activeYear = activeEntry?.dataset.year || yearEntries[0]?.dataset.year || "2026";
-        const activeYearEntry = yearEntries.find((entry) => entry.dataset.year === activeYear) || yearEntries[0];
-
-        if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
-        if (pinnedCompany) {
-          pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
-          pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
-        }
-        sizePinnedYearPill();
-        currentPinnedYear = activeYear;
-
         yearEntries.forEach((entry) => {
           const isActiveYear = entry.dataset.year === activeYear;
+          entry.classList.toggle("is-active-year", isActiveYear);
           entry.style.transform = "none";
-          entry.style.zIndex = "4";
-          entry.style.opacity = isActiveYear ? "0" : entry.style.opacity;
+          entry.style.zIndex = isActiveYear ? "5" : "4";
         });
       }
 
@@ -646,7 +617,7 @@
           const isActive = entry === activeEntry;
 
           if (isPinnedYear) {
-            entry.style.opacity = "0";
+            entry.style.opacity = "1";
             entry.style.filter = "none";
             if (pill) pill.style.filter = "none";
             return;
@@ -716,13 +687,11 @@
       window.addEventListener("load", () => {
         layoutTimeline();
         fitSidebarHeading();
-        sizePinnedYearPill();
         updateActiveTimeline();
       });
       window.addEventListener("resize", () => {
         layoutTimeline();
         fitSidebarHeading();
-        sizePinnedYearPill();
         updateActiveTimeline();
       });
     </script>
