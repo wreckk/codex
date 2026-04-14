@@ -115,15 +115,15 @@
             <div class="timeline-trigger-debug timeline-trigger-debug-top" aria-hidden="true"></div>
             <div class="timeline-trigger-debug timeline-trigger-debug-bottom" aria-hidden="true"></div>
             <div class="timeline-track">
-            <div class="timeline-content">
-              <div class="timeline-line" aria-hidden="true"></div>
-              <div class="timeline-shortticks" aria-hidden="true"></div>
-              <div class="timeline-mediumticks" aria-hidden="true"></div>
-              <div class="timeline-progress-line" id="timeline-progress-line" aria-hidden="true"></div>
-              <div class="timeline-progress-ticks" id="timeline-progress-ticks" aria-hidden="true"></div>
-              <div class="timeline-top-glow" aria-hidden="true"></div>
-              <div class="timeline-bottom-fade" aria-hidden="true"></div>
-              <div class="timeline-first-year-line" aria-hidden="true"></div>
+              <div class="timeline-content">
+                <div class="timeline-line" aria-hidden="true"></div>
+                <div class="timeline-shortticks" aria-hidden="true"></div>
+                <div class="timeline-mediumticks" aria-hidden="true"></div>
+                <div class="timeline-progress-line" id="timeline-progress-line" aria-hidden="true"></div>
+                <div class="timeline-progress-ticks" id="timeline-progress-ticks" aria-hidden="true"></div>
+                <div class="timeline-top-glow" aria-hidden="true"></div>
+                <div class="timeline-bottom-fade" aria-hidden="true"></div>
+                <div class="timeline-first-year-line" aria-hidden="true"></div>
 
               <div class="timeline-entry year" style="--y: 0px" data-year="2026" data-company="Sabbatical">
                 <div class="entry-pill"><span class="year-mark">2026</span><span class="company">Sabbatical</span></div>
@@ -248,7 +248,7 @@
               <div class="timeline-entry minor" style="--y: 3352px" data-story="team-scale-up" data-year="2005">
                 <div class="entry-pill"><span class="month">JAN</span><span class="label">Team Scale-Up</span></div>
               </div>
-            </div>
+              </div>
             </div>
           </div>
         </section>
@@ -497,8 +497,35 @@
       const timelineEntries = [...document.querySelectorAll(".timeline-entry")];
       const yearEntries = [...document.querySelectorAll(".timeline-entry.year")];
       const timelineTargets = [...document.querySelectorAll(".timeline-entry.minor")];
-      const stickyOffset = 35;
-      const yearPushGap = 6;
+      const timelineTargetsByYear = timelineTargets.reduce((map, entry) => {
+        const year = entry.dataset.year;
+        if (!map.has(year)) map.set(year, []);
+        map.get(year).push(entry);
+        return map;
+      }, new Map());
+      const TIMELINE_LAYOUT = {
+        startY: 90,
+        itemStep: 108,
+        yearGapRatio: 0.576,
+        bottomPadding: 220,
+      };
+      const EDGE_FADE = {
+        startRatio: 0.119,
+        fullFadeRatio: 0.051,
+        minOpacity: 0.08,
+        blurAmount: 5.5,
+      };
+      const TRIGGER_ZONE = {
+        baseOffset: -8,
+        minHeightRatio: 0.3,
+        lift: 120,
+        halfHeight: 54,
+        visualLift: 0,
+      };
+      const headingCanvas = document.createElement("canvas");
+      const headingContext = headingCanvas.getContext("2d");
+      let activeTimelineEntry = null;
+      let activeStoryId = null;
 
       function fitHeadingText(
         node,
@@ -511,18 +538,16 @@
         const family = computed.fontFamily;
         const weight = computed.fontWeight;
         const style = computed.fontStyle;
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+        if (!headingContext) return;
 
         let size = maxSize;
-        ctx.font = `${style} ${weight} ${size}px ${family}`;
-        let width = ctx.measureText(text).width;
+        headingContext.font = `${style} ${weight} ${size}px ${family}`;
+        let width = headingContext.measureText(text).width;
 
         if (width > available) {
           size = Math.max(minSize, Math.floor((available / width) * size));
-          ctx.font = `${style} ${weight} ${size}px ${family}`;
-          width = ctx.measureText(text).width;
+          headingContext.font = `${style} ${weight} ${size}px ${family}`;
+          width = headingContext.measureText(text).width;
         }
 
         let spacing = baseLetterSpacing;
@@ -562,7 +587,8 @@
 
       function renderStory(id) {
         const story = storyContent[id];
-        if (!story) return;
+        if (!story || id === activeStoryId) return;
+        activeStoryId = id;
 
         storyKicker.textContent = story.kicker;
         storyTitle.textContent = story.title;
@@ -571,19 +597,23 @@
         storyImage.style.background = story.fill || "rgba(255,252,247,0.95)";
 
         storyPills.innerHTML = "";
+        const pillFragment = document.createDocumentFragment();
         story.pills.forEach((pill, index) => {
           const span = document.createElement("span");
           span.textContent = pill;
           if (index === 0) span.classList.add("primary");
-          storyPills.appendChild(span);
+          pillFragment.appendChild(span);
         });
+        storyPills.appendChild(pillFragment);
 
         storyNotes.innerHTML = "";
+        const notesFragment = document.createDocumentFragment();
         story.notes.forEach((note) => {
           const p = document.createElement("p");
           p.textContent = note;
-          storyNotes.appendChild(p);
+          notesFragment.appendChild(p);
         });
+        storyNotes.appendChild(notesFragment);
       }
 
       function getEntryY(entry) {
@@ -615,14 +645,13 @@
       function layoutTimeline() {
         if (!timelineContent) return;
 
-        let currentY = 90;
-        const itemStep = 108;
-        const yearGapStep = itemStep * 0.576;
+        let currentY = TIMELINE_LAYOUT.startY;
+        const yearGapStep = TIMELINE_LAYOUT.itemStep * TIMELINE_LAYOUT.yearGapRatio;
 
         timelineTargets.forEach((entry, index) => {
           const snappedY = snapToTick(currentY);
           entry.style.setProperty("--y", `${snappedY}px`);
-          currentY += itemStep;
+          currentY += TIMELINE_LAYOUT.itemStep;
 
           const nextEntry = timelineTargets[index + 1];
           if (nextEntry && nextEntry.dataset.year !== entry.dataset.year) {
@@ -631,7 +660,7 @@
         });
 
         yearEntries.forEach((entry) => {
-          const peers = timelineTargets.filter((node) => node.dataset.year === entry.dataset.year);
+          const peers = timelineTargetsByYear.get(entry.dataset.year) || [];
           if (!peers.length) return;
 
           const firstY = getEntryY(peers[0]);
@@ -641,12 +670,8 @@
           const entryIndex = yearEntries.indexOf(entry);
           const previousYear = yearEntries[entryIndex - 1];
           const nextYear = yearEntries[entryIndex + 1];
-          const previousPeers = previousYear
-            ? timelineTargets.filter((node) => node.dataset.year === previousYear.dataset.year)
-            : [];
-          const nextPeers = nextYear
-            ? timelineTargets.filter((node) => node.dataset.year === nextYear.dataset.year)
-            : [];
+          const previousPeers = previousYear ? timelineTargetsByYear.get(previousYear.dataset.year) || [] : [];
+          const nextPeers = nextYear ? timelineTargetsByYear.get(nextYear.dataset.year) || [] : [];
 
           const topBoundary = previousPeers.length
             ? (getEntryCenter(previousPeers[previousPeers.length - 1]) + firstCenter) / 2
@@ -670,17 +695,19 @@
         if (timelineMediumTicks) {
           timelineMediumTicks.innerHTML = "";
           const majorTickPositions = getMajorTickPositions();
+          const mediumTickFragment = document.createDocumentFragment();
           majorTickPositions.slice(0, -1).forEach((currentY, index) => {
             const nextY = majorTickPositions[index + 1];
             const mediumY = snapToTick((currentY + nextY) / 2);
             const tick = document.createElement("span");
             tick.className = "timeline-mediumtick";
             tick.style.top = `${mediumY}px`;
-            timelineMediumTicks.appendChild(tick);
+            mediumTickFragment.appendChild(tick);
           });
+          timelineMediumTicks.appendChild(mediumTickFragment);
         }
 
-        timelineContent.style.height = `${currentY + 220}px`;
+        timelineContent.style.height = `${currentY + TIMELINE_LAYOUT.bottomPadding}px`;
       }
 
       function updateYearPositions() {
@@ -693,8 +720,8 @@
 
       function updateEntryDepth(activeEntry) {
         const trackRect = track.getBoundingClientRect();
-        const fadeZoneStart = trackRect.height * 0.119;
-        const fullFadeZone = trackRect.height * 0.051;
+        const fadeZoneStart = trackRect.height * EDGE_FADE.startRatio;
+        const fullFadeZone = trackRect.height * EDGE_FADE.fullFadeRatio;
 
         timelineEntries.forEach((entry) => {
           const pill = entry.querySelector(".entry-pill");
@@ -729,8 +756,8 @@
             );
           }
 
-          const opacity = 0.08 + progress * 0.92;
-          const blur = (1 - progress) * 5.5;
+          const opacity = EDGE_FADE.minOpacity + progress * (1 - EDGE_FADE.minOpacity);
+          const blur = (1 - progress) * EDGE_FADE.blurAmount;
           entry.style.opacity = `${opacity}`;
           entry.style.filter = "none";
           if (pill) pill.style.filter = `blur(${blur}px)`;
@@ -738,17 +765,19 @@
       }
 
       function updateActiveTimeline() {
-        const triggerBandCenter = Math.max(stickyOffset - 8, track.clientHeight * 0.3 - 120);
-        const monthTriggerHalf = 54;
-        const monthTriggerLift = 0;
+        const triggerBandCenter = Math.max(
+          Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--timeline-sticky-offset")) +
+            TRIGGER_ZONE.baseOffset,
+          track.clientHeight * TRIGGER_ZONE.minHeightRatio - TRIGGER_ZONE.lift
+        );
         const triggerLine = track.scrollTop + triggerBandCenter;
         trackWrap?.style.setProperty(
           "--trigger-debug-top-y",
-          `${triggerBandCenter - monthTriggerHalf - monthTriggerLift}px`
+          `${triggerBandCenter - TRIGGER_ZONE.halfHeight - TRIGGER_ZONE.visualLift}px`
         );
         trackWrap?.style.setProperty(
           "--trigger-debug-bottom-y",
-          `${triggerBandCenter + monthTriggerHalf - monthTriggerLift}px`
+          `${triggerBandCenter + TRIGGER_ZONE.halfHeight - TRIGGER_ZONE.visualLift}px`
         );
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
@@ -763,11 +792,14 @@
           }
         });
 
-        timelineTargets.forEach((node) => node.classList.remove("active"));
-        active.classList.add("active");
+        if (activeTimelineEntry !== active) {
+          activeTimelineEntry?.classList.remove("active");
+          active.classList.add("active");
+          activeTimelineEntry = active;
+        }
 
         renderStory(active.dataset.story || "time-off");
-        updateYearPositions(active);
+        updateYearPositions();
         updateEntryDepth(active);
       }
 
