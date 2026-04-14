@@ -422,18 +422,10 @@ body.preload-layout .page-loader {
   height: 18px;
   fill: currentColor;
   display: block;
-  transition: transform 180ms ease;
-}
-
-.sidebar-links a img {
-  width: 18px;
-  height: 18px;
-  display: block;
   transform-origin: center;
-  filter: brightness(0) saturate(100%) invert(44%) sepia(9%) saturate(569%) hue-rotate(258deg) brightness(92%) contrast(88%);
-  transition:
-    transform 180ms ease,
-    filter 180ms ease;
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: transform 180ms ease;
 }
 
 .sidebar-links a:hover {
@@ -441,15 +433,8 @@ body.preload-layout .page-loader {
 }
 
 .sidebar-links a:hover svg,
-.sidebar-links a:focus-visible svg,
-.sidebar-links a:hover img,
-.sidebar-links a:focus-visible img {
+.sidebar-links a:focus-visible svg {
   transform: scale(1.08);
-}
-
-.sidebar-links a:hover img,
-.sidebar-links a:focus-visible img {
-  filter: brightness(0) saturate(100%) invert(45%) sepia(81%) saturate(4335%) hue-rotate(343deg) brightness(102%) contrast(102%);
 }
 
 .sidebar-links a:hover::after,
