@@ -490,20 +490,32 @@ body {
   color: var(--muted);
   line-height: 1;
   z-index: 4;
-  left: -24px;
-  width: 84px;
+  left: 10px;
+  width: 0;
   justify-content: flex-start;
 }
 
 .timeline-entry.year .entry-pill {
   display: block;
+  position: absolute;
+  right: 14px;
+  top: 50%;
   padding: 0;
   margin: 0;
   background: transparent;
   border: 0;
   box-shadow: none;
-  transform: rotate(-90deg);
-  transform-origin: left top;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: right center;
+  white-space: nowrap;
+}
+
+.timeline-entry.year::before {
+  position: absolute;
+  left: -56px;
+  top: 50%;
+  margin: 0;
+  transform: translateY(-50%);
 }
 
 .year-mark {
