@@ -114,7 +114,7 @@ body {
   display: block;
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.37em;
   line-height: 0.8;
   white-space: nowrap;
   text-transform: uppercase;
@@ -448,7 +448,7 @@ body {
 .timeline-head h2,
 .story-kicker {
   font-family: "SF Compact Text Local", "SF Compact Text", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   line-height: 1.1;
   font-weight: 400;
@@ -945,7 +945,7 @@ body {
   margin: 0;
   font-size: 12px;
   line-height: 1.35;
-  color: #d0c9d0;
+  color: #c2bac3;
   font-weight: 400;
   font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 }
