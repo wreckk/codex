@@ -104,10 +104,7 @@
 
         <section class="timeline-column" aria-label="Timeline">
           <div class="timeline-head">
-            <h2 class="timeline-label">
-              EXPERIENCE
-              <span class="timeline-hint">Scroll to see more</span>
-            </h2>
+            <h2 class="timeline-label">EXPERIENCE</h2>
           </div>
 
           <div class="timeline-track">
@@ -479,7 +476,6 @@
       const storyPills = document.getElementById("story-pills");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
-      const timelineLabel = document.querySelector(".timeline-label");
       const sidebarHeading = document.querySelector(".sidebar-heading");
       const sidebarName = sidebarHeading?.querySelector("h1");
       const sidebarRole = sidebarHeading?.querySelector("p");
@@ -579,9 +575,7 @@
         if (!timelineContent) return;
 
         let currentY = 0;
-        const yearToItemGap = 99;
         const itemStep = 64;
-        const itemToYearGap = 110;
 
         timelineEntries.forEach((entry, index) => {
           entry.style.setProperty("--y", `${currentY}px`);
@@ -589,12 +583,7 @@
           const nextEntry = timelineEntries[index + 1];
           if (!nextEntry) return;
 
-          if (entry.classList.contains("year")) {
-            currentY += yearToItemGap;
-            return;
-          }
-
-          currentY += nextEntry.classList.contains("year") ? itemToYearGap : itemStep;
+          currentY += itemStep;
         });
 
         timelineContent.style.height = `${currentY + 220}px`;
@@ -609,7 +598,7 @@
           const maxTranslate = nextEntry
             ? Math.max(0, nextEntry.offsetTop - naturalTop - entryHeight - yearPushGap)
             : stickyTranslate;
-          const translateY = Math.min(stickyTranslate, maxTranslate);
+          const translateY = Math.round(Math.min(stickyTranslate, maxTranslate));
 
           entry.style.transform = `translateY(${translateY}px)`;
           entry.style.zIndex = translateY > 0 ? "4" : "1";
@@ -644,7 +633,7 @@
             progress = Math.max(0, edgeDistance / zoneHeight);
           }
 
-          const opacity = 0.18 + progress * 0.82;
+          const opacity = 0.12 + progress * 0.88;
           const blur = (1 - progress) * 5;
           entry.style.opacity = `${opacity}`;
           if (pill) pill.style.filter = `blur(${blur}px)`;
@@ -652,7 +641,7 @@
       }
 
       function updateActiveTimeline() {
-        const triggerLine = track.scrollTop + Math.max(stickyOffset + 104, track.clientHeight * 0.28);
+        const triggerLine = track.scrollTop + Math.max(stickyOffset + 138, track.clientHeight * 0.36);
         let active = timelineTargets[0];
         let bestDistance = Infinity;
 
@@ -689,12 +678,6 @@
         layoutTimeline();
         fitSidebarHeading();
         updateActiveTimeline();
-        if (timelineLabel) {
-          timelineLabel.classList.add("show-hint");
-          window.setTimeout(() => {
-            timelineLabel.classList.remove("show-hint");
-          }, 1800);
-        }
       });
       window.addEventListener("resize", () => {
         layoutTimeline();

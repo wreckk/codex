@@ -321,52 +321,8 @@ body {
 }
 
 .timeline-label {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  cursor: help;
-}
-
-.timeline-hint {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 12px);
-  transform: translateY(-4px);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 10px;
-  background: rgba(70, 61, 71, 0.96);
-  color: #fcfaf4;
-  border-radius: 8px;
-  box-shadow: 0 10px 24px rgba(70, 61, 71, 0.2);
-  font-size: 11px;
-  line-height: 1;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 20;
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.timeline-hint::before {
-  content: "";
-  position: absolute;
-  left: 14px;
-  top: -5px;
-  width: 10px;
-  height: 10px;
-  background: rgba(70, 61, 71, 0.96);
-  transform: rotate(45deg);
-  border-radius: 2px;
-}
-
-.timeline-label:hover .timeline-hint,
-.timeline-label.show-hint .timeline-hint {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .timeline-track {
@@ -374,9 +330,44 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 10px;
+  position: relative;
   scrollbar-width: thin;
   scrollbar-color: rgba(116, 102, 118, 0.28) transparent;
   overscroll-behavior: contain;
+}
+
+.timeline-track::before,
+.timeline-track::after {
+  content: "";
+  position: sticky;
+  left: 0;
+  display: block;
+  width: 60px;
+  height: 52px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.timeline-track::before {
+  top: 0;
+  margin-bottom: -52px;
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 243, 234, 1) 0%,
+    rgba(248, 243, 234, 0.85) 34%,
+    rgba(248, 243, 234, 0) 100%
+  );
+}
+
+.timeline-track::after {
+  bottom: 0;
+  margin-top: -52px;
+  background: linear-gradient(
+    to top,
+    rgba(248, 243, 234, 1) 0%,
+    rgba(248, 243, 234, 0.85) 34%,
+    rgba(248, 243, 234, 0) 100%
+  );
 }
 
 .timeline-track::-webkit-scrollbar {
@@ -408,20 +399,6 @@ body {
   bottom: 0;
   width: 1px;
   background: var(--line);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.9) 10%,
-    rgba(0, 0, 0, 0.9) 90%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.9) 10%,
-    rgba(0, 0, 0, 0.9) 90%,
-    transparent 100%
-  );
 }
 
 .timeline-shortticks {
@@ -434,20 +411,6 @@ body {
     to bottom,
     rgba(217, 208, 197, 0.9) 0 1px,
     transparent 1px 5px
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.9) 10%,
-    rgba(0, 0, 0, 0.9) 90%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.9) 10%,
-    rgba(0, 0, 0, 0.9) 90%,
-    transparent 100%
   );
 }
 
@@ -522,6 +485,10 @@ body {
   line-height: 1;
 }
 
+.timeline-entry.year .entry-pill {
+  align-items: center;
+}
+
 .year-mark {
   font-size: 26px;
   letter-spacing: -0.04em;
@@ -531,6 +498,8 @@ body {
 
 .company {
   font-size: 15px;
+  line-height: 1;
+  transform: translateY(1px);
 }
 
 .timeline-entry.active::before {
