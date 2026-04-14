@@ -71,7 +71,7 @@ body {
 
 .page-body {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 8fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 8fr);
   gap: 8px;
   margin-top: 0;
   height: calc(100vh - 58px);
@@ -495,6 +495,7 @@ body {
   left: var(--timeline-gutter);
   width: calc(100% - var(--timeline-gutter));
   justify-content: flex-start;
+  overflow: visible;
 }
 
 .timeline-entry.year .entry-pill {
@@ -509,8 +510,9 @@ body {
   border: 0;
   box-shadow: none;
   transform: translateY(-50%) rotate(-90deg);
-  transform-origin: center;
+  transform-origin: 0 0;
   white-space: nowrap;
+  overflow: visible;
 }
 
 .timeline-entry.year::before {
