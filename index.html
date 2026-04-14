@@ -587,8 +587,8 @@
         if (!timelineContent) return;
 
         let currentY = 0;
-        const itemStep = 64;
-        const todayExtraGap = 54;
+        const itemStep = 82;
+        const todayExtraGap = 42;
 
         timelineEntries.forEach((entry, index) => {
           entry.style.setProperty("--y", `${currentY}px`);
@@ -618,27 +618,13 @@
         const activeYear = activeEntry?.dataset.year || yearEntries[0]?.dataset.year || "2026";
         const activeYearEntry = yearEntries.find((entry) => entry.dataset.year === activeYear) || yearEntries[0];
 
-        if (activeYear !== currentPinnedYear && pinnedYear) {
-          pinnedYear.classList.add("is-swapping");
-          window.setTimeout(() => {
-            if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
-            if (pinnedCompany) {
-              pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
-              pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
-            }
-            sizePinnedYearPill();
-            currentPinnedYear = activeYear;
-            pinnedYear.classList.remove("is-swapping");
-          }, 90);
-        } else {
-          if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
-          if (pinnedCompany) {
-            pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
-            pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
-          }
-          sizePinnedYearPill();
-          currentPinnedYear = activeYear;
+        if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
+        if (pinnedCompany) {
+          pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
+          pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
         }
+        sizePinnedYearPill();
+        currentPinnedYear = activeYear;
 
         yearEntries.forEach((entry) => {
           const isActiveYear = entry.dataset.year === activeYear;
