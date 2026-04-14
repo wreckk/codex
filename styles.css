@@ -1476,7 +1476,7 @@ body.preload-layout .page-loader {
     position: fixed;
     left: 50%;
     top: calc(16px + var(--mobile-header-height, 110px) + 14px);
-    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + 18px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + 10px);
     transform: translateX(-50%);
     padding: 0 12px;
     z-index: 20;
@@ -1484,46 +1484,46 @@ body.preload-layout .page-loader {
   }
 
   .timeline-track-wrap {
-    height: 170px;
+    height: 154px;
   }
 
   .timeline-column {
     position: fixed;
     left: 50%;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
+    bottom: env(safe-area-inset-bottom, 0px);
     top: auto;
     transform: translateX(-50%);
-    height: 168px;
-    min-height: 168px;
+    height: 150px;
+    min-height: 150px;
     z-index: 25;
   }
 
   .timeline-content {
-    height: 168px;
+    height: 150px;
   }
 
   .timeline-line,
   .timeline-shortticks,
   .timeline-tailticks,
   .timeline-mediumticks {
-    top: 102px;
+    top: 90px;
   }
 
   .timeline-shortticks,
   .timeline-tailticks {
-    top: 86px;
+    top: 76px;
   }
 
   .timeline-mediumticks {
-    top: 74px;
+    top: 64px;
   }
 
   .timeline-entry {
-    top: 34px;
+    top: 24px;
   }
 
   .timeline-entry.year {
-    top: 104px;
+    top: 92px;
   }
 
   .timeline-head {

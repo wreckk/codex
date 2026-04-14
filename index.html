@@ -618,6 +618,8 @@
       let activeTimelineEntry = null;
       let activeStoryId = null;
       let timelineFrame = null;
+      let mobileMetricsFrame = null;
+      let mobileMetricsObserver = null;
 
       function isCompactTimeline() {
         return window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact;
@@ -655,6 +657,14 @@
         const timelineHeight = Math.ceil(timelineColumn.getBoundingClientRect().height);
         document.documentElement.style.setProperty("--mobile-header-height", `${headerHeight}px`);
         document.documentElement.style.setProperty("--mobile-timeline-height", `${timelineHeight}px`);
+      }
+
+      function scheduleMobileLayoutMetrics() {
+        if (mobileMetricsFrame !== null) return;
+        mobileMetricsFrame = requestAnimationFrame(() => {
+          mobileMetricsFrame = null;
+          syncMobileLayoutMetrics();
+        });
       }
 
       function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
@@ -1190,7 +1200,7 @@
         layoutTimeline();
         fitSidebarHeading();
         syncMobileSidebarState();
-        syncMobileLayoutMetrics();
+        scheduleMobileLayoutMetrics();
         renderStory(timelineTargets[0]?.dataset.story || "tooling");
         updateActiveTimeline();
         requestAnimationFrame(() => {
@@ -1205,9 +1215,20 @@
         layoutTimeline();
         fitSidebarHeading();
         syncMobileSidebarState();
-        syncMobileLayoutMetrics();
+        scheduleMobileLayoutMetrics();
         scheduleTimelineUpdate();
       });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", scheduleMobileLayoutMetrics);
+        window.visualViewport.addEventListener("scroll", scheduleMobileLayoutMetrics);
+      }
+      if (window.ResizeObserver) {
+        mobileMetricsObserver = new ResizeObserver(() => {
+          scheduleMobileLayoutMetrics();
+        });
+        mobileMetricsObserver.observe(sidebarCard);
+        mobileMetricsObserver.observe(timelineColumn);
+      }
     </script>
   </body>
 </html>
