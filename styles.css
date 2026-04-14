@@ -16,6 +16,9 @@
   --story-image: url("https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png");
   --timeline-sticky-offset: 35px;
   --timeline-gutter: 23px;
+  --timeline-ink-strong: #746676;
+  --timeline-ink-mid: #928494;
+  --timeline-ink-soft: #b6a9b5;
 }
 
 @font-face {
@@ -164,8 +167,8 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -20px;
-  height: 24px;
+  bottom: -12px;
+  height: 16px;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
@@ -179,7 +182,7 @@ body {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-top: 10px;
+  padding-top: 18px;
   padding-bottom: 12px;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
@@ -418,7 +421,7 @@ body {
   letter-spacing: 0.2em;
   font-weight: 400;
   line-height: 1.1;
-  color: var(--muted);
+  color: var(--timeline-ink-strong);
 }
 
 .timeline-label {
@@ -506,7 +509,7 @@ body {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: var(--line);
+  background: var(--timeline-ink-soft);
 }
 
 .timeline-shortticks {
@@ -517,7 +520,7 @@ body {
   height: 100%;
   background-image: repeating-linear-gradient(
     to bottom,
-    rgba(217, 208, 197, 0.9) 0 1px,
+    var(--timeline-ink-soft) 0 1px,
     transparent 1px 5px
   );
 }
@@ -537,7 +540,7 @@ body {
   top: 0;
   width: 37px;
   height: 1px;
-  background: rgba(217, 208, 197, 0.72);
+  background: var(--timeline-ink-soft);
 }
 
 .timeline-progress-line {
@@ -559,12 +562,13 @@ body {
   right: -28px;
   top: var(--first-year-line-y, 0px);
   height: 1px;
-  background: linear-gradient(
+  background: repeating-linear-gradient(
     to right,
-    rgba(185, 173, 159, 0.24) 0%,
-    rgba(185, 173, 159, 0.18) 88%,
-    rgba(185, 173, 159, 0) 100%
+    var(--timeline-ink-mid) 0 7px,
+    transparent 7px 13px
   );
+  mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
   pointer-events: none;
 }
 
@@ -628,12 +632,12 @@ body {
   margin-right: 0;
   height: 1px;
   width: 46px;
-  background: #b9ad9f;
+  background: var(--timeline-ink-mid);
   flex-shrink: 0;
 }
 
 .timeline-entry.minor {
-  color: color-mix(in srgb, var(--muted) 80%, #b7a998 20%);
+  color: var(--timeline-ink-strong);
   font-size: 13px;
   line-height: 1;
 }
@@ -690,12 +694,13 @@ body {
   top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
-  background: linear-gradient(
+  background: repeating-linear-gradient(
     to right,
-    rgba(185, 173, 159, 0.24) 0%,
-    rgba(185, 173, 159, 0.18) 88%,
-    rgba(185, 173, 159, 0) 100%
+    var(--timeline-ink-mid) 0 7px,
+    transparent 7px 13px
   );
+  mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
 }
 
 .timeline-entry.year::after {
@@ -706,12 +711,13 @@ body {
   top: var(--line-bottom, 0px);
   height: 1px;
   margin: 0;
-  background: linear-gradient(
+  background: repeating-linear-gradient(
     to right,
-    rgba(185, 173, 159, 0.24) 0%,
-    rgba(185, 173, 159, 0.18) 88%,
-    rgba(185, 173, 159, 0) 100%
+    var(--timeline-ink-mid) 0 7px,
+    transparent 7px 13px
   );
+  mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
 }
 
 .year-mark {
@@ -721,7 +727,7 @@ body {
   line-height: 26px;
   letter-spacing: 0.01em;
   font-weight: 700;
-  color: color-mix(in srgb, var(--muted) 70%, white 30%);
+  color: color-mix(in srgb, var(--timeline-ink-strong) 70%, white 30%);
   margin-right: 0;
 }
 
@@ -807,7 +813,7 @@ body {
   line-height: 1.1;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 30px;
+  margin-top: 28px;
 }
 
 .story-head h2 {
