@@ -576,7 +576,7 @@
 
         let currentY = 0;
         const itemStep = 64;
-        const todayExtraGap = 26;
+        const todayExtraGap = 54;
 
         timelineEntries.forEach((entry, index) => {
           entry.style.setProperty("--y", `${currentY}px`);
@@ -651,7 +651,7 @@
       }
 
       function updateActiveTimeline() {
-        const triggerLine = track.scrollTop + Math.max(stickyOffset + 138, track.clientHeight * 0.36);
+        const triggerLine = track.scrollTop + Math.max(stickyOffset + 156, track.clientHeight * 0.42);
         let active = timelineTargets[0];
         let bestDistance = Infinity;
 

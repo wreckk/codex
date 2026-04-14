@@ -483,6 +483,7 @@ body {
 .timeline-entry.year {
   color: var(--muted);
   line-height: 1;
+  z-index: 4;
 }
 
 .timeline-entry.year .entry-pill {
