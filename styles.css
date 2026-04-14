@@ -490,8 +490,8 @@ body {
   color: var(--muted);
   line-height: 1;
   z-index: 4;
-  left: -52px;
-  width: 54px;
+  left: -24px;
+  width: 48px;
   justify-content: flex-end;
 }
 
