@@ -141,6 +141,7 @@ body {
   overflow-x: hidden;
   padding-top: 10px;
   padding-bottom: 12px;
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
 }
@@ -755,6 +756,7 @@ body {
   overflow-x: hidden;
   padding-top: 22px;
   padding-bottom: 26px;
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
 }
