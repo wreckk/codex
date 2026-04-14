@@ -111,6 +111,7 @@ body {
   margin: 6px 0 0 0;
   color: var(--muted);
   width: max-content;
+  display: block;
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 0.32em;
@@ -118,6 +119,7 @@ body {
   white-space: nowrap;
   text-transform: uppercase;
   font-weight: 600;
+  transform-origin: left center;
 }
 
 .page-body {
@@ -802,7 +804,7 @@ body {
   align-items: center;
   gap: 24px;
   text-align: center;
-  padding-top: 26px;
+  padding-top: 16px;
   position: relative;
   z-index: 2;
   background: #fff;
@@ -842,7 +844,7 @@ body {
   line-height: 1.1;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 16px;
+  margin-top: 0;
 }
 
 .story-head h2 {
