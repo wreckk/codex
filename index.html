@@ -944,8 +944,7 @@
           let buttonCenter = lastTargetX + tailOffset;
           if (isMobileLayout() && trackWrap) {
             const viewportWidth = trackWrap.clientWidth;
-            const buttonHalfWidth = timelineBackToTop.offsetWidth / 2 || 0;
-            buttonCenter = Math.max(buttonCenter, viewportWidth / 2 + buttonHalfWidth);
+            buttonCenter = viewportWidth / 2;
             currentX = Math.max(currentX, buttonCenter + viewportWidth / 2 - COMPACT_TIMELINE_LAYOUT.endPadding);
           }
           timelineBackToTop.style.left = `${buttonCenter}px`;
