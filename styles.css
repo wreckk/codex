@@ -1316,7 +1316,6 @@ body.preload-layout .page-loader {
   }
 
   .sidebar-card.is-mobile-open {
-    width: min(calc(100vw - 20px), 420px);
     z-index: 50;
   }
 
