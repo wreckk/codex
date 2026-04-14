@@ -616,21 +616,12 @@
 
       function updateEntryDepth(activeEntry) {
         const trackRect = track.getBoundingClientRect();
-        const zoneHeight = trackRect.height * 0.1;
-        const activeYear = activeEntry?.dataset.year;
+        const fadeZoneStart = trackRect.height * 0.2;
+        const fullFadeZone = trackRect.height * 0.25;
 
         timelineEntries.forEach((entry) => {
           const pill = entry.querySelector(".entry-pill");
-          const isPinnedYear =
-            entry.classList.contains("year") && activeYear && entry.dataset.year === activeYear;
           const isActive = entry === activeEntry;
-
-          if (isPinnedYear) {
-            entry.style.opacity = "1";
-            entry.style.filter = "none";
-            if (pill) pill.style.filter = "none";
-            return;
-          }
 
           if (isActive) {
             entry.style.opacity = "1";
@@ -646,12 +637,16 @@
           const edgeDistance = Math.min(topDistance, bottomDistance);
 
           let progress = 1;
-          if (edgeDistance < zoneHeight) {
-            progress = Math.max(0, edgeDistance / zoneHeight);
+          if (edgeDistance < fullFadeZone) {
+            progress = Math.max(0, (edgeDistance - fadeZoneStart) / (fullFadeZone - fadeZoneStart));
           }
 
-          const opacity = 0.12 + progress * 0.88;
-          const blur = (1 - progress) * 5;
+          const opacity = entry.classList.contains("year")
+            ? 0.18 + progress * 0.82
+            : 0.08 + progress * 0.92;
+          const blur = entry.classList.contains("year")
+            ? 0
+            : (1 - progress) * 5.5;
           entry.style.opacity = `${opacity}`;
           entry.style.filter = "none";
           if (pill) pill.style.filter = `blur(${blur}px)`;
