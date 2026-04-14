@@ -1389,30 +1389,12 @@ body.preload-layout .page-loader {
     overflow: visible;
   }
 
-  .sidebar-mobile-toggle__pullbar path,
-  .sidebar-mobile-toggle__pullbar circle {
+  .sidebar-mobile-toggle__pullbar polyline {
     stroke: #d9d0c6;
-    fill: #d9d0c6;
-  }
-
-  .sidebar-mobile-toggle__pullbar path {
     stroke-width: 2.5;
     stroke-linecap: round;
+    stroke-linejoin: round;
     fill: none;
-  }
-
-  .pullbar-dot {
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  .pullbar-dot--left,
-  .pullbar-dot--right {
-    animation: pullbar-breathe 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  }
-
-  .pullbar-dot--right {
-    animation-delay: 0.12s;
   }
 
   .sidebar-heading h1,
@@ -1553,17 +1535,5 @@ body.preload-layout .page-loader {
 
   .story-pills {
     margin: 8px 0;
-  }
-}
-
-@keyframes pullbar-breathe {
-  0%,
-  72%,
-  100% {
-    transform: translateY(0);
-  }
-
-  84% {
-    transform: translateY(-4px);
   }
 }

@@ -37,10 +37,20 @@
               </span>
               <span class="sidebar-mobile-toggle__pullbar" aria-hidden="true">
                 <svg viewBox="0 0 44 8" focusable="false" aria-hidden="true">
-                  <path d="M2 5 L22 5 L42 5" pathLength="40" />
-                  <circle class="pullbar-dot pullbar-dot--left" cx="2" cy="5" r="2" />
-                  <circle class="pullbar-dot pullbar-dot--center" cx="22" cy="5" r="2" />
-                  <circle class="pullbar-dot pullbar-dot--right" cx="42" cy="5" r="2" />
+                  <polyline
+                    points="2,5 22,5 42,5"
+                    vector-effect="non-scaling-stroke"
+                  >
+                    <animate
+                      attributeName="points"
+                      dur="3.6s"
+                      repeatCount="indefinite"
+                      keyTimes="0;0.72;0.84;1"
+                      calcMode="spline"
+                      keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"
+                      values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,5 22,5 42,5"
+                    />
+                  </polyline>
                 </svg>
               </span>
             </button>
