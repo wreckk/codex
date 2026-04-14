@@ -85,9 +85,57 @@ body {
   font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 }
 
+body.preload-layout {
+  overflow: hidden;
+}
+
 body.preload-layout .page-body {
   opacity: 0;
   pointer-events: none;
+}
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+body.preload-layout .page-loader {
+  opacity: 1;
+}
+
+.page-loader__wordmark {
+  position: relative;
+  display: inline-block;
+  font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.page-loader__wordmark::after {
+  content: "";
+  position: absolute;
+  inset: -10% -6%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 70, 50, 0.05) 0%,
+    rgba(255, 183, 174, 0.5) 50%,
+    rgba(255, 70, 50, 0.05) 100%
+  );
+  filter: blur(14px);
+  animation: loader-pulse 1.2s ease-in-out infinite alternate;
+  z-index: -1;
 }
 
 .page-shell {
@@ -1025,6 +1073,18 @@ body.preload-layout .page-body {
 
   to {
     transform: rotate(10deg);
+  }
+}
+
+@keyframes loader-pulse {
+  from {
+    transform: translateX(-8px);
+    opacity: 0.55;
+  }
+
+  to {
+    transform: translateX(8px);
+    opacity: 0.9;
   }
 }
 
