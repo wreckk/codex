@@ -15,7 +15,7 @@
   --overlay-headshot: url("https://www.ericcenteno.com/_assets/v11/3e2c1deb01c86e972423afc0ca5b3ec6bfa950b8.png");
   --story-image: url("https://app.paper.design/file-assets/01KNXPTGCSX0W6JD4JZPD1X5XS/61N13QXVBMJCD3K00ZYS2WSJVJ.png");
   --timeline-sticky-offset: 35px;
-  --timeline-gutter: 40px;
+  --timeline-gutter: 28px;
 }
 
 * {
@@ -72,7 +72,7 @@ body {
 .page-body {
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) minmax(0, 5fr);
-  gap: 10px;
+  gap: 6px;
   margin-top: 0;
   height: calc(100vh - 58px);
   min-height: 0;
@@ -499,7 +499,7 @@ body {
 .timeline-entry.year .entry-pill {
   display: block;
   position: absolute;
-  left: -40px;
+  left: -28px;
   right: auto;
   top: 50%;
   padding: 0;
