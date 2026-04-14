@@ -363,7 +363,7 @@ body {
 }
 
 .timeline-track::after {
-  bottom: 0;
+  bottom: -1px;
   margin-top: -52px;
   background: linear-gradient(
     to top,
