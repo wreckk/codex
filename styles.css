@@ -108,10 +108,10 @@ body {
 }
 
 .sidebar-card {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 0 26px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 0;
+  padding: 0 26px 0;
   background: #fdfaf3;
   border: 1px solid #e1d5c1;
   color: var(--ink);
@@ -119,37 +119,8 @@ body {
   min-height: 0;
   position: sticky;
   top: 30px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   isolation: isolate;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
-}
-
-.sidebar-card::before,
-.sidebar-card::after {
-  content: "";
-  position: sticky;
-  left: 0;
-  display: block;
-  width: calc(100% + 52px);
-  margin-left: -26px;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.sidebar-card::before {
-  top: 0;
-  height: 22px;
-  margin-bottom: -22px;
-  background: #fdfaf3;
-}
-
-.sidebar-card::after {
-  bottom: 0;
-  height: 34px;
-  margin-top: -34px;
-  background: #fdfaf3;
 }
 
 .sidebar-heading {
@@ -157,34 +128,27 @@ body {
   flex-direction: column;
   gap: 0;
   flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  z-index: 5;
   background: #fdfaf3;
   padding-top: 22px;
   padding-bottom: 12px;
+  position: relative;
+  z-index: 2;
 }
 
-.sidebar-heading::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -20px;
-  height: 24px;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(253, 250, 243, 1) 0%,
-    rgba(253, 250, 243, 0.84) 48%,
-    rgba(253, 250, 243, 0) 100%
-  );
+.sidebar-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 10px;
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
 }
 
 .sidebar-intro {
   display: block;
   flex-shrink: 0;
-  margin-top: 20px;
+  margin-top: 0;
   margin-bottom: 14px;
 }
 
@@ -305,26 +269,13 @@ body {
   gap: 10px;
   flex-shrink: 0;
   clear: both;
-  margin-top: auto !important;
-  padding-top: 22px;
-  order: 99;
-  position: sticky;
-  bottom: 0;
-  z-index: 5;
+  margin-top: 0;
+  padding-top: 16px;
   background: #fdfaf3;
-  box-shadow: 0 -22px 24px #fdfaf3;
-  padding-bottom: 26px;
-}
-
-.sidebar-links::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 18px;
-  background: #fdfaf3;
-  pointer-events: none;
+  padding-bottom: 22px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 -10px 16px #fdfaf3;
 }
 
 .sidebar-links a {
@@ -397,7 +348,7 @@ body {
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .timeline-column {
@@ -753,46 +704,19 @@ body {
 }
 
 .story-card {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 0;
   padding: 0 30px;
   height: 100%;
   min-height: 0;
   position: sticky;
   top: 30px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   isolation: isolate;
   background: #fff;
   border: 1px solid #e1d5c1;
   color: var(--ink);
-}
-
-.story-card::before,
-.story-card::after {
-  content: "";
-  position: sticky;
-  left: 0;
-  display: block;
-  width: calc(100% + 60px);
-  margin-left: -30px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.story-card::before {
-  top: 0;
-  height: 24px;
-  margin-bottom: -24px;
-  background: #fff;
-}
-
-.story-card::after {
-  bottom: 0;
-  height: 24px;
-  margin-top: -24px;
-  background: #fff;
 }
 
 .story-head {
@@ -802,11 +726,9 @@ body {
   gap: 24px;
   text-align: center;
   padding-top: 26px;
-  position: sticky;
-  top: 0;
-  z-index: 5;
+  position: relative;
+  z-index: 2;
   background: #fff;
-  box-shadow: 0 0 0 1px #fff, 0 18px 24px #fff;
   padding-bottom: 14px;
 }
 
@@ -826,6 +748,16 @@ body {
   );
 }
 
+.story-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 22px;
+  padding-bottom: 26px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
+}
+
 .story-kicker {
   font-size: 11px;
   letter-spacing: 0.2em;
@@ -838,7 +770,7 @@ body {
   margin: 0;
   font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 48px;
-  font-weight: 200;
+  font-weight: 100;
   letter-spacing: -0.02em;
   line-height: 0.98;
   color: var(--accent);
