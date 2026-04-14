@@ -540,7 +540,9 @@
 
       function fitSidebarHeading() {
         fitSidebarHeadingLine(sidebarName, { minScale: 0.94, maxScale: 1.32 });
-        fitSidebarHeadingLine(sidebarRole, { minScale: 1, maxScale: 1.22 });
+        if (sidebarRole) {
+          sidebarRole.style.transform = "";
+        }
       }
 
       function renderStory(id) {
