@@ -370,6 +370,13 @@ body {
   transition: transform 180ms ease;
 }
 
+.sidebar-links a img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  transition: transform 180ms ease;
+}
+
 .sidebar-links a[aria-label="Discogs"] svg {
   width: 24px;
   height: 24px;
@@ -380,7 +387,9 @@ body {
 }
 
 .sidebar-links a:hover svg,
-.sidebar-links a:focus-visible svg {
+.sidebar-links a:focus-visible svg,
+.sidebar-links a:hover img,
+.sidebar-links a:focus-visible img {
   transform: scale(1.08);
 }
 
