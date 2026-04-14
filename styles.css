@@ -516,11 +516,21 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
   background: rgba(185, 173, 159, 0.22);
-  transform: translateY(-50%);
+}
+
+.timeline-entry.year::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--line-bottom, 0px);
+  height: 1px;
+  margin: 0;
+  background: rgba(185, 173, 159, 0.22);
 }
 
 .year-mark {
