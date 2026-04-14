@@ -724,10 +724,7 @@
 
       function updateActiveTimeline() {
         const triggerBandCenter = Math.max(stickyOffset + 112, track.clientHeight * 0.3);
-        const triggerBandHalf = 18;
         const triggerLine = track.scrollTop + triggerBandCenter;
-        timelineContent.style.setProperty("--trigger-debug-top-y", `${triggerLine - triggerBandHalf}px`);
-        timelineContent.style.setProperty("--trigger-debug-bottom-y", `${triggerLine + triggerBandHalf}px`);
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
         let bestDistance = Infinity;
@@ -743,6 +740,23 @@
 
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
+
+        const activeIndex = timelineTargets.indexOf(active);
+        const activeCenter = getEntryCenter(active);
+        const previousEntry = activeIndex > 0 ? timelineTargets[activeIndex - 1] : null;
+        const nextEntry = activeIndex < timelineTargets.length - 1 ? timelineTargets[activeIndex + 1] : null;
+        const previousCenter = previousEntry ? getEntryCenter(previousEntry) : activeCenter;
+        const nextCenter = nextEntry ? getEntryCenter(nextEntry) : activeCenter;
+        const topBoundary = previousEntry
+          ? snapToTick((previousCenter + activeCenter) / 2)
+          : snapToTick(activeCenter - (nextCenter - activeCenter) / 2);
+        const bottomBoundary = nextEntry
+          ? snapToTick((activeCenter + nextCenter) / 2)
+          : snapToTick(activeCenter + (activeCenter - previousCenter) / 2);
+
+        timelineContent.style.setProperty("--trigger-debug-top-y", `${topBoundary}px`);
+        timelineContent.style.setProperty("--trigger-debug-bottom-y", `${bottomBoundary}px`);
+
         renderStory(active.dataset.story || "time-off");
         updateYearPositions(active);
         updateEntryDepth(active);
