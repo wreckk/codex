@@ -210,9 +210,10 @@ body {
 
 .sidebar-bio p {
   margin: 0;
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
+  font-style: italic;
   line-height: 1.62;
   color: color-mix(in srgb, var(--muted) 88%, white);
   text-wrap: pretty;
@@ -229,6 +230,7 @@ body {
   gap: 10px;
   flex-shrink: 0;
   clear: both;
+  margin-bottom: 10px;
 }
 
 .sidebar-links a {
@@ -269,9 +271,9 @@ body {
 .rail-section h2 {
   margin: 0;
   font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
 }
@@ -289,8 +291,8 @@ body {
   border: 1px solid #dedcd6;
   border-radius: 999px;
   background: #fff;
-  color: var(--ink);
-  font-size: 9px;
+  color: #857785;
+  font-size: 10px;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -302,7 +304,7 @@ body {
   position: sticky;
   top: 30px;
   overflow: visible;
-  padding-top: 10px;
+  padding-top: 13px;
   padding-left: 8px;
 }
 
@@ -315,7 +317,7 @@ body {
 
 .timeline-head h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 0.14em;
   font-weight: 400;
   line-height: 1;
@@ -613,9 +615,9 @@ body {
 .year-mark {
   display: block;
   font-family: "HelveticaNeue-Light", "Helvetica Neue", system-ui, sans-serif;
-  font-size: 22px;
-  line-height: 28px;
-  letter-spacing: -0.04em;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: 0.01em;
   font-weight: 300;
   color: #b7a998;
   margin-right: 0;
@@ -685,11 +687,12 @@ body {
   align-items: center;
   gap: 12px;
   text-align: center;
+  padding-top: 3px;
 }
 
 .story-kicker {
-  font-size: 15px;
-  letter-spacing: 0.24em;
+  font-size: 13px;
+  letter-spacing: 0.2em;
   line-height: 1;
   color: var(--muted);
   font-weight: 400;
@@ -697,9 +700,10 @@ body {
 
 .story-head h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 54px;
-  font-weight: 400;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 50px;
+  font-weight: 300;
+  letter-spacing: -0.03em;
   line-height: 0.94;
   color: var(--accent);
 }
@@ -729,7 +733,7 @@ body {
   align-items: center;
   padding: 7px 12px;
   border-radius: 999px;
-  background: #f4efe8;
+  background: #f1ebe4;
   color: var(--muted);
   font-size: 12px;
   line-height: 1;
@@ -737,8 +741,17 @@ body {
 
 .story-pills span.primary,
 .story-pills span:first-child {
-  background: #f7e9df;
-  color: var(--accent);
+  background: #eee7df;
+  color: var(--muted);
+}
+
+.story-pills span:nth-child(2) {
+  background: #ece7eb;
+}
+
+.story-pills span:nth-child(3) {
+  background: #f0ede7;
+  color: var(--muted);
 }
 
 .story-image-shell {
