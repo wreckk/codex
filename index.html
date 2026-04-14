@@ -944,8 +944,8 @@
           const buttonCenter = lastTargetX + tailOffset;
           timelineBackToTop.style.left = `${lastTargetX + tailOffset}px`;
           timelineBackToTop.style.top = isMobileLayout() ? "36px" : "";
-          if (isMobileLayout() && timelineTrackWrap) {
-            const viewportWidth = timelineTrackWrap.clientWidth;
+          if (isMobileLayout() && trackWrap) {
+            const viewportWidth = trackWrap.clientWidth;
             currentX = Math.max(currentX, buttonCenter + viewportWidth / 2 - COMPACT_TIMELINE_LAYOUT.endPadding);
           }
         }

@@ -119,7 +119,7 @@ body.preload-layout .page-loader {
   line-height: 0.92;
   font-weight: 900;
   letter-spacing: -0.05em;
-  color: var(--ink);
+  color: #857785;
 }
 
 .page-loader__wordmark::after {
