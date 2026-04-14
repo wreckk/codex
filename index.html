@@ -575,6 +575,11 @@
         return getEntryY(entry) + entry.offsetHeight / 2;
       }
 
+      function snapToTick(value) {
+        const tickStep = 5;
+        return Math.round(value / tickStep) * tickStep;
+      }
+
       function layoutTimeline() {
         if (!timelineContent) return;
 
@@ -615,11 +620,13 @@
           const bottomBoundary = nextPeers.length
             ? (lastCenter + getEntryCenter(nextPeers[0])) / 2
             : lastCenter + itemStep;
-          const midY = (topBoundary + bottomBoundary) / 2;
+          const snappedTopBoundary = snapToTick(topBoundary);
+          const snappedBottomBoundary = snapToTick(bottomBoundary);
+          const midY = (snappedTopBoundary + snappedBottomBoundary) / 2;
 
           entry.style.setProperty("--y", `${midY}px`);
-          entry.style.setProperty("--line-top", `${topBoundary - midY}px`);
-          entry.style.setProperty("--line-bottom", `${bottomBoundary - midY}px`);
+          entry.style.setProperty("--line-top", `${snappedTopBoundary - midY}px`);
+          entry.style.setProperty("--line-bottom", `${snappedBottomBoundary - midY}px`);
         });
 
         timelineContent.style.height = `${currentY + 220}px`;
