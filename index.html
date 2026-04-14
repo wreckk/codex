@@ -21,7 +21,7 @@
       <section class="page-body">
         <aside class="sidebar-card">
           <div class="sidebar-heading">
-            <h1><span>ERIC</span><span>CENTENO</span></h1>
+            <h1>ERIC CENTENO</h1>
             <p>EXECUTIVE DESIGN LEADER</p>
           </div>
 
@@ -104,7 +104,7 @@
 
         <section class="timeline-column" aria-label="Timeline">
           <div class="timeline-head">
-            <h2>TIMELINE</h2>
+            <h2>EXPERIENCES</h2>
             <span class="timeline-hint">Scroll to see more</span>
           </div>
 
@@ -470,6 +470,7 @@
       };
 
       const track = document.querySelector(".timeline-track");
+      const timelineContent = document.querySelector(".timeline-content");
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
@@ -479,6 +480,7 @@
       const sidebarHeading = document.querySelector(".sidebar-heading");
       const sidebarName = sidebarHeading?.querySelector("h1");
       const sidebarRole = sidebarHeading?.querySelector("p");
+      const timelineEntries = [...document.querySelectorAll(".timeline-entry")];
       const yearEntries = [...document.querySelectorAll(".timeline-entry.year")];
       const timelineTargets = [...document.querySelectorAll(".timeline-entry.minor")];
       const stickyOffset = 35;
@@ -558,6 +560,31 @@
         });
       }
 
+      function layoutTimeline() {
+        if (!timelineContent) return;
+
+        let currentY = 0;
+        const yearToItemGap = 74;
+        const itemStep = 64;
+        const itemToYearGap = 110;
+
+        timelineEntries.forEach((entry, index) => {
+          entry.style.setProperty("--y", `${currentY}px`);
+
+          const nextEntry = timelineEntries[index + 1];
+          if (!nextEntry) return;
+
+          if (entry.classList.contains("year")) {
+            currentY += yearToItemGap;
+            return;
+          }
+
+          currentY += nextEntry.classList.contains("year") ? itemToYearGap : itemStep;
+        });
+
+        timelineContent.style.height = `${currentY + 220}px`;
+      }
+
       function updateYearPositions() {
         yearEntries.forEach((entry, index) => {
           const entryHeight = entry.offsetHeight || 32;
@@ -599,10 +626,12 @@
 
       track.addEventListener("scroll", updateActiveTimeline, { passive: true });
       window.addEventListener("load", () => {
+        layoutTimeline();
         fitSidebarHeading();
         updateActiveTimeline();
       });
       window.addEventListener("resize", () => {
+        layoutTimeline();
         fitSidebarHeading();
         updateActiveTimeline();
       });
