@@ -418,8 +418,8 @@ body.preload-layout .page-loader {
 }
 
 .sidebar-links a svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   fill: currentColor;
   display: block;
   transform-origin: center;
@@ -429,8 +429,8 @@ body.preload-layout .page-loader {
 }
 
 .sidebar-links a .icon-discogs {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 .sidebar-links a:hover {
