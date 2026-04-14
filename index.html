@@ -733,7 +733,7 @@
         let bestDistance = Infinity;
 
         timelineTargets.forEach((node) => {
-          const y = node.offsetTop + node.offsetHeight / 2;
+          const y = getEntryCenter(node);
           const distance = Math.abs(triggerLine - y);
           if (distance < bestDistance) {
             bestDistance = distance;
