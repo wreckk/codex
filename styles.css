@@ -377,7 +377,7 @@ body {
 }
 
 .sidebar-links a:hover {
-  transform: translateY(-1px);
+  transform: scale(1.06);
   color: var(--accent);
 }
 
@@ -943,7 +943,7 @@ body {
 
 .story-notes p {
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.35;
   color: #c2bac3;
   font-weight: 400;
@@ -956,16 +956,20 @@ body {
     transform: rotate(0deg);
   }
 
-  25% {
-    transform: rotate(-12deg);
+  20% {
+    transform: rotate(-4deg);
   }
 
-  50% {
-    transform: rotate(0deg);
+  40% {
+    transform: rotate(-11deg);
   }
 
-  75% {
-    transform: rotate(12deg);
+  60% {
+    transform: rotate(3deg);
+  }
+
+  80% {
+    transform: rotate(10deg);
   }
 }
 
