@@ -325,6 +325,27 @@ body {
   align-items: center;
 }
 
+.timeline-pinned-year {
+  position: absolute;
+  left: 46px;
+  top: 122px;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.timeline-pinned-year .entry-pill {
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--plum-deep);
+  box-shadow: 0 10px 24px rgba(70, 61, 71, 0.16);
+}
+
+.timeline-pinned-year .year-mark,
+.timeline-pinned-year .company {
+  color: #fcfaf4;
+}
+
 .timeline-track {
   height: calc(100% - 40px);
   overflow-y: auto;
@@ -512,25 +533,6 @@ body {
 
 .timeline-entry.active::before {
   background: var(--accent);
-}
-
-.timeline-entry.year.is-pinned::before {
-  opacity: 0;
-}
-
-.timeline-entry.year.is-pinned {
-  z-index: 6 !important;
-}
-
-.timeline-entry.year.is-pinned .entry-pill {
-  padding: 8px 14px;
-  background: var(--plum-deep);
-  box-shadow: 0 10px 24px rgba(70, 61, 71, 0.16);
-}
-
-.timeline-entry.year.is-pinned .year-mark,
-.timeline-entry.year.is-pinned .company {
-  color: #fcfaf4;
 }
 
 .timeline-entry.active .month,

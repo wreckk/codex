@@ -107,6 +107,13 @@
             <h2 class="timeline-label">EXPERIENCE</h2>
           </div>
 
+          <div class="timeline-pinned-year" id="timeline-pinned-year" aria-hidden="true">
+            <div class="entry-pill">
+              <span class="year-mark" id="timeline-pinned-year-mark">2026</span>
+              <span class="company" id="timeline-pinned-company">Sabbatical</span>
+            </div>
+          </div>
+
           <div class="timeline-track">
             <div class="timeline-content">
               <div class="timeline-line" aria-hidden="true"></div>
@@ -470,6 +477,9 @@
 
       const track = document.querySelector(".timeline-track");
       const timelineContent = document.querySelector(".timeline-content");
+      const pinnedYear = document.getElementById("timeline-pinned-year");
+      const pinnedYearMark = document.getElementById("timeline-pinned-year-mark");
+      const pinnedCompany = document.getElementById("timeline-pinned-company");
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
@@ -595,21 +605,22 @@
         timelineContent.style.height = `${currentY + 220}px`;
       }
 
-      function updateYearPositions() {
-        yearEntries.forEach((entry, index) => {
-          const entryHeight = entry.offsetHeight || 32;
-          const naturalTop = entry.offsetTop;
-          const nextEntry = yearEntries[index + 1];
-          const stickyTranslate = Math.max(0, track.scrollTop + stickyOffset - naturalTop + 10);
-          const maxTranslate = nextEntry
-            ? Math.max(0, nextEntry.offsetTop - naturalTop - entryHeight - yearPushGap)
-            : stickyTranslate;
-          const translateY = Math.round(Math.min(stickyTranslate, maxTranslate));
-          const isPinned = translateY > 0;
+      function updateYearPositions(activeEntry) {
+        const activeYear = activeEntry?.dataset.year || yearEntries[0]?.dataset.year || "2026";
+        const activeYearEntry = yearEntries.find((entry) => entry.dataset.year === activeYear);
 
-          entry.style.transform = `translate3d(0, ${translateY}px, 0)`;
-          entry.style.zIndex = translateY > 0 ? "6" : "4";
-          entry.classList.toggle("is-pinned", isPinned);
+        if (pinnedYearMark) pinnedYearMark.textContent = activeYear;
+        if (pinnedCompany) {
+          pinnedCompany.textContent = activeYearEntry?.dataset.company || "";
+          pinnedCompany.style.display = activeYearEntry?.dataset.company ? "" : "none";
+        }
+
+        yearEntries.forEach((entry) => {
+          const isActiveYear = entry.dataset.year === activeYear;
+          entry.classList.remove("is-pinned");
+          entry.style.transform = "none";
+          entry.style.zIndex = "4";
+          entry.style.opacity = isActiveYear ? "0" : entry.style.opacity;
         });
       }
 
@@ -622,7 +633,14 @@
           const pill = entry.querySelector(".entry-pill");
           const isPinnedYear =
             entry.classList.contains("year") && activeYear && entry.dataset.year === activeYear;
-          const isActive = entry === activeEntry || isPinnedYear;
+          const isActive = entry === activeEntry;
+
+          if (isPinnedYear) {
+            entry.style.opacity = "0";
+            entry.style.filter = "none";
+            if (pill) pill.style.filter = "none";
+            return;
+          }
 
           if (isActive) {
             entry.style.opacity = "1";
@@ -661,22 +679,18 @@
           timelineTargets.forEach((node) => node.classList.remove("active"));
           firstEntry.classList.add("active");
           renderStory(firstEntry.dataset.story || "time-off");
-          updateYearPositions();
+          updateYearPositions(firstEntry);
           updateEntryDepth(firstEntry);
           return;
         }
 
-        if (secondEntry) {
-          const secondCenter = secondEntry.offsetTop + secondEntry.offsetHeight / 2;
-          const earlyTrigger = track.scrollTop + Math.max(stickyOffset + 104, track.clientHeight * 0.3);
-          if (earlyTrigger < secondCenter) {
+        if (secondEntry && track.scrollTop < 28) {
             timelineTargets.forEach((node) => node.classList.remove("active"));
             firstEntry.classList.add("active");
             renderStory(firstEntry.dataset.story || "time-off");
-            updateYearPositions();
+            updateYearPositions(firstEntry);
             updateEntryDepth(firstEntry);
             return;
-          }
         }
 
         timelineTargets.forEach((node) => {
@@ -691,7 +705,7 @@
         timelineTargets.forEach((node) => node.classList.remove("active"));
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
-        updateYearPositions();
+        updateYearPositions(active);
         updateEntryDepth(active);
       }
 
