@@ -118,7 +118,7 @@ body {
   line-height: 0.8;
   white-space: nowrap;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
   transform-origin: left center;
 }
 
@@ -932,9 +932,9 @@ body {
 .story-notes {
   display: block;
   padding: 2px 6px 0 0;
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.35;
-  color: #b8b2b8;
+  color: #d0c9d0;
   font-style: italic;
   text-align: center;
   white-space: nowrap;
