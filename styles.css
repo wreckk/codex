@@ -329,6 +329,7 @@ body {
   height: calc(100% - 40px);
   overflow-y: auto;
   overflow-x: hidden;
+  padding-left: 18px;
   padding-right: 10px;
   position: relative;
   scrollbar-width: thin;
@@ -340,7 +341,7 @@ body {
 .timeline-track::after {
   content: "";
   position: sticky;
-  left: 0;
+  left: 18px;
   display: block;
   width: 60px;
   height: 52px;
@@ -394,7 +395,7 @@ body {
 
 .timeline-line {
   position: absolute;
-  left: 0;
+  left: 10px;
   top: 0;
   bottom: 0;
   width: 1px;
@@ -403,7 +404,7 @@ body {
 
 .timeline-shortticks {
   position: absolute;
-  left: 0;
+  left: 10px;
   top: 0;
   width: 12px;
   height: 100%;
@@ -433,7 +434,7 @@ body {
 
 .timeline-entry {
   position: absolute;
-  left: 0;
+  left: 10px;
   top: var(--y);
   display: flex;
   align-items: center;
@@ -489,7 +490,7 @@ body {
   color: var(--muted);
   line-height: 1;
   z-index: 4;
-  left: -34px;
+  left: -24px;
   width: 84px;
   justify-content: flex-start;
 }
