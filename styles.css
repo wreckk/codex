@@ -18,6 +18,30 @@
   --timeline-gutter: 23px;
 }
 
+@font-face {
+  font-family: "SF Pro Text Local";
+  src: url("/fonts/SF-Pro-Text-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Rounded Local";
+  src: url("/fonts/SF-Pro-Rounded-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Compact Text Local";
+  src: url("/fonts/SF-Compact-Text-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -31,7 +55,7 @@ body {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 }
 
 .page-shell {
@@ -45,7 +69,7 @@ body {
   margin: 0;
   width: 100%;
   display: inline-block;
-  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 46px;
   line-height: 0.92;
   color: var(--accent);
@@ -60,7 +84,7 @@ body {
   margin: 6px 0 0 0;
   color: var(--muted);
   width: 100%;
-  font-family: "SF Pro Rounded", "SF Pro Display", ui-rounded, "Helvetica Neue", Arial, sans-serif;
+  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 0.32em;
   line-height: 0.8;
@@ -231,8 +255,8 @@ body {
   padding: 6px 11px;
   border-radius: 999px;
   background: #fff;
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  font-style: italic;
+  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
   font-size: 13px;
   font-weight: 500;
   line-height: 1;
@@ -260,7 +284,7 @@ body {
 
 .sidebar-bio p {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
   font-style: italic;
@@ -346,7 +370,7 @@ body {
 
 .rail-section h2 {
   margin: 0;
-  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -368,7 +392,7 @@ body {
   border-radius: 999px;
   background: #fff;
   color: #857785;
-  font-family: "SF Pro Rounded", "SF Pro Display", ui-rounded, "Helvetica Neue", Arial, sans-serif;
+  font-family: "SF Compact Text Local", "SF Compact Text", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 10px;
   line-height: 1;
   text-transform: uppercase;
@@ -396,6 +420,7 @@ body {
 
 .timeline-head h2 {
   margin: 0;
+  font-family: "SF Compact Text Local", "SF Compact Text", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 10px;
   letter-spacing: 0.14em;
   font-weight: 400;
@@ -697,7 +722,7 @@ body {
 
 .year-mark {
   display: block;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue", system-ui, sans-serif;
+  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 20px;
   line-height: 26px;
   letter-spacing: 0.01em;
@@ -810,7 +835,7 @@ body {
 
 .story-head h2 {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 48px;
   font-weight: 200;
   letter-spacing: -0.02em;
@@ -825,6 +850,7 @@ body {
   line-height: 1.68;
   color: #857785;
   font-weight: 400;
+  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 }
 
 .story-copy {
