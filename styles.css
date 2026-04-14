@@ -656,6 +656,38 @@ body {
   top: var(--trigger-debug-bottom-y, 0px);
 }
 
+.timeline-backtotop {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #5f5361;
+  color: #fff;
+  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(95, 83, 97, 0.18);
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease;
+}
+
+.timeline-backtotop:hover,
+.timeline-backtotop:focus-visible {
+  transform: translateX(-50%) scale(1.03);
+  background: #4f4551;
+}
+
 .timeline-entry {
   position: absolute;
   left: var(--timeline-gutter);

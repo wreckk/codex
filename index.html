@@ -256,6 +256,7 @@
               <div class="timeline-entry minor" style="--y: 3352px" data-story="team-scale-up" data-year="2005">
                 <div class="entry-pill"><span class="month">JAN</span><span class="label">Team Scale-Up</span></div>
               </div>
+              <button class="timeline-backtotop" type="button">↑ Scroll back to the top</button>
               </div>
             </div>
           </div>
@@ -481,6 +482,7 @@
       const trackWrap = document.querySelector(".timeline-track-wrap");
       const track = document.querySelector(".timeline-track");
       const timelineContent = document.querySelector(".timeline-content");
+      const timelineBackToTop = document.querySelector(".timeline-backtotop");
       const timelineShortTicks = document.querySelector(".timeline-shortticks");
       const timelineTailTicks = document.querySelector(".timeline-tailticks");
       const timelineMediumTicks = document.querySelector(".timeline-mediumticks");
@@ -704,6 +706,9 @@
         const lastTarget = timelineTargets[timelineTargets.length - 1];
         const lastTargetY = lastTarget ? getEntryCenter(lastTarget) : currentY;
         const tailLength = TAIL_TICKS.count * TAIL_TICKS.step;
+        if (timelineBackToTop) {
+          timelineBackToTop.style.top = `${lastTargetY + TIMELINE_LAYOUT.itemStep}px`;
+        }
         if (timelineShortTicks) {
           timelineShortTicks.style.height = `${lastTargetY}px`;
         }
@@ -858,6 +863,9 @@
       }
 
       track.addEventListener("scroll", scheduleTimelineUpdate, { passive: true });
+      timelineBackToTop?.addEventListener("click", () => {
+        track.scrollTo({ top: 0, behavior: "smooth" });
+      });
       window.addEventListener("load", () => {
         layoutTimeline();
         fitSidebarHeading();
