@@ -324,26 +324,28 @@ body {
   position: relative;
   display: inline-flex;
   align-items: center;
-  cursor: default;
+  cursor: help;
 }
 
 .timeline-hint {
   position: absolute;
-  left: calc(100% + 12px);
-  top: 50%;
-  transform: translateY(-50%) translateX(-6px);
+  left: 8px;
+  top: calc(100% + 14px);
+  transform: translateY(-4px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 12px;
-  background: var(--plum);
+  padding: 9px 12px;
+  background: rgba(70, 61, 71, 0.96);
   color: #fcfaf4;
-  border-radius: 999px;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(70, 61, 71, 0.22);
   font-size: 12px;
   line-height: 1;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
+  z-index: 20;
   transition:
     opacity 180ms ease,
     transform 180ms ease;
@@ -352,7 +354,7 @@ body {
 .timeline-label:hover .timeline-hint,
 .timeline-label.show-hint .timeline-hint {
   opacity: 1;
-  transform: translateY(-50%) translateX(0);
+  transform: translateY(0);
 }
 
 .timeline-track {
