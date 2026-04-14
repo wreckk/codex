@@ -97,6 +97,7 @@ body {
   top: 30px;
   overflow-x: hidden;
   overflow-y: auto;
+  isolation: isolate;
   scrollbar-width: thin;
   scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
 }
@@ -134,7 +135,7 @@ body {
   flex-shrink: 0;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 5;
   background: #fdfaf3;
   padding-top: 22px;
   padding-bottom: 12px;
@@ -285,13 +286,9 @@ body {
   order: 99;
   position: sticky;
   bottom: 0;
-  z-index: 2;
-  background: linear-gradient(
-    to top,
-    rgba(253, 250, 243, 1) 0%,
-    rgba(253, 250, 243, 0.99) 52%,
-    rgba(253, 250, 243, 0) 100%
-  );
+  z-index: 5;
+  background: #fdfaf3;
+  box-shadow: 0 -22px 24px #fdfaf3;
   padding-bottom: 26px;
 }
 
@@ -740,6 +737,7 @@ body {
   top: 30px;
   overflow-x: hidden;
   overflow-y: auto;
+  isolation: isolate;
   background: #fff;
   border: 1px solid #e1d5c1;
   color: var(--ink);
@@ -780,8 +778,9 @@ body {
   padding-top: 26px;
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 5;
   background: #fff;
+  box-shadow: 0 0 0 1px #fff, 0 18px 24px #fff;
   padding-bottom: 14px;
 }
 
