@@ -600,11 +600,13 @@
         if (isMobileLayout()) {
           const isOpen = sidebarCard.classList.contains("is-mobile-open");
           sidebarMobileToggle.setAttribute("aria-expanded", String(isOpen));
+          document.body.classList.toggle("mobile-sidebar-open", isOpen);
           return;
         }
 
         sidebarCard.classList.remove("is-mobile-open");
         sidebarMobileToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("mobile-sidebar-open");
       }
 
       function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
@@ -1105,6 +1107,7 @@
         const nextOpen = !sidebarCard.classList.contains("is-mobile-open");
         sidebarCard.classList.toggle("is-mobile-open", nextOpen);
         sidebarMobileToggle.setAttribute("aria-expanded", String(nextOpen));
+        document.body.classList.toggle("mobile-sidebar-open", nextOpen);
       });
       async function initializePageLayout() {
         if (document.fonts?.ready) {
