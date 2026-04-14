@@ -944,8 +944,16 @@
           let buttonCenter = lastTargetX + tailOffset;
           if (isMobileLayout() && trackWrap) {
             const viewportWidth = trackWrap.clientWidth;
-            buttonCenter = viewportWidth / 2;
-            currentX = Math.max(currentX, buttonCenter + viewportWidth / 2 - COMPACT_TIMELINE_LAYOUT.endPadding);
+            const viewportCenter = track.scrollLeft + viewportWidth / 2;
+            const buttonHalfWidth = timelineBackToTop.offsetWidth / 2 || 0;
+            buttonCenter = Math.max(buttonCenter, viewportCenter);
+            currentX = Math.max(
+              currentX,
+              buttonCenter + buttonHalfWidth + viewportWidth / 2 - COMPACT_TIMELINE_LAYOUT.endPadding
+            );
+            timelineBackToTop.textContent = "↑ Back to the begining";
+          } else if (timelineBackToTop) {
+            timelineBackToTop.textContent = "↑ Back to top";
           }
           timelineBackToTop.style.left = `${buttonCenter}px`;
           timelineBackToTop.style.top = isMobileLayout() ? "24px" : "";
