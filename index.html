@@ -571,6 +571,10 @@
         return Number.parseFloat(entry.style.getPropertyValue("--y")) || 0;
       }
 
+      function getEntryCenter(entry) {
+        return getEntryY(entry) + entry.offsetHeight / 2;
+      }
+
       function layoutTimeline() {
         if (!timelineContent) return;
 
@@ -593,6 +597,8 @@
 
           const firstY = getEntryY(peers[0]);
           const lastY = getEntryY(peers[peers.length - 1]);
+          const firstCenter = getEntryCenter(peers[0]);
+          const lastCenter = getEntryCenter(peers[peers.length - 1]);
           const entryIndex = yearEntries.indexOf(entry);
           const previousYear = yearEntries[entryIndex - 1];
           const nextYear = yearEntries[entryIndex + 1];
@@ -604,11 +610,11 @@
             : [];
 
           const topBoundary = previousPeers.length
-            ? (getEntryY(previousPeers[previousPeers.length - 1]) + firstY) / 2
-            : firstY - itemStep;
+            ? (getEntryCenter(previousPeers[previousPeers.length - 1]) + firstCenter) / 2
+            : firstCenter - itemStep;
           const bottomBoundary = nextPeers.length
-            ? (lastY + getEntryY(nextPeers[0])) / 2
-            : lastY + itemStep;
+            ? (lastCenter + getEntryCenter(nextPeers[0])) / 2
+            : lastCenter + itemStep;
           const midY = (topBoundary + bottomBoundary) / 2;
 
           entry.style.setProperty("--y", `${midY}px`);
