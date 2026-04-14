@@ -624,7 +624,7 @@ body {
 .timeline-first-year-line {
   position: absolute;
   left: var(--timeline-gutter);
-  right: -28px;
+  width: calc(100% - var(--timeline-gutter));
   top: var(--first-year-line-y, 0px);
   height: 1px;
   background: repeating-linear-gradient(
@@ -632,8 +632,8 @@ body {
     var(--timeline-ink-mid) 0 1px,
     transparent 1px 5px
   );
-  mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 97%, transparent 100%);
   pointer-events: none;
 }
 
@@ -788,7 +788,7 @@ body {
   content: "";
   position: absolute;
   left: 0;
-  right: 0;
+  width: 100%;
   top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
