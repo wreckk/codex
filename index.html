@@ -121,10 +121,6 @@
                 <div class="entry-pill"><span class="year-mark">2026</span><span class="company">Sabbatical</span></div>
               </div>
 
-              <div class="timeline-entry minor" style="--y: 74px" data-story="time-off" data-year="2026">
-                <div class="entry-pill"><span class="month">TODAY</span><span class="label">Time Off</span></div>
-              </div>
-
               <div class="timeline-entry minor" style="--y: 118px" data-story="tooling" data-year="2026">
                 <div class="entry-pill"><span class="month">APR</span><span class="label">Tooling Deep Dive</span></div>
               </div>
@@ -580,26 +576,18 @@
 
         let currentY = 60;
         const itemStep = 96;
-        const todayExtraGap = 36;
 
         timelineTargets.forEach((entry) => {
           entry.style.setProperty("--y", `${currentY}px`);
           currentY += itemStep;
-
-          if (entry.dataset.story === "time-off") {
-            currentY += todayExtraGap;
-          }
         });
 
         yearEntries.forEach((entry) => {
-          const peersAll = timelineTargets.filter((node) => node.dataset.year === entry.dataset.year);
-          if (!peersAll.length) return;
+          const peers = timelineTargets.filter((node) => node.dataset.year === entry.dataset.year);
+          if (!peers.length) return;
 
-          const peers = peersAll.filter((node) => node.dataset.story !== "time-off");
-          const scopedPeers = peers.length ? peers : peersAll;
-
-          const firstY = getEntryY(scopedPeers[0]);
-          const lastY = getEntryY(scopedPeers[scopedPeers.length - 1]);
+          const firstY = getEntryY(peers[0]);
+          const lastY = getEntryY(peers[peers.length - 1]);
           const entryIndex = yearEntries.indexOf(entry);
           const previousYear = yearEntries[entryIndex - 1];
           const nextYear = yearEntries[entryIndex + 1];
@@ -610,10 +598,7 @@
             ? timelineTargets.filter((node) => node.dataset.year === nextYear.dataset.year)
             : [];
 
-          const hasLeadInItem = peersAll.length !== scopedPeers.length;
-          const topBoundary = hasLeadInItem
-            ? (getEntryY(peersAll[0]) + firstY) / 2
-            : previousPeers.length
+          const topBoundary = previousPeers.length
             ? (getEntryY(previousPeers[previousPeers.length - 1]) + firstY) / 2
             : firstY - itemStep * 0.7;
           const bottomBoundary = nextPeers.length
@@ -686,15 +671,6 @@
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
         let bestDistance = Infinity;
-
-        if (track.scrollTop <= 4) {
-          timelineTargets.forEach((node) => node.classList.remove("active"));
-          firstEntry.classList.add("active");
-          renderStory(firstEntry.dataset.story || "time-off");
-          updateYearPositions(firstEntry);
-          updateEntryDepth(firstEntry);
-          return;
-        }
 
         timelineTargets.forEach((node) => {
           const y = node.offsetTop + node.offsetHeight / 2;

@@ -489,7 +489,7 @@ body {
 .timeline-entry.year {
   color: var(--muted);
   line-height: 1;
-  z-index: 4;
+  z-index: 2;
   left: 10px;
   width: calc(100% - 10px);
   justify-content: flex-start;
@@ -498,7 +498,7 @@ body {
 .timeline-entry.year .entry-pill {
   display: block;
   position: absolute;
-  left: -34px;
+  left: -92px;
   right: auto;
   top: 50%;
   padding: 0;
@@ -519,7 +519,12 @@ body {
   top: var(--line-top, 0px);
   height: 1px;
   margin: 0;
-  background: rgba(185, 173, 159, 0.22);
+  background: linear-gradient(
+    to right,
+    rgba(185, 173, 159, 0.24) 0%,
+    rgba(185, 173, 159, 0.18) 72%,
+    rgba(185, 173, 159, 0) 100%
+  );
 }
 
 .timeline-entry.year::after {
@@ -530,7 +535,12 @@ body {
   top: var(--line-bottom, 0px);
   height: 1px;
   margin: 0;
-  background: rgba(185, 173, 159, 0.22);
+  background: linear-gradient(
+    to right,
+    rgba(185, 173, 159, 0.24) 0%,
+    rgba(185, 173, 159, 0.18) 72%,
+    rgba(185, 173, 159, 0) 100%
+  );
 }
 
 .year-mark {
