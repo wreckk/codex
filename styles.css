@@ -71,7 +71,7 @@ body {
 
 .page-body {
   display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 6fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 8fr);
   gap: 8px;
   margin-top: 0;
   height: calc(100vh - 58px);
@@ -303,6 +303,7 @@ body {
   top: 30px;
   overflow: visible;
   padding-top: 10px;
+  padding-left: 8px;
 }
 
 .timeline-head {
