@@ -704,7 +704,7 @@ body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 48px;
-  font-weight: 300;
+  font-weight: 200;
   letter-spacing: -0.03em;
   line-height: 0.98;
   color: var(--accent);
@@ -735,11 +735,11 @@ body {
 .story-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 8px 13px;
+  padding: 6px 11px;
   border-radius: 999px;
   background: #f1ebe4;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1;
 }
 
@@ -759,7 +759,7 @@ body {
 }
 
 .story-image-shell {
-  height: 388px;
+  height: 332px;
   border: 2px solid #e7ded3;
   border-radius: 12px;
   overflow: hidden;
@@ -776,13 +776,19 @@ body {
 }
 
 .story-notes {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 4px 6px 0 0;
-  font-size: 14px;
-  line-height: 1.52;
+  display: block;
+  padding: 2px 6px 0 0;
+  font-size: 13px;
+  line-height: 1.35;
   color: var(--muted);
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.story-notes p {
+  margin: 0;
 }
 
 @keyframes wave {

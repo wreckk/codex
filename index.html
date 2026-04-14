@@ -300,7 +300,7 @@
         kicker,
         title,
         copy:
-          "Placeholder story copy for this active timeline moment. Final copy can describe what happened, why it mattered, and what proof should appear here.",
+          "Placeholder story copy for this active timeline moment. Final copy can describe what happened, why it mattered, and what proof should appear here. It can also hold a second sentence that clarifies scope, outcome, or why this moment belongs in the broader arc.",
         pills: ["Placeholder", "Needs Notes", "Needs Links"],
         fill,
         notes: Array.from({ length: notes }, (_, index) => {
@@ -321,7 +321,7 @@
           kicker: "TODAY",
           title: "Time Off",
           copy:
-            "Placeholder story copy for the currently active timeline item. This space will eventually hold a short summary, a few sharper takeaways, and links or proof tied to the selected moment.",
+            "Placeholder story copy for the currently active timeline item. This space will eventually hold a short summary, a few sharper takeaways, and links or proof tied to the selected moment. It can also add one more sentence of context so the panel feels editorial instead of skeletal.",
           pills: ["Placeholder", "Story Mode", "Needs Content"],
           fill:
             "linear-gradient(140deg, rgba(255,70,50,0.14), rgba(116,102,118,0.22) 58%, rgba(248,243,234,0.76))",
@@ -617,13 +617,9 @@
         storyPills.appendChild(pillFragment);
 
         storyNotes.innerHTML = "";
-        const notesFragment = document.createDocumentFragment();
-        story.notes.forEach((note) => {
-          const p = document.createElement("p");
-          p.textContent = note;
-          notesFragment.appendChild(p);
-        });
-        storyNotes.appendChild(notesFragment);
+        const p = document.createElement("p");
+        p.textContent = story.notes[0] || "";
+        storyNotes.appendChild(p);
       }
 
       function getEntryY(entry) {
