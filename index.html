@@ -727,10 +727,17 @@
 
       function updateActiveTimeline() {
         const triggerBandCenter = Math.max(stickyOffset + 112, track.clientHeight * 0.3);
-        const monthTriggerHalf = 54;
+        const monthTriggerHalf = 68;
+        const monthTriggerLift = 22;
         const triggerLine = track.scrollTop + triggerBandCenter;
-        trackWrap?.style.setProperty("--trigger-debug-top-y", `${triggerBandCenter - monthTriggerHalf}px`);
-        trackWrap?.style.setProperty("--trigger-debug-bottom-y", `${triggerBandCenter + monthTriggerHalf}px`);
+        trackWrap?.style.setProperty(
+          "--trigger-debug-top-y",
+          `${triggerBandCenter - monthTriggerHalf - monthTriggerLift}px`
+        );
+        trackWrap?.style.setProperty(
+          "--trigger-debug-bottom-y",
+          `${triggerBandCenter + monthTriggerHalf - monthTriggerLift}px`
+        );
         const firstEntry = timelineTargets[0];
         let active = firstEntry;
         let bestDistance = Infinity;
