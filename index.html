@@ -939,10 +939,15 @@
 
         if (timelineBackToTop) {
           const tailOffset = isMobileLayout()
-            ? COMPACT_TIMELINE_LAYOUT.tailOffset + 26
+            ? COMPACT_TIMELINE_LAYOUT.tailOffset + 66
             : COMPACT_TIMELINE_LAYOUT.tailOffset;
+          const buttonCenter = lastTargetX + tailOffset;
           timelineBackToTop.style.left = `${lastTargetX + tailOffset}px`;
-          timelineBackToTop.style.top = isMobileLayout() ? "48px" : "";
+          timelineBackToTop.style.top = isMobileLayout() ? "36px" : "";
+          if (isMobileLayout() && timelineTrackWrap) {
+            const viewportWidth = timelineTrackWrap.clientWidth;
+            currentX = Math.max(currentX, buttonCenter + viewportWidth / 2 - COMPACT_TIMELINE_LAYOUT.endPadding);
+          }
         }
         if (timelineShortTicks) {
           timelineShortTicks.style.width = `${lastTargetX}px`;

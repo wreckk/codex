@@ -1366,7 +1366,7 @@ body.preload-layout .page-loader {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     flex: 1 1 auto;
   }
 
@@ -1461,7 +1461,7 @@ body.preload-layout .page-loader {
   }
 
   .rail-section + .rail-section {
-    margin-top: 18px;
+    margin-top: 26px;
   }
 
   .sidebar-links {
@@ -1574,7 +1574,7 @@ body.preload-layout .page-loader {
   .story-head {
     gap: 14px;
     padding-top: 14px;
-    padding-bottom: 12px;
+    padding-bottom: 8px;
   }
 
   .story-scroll {
@@ -1584,6 +1584,10 @@ body.preload-layout .page-loader {
   }
 
   .story-pills {
-    margin: 14px 0;
+    margin: 18px 0;
+  }
+
+  .story-notes {
+    padding-top: 10px;
   }
 }
