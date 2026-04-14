@@ -1309,7 +1309,7 @@ body.preload-layout .page-loader {
     z-index: 30;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
-    padding: 0 18px;
+    padding: 0 12px;
     height: auto;
     max-height: calc(100dvh - 32px);
     overflow: hidden;
@@ -1370,7 +1370,7 @@ body.preload-layout .page-loader {
   .sidebar-mobile-toggle__name {
     display: block;
     font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-    font-size: 28px;
+    font-size: 34px;
     line-height: 0.94;
     letter-spacing: -0.045em;
     font-weight: 900;
@@ -1383,7 +1383,7 @@ body.preload-layout .page-loader {
   .sidebar-mobile-toggle__role {
     display: block;
     font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1;
     letter-spacing: 0.24em;
     font-weight: 400;
@@ -1396,7 +1396,7 @@ body.preload-layout .page-loader {
   .sidebar-mobile-toggle__pullbar {
     position: absolute;
     left: 50%;
-    bottom: 7px;
+    bottom: 11px;
     width: 44px;
     transform: translateX(-50%);
     display: block;
@@ -1490,16 +1490,16 @@ body.preload-layout .page-loader {
   .timeline-column {
     position: fixed;
     left: 50%;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 4px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
     top: auto;
     transform: translateX(-50%);
-    height: 176px;
-    min-height: 176px;
+    height: 168px;
+    min-height: 168px;
     z-index: 25;
   }
 
   .timeline-content {
-    height: 176px;
+    height: 168px;
   }
 
   .timeline-line,
@@ -1523,7 +1523,7 @@ body.preload-layout .page-loader {
   }
 
   .timeline-entry.year {
-    top: 112px;
+    top: 104px;
   }
 
   .timeline-head {
