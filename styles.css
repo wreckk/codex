@@ -343,9 +343,9 @@ body {
 .timeline-track::after {
   content: "";
   position: sticky;
-  left: var(--timeline-gutter);
+  left: 0;
   display: block;
-  width: 60px;
+  width: 100%;
   height: 52px;
   z-index: 3;
   pointer-events: none;
