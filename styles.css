@@ -85,6 +85,11 @@ body {
   font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 }
 
+body.preload-layout .page-body {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .page-shell {
   width: min(1440px, 100%);
   min-height: 100vh;
@@ -129,6 +134,7 @@ body {
   margin-top: 0;
   height: calc(100vh - 58px);
   min-height: 0;
+  transition: opacity 160ms ease;
 }
 
 .sidebar-card,

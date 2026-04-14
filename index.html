@@ -16,7 +16,7 @@
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body>
+  <body class="preload-layout">
     <main class="page-shell">
       <section class="page-body">
         <aside class="sidebar-card">
@@ -872,11 +872,23 @@
       timelineBackToTop?.addEventListener("click", () => {
         track.scrollTo({ top: 0, behavior: "smooth" });
       });
-      window.addEventListener("load", () => {
+      async function initializePageLayout() {
+        if (document.fonts?.ready) {
+          try {
+            await document.fonts.ready;
+          } catch {}
+        }
         layoutTimeline();
         fitSidebarHeading();
         renderStory(timelineTargets[0]?.dataset.story || "tooling");
-        scheduleTimelineUpdate();
+        updateActiveTimeline();
+        requestAnimationFrame(() => {
+          document.body.classList.remove("preload-layout");
+        });
+      }
+
+      window.addEventListener("load", () => {
+        initializePageLayout();
       });
       window.addEventListener("resize", () => {
         layoutTimeline();
