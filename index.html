@@ -600,7 +600,7 @@
 
           const topBoundary = previousPeers.length
             ? (getEntryY(previousPeers[previousPeers.length - 1]) + firstY) / 2
-            : firstY - itemStep * 0.7;
+            : firstY - itemStep;
           const bottomBoundary = nextPeers.length
             ? (lastY + getEntryY(nextPeers[0])) / 2
             : lastY + itemStep * 0.7;
