@@ -499,6 +499,10 @@ body {
   overflow: visible;
 }
 
+.timeline-entry.year[data-year="2026"] {
+  z-index: 4;
+}
+
 .timeline-entry.year .entry-pill {
   display: block;
   position: absolute;
