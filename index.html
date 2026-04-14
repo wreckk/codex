@@ -24,11 +24,24 @@
       <section class="page-body">
         <aside class="sidebar-card">
           <div class="sidebar-heading">
+            <button
+              class="sidebar-mobile-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="sidebar-mobile-content"
+            >
+              <span class="sidebar-mobile-toggle__photo" aria-hidden="true"></span>
+              <span class="sidebar-mobile-toggle__copy">
+                <span class="sidebar-mobile-toggle__name">ERIC CENTENO</span>
+                <span class="sidebar-mobile-toggle__role">EXECUTIVE DESIGN LEADER</span>
+              </span>
+              <span class="sidebar-mobile-toggle__chevron" aria-hidden="true">⌄</span>
+            </button>
             <h1>ERIC CENTENO</h1>
             <p>EXECUTIVE DESIGN LEADER</p>
           </div>
 
-          <div class="sidebar-scroll">
+          <div class="sidebar-scroll" id="sidebar-mobile-content">
             <div class="sidebar-intro">
               <div class="portrait-shell">
                 <div class="portrait portrait-base" aria-hidden="true"></div>
@@ -514,7 +527,9 @@
       const storyPills = document.getElementById("story-pills");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
+      const sidebarCard = document.querySelector(".sidebar-card");
       const sidebarHeading = document.querySelector(".sidebar-heading");
+      const sidebarMobileToggle = document.querySelector(".sidebar-mobile-toggle");
       const sidebarName = sidebarHeading?.querySelector("h1");
       const sidebarRole = sidebarHeading?.querySelector("p");
       const timelineEntries = [...document.querySelectorAll(".timeline-entry")];
@@ -577,6 +592,19 @@
 
       function isMobileLayout() {
         return window.innerWidth <= RESPONSIVE_BREAKPOINTS.mobile;
+      }
+
+      function syncMobileSidebarState() {
+        if (!sidebarCard || !sidebarMobileToggle) return;
+
+        if (isMobileLayout()) {
+          const isOpen = sidebarCard.classList.contains("is-mobile-open");
+          sidebarMobileToggle.setAttribute("aria-expanded", String(isOpen));
+          return;
+        }
+
+        sidebarCard.classList.remove("is-mobile-open");
+        sidebarMobileToggle.setAttribute("aria-expanded", "false");
       }
 
       function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
@@ -1072,6 +1100,12 @@
         }
         track.scrollTo({ top: 0, behavior: "smooth" });
       });
+      sidebarMobileToggle?.addEventListener("click", () => {
+        if (!sidebarCard || !isMobileLayout()) return;
+        const nextOpen = !sidebarCard.classList.contains("is-mobile-open");
+        sidebarCard.classList.toggle("is-mobile-open", nextOpen);
+        sidebarMobileToggle.setAttribute("aria-expanded", String(nextOpen));
+      });
       async function initializePageLayout() {
         if (document.fonts?.ready) {
           try {
@@ -1080,6 +1114,7 @@
         }
         layoutTimeline();
         fitSidebarHeading();
+        syncMobileSidebarState();
         renderStory(timelineTargets[0]?.dataset.story || "tooling");
         updateActiveTimeline();
         requestAnimationFrame(() => {
@@ -1093,6 +1128,7 @@
       window.addEventListener("resize", () => {
         layoutTimeline();
         fitSidebarHeading();
+        syncMobileSidebarState();
         scheduleTimelineUpdate();
       });
     </script>
