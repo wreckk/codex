@@ -577,6 +577,19 @@
         return getEntryY(entry);
       }
 
+      function getMajorTickPositions() {
+        const positions = timelineTargets.map((entry) => getEntryCenter(entry));
+
+        yearEntries.forEach((entry) => {
+          const center = getEntryY(entry);
+          const lineTop = Number.parseFloat(entry.style.getPropertyValue("--line-top")) || 0;
+          const lineBottom = Number.parseFloat(entry.style.getPropertyValue("--line-bottom")) || 0;
+          positions.push(center + lineTop, center + lineBottom);
+        });
+
+        return [...new Set(positions.map((value) => snapToTick(value)))].sort((a, b) => a - b);
+      }
+
       function snapToTick(value) {
         const tickStep = 5;
         return Math.round(value / tickStep) * tickStep;
@@ -639,10 +652,10 @@
 
         if (timelineMediumTicks) {
           timelineMediumTicks.innerHTML = "";
-          timelineTargets.slice(0, -1).forEach((entry, index) => {
-            const currentCenter = getEntryCenter(entry);
-            const nextCenter = getEntryCenter(timelineTargets[index + 1]);
-            const mediumY = snapToTick((currentCenter + nextCenter) / 2);
+          const majorTickPositions = getMajorTickPositions();
+          majorTickPositions.slice(0, -1).forEach((currentY, index) => {
+            const nextY = majorTickPositions[index + 1];
+            const mediumY = snapToTick((currentY + nextY) / 2);
             const tick = document.createElement("span");
             tick.className = "timeline-mediumtick";
             tick.style.top = `${mediumY}px`;
