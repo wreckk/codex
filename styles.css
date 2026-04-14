@@ -275,7 +275,7 @@ body {
   margin: 0;
   font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
-  font-weight: 200;
+  font-weight: 300;
   font-style: italic;
   line-height: 1.82;
   color: color-mix(in srgb, var(--muted) 88%, white);
@@ -285,7 +285,7 @@ body {
 .wave {
   display: inline-block;
   transform-origin: 70% 80%;
-  animation: wave 1.7s ease-in-out infinite;
+  animation: wave 1.9s ease-in-out infinite;
 }
 
 .sidebar-links {
@@ -791,14 +791,14 @@ body {
   line-height: 1.1;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .story-head h2 {
   margin: 0;
-  font-family: "SF Pro Display Local", "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   font-size: 48px;
-  font-weight: 100;
+  font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 0.98;
   color: var(--accent);
@@ -900,11 +900,15 @@ body {
   }
 
   25% {
-    transform: rotate(-20deg);
+    transform: rotate(-12deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
   }
 
   75% {
-    transform: rotate(20deg);
+    transform: rotate(12deg);
   }
 }
 

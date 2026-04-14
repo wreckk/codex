@@ -820,6 +820,7 @@
       window.addEventListener("load", () => {
         layoutTimeline();
         fitSidebarHeading();
+        renderStory(timelineTargets[0]?.dataset.story || "tooling");
         scheduleTimelineUpdate();
       });
       window.addEventListener("resize", () => {
