@@ -494,6 +494,7 @@ body {
   z-index: 2;
   left: var(--timeline-gutter);
   width: calc(100% - var(--timeline-gutter));
+  min-height: 54px;
   justify-content: flex-start;
   overflow: visible;
 }
@@ -510,7 +511,7 @@ body {
   border: 0;
   box-shadow: none;
   transform: translateY(-50%) rotate(-90deg);
-  transform-origin: 0 0;
+  transform-origin: center;
   white-space: nowrap;
   overflow: visible;
 }
