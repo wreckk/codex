@@ -579,7 +579,7 @@
         if (!timelineContent) return;
 
         let currentY = 0;
-        const yearToItemGap = 74;
+        const yearToItemGap = 86;
         const itemStep = 64;
         const itemToYearGap = 110;
 
@@ -616,6 +616,29 @@
         });
       }
 
+      function updateEntryDepth() {
+        const trackRect = track.getBoundingClientRect();
+        const zoneHeight = trackRect.height * 0.1;
+
+        timelineEntries.forEach((entry) => {
+          const entryRect = entry.getBoundingClientRect();
+          const entryCenter = entryRect.top + entryRect.height / 2;
+          const topDistance = entryCenter - trackRect.top;
+          const bottomDistance = trackRect.bottom - entryCenter;
+          const edgeDistance = Math.min(topDistance, bottomDistance);
+
+          let progress = 1;
+          if (edgeDistance < zoneHeight) {
+            progress = Math.max(0, edgeDistance / zoneHeight);
+          }
+
+          const opacity = 0.18 + progress * 0.82;
+          const blur = (1 - progress) * 5;
+          entry.style.opacity = `${opacity}`;
+          entry.style.filter = `blur(${blur}px)`;
+        });
+      }
+
       function updateActiveTimeline() {
         const center = track.scrollTop + stickyOffset + 24;
         let active = timelineTargets[0];
@@ -626,6 +649,7 @@
           active.classList.add("active");
           renderStory(active.dataset.story || "time-off");
           updateYearPositions();
+          updateEntryDepth();
           return;
         }
 
@@ -642,6 +666,7 @@
         active.classList.add("active");
         renderStory(active.dataset.story || "time-off");
         updateYearPositions();
+        updateEntryDepth();
       }
 
       const headingObserver = new ResizeObserver(() => fitSidebarHeading());
