@@ -632,8 +632,16 @@
         timelineEntries.forEach((entry) => {
           const pill = entry.querySelector(".entry-pill");
           const isActive = entry === activeEntry;
+          const isYear = entry.classList.contains("year");
 
           if (isActive) {
+            entry.style.opacity = "1";
+            entry.style.filter = "none";
+            if (pill) pill.style.filter = "none";
+            return;
+          }
+
+          if (isYear) {
             entry.style.opacity = "1";
             entry.style.filter = "none";
             if (pill) pill.style.filter = "none";
@@ -654,12 +662,8 @@
             );
           }
 
-          const opacity = entry.classList.contains("year")
-            ? 0.18 + progress * 0.82
-            : 0.08 + progress * 0.92;
-          const blur = entry.classList.contains("year")
-            ? 0
-            : (1 - progress) * 5.5;
+          const opacity = 0.08 + progress * 0.92;
+          const blur = (1 - progress) * 5.5;
           entry.style.opacity = `${opacity}`;
           entry.style.filter = "none";
           if (pill) pill.style.filter = `blur(${blur}px)`;
