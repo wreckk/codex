@@ -368,16 +368,16 @@ body {
   margin-bottom: 16px;
   padding-left: 0;
   min-height: 18px;
-  padding-top: 25px;
+  padding-top: 36px;
 }
 
 .timeline-head h2 {
   margin: 0;
   font-family: "SF Compact Text Local", "SF Compact Text", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  letter-spacing: 0.2em;
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.1;
   color: var(--muted);
 }
 
@@ -593,7 +593,7 @@ body {
 }
 
 .timeline-entry.minor {
-  color: #b7a998;
+  color: color-mix(in srgb, var(--muted) 80%, #b7a998 20%);
   font-size: 13px;
   line-height: 1;
 }
@@ -676,11 +676,11 @@ body {
 
 .year-mark {
   display: block;
-  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 20px;
   line-height: 26px;
   letter-spacing: 0.01em;
-  font-weight: 300;
+  font-weight: 700;
   color: #b7a998;
   margin-right: 0;
 }
@@ -809,8 +809,8 @@ body {
   padding: 6px 8px;
   border: 1px solid #e1d5c1;
   border-radius: 999px;
-  background: #fff;
-  color: #b7a998;
+  background: #f1ebe4;
+  color: var(--muted);
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 10px;
   line-height: 1;
@@ -821,17 +821,17 @@ body {
 
 .story-pills span.primary,
 .story-pills span:first-child {
-  background: #fff;
-  color: #b7a998;
+  background: #eee7df;
+  color: var(--muted);
 }
 
 .story-pills span:nth-child(2) {
-  background: #fff;
+  background: #ece7eb;
 }
 
 .story-pills span:nth-child(3) {
-  background: #fff;
-  color: #b7a998;
+  background: #f0ede7;
+  color: var(--muted);
 }
 
 .story-image-shell {
@@ -856,8 +856,9 @@ body {
   padding: 2px 6px 0 0;
   font-size: 13px;
   line-height: 1.35;
-  color: var(--muted);
+  color: #b7a998;
   font-style: italic;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

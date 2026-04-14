@@ -494,6 +494,9 @@
       const storyPills = document.getElementById("story-pills");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
+      const sidebarHeading = document.querySelector(".sidebar-heading");
+      const sidebarName = sidebarHeading?.querySelector("h1");
+      const sidebarRole = sidebarHeading?.querySelector("p");
       const timelineEntries = [...document.querySelectorAll(".timeline-entry")];
       const yearEntries = [...document.querySelectorAll(".timeline-entry.year")];
       const timelineTargets = [...document.querySelectorAll(".timeline-entry.minor")];
@@ -534,6 +537,21 @@
       let activeTimelineEntry = null;
       let activeStoryId = null;
       let timelineFrame = null;
+
+      function fitSidebarHeadingLine(node, minScale = 0.88) {
+        if (!node || !sidebarHeading) return;
+        node.style.transform = "";
+        const available = sidebarHeading.clientWidth;
+        const width = node.scrollWidth;
+        if (!available || !width) return;
+        const scale = width > available ? Math.max(minScale, available / width) : 1;
+        node.style.transform = `scaleX(${scale})`;
+      }
+
+      function fitSidebarHeading() {
+        fitSidebarHeadingLine(sidebarName, 0.9);
+        fitSidebarHeadingLine(sidebarRole, 0.94);
+      }
 
       function renderStory(id) {
         const story = storyContent[id];
@@ -800,10 +818,12 @@
       track.addEventListener("scroll", scheduleTimelineUpdate, { passive: true });
       window.addEventListener("load", () => {
         layoutTimeline();
+        fitSidebarHeading();
         scheduleTimelineUpdate();
       });
       window.addEventListener("resize", () => {
         layoutTimeline();
+        fitSidebarHeading();
         scheduleTimelineUpdate();
       });
     </script>
