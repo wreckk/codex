@@ -600,15 +600,15 @@
           const entryHeight = entry.offsetHeight || 32;
           const naturalTop = entry.offsetTop;
           const nextEntry = yearEntries[index + 1];
-          const stickyTranslate = Math.max(0, track.scrollTop + stickyOffset - naturalTop);
+          const stickyTranslate = Math.max(0, track.scrollTop + stickyOffset - naturalTop + 10);
           const maxTranslate = nextEntry
             ? Math.max(0, nextEntry.offsetTop - naturalTop - entryHeight - yearPushGap)
             : stickyTranslate;
           const translateY = Math.round(Math.min(stickyTranslate, maxTranslate));
           const isPinned = translateY > 0;
 
-          entry.style.transform = `translateY(${translateY}px)`;
-          entry.style.zIndex = translateY > 0 ? "4" : "1";
+          entry.style.transform = `translate3d(0, ${translateY}px, 0)`;
+          entry.style.zIndex = translateY > 0 ? "6" : "4";
           entry.classList.toggle("is-pinned", isPinned);
         });
       }
@@ -652,16 +652,31 @@
 
       function updateActiveTimeline() {
         const triggerLine = track.scrollTop + Math.max(stickyOffset + 156, track.clientHeight * 0.42);
-        let active = timelineTargets[0];
+        const firstEntry = timelineTargets[0];
+        const secondEntry = timelineTargets[1];
+        let active = firstEntry;
         let bestDistance = Infinity;
 
         if (track.scrollTop <= 4) {
           timelineTargets.forEach((node) => node.classList.remove("active"));
-          active.classList.add("active");
-          renderStory(active.dataset.story || "time-off");
+          firstEntry.classList.add("active");
+          renderStory(firstEntry.dataset.story || "time-off");
           updateYearPositions();
-          updateEntryDepth(active);
+          updateEntryDepth(firstEntry);
           return;
+        }
+
+        if (secondEntry) {
+          const secondCenter = secondEntry.offsetTop + secondEntry.offsetHeight / 2;
+          const earlyTrigger = track.scrollTop + Math.max(stickyOffset + 104, track.clientHeight * 0.3);
+          if (earlyTrigger < secondCenter) {
+            timelineTargets.forEach((node) => node.classList.remove("active"));
+            firstEntry.classList.add("active");
+            renderStory(firstEntry.dataset.story || "time-off");
+            updateYearPositions();
+            updateEntryDepth(firstEntry);
+            return;
+          }
         }
 
         timelineTargets.forEach((node) => {
