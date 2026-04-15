@@ -541,12 +541,14 @@ body.preload-layout .page-loader {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   min-width: 108px;
   min-height: 24px;
   padding: 0 20px;
   border: 1px solid #e1d5c1;
   border-radius: 999px;
   background: rgba(255, 252, 247, 0.96);
+  overflow: hidden;
   box-shadow: 0 8px 20px rgba(216, 198, 176, 0.16);
   transform: translateZ(0) scaleX(1) scaleY(1);
   transform-origin: center center;
@@ -556,6 +558,30 @@ body.preload-layout .page-loader {
     transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
     background-color 180ms ease,
     border-color 180ms ease;
+  --pill-glow-image: none;
+  --pill-glow-opacity: 0;
+  --pill-glow-filter: blur(26px);
+  --pill-glow-transform: translate3d(0, 14%, 0) scale(1.92) rotate(-22deg);
+}
+
+.timeline-company-pill::before {
+  content: "";
+  position: absolute;
+  inset: -150%;
+  background-image: var(--pill-glow-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: var(--pill-glow-opacity);
+  filter: var(--pill-glow-filter);
+  transform: var(--pill-glow-transform);
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+  pointer-events: none;
+}
+
+.timeline-company-pill[data-company]:not([data-company=""]):not(.is-entering):not(.is-swapping):not(.is-milestone)::before {
+  animation: companyPillGradientIdle 1.6s ease-in-out infinite;
 }
 
 .timeline-company-pill[hidden] {
@@ -570,11 +596,17 @@ body.preload-layout .page-loader {
 .timeline-company-pill.is-milestone {
   background: #7d747e;
   border-color: #7d747e;
+  --pill-glow-image: none;
+  --pill-glow-opacity: 0;
 }
 
 .timeline-company-pill.is-entering {
   filter: blur(0);
   transform: translateZ(0) scaleX(1) scaleY(1);
+}
+
+.timeline-company-pill.is-entering::before {
+  animation: companyPillGradientEnter 0.69s ease-out both;
 }
 
 .timeline-company-pill img {
@@ -585,6 +617,8 @@ body.preload-layout .page-loader {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
   font-family: "SF Compact Text Local", "SF Compact Text", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 12px;
   letter-spacing: 0.2em;
@@ -609,6 +643,87 @@ body.preload-layout .page-loader {
   opacity: 1;
   filter: blur(0);
   transform: translateZ(0) scale(1);
+}
+
+.timeline-company-pill[data-company="GoodRx"] {
+  --pill-glow-transform: translate3d(4%, 18%, 0) scale(2.2) rotate(-34deg);
+  --pill-glow-opacity: 0.92;
+}
+
+.timeline-company-pill[data-company="Outreach"] {
+  --pill-glow-transform: translate3d(8%, 8%, 0) scale(2.14) rotate(22deg);
+  --pill-glow-opacity: 0.86;
+}
+
+.timeline-company-pill[data-company="Slack"] {
+  --pill-glow-transform: translate3d(4%, 12%, 0) scale(2.18) rotate(-24deg);
+  --pill-glow-opacity: 0.9;
+}
+
+.timeline-company-pill[data-company="Disney"] {
+  --pill-glow-transform: translate3d(-7%, 10%, 0) scale(2.08) rotate(-14deg);
+  --pill-glow-opacity: 0.84;
+}
+
+.timeline-company-pill[data-company="AWeber"] {
+  --pill-glow-transform: translate3d(5%, 4%, 0) scale(2.12) rotate(16deg);
+  --pill-glow-opacity: 0.84;
+}
+
+.timeline-company-pill[data-company="Navan"] {
+  --pill-glow-transform: translate3d(7%, 10%, 0) scale(2.24) rotate(-30deg);
+  --pill-glow-opacity: 0.88;
+}
+
+.timeline-company-pill[data-company="Okayplayer"] {
+  --pill-glow-transform: translate3d(4%, 12%, 0) scale(2.02) rotate(-18deg);
+  --pill-glow-opacity: 0.76;
+}
+
+@keyframes companyPillGradientEnter {
+  0% {
+    opacity: 0;
+    filter: blur(36px);
+    transform: translate3d(-2%, 24%, 0) scale(2.04) rotate(-52deg);
+  }
+  42% {
+    opacity: calc(var(--pill-glow-opacity) * 0.72);
+    filter: blur(29px);
+    transform: translate3d(1%, 17%, 0) scale(2.12) rotate(-14deg);
+  }
+  100% {
+    opacity: var(--pill-glow-opacity);
+    filter: var(--pill-glow-filter);
+    transform: var(--pill-glow-transform);
+  }
+}
+
+@keyframes companyPillGradientIdle {
+  0% {
+    opacity: var(--pill-glow-opacity);
+    filter: var(--pill-glow-filter);
+    transform: var(--pill-glow-transform);
+  }
+  32% {
+    opacity: calc(var(--pill-glow-opacity) * 0.94);
+    filter: blur(27px);
+    transform: translate3d(2%, 18%, 0) scale(2.12) rotate(-18deg);
+  }
+  58% {
+    opacity: calc(var(--pill-glow-opacity) * 0.98);
+    filter: blur(25px);
+    transform: translate3d(4%, 24%, 0) scale(2.18) rotate(6deg);
+  }
+  82% {
+    opacity: calc(var(--pill-glow-opacity) * 0.95);
+    filter: blur(27px);
+    transform: translate3d(-2%, 17%, 0) scale(2.08) rotate(-12deg);
+  }
+  100% {
+    opacity: var(--pill-glow-opacity);
+    filter: var(--pill-glow-filter);
+    transform: var(--pill-glow-transform);
+  }
 }
 
 .timeline-order-toggle {
@@ -1102,16 +1217,6 @@ body.preload-layout .page-loader {
   background: #fff;
   border: 1px solid #e1d5c1;
   color: var(--ink);
-  --story-company-tint: none;
-}
-
-.story-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--story-company-tint);
-  pointer-events: none;
-  z-index: 3;
 }
 
 .story-head {
@@ -1133,18 +1238,18 @@ body.preload-layout .page-loader {
 .story-pills,
 .story-notes {
   transition:
-    opacity 165ms ease,
-    filter 165ms ease,
-    transform 165ms ease;
+    opacity 145ms ease,
+    filter 420ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, filter;
   transform: scale(1);
 }
 
 .story-card.is-story-swapping .story-head,
 .story-card.is-story-swapping .story-scroll {
-  opacity: 0;
-  filter: blur(3px);
-  transform: scale(0.992);
+  opacity: 0.18;
+  filter: blur(7px);
+  transform: translateY(-6px) scale(0.994);
 }
 
 .story-scroll {
@@ -1161,24 +1266,8 @@ body.preload-layout .page-loader {
   --story-scroll-fade: 1;
   --story-scroll-blur: 0px;
   --story-scroll-lift: 0px;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0px,
-    rgba(0, 0, 0, 0.45) 18px,
-    rgba(0, 0, 0, 0.82) 32px,
-    rgba(0, 0, 0, 1) 48px,
-    rgba(0, 0, 0, 1) 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0px,
-    rgba(0, 0, 0, 0.45) 18px,
-    rgba(0, 0, 0, 0.82) 32px,
-    rgba(0, 0, 0, 1) 48px,
-    rgba(0, 0, 0, 1) 100%
-  );
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .story-scroll::before {
@@ -1186,16 +1275,15 @@ body.preload-layout .page-loader {
   position: sticky;
   top: 0;
   display: block;
-  height: 56px;
-  margin-bottom: -56px;
+  height: 28px;
+  margin-bottom: -28px;
   pointer-events: none;
   z-index: 6;
   background: linear-gradient(
     to bottom,
-    rgba(253, 250, 243, 1) 0px,
-    rgba(253, 250, 243, 0.94) 14px,
-    rgba(253, 250, 243, 0.62) 30px,
-    rgba(253, 250, 243, 0) 56px
+    rgba(255, 255, 255, 0.82) 0px,
+    rgba(255, 255, 255, 0.32) 16px,
+    rgba(255, 255, 255, 0) 28px
   );
 }
 
@@ -1207,12 +1295,14 @@ body.preload-layout .page-loader {
 }
 
 .story-head h2 {
+  display: inline-block;
   margin: 0;
-  font-family: "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-  font-size: 48px;
-  font-weight: 300;
+  font-family: "SF Pro Display Local", "SF Pro Text Local", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-size: 58px;
+  font-weight: 100;
   letter-spacing: -0.02em;
-  line-height: 0.98;
+  line-height: 1.02;
+  padding-bottom: 0.05em;
   color: var(--accent);
 }
 
@@ -1634,7 +1724,6 @@ body.preload-layout .page-loader {
   .year-mark {
     transform: none;
   }
-
   .timeline-backtotop {
     top: 23px;
     transform: translateX(-50%);
@@ -2214,8 +2303,8 @@ body.preload-layout .page-loader {
   }
 
   .story-head h2 {
-    font-size: 32px;
-    line-height: 0.98;
+    font-size: 34px;
+    line-height: 1.02;
   }
 
   .story-copy {

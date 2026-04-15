@@ -283,6 +283,22 @@
         Navan: "#8C2988",
         Okayplayer: "#000000",
       };
+      const COMPANY_PILL_GRADIENTS = {
+        GoodRx:
+          "radial-gradient(circle at 52% 48%, #f6d139 0% 25%, #27527f 30% 45%, #f3c6d8 50% 75%, #ebe4d9 80% 92%, #000 96% 100%)",
+        Outreach:
+          "radial-gradient(circle at 52% 48%, #554df5 0% 28%, #000 40% 56%, #e4e2d4 65% 100%)",
+        Slack:
+          "radial-gradient(circle at 52% 48%, #4a154b 0% 25.5%, #f90044 31% 36%, #f9aa00 41% 46%, #00be6d 56% 66%, #00ceff 76% 100%)",
+        Disney:
+          "radial-gradient(circle at 52% 48%, #bff5fd 0% 15%, #113ccf 30% 65%, #fff 75% 100%)",
+        AWeber:
+          "radial-gradient(circle at 52% 48%, #006cf0 0% 30%, #000 40% 48%, #fff 56% 100%)",
+        Navan:
+          "radial-gradient(circle at 52% 48%, #e96370 0% 8%, #902a89 12% 20%, #472080 28% 80%, #ff7466 88% 100%)",
+        Okayplayer:
+          "radial-gradient(circle at 52% 48%, #1a1a1a 0% 18%, #5e5e5e 36% 52%, #c8c1b4 70% 100%)",
+      };
 
       const timelineItemsRoot = document.getElementById("timeline-items-root");
       let timelineSpec = [];
@@ -610,7 +626,10 @@
         storyKicker.textContent = story.kicker;
         storyTitle.textContent = story.title;
         storyCopy.textContent = story.copy;
-        storyCard?.style.setProperty("--story-company-tint", "none");
+        storyTitle.style.setProperty(
+          "--story-title-gradient",
+          COMPANY_PILL_GRADIENTS[story.company] || "linear-gradient(135deg, #ff4632 0%, #ff4632 100%)"
+        );
         storyKicker.style.backgroundImage = "";
         storyKicker.style.backgroundColor = "";
         storyKicker.style.borderColor = "";
@@ -643,19 +662,24 @@
         if (!company) {
           timelineCompanyLabel.textContent = "MILESTONE";
           timelineCompanyPill.classList.add("is-milestone");
-          timelineCompanyPill.style.backgroundImage = "none";
+          timelineCompanyPill.dataset.company = "";
+          timelineCompanyPill.style.setProperty("--pill-glow-image", "none");
           timelineCompanyPill.style.backgroundColor = "#7d747e";
           timelineCompanyPill.style.borderColor = "#7d747e";
+          timelineCompanyLabel.style.color = "#fff";
           timelineCompanyPill.hidden = false;
           return;
         }
 
         const pillColor = COMPANY_PILL_BACKGROUNDS[company] || "rgba(255, 252, 247, 0.96)";
+        const pillGradient = COMPANY_PILL_GRADIENTS[company] || "none";
         timelineCompanyPill.classList.remove("is-milestone");
+        timelineCompanyPill.dataset.company = company;
         timelineCompanyLabel.textContent = company;
-        timelineCompanyPill.style.backgroundImage = "none";
+        timelineCompanyPill.style.setProperty("--pill-glow-image", pillGradient);
         timelineCompanyPill.style.backgroundColor = pillColor;
-        timelineCompanyPill.style.borderColor = pillColor;
+        timelineCompanyPill.style.borderColor = company === "GoodRx" ? "#d0b300" : pillColor;
+        timelineCompanyLabel.style.color = company === "GoodRx" ? "#463d47" : "#fff";
         timelineCompanyPill.hidden = false;
       }
 
@@ -723,7 +747,10 @@
         storyImage.style.background = "transparent";
         storyImage.style.backgroundImage = "none";
         storyImage.classList.remove("is-fpo");
-        storyCard?.style.setProperty("--story-company-tint", "none");
+        storyTitle.style.setProperty(
+          "--story-title-gradient",
+          "linear-gradient(135deg, #ff4632 0%, #ff4632 100%)"
+        );
         storyKicker.style.backgroundImage = "";
         storyKicker.style.backgroundColor = "";
         storyKicker.style.borderColor = "";
@@ -734,21 +761,28 @@
 
       function updateStoryScrollEffects() {
         if (!storyScroll) return;
-        const textTrigger = -8;
-        const blockTrigger = -6;
-        const textFadeDistance = 58;
-        const blockFadeDistance = 64;
+        const textTrigger = 18;
+        const blockTrigger = 10;
+        const blockFadeDistance = 56;
         const blocks = storyScroll.querySelectorAll(".story-copy, .story-pills, .story-image-shell, .story-notes");
         blocks.forEach((block) => {
           const top = block.offsetTop - storyScroll.scrollTop;
+          const bottom = top + block.offsetHeight;
           if (block.classList.contains("story-copy") || block.classList.contains("story-notes")) {
-            const progress = Math.max(0, Math.min(1, (textTrigger - top) / textFadeDistance));
-            const topAlpha = Math.max(0.08, 1 - progress * 0.92);
-            const midAlpha = Math.max(0.3, 1 - progress * 0.55);
-            const revealDepth = 28 + progress * 30;
-            const blur = progress * 1.8;
-            const lift = progress * -4;
-            const maskValue = `linear-gradient(to bottom, rgba(0, 0, 0, ${topAlpha}) 0px, rgba(0, 0, 0, ${midAlpha}) 18px, rgba(0, 0, 0, 1) ${revealDepth}px, rgba(0, 0, 0, 1) 100%)`;
+            const visibleBelowTrigger = Math.max(0, bottom - textTrigger);
+            const visibleRatio = Math.max(
+              0,
+              Math.min(1, visibleBelowTrigger / Math.max(1, block.offsetHeight))
+            );
+            const progress =
+              visibleRatio >= 0.1 ? 0 : Math.max(0, Math.min(1, (0.1 - visibleRatio) / 0.1));
+            const fadeSlice = Math.max(12, block.offsetHeight * 0.1);
+            const topAlpha = Math.max(0, 1 - progress * 1.08);
+            const midAlpha = Math.max(0.4, 1 - progress * 0.42);
+            const revealDepth = 8 + progress * fadeSlice;
+            const blur = progress * 0.75;
+            const lift = progress * -1.5;
+            const maskValue = `linear-gradient(to bottom, rgba(0, 0, 0, ${topAlpha}) 0px, rgba(0, 0, 0, ${midAlpha}) 10px, rgba(0, 0, 0, 1) ${revealDepth}px, rgba(0, 0, 0, 1) 100%)`;
             block.style.opacity = "1";
             block.style.filter = `blur(${blur}px)`;
             block.style.transform = `translateY(${lift}px)`;
@@ -759,8 +793,8 @@
           } else {
             const progress = Math.max(0, Math.min(1, (blockTrigger - top) / blockFadeDistance));
             const opacity = 1 - progress;
-            const blur = progress * 4.5;
-            const lift = progress * -6;
+            const blur = progress * 3;
+            const lift = progress * -4;
             block.style.opacity = `${opacity}`;
             block.style.filter = `blur(${blur}px)`;
             block.style.transform = `translateY(${lift}px)`;
@@ -802,7 +836,7 @@
             if (currentToken !== storySwapToken) return;
             storyCard.classList.remove("is-story-swapping");
           });
-        }, 95);
+        }, 48);
       }
 
       function getEntryY(entry) {
