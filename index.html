@@ -734,14 +734,15 @@
 
       function updateStoryScrollEffects() {
         if (!storyScroll) return;
-        const cutoff = 22;
+        const textTrigger = -8;
+        const blockTrigger = -6;
         const textFadeDistance = 58;
         const blockFadeDistance = 64;
         const blocks = storyScroll.querySelectorAll(".story-copy, .story-pills, .story-image-shell, .story-notes");
         blocks.forEach((block) => {
           const top = block.offsetTop - storyScroll.scrollTop;
           if (block.classList.contains("story-copy") || block.classList.contains("story-notes")) {
-            const progress = Math.max(0, Math.min(1, (cutoff - top) / textFadeDistance));
+            const progress = Math.max(0, Math.min(1, (textTrigger - top) / textFadeDistance));
             const topAlpha = Math.max(0.08, 1 - progress * 0.92);
             const midAlpha = Math.max(0.3, 1 - progress * 0.55);
             const revealDepth = 28 + progress * 30;
@@ -756,7 +757,7 @@
             block.style.webkitMaskRepeat = "no-repeat";
             block.style.maskRepeat = "no-repeat";
           } else {
-            const progress = Math.max(0, Math.min(1, (cutoff - top) / blockFadeDistance));
+            const progress = Math.max(0, Math.min(1, (blockTrigger - top) / blockFadeDistance));
             const opacity = 1 - progress;
             const blur = progress * 4.5;
             const lift = progress * -6;

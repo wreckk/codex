@@ -1161,6 +1161,42 @@ body.preload-layout .page-loader {
   --story-scroll-fade: 1;
   --story-scroll-blur: 0px;
   --story-scroll-lift: 0px;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0.45) 18px,
+    rgba(0, 0, 0, 0.82) 32px,
+    rgba(0, 0, 0, 1) 48px,
+    rgba(0, 0, 0, 1) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0.45) 18px,
+    rgba(0, 0, 0, 0.82) 32px,
+    rgba(0, 0, 0, 1) 48px,
+    rgba(0, 0, 0, 1) 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.story-scroll::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 56px;
+  margin-bottom: -56px;
+  pointer-events: none;
+  z-index: 6;
+  background: linear-gradient(
+    to bottom,
+    rgba(253, 250, 243, 1) 0px,
+    rgba(253, 250, 243, 0.94) 14px,
+    rgba(253, 250, 243, 0.62) 30px,
+    rgba(253, 250, 243, 0) 56px
+  );
 }
 
 .story-kicker {
