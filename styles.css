@@ -1356,10 +1356,31 @@ body.preload-layout .page-loader {
     height: 66px;
     border-radius: 10px;
     flex: 0 0 auto;
-    background-image: var(--base-headshot);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sidebar-mobile-toggle__photo-base,
+  .sidebar-mobile-toggle__photo-overlay {
+    position: absolute;
+    inset: 0;
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
+    transition:
+      opacity 420ms ease,
+      filter 420ms ease;
+  }
+
+  .sidebar-mobile-toggle__photo-base {
+    background-image: var(--base-headshot);
+    opacity: 1;
+  }
+
+  .sidebar-mobile-toggle__photo-overlay {
+    background-image: var(--overlay-headshot);
+    opacity: 0;
+    filter: blur(8px);
   }
 
   .sidebar-mobile-toggle__copy {
@@ -1368,6 +1389,13 @@ body.preload-layout .page-loader {
     flex-direction: column;
     gap: 6px;
     flex: 1 1 auto;
+  }
+
+  .sidebar-mobile-toggle__name-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
   }
 
   .sidebar-mobile-toggle__name {
@@ -1381,6 +1409,19 @@ body.preload-layout .page-loader {
     text-transform: uppercase;
     white-space: nowrap;
     transform-origin: left center;
+  }
+
+  .sidebar-mobile-toggle__wave {
+    display: inline-block;
+    flex: 0 0 auto;
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(2px) scale(0.9);
+    transform-origin: 70% 80%;
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease;
   }
 
   .sidebar-mobile-toggle__role {
@@ -1434,6 +1475,23 @@ body.preload-layout .page-loader {
   .sidebar-card.is-mobile-open .sidebar-scroll,
   .sidebar-card.is-mobile-open .sidebar-links {
     display: block;
+  }
+
+  .sidebar-card.is-mobile-open .sidebar-mobile-toggle__photo-overlay {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  .sidebar-card.is-mobile-open .sidebar-mobile-toggle__photo-base {
+    opacity: 0.18;
+    filter: blur(2px);
+  }
+
+  .sidebar-card.is-mobile-open .sidebar-mobile-toggle__wave {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: wave-intro 0.55s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards,
+      wave-sway 1.6s ease-in-out 0.55s infinite alternate;
   }
 
   .sidebar-scroll {
