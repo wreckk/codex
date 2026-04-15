@@ -946,7 +946,7 @@
             const viewportWidth = trackWrap.clientWidth;
             const viewportCenter = track.scrollLeft + viewportWidth / 2;
             const buttonHalfWidth = timelineBackToTop.offsetWidth / 2 || 0;
-            buttonCenter = Math.max(buttonCenter, viewportCenter + buttonHalfWidth);
+            buttonCenter = Math.max(buttonCenter, viewportCenter + buttonHalfWidth + 100);
             currentX = Math.max(
               currentX,
               buttonCenter + buttonHalfWidth + viewportWidth / 2 - COMPACT_TIMELINE_LAYOUT.endPadding
