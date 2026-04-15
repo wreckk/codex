@@ -14,6 +14,8 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body class="preload-layout">
@@ -185,12 +187,27 @@
 
         <section class="timeline-column" aria-label="Timeline">
           <div class="timeline-head">
-            <h2 class="timeline-label">EXPERIENCE</h2>
+            <div class="timeline-head-left">
+              <h2 class="timeline-label">EXPERIENCE</h2>
+              <div class="timeline-company-pill is-milestone" id="timeline-company-pill">
+                <span id="timeline-company-label">MILESTONE</span>
+              </div>
+            </div>
+            <button
+              class="timeline-order-toggle"
+              type="button"
+              aria-pressed="false"
+              aria-label="Reverse timeline order"
+              title="Reverse timeline order"
+            >
+              ⇄
+            </button>
           </div>
 
           <div class="timeline-track-wrap">
             <div class="timeline-trigger-debug timeline-trigger-debug-top" aria-hidden="true"></div>
             <div class="timeline-trigger-debug timeline-trigger-debug-bottom" aria-hidden="true"></div>
+            <div class="timeline-year-pin" aria-hidden="true"></div>
             <div class="timeline-track">
               <div class="timeline-content">
                 <div class="timeline-line" aria-hidden="true"></div>
@@ -212,9 +229,6 @@
 
         <section class="story-card">
           <div class="story-head">
-            <div class="story-company-pill" id="story-company-pill" hidden>
-              <img id="story-company-logo" alt="" />
-            </div>
             <span class="story-kicker" id="story-kicker">2026</span>
             <h2 id="story-title">GLP-1 Launch</h2>
           </div>
@@ -302,7 +316,7 @@
 
       function buildStory(item, year, index) {
         return {
-          kicker: `${year}`,
+          kicker: item.company ? `${item.company.toUpperCase()} • ${year}` : `${year}`,
           title: item.title,
           company: item.company,
           copy: item.notes.join(" "),
@@ -321,6 +335,23 @@
         timelineSpec = await response.json();
       }
 
+      function getOrderedTimelineSpec() {
+        const sortedYears = [...timelineSpec].map((yearBlock) => ({
+          ...yearBlock,
+          items: [...yearBlock.items].sort((a, b) => (a.order || 0) - (b.order || 0)),
+        }));
+
+        if (!isTimelineReversed) return sortedYears;
+
+        return sortedYears
+          .slice()
+          .reverse()
+          .map((yearBlock) => ({
+            ...yearBlock,
+            items: [...yearBlock.items].reverse(),
+          }));
+      }
+
       function buildTimelineFromSpec() {
         if (!timelineItemsRoot) return {};
 
@@ -328,7 +359,7 @@
         const markup = [];
         let storyIndex = 0;
 
-        timelineSpec.forEach((yearBlock) => {
+        getOrderedTimelineSpec().forEach((yearBlock) => {
           markup.push(`
             <div class="timeline-entry year" style="--y: 0px" data-year="${yearBlock.year}" data-company="${yearBlock.company}">
               <div class="entry-pill"><span class="year-mark">${yearBlock.year}</span><span class="company">${yearBlock.company}</span></div>
@@ -340,16 +371,22 @@
               const storyId = `${yearBlock.year}-${slugify(item.title)}`;
               stories[storyId] = buildStory(item, yearBlock.year, storyIndex);
               storyIndex += 1;
+              const companyDisplay =
+                item.hideLogo || !(COMPANY_LOGOS[item.company || yearBlock.company || ""])
+                  ? ""
+                  : item.company || yearBlock.company || "";
               markup.push(`
-                <div class="timeline-entry minor" style="--y: 0px" data-story="${storyId}" data-year="${yearBlock.year}">
+                <div class="timeline-entry minor" style="--y: 0px" data-story="${storyId}" data-year="${yearBlock.year}" data-company="${item.company || yearBlock.company || ""}" data-company-display="${companyDisplay}">
                   <div class="entry-pill"><span class="label">${item.title}</span></div>
                 </div>
               `);
               return;
             }
 
+            const companyDisplay =
+              COMPANY_LOGOS[item.company || yearBlock.company || ""] ? item.company || yearBlock.company || "" : "";
             markup.push(`
-              <div class="timeline-entry callout" style="--y: 0px" data-year="${yearBlock.year}" data-callout="true">
+              <div class="timeline-entry callout" style="--y: 0px" data-year="${yearBlock.year}" data-company="${item.company || yearBlock.company || ""}" data-company-display="${companyDisplay}" data-callout="true">
                 <div class="entry-pill"><span class="month">${item.emoji}</span><span class="label">${item.title}</span></div>
               </div>
             `);
@@ -380,6 +417,8 @@
       const timelineColumn = document.querySelector(".timeline-column");
       const timelineContent = document.querySelector(".timeline-content");
       const timelineBackToTop = document.querySelector(".timeline-backtotop");
+      const timelineOrderToggle = document.querySelector(".timeline-order-toggle");
+      const timelineYearPin = document.querySelector(".timeline-year-pin");
       const timelineShortTicks = document.querySelector(".timeline-shortticks");
       const timelineTailTicks = document.querySelector(".timeline-tailticks");
       const timelineMediumTicks = document.querySelector(".timeline-mediumticks");
@@ -387,10 +426,12 @@
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
       const storyPills = document.getElementById("story-pills");
+      const storyImageShell = document.querySelector(".story-image-shell");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
-      const storyCompanyPill = document.getElementById("story-company-pill");
-      const storyCompanyLogo = document.getElementById("story-company-logo");
+      const storyScroll = document.querySelector(".story-scroll");
+      const timelineCompanyPill = document.getElementById("timeline-company-pill");
+      const timelineCompanyLabel = document.getElementById("timeline-company-label");
       const storyCard = document.querySelector(".story-card");
       const sidebarCard = document.querySelector(".sidebar-card");
       const sidebarHeading = document.querySelector(".sidebar-heading");
@@ -405,8 +446,14 @@
       let timelineDisplayEntries = [];
       let timelineTargets = [];
       let timelineTargetsByYear = new Map();
+      let compactYearTriggers = [];
+      let compactPinnedYearEntry = null;
       let storySwapTimeout = null;
       let storySwapToken = 0;
+      let timelineCompanySwapTimeout = null;
+      let timelineCompanyEnterTimeout = null;
+      let isTimelineReversed = false;
+      let activeTimelineCompany = null;
       const RESPONSIVE_BREAKPOINTS = {
         compact: 1200,
         mobile: 720,
@@ -436,11 +483,11 @@
       };
       const ACTIVE_SCALE_STOPS = [
         [0, 1],
-        [1 / 6, 1.04],
-        [2 / 6, 1.1],
-        [3 / 6, 1.2],
-        [4 / 6, 1.1],
-        [5 / 6, 1.04],
+        [1 / 6, 1.12],
+        [2 / 6, 1.24],
+        [3 / 6, 1.36],
+        [4 / 6, 1.18],
+        [5 / 6, 1.08],
         [1, 1],
       ];
       const TRIGGER_ZONE = {
@@ -448,11 +495,16 @@
         halfHeight: 54,
         visualLift: 0,
       };
+      const COMPACT_YEAR_SWAP_OFFSET = 28;
       let activeTimelineEntry = null;
       let activeStoryId = null;
       let timelineFrame = null;
       let mobileMetricsFrame = null;
       let mobileMetricsObserver = null;
+
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
 
       function isCompactTimeline() {
         return window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact;
@@ -558,25 +610,13 @@
         storyKicker.textContent = story.kicker;
         storyTitle.textContent = story.title;
         storyCopy.textContent = story.copy;
-        if (storyCompanyPill && storyCompanyLogo) {
-          if (story.logo) {
-            storyCompanyLogo.src = story.logo;
-            storyCompanyLogo.alt = `${story.company} logo`;
-            const pillColor = COMPANY_PILL_BACKGROUNDS[story.company] || "rgba(255, 252, 247, 0.96)";
-            storyCompanyPill.style.backgroundColor = pillColor;
-            storyCompanyPill.style.borderColor = pillColor;
-            storyCompanyPill.hidden = false;
-          } else {
-            storyCompanyLogo.removeAttribute("src");
-            storyCompanyLogo.alt = "";
-            storyCompanyPill.style.backgroundColor = "rgba(255, 252, 247, 0.96)";
-            storyCompanyPill.style.borderColor = "#e1d5c1";
-            storyCompanyPill.hidden = true;
-          }
-        }
+        storyCard?.style.setProperty("--story-company-tint", "none");
+        storyKicker.style.backgroundImage = "";
+        storyKicker.style.backgroundColor = "";
+        storyKicker.style.borderColor = "";
         storyImage.classList.add("is-fpo");
         storyImage.style.backgroundImage = "none";
-        storyImage.style.background = story.fill || "rgba(255,252,247,0.95)";
+        storyImage.style.background = "#b8b8b8";
         storyImage.innerHTML = '<div class="story-image-fpo" aria-hidden="true"><div class="story-image-fpo__stamp">FPO</div></div>';
 
         storyPills.innerHTML = "";
@@ -593,9 +633,149 @@
         const p = document.createElement("p");
         p.textContent = story.note || "";
         storyNotes.appendChild(p);
+        storyCard?.classList.remove("is-story-empty");
+        if (storyImageShell) storyImageShell.hidden = false;
+        updateStoryScrollEffects();
+      }
+
+      function applyTimelineCompany(company) {
+        if (!timelineCompanyPill || !timelineCompanyLabel) return;
+        if (!company) {
+          timelineCompanyLabel.textContent = "MILESTONE";
+          timelineCompanyPill.classList.add("is-milestone");
+          timelineCompanyPill.style.backgroundImage = "none";
+          timelineCompanyPill.style.backgroundColor = "#7d747e";
+          timelineCompanyPill.style.borderColor = "#7d747e";
+          timelineCompanyPill.hidden = false;
+          return;
+        }
+
+        const pillColor = COMPANY_PILL_BACKGROUNDS[company] || "rgba(255, 252, 247, 0.96)";
+        timelineCompanyPill.classList.remove("is-milestone");
+        timelineCompanyLabel.textContent = company;
+        timelineCompanyPill.style.backgroundImage = "none";
+        timelineCompanyPill.style.backgroundColor = pillColor;
+        timelineCompanyPill.style.borderColor = pillColor;
+        timelineCompanyPill.hidden = false;
+      }
+
+      function measureTimelineCompanyWidth() {
+        if (!timelineCompanyPill || !timelineCompanyLabel) return 0;
+        const pillStyles = window.getComputedStyle(timelineCompanyPill);
+        const labelWidth = timelineCompanyLabel.getBoundingClientRect().width;
+        const horizontalPadding =
+          parseFloat(pillStyles.paddingLeft || "0") +
+          parseFloat(pillStyles.paddingRight || "0") +
+          parseFloat(pillStyles.borderLeftWidth || "0") +
+          parseFloat(pillStyles.borderRightWidth || "0");
+        return Math.ceil(labelWidth + horizontalPadding);
+      }
+
+      function renderTimelineCompany(company) {
+        if (!timelineCompanyPill) return;
+        const nextCompany = company || null;
+        if (activeTimelineCompany === nextCompany) return;
+
+        if (timelineCompanySwapTimeout) {
+          clearTimeout(timelineCompanySwapTimeout);
+          timelineCompanySwapTimeout = null;
+        }
+        if (timelineCompanyEnterTimeout) {
+          clearTimeout(timelineCompanyEnterTimeout);
+          timelineCompanyEnterTimeout = null;
+        }
+
+        if (!activeTimelineCompany) {
+          activeTimelineCompany = nextCompany;
+          applyTimelineCompany(nextCompany);
+          timelineCompanyPill.style.width = "";
+          return;
+        }
+
+        activeTimelineCompany = nextCompany;
+        const currentWidth = Math.ceil(timelineCompanyPill.getBoundingClientRect().width);
+        timelineCompanyPill.style.width = `${currentWidth}px`;
+        timelineCompanyPill.classList.remove("is-entering");
+        timelineCompanyPill.classList.add("is-swapping");
+        timelineCompanySwapTimeout = window.setTimeout(() => {
+          applyTimelineCompany(nextCompany);
+          const nextWidth = measureTimelineCompanyWidth();
+          timelineCompanyPill.style.width = `${nextWidth}px`;
+          requestAnimationFrame(() => {
+            timelineCompanyPill.classList.add("is-entering");
+            timelineCompanyEnterTimeout = window.setTimeout(() => {
+              timelineCompanyPill.classList.remove("is-swapping");
+              timelineCompanyPill.classList.remove("is-entering");
+              timelineCompanyPill.style.width = "";
+            }, 240);
+          });
+        }, 95);
+      }
+
+      function clearStoryContent() {
+        activeStoryId = null;
+        storyKicker.textContent = "";
+        storyTitle.textContent = "";
+        storyCopy.textContent = "";
+        storyPills.innerHTML = "";
+        storyNotes.innerHTML = "";
+        storyImage.innerHTML = "";
+        storyImage.style.background = "transparent";
+        storyImage.style.backgroundImage = "none";
+        storyImage.classList.remove("is-fpo");
+        storyCard?.style.setProperty("--story-company-tint", "none");
+        storyKicker.style.backgroundImage = "";
+        storyKicker.style.backgroundColor = "";
+        storyKicker.style.borderColor = "";
+        if (storyImageShell) storyImageShell.hidden = true;
+        storyCard?.classList.add("is-story-empty");
+        updateStoryScrollEffects();
+      }
+
+      function updateStoryScrollEffects() {
+        if (!storyScroll) return;
+        const cutoff = 22;
+        const textFadeDistance = 58;
+        const blockFadeDistance = 64;
+        const blocks = storyScroll.querySelectorAll(".story-copy, .story-pills, .story-image-shell, .story-notes");
+        blocks.forEach((block) => {
+          const top = block.offsetTop - storyScroll.scrollTop;
+          if (block.classList.contains("story-copy") || block.classList.contains("story-notes")) {
+            const progress = Math.max(0, Math.min(1, (cutoff - top) / textFadeDistance));
+            const topAlpha = Math.max(0.08, 1 - progress * 0.92);
+            const midAlpha = Math.max(0.3, 1 - progress * 0.55);
+            const revealDepth = 28 + progress * 30;
+            const blur = progress * 1.8;
+            const lift = progress * -4;
+            const maskValue = `linear-gradient(to bottom, rgba(0, 0, 0, ${topAlpha}) 0px, rgba(0, 0, 0, ${midAlpha}) 18px, rgba(0, 0, 0, 1) ${revealDepth}px, rgba(0, 0, 0, 1) 100%)`;
+            block.style.opacity = "1";
+            block.style.filter = `blur(${blur}px)`;
+            block.style.transform = `translateY(${lift}px)`;
+            block.style.webkitMaskImage = maskValue;
+            block.style.maskImage = maskValue;
+            block.style.webkitMaskRepeat = "no-repeat";
+            block.style.maskRepeat = "no-repeat";
+          } else {
+            const progress = Math.max(0, Math.min(1, (cutoff - top) / blockFadeDistance));
+            const opacity = 1 - progress;
+            const blur = progress * 4.5;
+            const lift = progress * -6;
+            block.style.opacity = `${opacity}`;
+            block.style.filter = `blur(${blur}px)`;
+            block.style.transform = `translateY(${lift}px)`;
+            block.style.webkitMaskImage = "";
+            block.style.maskImage = "";
+          }
+        });
       }
 
       function renderStory(id) {
+        if (!id) {
+          if (activeStoryId === null) return;
+          clearStoryContent();
+          return;
+        }
+
         const story = storyContent[id];
         if (!story || id === activeStoryId) return;
 
@@ -649,6 +829,146 @@
         }
 
         return [...new Set(positions.map((value) => snapToTick(value)))].sort((a, b) => a - b);
+      }
+
+      function destroyCompactYearPinning() {
+        compactYearTriggers.forEach((trigger) => trigger.kill());
+        compactYearTriggers = [];
+        compactPinnedYearEntry = null;
+        yearEntries.forEach((entry) => entry.classList.remove("is-pin-source"));
+        if (timelineYearPin) {
+          if (window.gsap) {
+            gsap.set(timelineYearPin, { autoAlpha: 0 });
+          } else {
+            timelineYearPin.style.opacity = "0";
+          }
+        }
+      }
+
+      function getCompactYearRange(entry, index) {
+        const peers = timelineTargetsByYear.get(entry.dataset.year) || [];
+        if (!peers.length) return null;
+        const itemStep = isMobileLayout() ? 178 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const firstCenter = getEntryX(peers[0]);
+        const lastCenter = getEntryX(peers[peers.length - 1]);
+        const previousYear = yearEntries[index - 1];
+        const nextYear = yearEntries[index + 1];
+        const previousPeers = previousYear ? timelineTargetsByYear.get(previousYear.dataset.year) || [] : [];
+        const nextPeers = nextYear ? timelineTargetsByYear.get(nextYear.dataset.year) || [] : [];
+        const start = previousPeers.length
+          ? snapToTick((getEntryX(previousPeers[previousPeers.length - 1]) + firstCenter) / 2)
+          : snapToTick(firstCenter - itemStep / 2);
+        const end = nextPeers.length
+          ? snapToTick((lastCenter + getEntryX(nextPeers[0])) / 2)
+          : snapToTick(lastCenter + itemStep / 2);
+        return { start, end };
+      }
+
+      function showCompactYearPin(entry, { immediate = false } = {}) {
+        if (!timelineYearPin || !entry) return;
+        if (compactPinnedYearEntry === entry) return;
+        const previousEntry = compactPinnedYearEntry;
+        compactPinnedYearEntry = entry;
+        yearEntries.forEach((node) =>
+          node.classList.toggle("is-pin-source", node === entry)
+        );
+        const nextLabel = entry.dataset.year || "";
+        if (window.gsap) {
+          gsap.killTweensOf(timelineYearPin);
+          if (immediate || !previousEntry) {
+            timelineYearPin.textContent = nextLabel;
+            gsap.fromTo(
+              timelineYearPin,
+              { autoAlpha: 0, filter: "blur(18px)" },
+              { autoAlpha: 1, filter: "blur(0px)", duration: 0.22, ease: "power2.out", overwrite: true }
+            );
+          } else {
+            gsap.to(timelineYearPin, {
+              autoAlpha: 0,
+              filter: "blur(22px)",
+              duration: 0.16,
+              ease: "power2.in",
+              overwrite: true,
+              onComplete: () => {
+                timelineYearPin.textContent = nextLabel;
+                gsap.fromTo(
+                  timelineYearPin,
+                  { autoAlpha: 0, filter: "blur(22px)" },
+                  { autoAlpha: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out", overwrite: true }
+                );
+              },
+            });
+          }
+        } else {
+          compactPinnedYearEntry = entry;
+          timelineYearPin.style.opacity = "1";
+          timelineYearPin.textContent = nextLabel;
+        }
+      }
+
+      function hideCompactYearPin() {
+        if (!timelineYearPin) return;
+        compactPinnedYearEntry = null;
+        yearEntries.forEach((entry) => entry.classList.remove("is-pin-source"));
+        if (window.gsap) {
+          gsap.killTweensOf(timelineYearPin);
+          gsap.to(timelineYearPin, {
+            autoAlpha: 0,
+            filter: "blur(6px)",
+            duration: 0.12,
+            ease: "power2.out",
+            overwrite: true,
+          });
+        } else {
+          timelineYearPin.style.opacity = "0";
+        }
+      }
+
+      function setupCompactYearPinning() {
+        destroyCompactYearPinning();
+        if (!isCompactTimeline() || !timelineYearPin || !window.ScrollTrigger) return;
+
+        yearEntries.forEach((entry, index) => {
+          const nextEntry = yearEntries[index + 1];
+          const trigger = ScrollTrigger.create({
+            trigger: entry,
+            scroller: track,
+            horizontal: true,
+            start: `center-=${COMPACT_YEAR_SWAP_OFFSET} center`,
+            endTrigger: nextEntry || entry,
+            end: nextEntry ? `center-=${COMPACT_YEAR_SWAP_OFFSET} center` : `+=${Math.max(120, track.clientWidth / 2)}`,
+            onEnter: () => showCompactYearPin(entry),
+            onEnterBack: () => showCompactYearPin(entry),
+            onLeave: () => {
+              entry.classList.remove("is-pin-source");
+              if (!nextEntry) hideCompactYearPin();
+            },
+            onLeaveBack: () => {
+              entry.classList.remove("is-pin-source");
+              hideCompactYearPin();
+            },
+          });
+          compactYearTriggers.push(trigger);
+        });
+
+        const viewportCenter = track.scrollLeft + track.clientWidth / 2;
+        const initialIndex = yearEntries.findIndex((entry, index) => {
+          const range = getCompactYearRange(entry, index);
+          return range && viewportCenter >= range.start && viewportCenter <= range.end;
+        });
+        if (initialIndex >= 0) {
+          showCompactYearPin(yearEntries[initialIndex], { immediate: true });
+          yearEntries.forEach((entry, index) => {
+            const range = getCompactYearRange(entry, index);
+            if (!range) return;
+            entry.classList.toggle(
+              "is-pin-source",
+              index === initialIndex && viewportCenter >= range.start && viewportCenter <= range.end
+            );
+          });
+        }
+
+        ScrollTrigger.refresh();
       }
 
       function snapToTick(value) {
@@ -771,7 +1091,7 @@
         if (!timelineContent) return;
 
         const itemStep = isMobileLayout() ? 178 : COMPACT_TIMELINE_LAYOUT.itemStep;
-        const startX = isMobileLayout() ? 146 : 280;
+        const startX = snapToTick(track.clientWidth / 2);
         const yearGapStep = itemStep * (isMobileLayout() ? 0.5 : COMPACT_TIMELINE_LAYOUT.yearGapRatio);
         let currentX = startX;
 
@@ -794,6 +1114,7 @@
           const lastCenter = getEntryX(peers[peers.length - 1]);
           const midX = snapToTick((firstCenter + lastCenter) / 2);
           entry.style.setProperty("--x", `${midX}px`);
+          entry.dataset.baseX = String(midX);
           entry.style.removeProperty("--y");
           entry.style.removeProperty("--line-top");
           entry.style.removeProperty("--line-bottom");
@@ -866,15 +1187,29 @@
       function layoutTimeline() {
         if (isCompactTimeline()) {
           layoutTimelineCompact();
+          setupCompactYearPinning();
           return;
         }
 
+        destroyCompactYearPinning();
         layoutTimelineVertical();
       }
 
       function updateYearPositions() {
+        if (isCompactTimeline()) {
+          yearEntries.forEach((entry) => {
+            entry.classList.remove("is-active-year");
+            const baseX = entry.dataset.baseX;
+            if (baseX) entry.style.setProperty("--x", `${baseX}px`);
+            entry.style.zIndex = "2";
+          });
+          return;
+        }
+
         yearEntries.forEach((entry) => {
           entry.classList.remove("is-active-year");
+          const baseX = entry.dataset.baseX;
+          if (baseX) entry.style.setProperty("--x", `${baseX}px`);
           entry.style.transform = "none";
           entry.style.zIndex = "2";
         });
@@ -902,16 +1237,22 @@
               Math.max(0, (entryCenterInTrack - bandLeft) / (bandRight - bandLeft))
             );
             const bandScale = getScaleForBandProgress(compactBandProgress);
+            const focusProgress = smoothstep(
+              Math.max(0, 1 - Math.abs(compactBandProgress - 0.5) / 0.5)
+            );
 
             if (isActive) {
               entry.style.opacity = "1";
               entry.style.filter = "none";
+              entry.style.setProperty("--entry-focus", `${focusProgress}`);
               if (pill) {
                 pill.style.filter = "none";
                 pill.style.setProperty("--entry-scale", `${bandScale}`);
               }
               return;
             }
+
+            entry.style.setProperty("--entry-focus", "0");
 
             if (isYear) {
               let yearProgress = 1;
@@ -963,16 +1304,22 @@
             Math.max(0, (entryCenterInTrack - triggerBandTop) / (triggerBandBottom - triggerBandTop))
           );
           const bandScale = getScaleForBandProgress(clampedBandProgress);
+          const focusProgress = smoothstep(
+            Math.max(0, 1 - Math.abs(clampedBandProgress - 0.5) / 0.5)
+          );
 
           if (isActive) {
             entry.style.opacity = "1";
             entry.style.filter = "none";
+            entry.style.setProperty("--entry-focus", `${focusProgress}`);
             if (pill) {
               pill.style.filter = "none";
               pill.style.setProperty("--entry-scale", `${bandScale}`);
             }
             return;
           }
+
+          entry.style.setProperty("--entry-focus", "0");
 
           if (isYear) {
             let yearProgress = 1;
@@ -1032,7 +1379,8 @@
       }
 
       function updateActiveTimeline() {
-        if (!timelineTargets.length) return;
+        const activeCandidates = isCompactTimeline() ? timelineDisplayEntries : timelineTargets;
+        if (!activeCandidates.length) return;
         const triggerBandCenter = isCompactTimeline() ? track.clientWidth / 2 : TRIGGER_ZONE.fixedOffset;
         const triggerLine = isCompactTimeline()
           ? track.scrollLeft + triggerBandCenter
@@ -1045,11 +1393,11 @@
           "--trigger-debug-bottom-y",
           `${triggerBandCenter + TRIGGER_ZONE.halfHeight - TRIGGER_ZONE.visualLift}px`
         );
-        const firstEntry = timelineTargets[0];
+        const firstEntry = activeCandidates[0];
         let active = firstEntry;
         let bestDistance = Infinity;
 
-        timelineTargets.forEach((node) => {
+        activeCandidates.forEach((node) => {
           const y = getEntryCenter(node);
           const distance = Math.abs(triggerLine - y);
           if (distance < bestDistance) {
@@ -1058,13 +1406,24 @@
           }
         });
 
+        if (isCompactTimeline() && !active.dataset.story) {
+          activeTimelineEntry?.classList.remove("active");
+          activeTimelineEntry = null;
+          renderStory(null);
+          renderTimelineCompany(active.dataset.companyDisplay || null);
+          updateYearPositions();
+          updateEntryDepth(null, triggerLine);
+          return;
+        }
+
         if (activeTimelineEntry !== active) {
           activeTimelineEntry?.classList.remove("active");
           active.classList.add("active");
           activeTimelineEntry = active;
         }
 
-        renderStory(active.dataset.story || timelineTargets[0]?.dataset.story);
+        renderStory(active.dataset.story || null);
+        renderTimelineCompany(active.dataset.companyDisplay || null);
         updateYearPositions();
         updateEntryDepth(active, triggerLine);
       }
@@ -1075,6 +1434,57 @@
           timelineFrame = null;
           updateActiveTimeline();
         });
+      }
+
+      function syncTimelineOrderToggle() {
+        if (!timelineOrderToggle) return;
+        timelineOrderToggle.setAttribute("aria-pressed", String(isTimelineReversed));
+      }
+
+      function resetTimelineToStart(behavior = "auto") {
+        if (isCompactTimeline()) {
+          const firstEntry = timelineDisplayEntries[0];
+          const firstCenter = firstEntry ? getEntryCenter(firstEntry) : 0;
+          const targetLeft = Math.max(0, firstCenter - track.clientWidth / 2);
+          track.scrollTo({ left: targetLeft, behavior });
+          return;
+        }
+
+        track.scrollTo({ top: 0, behavior });
+      }
+
+      function rebuildTimeline({ resetToStart = false } = {}) {
+        const previousStoryId = activeStoryId;
+        storyContent = buildTimelineFromSpec();
+        hydrateTimelineCollections();
+        activeTimelineEntry = null;
+        layoutTimeline();
+        syncTimelineOrderToggle();
+
+        const fallbackStoryId = timelineTargets[0]?.dataset.story;
+        const nextStoryId =
+          previousStoryId && storyContent[previousStoryId] ? previousStoryId : fallbackStoryId;
+
+        if (resetToStart && isCompactTimeline()) {
+          renderStory(timelineDisplayEntries[0]?.dataset.story || null);
+        } else {
+          renderStory(nextStoryId);
+        }
+
+        if (resetToStart) {
+          requestAnimationFrame(() => {
+            resetTimelineToStart("auto");
+            if (isCompactTimeline()) {
+              requestAnimationFrame(() => {
+                setupCompactYearPinning();
+              });
+            }
+            scheduleTimelineUpdate();
+          });
+          return;
+        }
+
+        scheduleTimelineUpdate();
       }
 
       track.addEventListener("scroll", scheduleTimelineUpdate, { passive: true });
@@ -1093,6 +1503,20 @@
         document.body.classList.toggle("mobile-sidebar-open", nextOpen);
         requestAnimationFrame(syncMobileLayoutMetrics);
       });
+      timelineOrderToggle?.addEventListener("click", () => {
+        isTimelineReversed = !isTimelineReversed;
+        track.classList.add("is-reordering");
+        window.setTimeout(() => {
+          track.classList.remove("is-reordering");
+          track.classList.add("is-reordering-in");
+          rebuildTimeline({ resetToStart: true });
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              track.classList.remove("is-reordering-in");
+            });
+          });
+        }, 220);
+      });
       async function initializePageLayout() {
         if (document.fonts?.ready) {
           try {
@@ -1103,11 +1527,19 @@
         storyContent = buildTimelineFromSpec();
         hydrateTimelineCollections();
         layoutTimeline();
+        syncTimelineOrderToggle();
         fitSidebarHeading();
         syncMobileSidebarState();
         scheduleMobileLayoutMetrics();
-        renderStory(timelineTargets[0]?.dataset.story);
+        resetTimelineToStart("auto");
+        if (isCompactTimeline()) {
+          requestAnimationFrame(() => {
+            setupCompactYearPinning();
+          });
+        }
+        renderStory(timelineDisplayEntries[0]?.dataset.story || null);
         updateActiveTimeline();
+        updateStoryScrollEffects();
         requestAnimationFrame(() => {
           document.body.classList.remove("preload-layout");
         });
@@ -1120,6 +1552,7 @@
         layoutTimeline();
         fitSidebarHeading();
         syncMobileSidebarState();
+        syncTimelineOrderToggle();
         scheduleMobileLayoutMetrics();
         scheduleTimelineUpdate();
       });
@@ -1134,6 +1567,7 @@
         mobileMetricsObserver.observe(sidebarCard);
         mobileMetricsObserver.observe(timelineColumn);
       }
+      storyScroll?.addEventListener("scroll", updateStoryScrollEffects, { passive: true });
     </script>
   </body>
 </html>
