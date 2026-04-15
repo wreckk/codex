@@ -1,0 +1,535 @@
+[
+  {
+    "year": "2026",
+    "company": "GoodRx / Personal",
+    "items": [
+      {
+        "order": 1,
+        "title": "GLP-1 Launch",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Live Product", "Subscription", "Growth"],
+        "notes": [
+          "Led design for a new subscription category that became a major part of the business.",
+          "Unified product, brand, and experience into a single, scalable offering."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Taking a Break",
+        "company": "Personal",
+        "type": "primary",
+        "hideLogo": true,
+        "fill": "linear-gradient(145deg, rgba(78, 78, 78, 0.28), rgba(166, 166, 166, 0.88) 42%, rgba(96, 96, 96, 0.42) 100%)",
+        "chips": ["Reset", "Exploration"],
+        "notes": [
+          "Stepped away from full-time work to reset and explore new tools and workflows.",
+          "Focused on refining approach to building, prototyping, and team execution."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2025",
+    "company": "GoodRx",
+    "items": [
+      {
+        "order": 1,
+        "title": "ED + Hair Loss",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Launch", "New Category"],
+        "notes": [
+          "Expanded the product into new treatment categories with full end-to-end design.",
+          "Turned early concepts into real, revenue-generating experiences."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Homepage Redesign",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Brand", "Entry Point"],
+        "notes": [
+          "Reworked the homepage to better reflect the product and business direction.",
+          "Established a clearer, more cohesive front door to the experience."
+        ]
+      },
+      {
+        "order": 3,
+        "title": "App IA Redesign",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["IA", "Structure"],
+        "notes": [
+          "Redesigned the app structure to support product growth and complexity.",
+          "Simplified navigation and improved clarity across key flows."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2024",
+    "company": "GoodRx",
+    "items": [
+      {
+        "order": 1,
+        "title": "New Look and Feel",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Design System", "Brand"],
+        "notes": [
+          "Rolled out an updated visual system across core product surfaces.",
+          "Increased consistency and overall product quality."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Partner Integrations",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Partnerships", "Integration"],
+        "notes": [
+          "Integrated the product experience into partner ecosystems.",
+          "Maintained consistency while adapting to external constraints."
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Core Platform Refresh",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Core Product", "Optimization"],
+        "notes": [
+          "Rebuilt high-traffic surfaces including coupon and pricing pages.",
+          "Improved clarity, usability, and decision-making speed."
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Customer Journeys",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Journey Mapping", "Alignment"],
+        "notes": [
+          "Defined end-to-end customer journeys across the product.",
+          "Aligned teams around a shared understanding of the experience."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2023",
+    "company": "GoodRx",
+    "items": [
+      {
+        "order": 1,
+        "title": "Medicine Cabinet",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["New Product", "Retention"],
+        "notes": [
+          "Launched a product focused on ongoing value beyond transactions.",
+          "Shifted the experience toward repeat engagement."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Design Team Rigor",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Culture", "Craft"],
+        "notes": [
+          "Raised critique standards and working norms across the team.",
+          "Created clearer expectations around quality and execution."
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Org Buildout",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Hiring", "Org Design"],
+        "notes": [
+          "Built out key roles across content, operations, and leadership.",
+          "Strengthened the foundation for scaling the organization."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2022",
+    "company": "GoodRx / Outreach",
+    "items": [
+      {
+        "order": 1,
+        "title": "Joined GoodRx",
+        "company": "GoodRx",
+        "type": "primary",
+        "chips": ["Leadership", "Scale"],
+        "notes": [
+          "Stepped into SVP Product Design role across product and content.",
+          "Focused on improving quality and alignment across teams."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Outreach Redesign",
+        "company": "Outreach",
+        "type": "primary",
+        "chips": ["Design System", "Product"],
+        "notes": [
+          "Delivered a new look and feel across the product.",
+          "Helped unify a fragmented experience during growth."
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Customer Journeys",
+        "company": "Outreach",
+        "type": "primary",
+        "chips": ["Alignment", "System"],
+        "notes": [
+          "Introduced structured journeys across product and go-to-market.",
+          "Connected previously siloed experiences."
+        ]
+      },
+      {
+        "order": 4,
+        "title": "International Expansion",
+        "company": "Outreach",
+        "type": "primary",
+        "chips": ["International", "Org Growth"],
+        "notes": [
+          "Expanded the design team internationally, including the Prague office.",
+          "Built a more distributed and scalable team."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2021",
+    "company": "Outreach",
+    "items": [
+      {
+        "order": 1,
+        "title": "Org Expansion",
+        "company": "Outreach",
+        "type": "primary",
+        "chips": ["Hiring", "Ops"],
+        "notes": [
+          "Added key roles across content and design operations.",
+          "Improved team structure and execution at scale."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Meeting Intelligence",
+        "company": "Outreach",
+        "type": "primary",
+        "chips": ["AI", "Product"],
+        "notes": [
+          "Launched AI-powered meeting intelligence for note-taking and follow-through.",
+          "Extended the platform beyond core workflows into meeting capture and synthesis."
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Moved to Portland",
+        "emoji": "🌲",
+        "company": "Personal",
+        "type": "callout"
+      }
+    ]
+  },
+  {
+    "year": "2020",
+    "company": "Navan / Outreach",
+    "items": [
+      {
+        "order": 1,
+        "title": "Lemonade",
+        "company": "Navan",
+        "type": "primary",
+        "chips": ["0→1", "Launch"],
+        "notes": [
+          "Launched the company’s first consumer product in under 9 months.",
+          "Expanded the business beyond enterprise into new territory."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Joined Outreach",
+        "company": "Outreach",
+        "type": "primary",
+        "chips": ["Leadership", "Transition"],
+        "notes": [
+          "Joined Outreach during a period of rapid product and organizational growth.",
+          "Started shaping the next phase of design leadership across the platform."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2019",
+    "company": "Slack",
+    "items": [
+      {
+        "order": 1,
+        "title": "Slack IA",
+        "company": "Slack",
+        "type": "primary",
+        "chips": ["IA", "Foundation"],
+        "notes": [
+          "Led foundational information architecture work for scale.",
+          "Helped shape how the product could evolve long term."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Journey Mapping",
+        "company": "Slack",
+        "type": "primary",
+        "chips": ["Strategy", "Alignment"],
+        "notes": [
+          "Rolled out journey mapping across the organization.",
+          "Created shared understanding of user experience."
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Future Inbox",
+        "company": "Slack",
+        "type": "primary",
+        "chips": ["Exploration", "Product"],
+        "notes": [
+          "Built an experimental inbox concept with executive leadership.",
+          "Explored new directions outside the core roadmap."
+        ]
+      },
+      {
+        "order": 4,
+        "title": "First Trip to Japan",
+        "emoji": "🇯🇵",
+        "company": "Personal",
+        "type": "callout"
+      }
+    ]
+  },
+  {
+    "year": "2018",
+    "company": "Slack",
+    "items": [
+      {
+        "order": 1,
+        "title": "Head of Design",
+        "company": "Slack",
+        "type": "primary",
+        "chips": ["Leadership", "Scale"],
+        "notes": [
+          "Took ownership of design across the product organization.",
+          "Led through a major period of growth and expansion."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Team Operating System",
+        "company": "Slack",
+        "type": "primary",
+        "chips": ["Systems", "Org"],
+        "notes": [
+          "Built operating rigor across systems, ladders, and quality standards.",
+          "Enabled the team to scale while maintaining consistency."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2017",
+    "company": "Slack / Disney",
+    "items": [
+      {
+        "order": 1,
+        "title": "Joined Slack",
+        "company": "Slack",
+        "type": "primary",
+        "chips": ["Leadership", "Platform"],
+        "notes": [
+          "Joined Slack to help shape the product through a major scale-up phase.",
+          "Brought a systems lens to quality, org design, and product direction."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Moved to SF",
+        "emoji": "🌉",
+        "company": "Personal",
+        "type": "callout"
+      },
+      {
+        "order": 3,
+        "title": "Streamer Platform Design",
+        "company": "Disney",
+        "type": "primary",
+        "chips": ["TV", "Streaming"],
+        "notes": [
+          "Helped design early streaming platform experiences ahead of Disney+.",
+          "Helped extend product thinking beyond web and mobile."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2016",
+    "company": "Disney",
+    "items": [
+      {
+        "order": 1,
+        "title": "Wallet App",
+        "company": "Disney",
+        "type": "primary",
+        "chips": ["Labs", "Fintech"],
+        "notes": [
+          "Built an experimental kids allowance and wallet product.",
+          "Explored new product directions within Disney Labs."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Dadding",
+        "emoji": "👶",
+        "company": "Personal",
+        "type": "callout"
+      }
+    ]
+  },
+  {
+    "year": "2015",
+    "company": "Disney",
+    "items": [
+      {
+        "order": 1,
+        "title": "Labs Projects",
+        "company": "Disney",
+        "type": "primary",
+        "chips": ["Exploration", "Concepts"],
+        "notes": [
+          "Contributed to early-stage product explorations.",
+          "Focused on experimentation and concept development."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2014",
+    "company": "Disney / AWeber",
+    "items": [
+      {
+        "order": 1,
+        "title": "Joined Disney",
+        "company": "Disney",
+        "type": "primary",
+        "chips": ["Transition", "Labs"],
+        "notes": [
+          "Joined Disney to work on new platform concepts and early product directions.",
+          "Shifted from a smaller company scale into a broader entertainment ecosystem."
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Moved to Los Angeles",
+        "emoji": "🌴",
+        "company": "Personal",
+        "type": "callout"
+      },
+      {
+        "order": 3,
+        "title": "Mobile App",
+        "company": "AWeber",
+        "type": "primary",
+        "chips": ["Mobile", "0→1"],
+        "notes": [
+          "Led the first cross-functional mobile app effort.",
+          "Expanded the product beyond web into new usage patterns."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2010",
+    "company": "AWeber",
+    "items": [
+      {
+        "order": 1,
+        "title": "AWeber Leadership",
+        "company": "AWeber",
+        "type": "primary",
+        "chips": ["Org", "Product"],
+        "notes": [
+          "Built and led the design team across product and brand.",
+          "Helped scale the company through a major growth phase."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2005",
+    "company": "AWeber",
+    "items": [
+      {
+        "order": 1,
+        "title": "Joined AWeber",
+        "company": "AWeber",
+        "type": "primary",
+        "chips": ["Career Start", "Product"],
+        "notes": [
+          "Joined AWeber and began building across product, marketing, and brand surfaces.",
+          "Set the foundation for later team and design leadership work."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "2000",
+    "company": "Okayplayer",
+    "items": [
+      {
+        "order": 1,
+        "title": "Okayplayer",
+        "company": "Okayplayer",
+        "type": "primary",
+        "chips": ["Culture", "Community"],
+        "notes": [
+          "Early work at the intersection of music, culture, and digital.",
+          "Helped shape long-term taste and creative direction."
+        ]
+      }
+    ]
+  },
+  {
+    "year": "1999",
+    "company": "Freelance",
+    "items": [
+      {
+        "order": 1,
+        "title": "Freelance Begins",
+        "emoji": "💻",
+        "company": "Personal",
+        "type": "callout"
+      }
+    ]
+  },
+  {
+    "year": "1996",
+    "company": "McDonald’s",
+    "items": [
+      {
+        "order": 1,
+        "title": "McDonald’s",
+        "emoji": "🍔",
+        "company": "Personal",
+        "type": "callout"
+      }
+    ]
+  }
+]
