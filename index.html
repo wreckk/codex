@@ -940,15 +940,19 @@
 
           if (timelineBackToTop) {
             const tailOffset = isMobileLayout()
-              ? COMPACT_TIMELINE_LAYOUT.tailOffset + 66
+              ? COMPACT_TIMELINE_LAYOUT.tailOffset + 40
               : COMPACT_TIMELINE_LAYOUT.tailOffset;
-            let buttonCenter = lastTargetX + tailOffset;
+            const lastTargetHalfWidth = lastTarget?.offsetWidth ? lastTarget.offsetWidth / 2 : 0;
+            const buttonHalfWidth = timelineBackToTop.offsetWidth / 2 || 0;
+            let buttonCenter = lastTargetX + lastTargetHalfWidth + tailOffset + buttonHalfWidth;
             if (isMobileLayout() && trackWrap) {
+              const viewportWidth = trackWrap.clientWidth;
               timelineBackToTop.textContent = "↑ Back to the begining";
-              timelineBackToTop.style.left = "50%";
+              timelineBackToTop.style.left = `${buttonCenter}px`;
               timelineBackToTop.style.right = "auto";
               timelineBackToTop.style.top = "18px";
               timelineBackToTop.style.transform = "translateX(-50%)";
+              currentX = Math.max(currentX, buttonCenter + viewportWidth / 2);
             } else if (timelineBackToTop) {
               timelineBackToTop.textContent = "↑ Back to top";
               timelineBackToTop.style.right = "";

@@ -1350,6 +1350,9 @@ body.preload-layout .page-loader {
     text-align: left;
     cursor: pointer;
     position: relative;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
   }
 
   .sidebar-mobile-toggle__photo {
