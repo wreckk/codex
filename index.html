@@ -945,10 +945,10 @@
             let buttonCenter = lastTargetX + tailOffset;
             if (isMobileLayout() && trackWrap) {
               timelineBackToTop.textContent = "↑ Back to the begining";
-              timelineBackToTop.style.left = "auto";
-              timelineBackToTop.style.right = "16px";
+              timelineBackToTop.style.left = "50%";
+              timelineBackToTop.style.right = "auto";
               timelineBackToTop.style.top = "18px";
-              timelineBackToTop.style.transform = "none";
+              timelineBackToTop.style.transform = "translateX(-50%)";
             } else if (timelineBackToTop) {
               timelineBackToTop.textContent = "↑ Back to top";
               timelineBackToTop.style.right = "";
