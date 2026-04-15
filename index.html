@@ -890,9 +890,9 @@
       function layoutTimelineCompact() {
         if (!timelineContent) return;
 
-        const itemStep = isMobileLayout() ? 126 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const itemStep = isMobileLayout() ? 158 : COMPACT_TIMELINE_LAYOUT.itemStep;
         const startX = isMobileLayout() ? 146 : COMPACT_TIMELINE_LAYOUT.startX;
-        const yearGapStep = itemStep * COMPACT_TIMELINE_LAYOUT.yearGapRatio;
+        const yearGapStep = itemStep * (isMobileLayout() ? 0.5 : COMPACT_TIMELINE_LAYOUT.yearGapRatio);
         let currentX = startX;
 
         timelineTargets.forEach((entry, index) => {
