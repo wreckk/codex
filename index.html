@@ -424,7 +424,7 @@
 
       function buildStory(item, year, index) {
         const isWelcomeStory = item.title === "Start Here" || item.title === "👋 Welcome";
-        const isCloserToWorkStory = item.title === "Closer to the Work";
+        const isCloserToWorkStory = item.title === "Closer to the Work" || item.title === "✨ Doing the Work";
         return {
           kicker: isWelcomeStory
             ? ""
