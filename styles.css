@@ -1933,7 +1933,6 @@ body.preload-layout .page-loader {
   align-items: center;
   justify-content: center;
   transform: translateY(0) rotate(0deg);
-  animation: story-fpo-pointer 4.65s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .story-image-fpo__pointer svg {
@@ -1941,6 +1940,10 @@ body.preload-layout .page-loader {
   width: 36px;
   height: 36px;
   filter: drop-shadow(0 6px 12px rgba(116, 102, 118, 0.16));
+}
+
+.story-image-fpo__pointer.is-flicking {
+  animation: story-fpo-pointer 0.52s cubic-bezier(0.22, 1, 0.36, 1) 1;
 }
 
 @keyframes story-fpo-ticks-up {
