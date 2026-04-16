@@ -1558,7 +1558,7 @@ body.preload-layout .page-loader {
 }
 
 .story-image-fpo__welcome-image {
-  margin-top: 2px;
+  margin-top: auto;
   box-sizing: border-box;
   flex: 0 0 auto;
   align-self: stretch;
