@@ -1425,7 +1425,7 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__welcome-card {
   position: absolute;
-  right: 38px;
+  left: 50%;
   top: 50%;
   width: clamp(150px, 52%, 190px);
   height: 75%;
@@ -2695,7 +2695,7 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-card {
-    right: 24px;
+    left: 50%;
     width: 56%;
     height: 74%;
     border-radius: 10px;
