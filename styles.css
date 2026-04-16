@@ -2849,17 +2849,17 @@ body.preload-layout .page-loader {
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 0;
+    top: 25px;
+    bottom: 42px;
     height: auto;
   }
 
   .story-image-fpo__welcome-card {
     left: 50%;
-    top: 25px;
+    top: 0;
     bottom: auto;
     width: 39%;
-    height: calc(100% - 117px);
+    height: min(148px, 100%);
     --story-welcome-card-radius: 10px;
   }
 
