@@ -2787,7 +2787,7 @@ body.preload-layout .page-loader {
   }
 
   .story-image-shell:has(.story-image-fpo--timeline) {
-    height: 266px;
+    height: 236px;
   }
 
 .story-scroll:has(.story-image-fpo--timeline) .story-pills {
