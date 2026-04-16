@@ -2836,7 +2836,7 @@ body.preload-layout .page-loader {
 
   .story-image-fpo__welcome-stack {
     position: absolute;
-    inset: 18px 0 50px;
+    inset: 18px 0 42px;
     height: auto;
   }
 
@@ -2844,7 +2844,7 @@ body.preload-layout .page-loader {
     left: 50%;
     top: 0;
     width: 56%;
-    height: 72%;
+    height: 92%;
     --story-welcome-card-radius: 10px;
   }
 
