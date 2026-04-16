@@ -1505,8 +1505,8 @@ body.preload-layout .page-loader {
   position: absolute;
   left: 20%;
   width: 46%;
-  right: auto;
-  top: 50%;
+  right: 5%;
+  top: 30%;
   height: 1.3em;
   display: inline-flex;
   align-items: center;
@@ -1517,7 +1517,7 @@ body.preload-layout .page-loader {
   color: rgba(92, 92, 92, 0.92);
   white-space: nowrap;
   z-index: 2;
-  transform: translateY(-50%);
+  transform: translateY(0);
   outline: 1px solid rgba(255, 59, 214, 0.95);
   outline-offset: 0;
   transition:
@@ -1528,11 +1528,11 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__input-send {
   position: absolute;
-  right: 20%;
-  top: 50%;
+  right: 5%;
+  top: 30%;
   width: 28px;
   height: 28px;
-  transform: translateY(-50%);
+  transform: translateY(0);
   opacity: 0.72;
   transition:
     opacity 180ms ease,
@@ -1564,7 +1564,7 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__input-copy.is-sending {
   opacity: 0;
-  transform: translateY(calc(-50% - 10px));
+  transform: translateY(-10px);
   filter: blur(5px);
   transition:
     opacity 220ms ease,
@@ -1593,7 +1593,7 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__input-send.is-clicking {
   opacity: 1;
-  transform: translateY(-50%) scale(0.92);
+  transform: translateY(0) scale(0.92);
   filter: brightness(1.28);
 }
 
