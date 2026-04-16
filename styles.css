@@ -1503,7 +1503,8 @@ body.preload-layout .page-loader {
 .story-image-fpo__input-copy {
   position: absolute;
   left: 20%;
-  right: 36%;
+  width: 46%;
+  right: auto;
   top: 50%;
   height: 1.3em;
   display: inline-flex;
@@ -1527,7 +1528,7 @@ body.preload-layout .page-loader {
 .story-image-fpo__input-send {
   position: absolute;
   right: 20%;
-  top: calc(50% + 20px);
+  top: 50%;
   width: 28px;
   height: 28px;
   transform: translateY(-50%);
