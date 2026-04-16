@@ -866,6 +866,7 @@
 
       const CLOSER_TO_WORK_PROMPTS = [
         "Make me a cool website...",
+        "Make a cool timeline website for Eric Centeno...",
         "Help me turn this into something real...",
         "Can you prototype this idea fast...",
         "Let's make this feel less generic...",
@@ -873,14 +874,14 @@
       ];
 
       const CLOSER_TO_WORK_CLICK_SEQUENCE = [
-        "Claude",
-        "Codex",
         "Paper",
-        "ChatGPT",
-        "Cursor",
-        "GitHub",
+        "Claude",
         "Figma",
+        "ChatGPT",
+        "Codex",
         "Vercel",
+        "GitHub",
+        "Cursor",
         "v0"
       ];
 
@@ -924,14 +925,27 @@
 
         if (!pointer || !pulse || !inputCopy || !inputText || !inputSend || !tiles.length) return;
 
+        const pointerOffsets = {
+          Claude: { x: 0.62, y: 0.68, r: -7 },
+          Codex: { x: 0.7, y: 0.62, r: -5 },
+          Paper: { x: 0.66, y: 0.72, r: -10 },
+          ChatGPT: { x: 0.6, y: 0.64, r: -6 },
+          v0: { x: 0.72, y: 0.7, r: -3 },
+          Cursor: { x: 0.68, y: 0.62, r: -8 },
+          GitHub: { x: 0.6, y: 0.7, r: -5 },
+          Figma: { x: 0.7, y: 0.68, r: -4 },
+          Vercel: { x: 0.62, y: 0.64, r: -9 }
+        };
+
         const placePointerOnTile = (tile, pressed = false) => {
           const rootRect = root.getBoundingClientRect();
           const tileRect = tile.getBoundingClientRect();
-          const left = tileRect.left - rootRect.left + tileRect.width * 0.68 - 18;
-          const top = tileRect.top - rootRect.top + tileRect.height * 0.64 - 18;
+          const pointerOffset = pointerOffsets[tile.dataset.logoName] || { x: 0.68, y: 0.64, r: -8 };
+          const left = tileRect.left - rootRect.left + tileRect.width * pointerOffset.x - 18;
+          const top = tileRect.top - rootRect.top + tileRect.height * pointerOffset.y - 18;
           pointer.style.left = `${left}px`;
           pointer.style.top = `${top}px`;
-          pointer.style.transform = `rotate(-8deg) scale(${pressed ? 0.9 : 1})`;
+          pointer.style.transform = `rotate(${pointerOffset.r}deg) scale(${pressed ? 0.9 : 1})`;
         };
 
         const clickTile = (tile) => {
@@ -1009,7 +1023,7 @@
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             runClickLoop(step + 1);
-          }, 2140);
+          }, 2480);
         };
 
         const firstTile = tileByName.get(CLOSER_TO_WORK_CLICK_SEQUENCE[0]) || tiles[0];
