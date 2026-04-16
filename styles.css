@@ -1425,7 +1425,7 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__welcome-card {
   --story-welcome-card-radius: 10px;
-  --story-welcome-example-radius: 8px;
+  --story-welcome-example-radius: 6px;
   position: absolute;
   left: 20%;
   top: 50%;
@@ -1583,11 +1583,11 @@ body.preload-layout .page-loader {
 }
 
 .story-image-fpo__welcome-image--wide {
-  height: 38%;
+  height: 46%;
 }
 
 .story-image-fpo__welcome-image--tall {
-  height: 43%;
+  height: 52%;
 }
 
 .story-image-fpo--default {
