@@ -2848,8 +2848,9 @@ body.preload-layout .page-loader {
     position: absolute;
     left: 0;
     right: 0;
+    top: 25px;
     bottom: 42px;
-    height: 180px;
+    height: auto;
   }
 
   .story-image-fpo__welcome-card {
