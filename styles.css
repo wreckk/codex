@@ -1805,6 +1805,7 @@ body.preload-layout .page-loader {
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 5;
   width: 36px;
   height: 36px;
   display: flex;
