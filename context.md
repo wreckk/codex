@@ -1,15 +1,17 @@
 # Codex Project Context
 
-This file is the handoff doc for continuing work on `wreckk/codex` across machines.
+This is the handoff doc for continuing work on `wreckk/codex` across machines.
 
 ## Project
 
 - Repo: `https://github.com/wreckk/codex`
 - Branch: `main`
-- Site type: static site driven by:
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/index.html`
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/styles.css`
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/timeline-content.json`
+- Current local repo path:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex`
+- Primary source files:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/index.html`
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/styles.css`
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/timeline-content.json`
 
 ## Workflow
 
@@ -17,262 +19,138 @@ This file is the handoff doc for continuing work on `wreckk/codex` across machin
   1. edit locally
   2. verify in local preview
   3. only push when explicitly requested
-- Local preview URL:
-  - `http://localhost:4173`
 
-### Local server
+### Local preview
 
 From repo root:
 
 ```bash
-cd "/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex"
+cd "/Users/wreckk/Desktop/Projects/Vibe Coding/Codex"
 python3 -m http.server 4173
 ```
 
-## Important Workflow Rule
-
-This project uses an explicit local-commit workflow.
-
-### Required behavior
-
-- Every save gets a local commit.
-- A “save” means any round of work that is handed back for review locally.
-- Do not wait for the user to separately ask to save it.
-
-### User callouts
-
-If the user says things like:
-
-- `mark this`
-- `checkpoint this`
-- `this version is good`
-- `clean state`
-
-that should still create a local commit, and that phrasing should influence the commit message so rollback is easy later.
-
-### Push / pull rules
-
-- The user will be explicit about pushing to GitHub.
-- Do not push unless explicitly requested.
-- The user will be explicit about pulling from GitHub.
-- Do not pull unless explicitly requested.
-
-### Why
-
-The user wants to be able to say things like:
-
-- `roll back 2 versions`
-- `go back to the good checkpoint`
-
-and have that mean rolling back through local commits, not guessing from uncommitted working state.
+- Desktop URL:
+  - `http://localhost:4173`
+- Same-network mobile URL:
+  - `http://192.168.1.102:4173`
 
 ## Source Of Truth
 
-- Content source of truth:
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/timeline-content.json`
-- Layout / interaction source of truth:
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/index.html`
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/styles.css`
+- Timeline/story content:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/timeline-content.json`
+- Layout and behavior:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/index.html`
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/styles.css`
 
-## Current Layout Model
+## Stable Baseline
 
-### Desktop
+Treat the current timeline behavior as the good baseline unless explicitly revisiting it:
 
-- Three-column editorial layout
-- Left: profile / bio / strengths / interests / links
-- Middle: vertical timeline
-- Right: story/content card
-- Desktop timeline focus line is now around `25%` from the top
+- mobile timeline is spine-anchored and considered stable
+- `EXPERIENCE` row sits in normal flow above the compact rail
+- compact startup centering and reverse-order behavior are stable
+- compact active-pill behavior is stable
+- employer pill beside `EXPERIENCE` is the correct model
+- `COMPANY • YEAR` inside the content card should stay plain text
 
-### Tablet
+## Current Timeline Content Notes
 
-- Left and right cards remain similar to desktop
-- Timeline is a fixed bottom rail
-- Tablet uses its own mask / rail behavior and should not be casually merged with desktop fixes
+### 2026 order
 
-### Mobile
+Current order in `2026`:
 
-- Top: compact left-card summary
-- Middle: story/content card
-- Bottom: fixed horizontal timeline rail
-- Mobile spacing is very sensitive
-- Desktop-only timeline fixes must stay desktop-only unless explicitly requested
-
-## Timeline State
-
-### Desktop
-
-- Active item focus is aligned to the desktop focus lane near `25%`
-- Desktop timeline items are clickable and auto-scroll into focus
-- Desktop pinned year behavior was heavily tuned
-- The scrolling desktop year labels use:
-  - `.timeline-entry.year .entry-pill { left: -71px; }`
-- Desktop year swap behavior currently depends on the year marker hitting the desktop trigger, not just story item activation
-
-### Mobile
-
-- Mobile year spacing was recently tightened and is considered acceptable right now
-- Mobile timeline guide lines are currently OFF
-- Mobile active item scaling issue was fixed by changing transform origin so the pill grows from center instead of dropping downward
-- Mobile content card supports swipe left/right to move between timeline items
-- Mobile timeline items can be tapped to scroll them into focus
-
-## Current Story / Content Behavior
-
-- Story card transitions:
-  - desktop uses stronger vertical motion
-  - mobile uses horizontal motion
-  - content card transition blur is intentionally present
-- Story image area supports:
-  - real image
-  - default FPO placeholder
-  - animated no-image fallback for `Start Here` only
-
-### First entries in 2026
-
-Current first entries:
-
-1. `Start Here`
+1. `👋 Welcome`
 2. `Closer to the Work`
-3. `GLP-1 Launch`
+3. `Taking a Break`
+4. `GLP-1 Launch`
 
-### `Start Here`
+### `👋 Welcome`
 
-- This is now the first entry before `Closer to the Work`
-- It has:
-  - no kicker
-  - no chips
-  - no note/caption under the fallback visual
-- Copy:
-  - `This is a timeline of some of my work over the years, and a few highlights along the way.`
-  - `Scroll through the timeline to explore, details update as you move.`
-- Its no-image state now uses a custom animated fallback graphic instead of the normal FPO container
+- This replaced `Start Here`
+- The timeline pill uses the waving-hand animation
+- It keeps the custom faux timeline animation in the image area
+- Current copy:
+  - `Thanks for stopping by. This is a timeline of some of my work over the years, with a few highlights mixed in.`
+  - `Scroll through to explore, the details update as you move through each moment, unfolding as you go.`
 
 ### `Closer to the Work`
 
-- Headline:
-  - `Closer to the Work`
-- Copy:
-  - `Took a short career break to focus on how things actually get built now.`
-  - `Spent the time working across design, prototypes, and code to stay sharp and hands-on.`
-- Tags:
-  - `Design + Code`
-  - `Prototyping`
-  - `AI Tools`
-  - `Workflow`
-  - `Craft`
-- Real image asset:
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/images/ai.png`
+- This story now uses a custom AI-tools montage instead of a normal real image
+- It should keep the lighter gray radial background
+- It should keep the frosted logo containers and loose, non-uniform placement
+- The montage now uses:
+  - AI logo tiles
+  - a faux cursor click path
+  - a docked AI input screenshot at the bottom
+  - typed prompt animation
 
-## FPO / Image Behavior
+## `Closer to the Work` Montage Intent
 
-### Real image
+This is the most recent active refinement area.
 
-- `Closer to the Work` uses a real `<img>` from `/assets/images/ai.png`
-- The real-image container grows to the image height instead of forcing the old fixed FPO box
+### What should remain true
 
-### Default FPO container
+- use assets from:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/ai-logos`
+- use employer logos from:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/employers`
+- frosted tiles and varied placement are correct
+- the AI input should sit on top of the icon layer
+- the AI input should feel like a real prompt field rather than a generic tile
 
-- Non-updated / non-image stories are back to a plain centered `FPO` placeholder
-- The animated fallback is NOT global anymore
+### Current desired behavior
 
-### Animated fallback
+- app tiles only light up when clicked by the cursor
+- tile click should affect the whole frosted tile, not just the icon
+- click state should be a soft highlight, not a full-white blast
+- icon sizing should feel visually balanced across all apps
+- cursor should show click feedback with a pulse under it
+- cursor should move deliberately, not too fast
+- all app tiles should eventually get clicked over the full loop
 
-- Only `Start Here` uses the animated fallback
-- Current direction of that animation:
-  - green box = default viewport
-  - pink section scrolls in
-  - blue section scrolls in
-  - then the loop repeats
-- The current structure is intentionally a `6 + 3 + 3` tick runner
-- This area was still being refined at the end of the session, but the active goal is explicit:
-  - no blank space during flicks
-  - first flick reveals the next 3 ticks
-  - second flick reveals the next 3 ticks
-  - then loop
+### AI input behavior
 
-## Current Labels / Pills
+- width should be about `90%`
+- bottom margin should be `10px`
+- prompt text should be left aligned in the real text-entry zone, with about `20%` left inset
+- send button should sit farther left than a default right edge placement, roughly with `20%` right inset
+- send button should point upward correctly
+- when prompt finishes typing, send button should turn orange
+- prompt sequence should be:
+  1. type in letter by letter
+  2. hold briefly
+  3. send button highlights/clicks
+  4. text flies up, fully blurs, and fully fades out
+  5. next prompt begins
 
-- Fallback milestone/company pill label is now:
-  - `Highlights`
-- `Taking a Break` was replaced by:
-  - `Closer to the Work`
+## Asset Organization
 
-## Mobile UI Details
+The logo assets were reorganized.
 
-### Scroll hint
+- employer logos now live in:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/employers`
+- AI montage assets live in:
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/ai-logos`
 
-- Mobile has a delayed hint:
-  - `Scroll To`
-  - `See More`
-- Chevron sits to the left of the two-line label
-- It only appears after `25s` of no timeline scrolling
-- Once the user scrolls the timeline, it should stay dismissed
+If employer logo rendering breaks, check `COMPANY_LOGOS` in `index.html` first and make sure it still points at `employers/...`.
 
-### Header pullbar / arrow
+## Current Employer Pill Behavior
 
-- Mobile header pullbar is an idle animation now
-- Intended sequence:
-  - flat line
-  - transform to down arrow
-  - bounce twice
-  - flatten again
-- This was refined a lot and is still delicate
+- employer pill stays beside `EXPERIENCE`
+- fallback pill text is:
+  - `Highlight`
+- fallback pill is a softer gray
+- non-company items should still preserve row height / alignment
 
-## Visual Details
+## Current Story Fade / Scroll Behavior
 
-- Story image border is now a dedicated overlay on `.story-image-shell`
-- The visible image object border was lightened and made thinner
-- Real image / FPO shell behavior is intentionally different depending on state
+- text under the story headline is using progressive fade/blur logic
+- this area is still sensitive and easy to overdo
+- avoid bringing back a hard clipping edge near the top mask/cutline
 
-## Strengths / Interests
+## Last Known Good Push
 
-### Strengths
+- Last requested push before this handoff:
+  - `b13acb7`
+- There have been additional local edits after that point before this handoff push.
 
-- `ORG SCALE`
-- `EXECUTIVE PARTNERSHIP`
-- `DESIGN SYSTEMS`
-- `GROWTH & MONETIZATION`
-- `UX RESEARCH`
-- `VIBE-CODING`
-- `BRAND DESIGN`
-- `AI PROTOTYPING`
-- `VOICE & TONE`
-- `0–100 INITIATIVES`
-- `CULTURE BUILDING`
-- `SAAS & B2B`
-
-### Interests
-
-- `CLASSIC GAMING`
-- `COFFEE`
-- `BIRD WATCHING`
-- `HOME NETWORKING`
-- `SNEAKERS`
-- `PC BUILDING`
-- `COMICS`
-- `STREET WEAR`
-- `DADDING`
-- `VINYL & MINIDISC`
-- `COOKING`
-- `SMART HOME`
-- `3D PRINTING`
-- `PHOTOGRAPHY`
-- `THE GOLDEN GIRLS`
-
-## Latest Pushed State
-
-- Latest pushed commit at handoff time:
-  - `57c9391`
-
-That includes:
-- `Start Here` note/caption removed
-- animated fallback only on `Start Here`
-- plain FPO placeholder restored for other non-image stories
-- real image for `Closer to the Work`
-
-## Resume Prompt
-
-Use this on the laptop:
-
-`Pull latest main, read /Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/context.md, then continue locally. Respect the current mobile spacing, desktop year logic, and the rule that only Start Here uses the animated FPO fallback.`

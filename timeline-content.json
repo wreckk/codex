@@ -5,14 +5,14 @@
     "items": [
       {
         "order": 1,
-        "title": "Start Here",
+        "title": "👋 Welcome",
         "company": "Personal",
         "type": "primary",
         "hideLogo": true,
         "chips": [],
         "notes": [
-          "This is a timeline of some of my work over the years, and a few highlights along the way.",
-          "Scroll through the timeline to explore, details update as you move."
+          "Thanks for stopping by. This is a timeline of some of my work over the years, with a few highlights mixed in.",
+          "Scroll through to explore, the details update as you move through each moment, unfolding as you go."
         ]
       },
       {

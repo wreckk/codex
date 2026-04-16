@@ -264,13 +264,13 @@
         "linear-gradient(162deg, rgba(255,238,229,0.98), rgba(255,252,247,0.92) 52%, rgba(116,102,118,0.18))",
       ];
       const COMPANY_LOGOS = {
-        GoodRx: "/assets/company-logos/goodrx.svg",
-        Disney: "/assets/company-logos/disney.svg",
-        Outreach: "/assets/company-logos/outreach.svg",
-        Slack: "/assets/company-logos/slack.svg",
-        Navan: "/assets/company-logos/navan.png",
-        AWeber: "/assets/company-logos/aweber.png",
-        Okayplayer: "/assets/company-logos/okayplayer.svg",
+        GoodRx: "/assets/company-logos/employers/goodrx.svg",
+        Disney: "/assets/company-logos/employers/disney.svg",
+        Outreach: "/assets/company-logos/employers/outreach.svg",
+        Slack: "/assets/company-logos/employers/slack.svg",
+        Navan: "/assets/company-logos/employers/navan.png",
+        AWeber: "/assets/company-logos/employers/aweber.png",
+        Okayplayer: "/assets/company-logos/employers/okayplayer.svg",
       };
       const COMPANY_PILL_BACKGROUNDS = {
         GoodRx: "#FDDB00",
@@ -311,9 +311,126 @@
         return `linear-gradient(145deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.02) 38%, rgba(0, 0, 0, 0.22)), radial-gradient(circle at 52% 48%, rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 30%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.96) 55%, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.88) 100%)`;
       }
 
+      function buildStartHereFpoMarkup() {
+        const groupLong = ["long", "short", "short", "short"];
+        const groupMedium = ["medium", "short", "short", "short"];
+        const baseBars = Array.from({ length: 16 }, (_, index) =>
+          (index % 2 === 0 ? groupLong : groupMedium)
+            .map(
+              (kind) =>
+                `<div class="story-image-fpo__tick story-image-fpo__tick--${kind}"></div>`
+            )
+            .join("")
+        ).join("");
+        const bars = `${baseBars}${baseBars}`;
+
+        return `
+          <div class="story-image-fpo story-image-fpo--timeline" aria-hidden="true">
+            <div class="story-image-fpo__track">
+              <div class="story-image-fpo__runner">
+                ${bars}
+              </div>
+            </div>
+            <div class="story-image-fpo__pointer">
+              <svg
+                width="36"
+                height="36"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
+                  fill="white"
+                  stroke="#c4c4c4"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>`;
+      }
+
+      function buildCloserToWorkFpoMarkup() {
+        const logoItems = [
+          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "8%", y: "10%", w: "18%", delay: "0.02s", rotate: "-6deg", clickDelay: "0.9s" },
+          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "31%", y: "8%", w: "17%", delay: "0.08s", rotate: "4deg", clickDelay: "2.6s" },
+          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "55%", y: "12%", w: "12%", delay: "0.14s", rotate: "-3deg", clickDelay: "1.8s" },
+          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "72%", y: "9%", w: "16%", delay: "0.2s", rotate: "5deg", clickDelay: "3.4s" },
+          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "14%", y: "39%", w: "18%", delay: "0.12s", rotate: "-4deg", clickDelay: "4.2s" },
+          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "39%", y: "35%", w: "14%", delay: "0.18s", rotate: "3deg", clickDelay: "5.1s" },
+          { svg: "figma", name: "Figma", x: "56%", y: "35%", w: "14%", delay: "0.22s", rotate: "-2deg", clickDelay: "2.1s" },
+          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "73%", y: "35%", w: "16%", delay: "0.24s", rotate: "-5deg", clickDelay: "3.9s" },
+          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "72%", y: "58%", w: "16%", delay: "0.28s", rotate: "4deg", clickDelay: "8.6s" }
+        ];
+
+        const logos = logoItems
+          .map(
+            (logo) => `
+              <div class="story-image-fpo__logo-tile" style="--logo-x:${logo.x};--logo-y:${logo.y};--logo-w:${logo.w};--logo-delay:${logo.delay};--logo-rotate:${logo.rotate};--logo-click-delay:${logo.clickDelay};">
+                <div class="story-image-fpo__logo-tile-inner">
+                  ${logo.svg === "figma"
+                    ? `<svg viewBox="0 0 38 57" aria-label="${logo.name}" role="img">
+                        <path fill="#F24E1E" d="M9.5 57C14.747 57 19 52.747 19 47.5V38H9.5C4.253 38 0 42.253 0 47.5S4.253 57 9.5 57Z"/>
+                        <path fill="#A259FF" d="M0 28.5C0 23.253 4.253 19 9.5 19H19V38H9.5C4.253 38 0 33.747 0 28.5Z"/>
+                        <path fill="#1ABCFE" d="M0 9.5C0 4.253 4.253 0 9.5 0H19V19H9.5C4.253 19 0 14.747 0 9.5Z"/>
+                        <path fill="#0ACF83" d="M19 0H28.5C33.747 0 38 4.253 38 9.5S33.747 19 28.5 19H19V0Z"/>
+                        <path fill="#FF7262" d="M38 28.5C38 33.747 33.747 38 28.5 38S19 33.747 19 28.5S23.253 19 28.5 19S38 23.253 38 28.5Z"/>
+                      </svg>`
+                    : `<img src="${logo.src}" alt="${logo.name}" loading="eager" decoding="async" />`}
+                </div>
+              </div>`
+          )
+          .join("");
+
+        return `
+          <div class="story-image-fpo story-image-fpo--closer" aria-hidden="true">
+            <div class="story-image-fpo__logo-field">
+              ${logos}
+              <div class="story-image-fpo__input-shell">
+                <img src="/assets/company-logos/ai-logos/ai-input.png" alt="AI input" loading="eager" decoding="async" />
+                <div class="story-image-fpo__input-copy">
+                  <span style="--line-chars: 24">Make me a cool website...</span>
+                  <span style="--line-chars: 31">Who needs design, when we have AI...</span>
+                  <span style="--line-chars: 38">Help me turn this into something real...</span>
+                  <span style="--line-chars: 30">Can you prototype this idea fast...</span>
+                  <span style="--line-chars: 33">Let's make this feel less generic...</span>
+                  <span style="--line-chars: 32">Take this from rough to launchable...</span>
+                </div>
+                <div class="story-image-fpo__input-send" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" fill="rgba(52,52,52,0.9)"/>
+                    <path d="M12 7v7m0 0-3-3m3 3 3-3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="story-image-fpo__montage-pointer">
+                <span class="story-image-fpo__click-pulse" aria-hidden="true"></span>
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
+                    fill="white"
+                    stroke="#c4c4c4"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>`;
+      }
+
       function buildStory(item, year, index) {
+        const isWelcomeStory = item.title === "Start Here" || item.title === "👋 Welcome";
+        const isCloserToWorkStory = item.title === "Closer to the Work";
         return {
-          kicker: item.title === "Start Here"
+          kicker: isWelcomeStory
             ? ""
             : (item.company ? `${item.company.toUpperCase()} • ${year}` : `${year}`),
           title: item.title,
@@ -321,9 +438,11 @@
           copy: item.notes.join(" "),
           pills: item.chips,
           fill: item.fill || buildBrandFill(item.company, index),
-          note: item.title === "Start Here" ? "" : `${item.company} · FPO container for supporting imagery`,
+          note: isWelcomeStory ? "" : `${item.company} · FPO container for supporting imagery`,
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
           image: item.image || null,
+          isWelcomeStory,
+          isCloserToWorkStory,
         };
       }
 
@@ -358,6 +477,13 @@
         const stories = {};
         const markup = [];
         let storyIndex = 0;
+        const renderTimelineLabel = (title) => {
+          if (title === "👋 Welcome") {
+            return '<span class="label"><span class="wave timeline-welcome-wave" aria-hidden="true">👋</span><span class="timeline-welcome-text">Welcome</span></span>';
+          }
+
+          return `<span class="label">${title}</span>`;
+        };
 
         getOrderedTimelineSpec().forEach((yearBlock) => {
           markup.push(`
@@ -377,7 +503,7 @@
                   : item.company || yearBlock.company || "";
               markup.push(`
                 <div class="timeline-entry minor" style="--y: 0px" data-story="${storyId}" data-year="${yearBlock.year}" data-company="${item.company || yearBlock.company || ""}" data-company-display="${companyDisplay}">
-                  <div class="entry-pill"><span class="label">${item.title}</span></div>
+                  <div class="entry-pill">${renderTimelineLabel(item.title)}</div>
                 </div>
               `);
               return;
@@ -753,10 +879,14 @@
         storyKicker.style.backgroundColor = "";
         storyKicker.style.borderColor = "";
         storyImage.classList.add("is-fpo");
-        storyImageShell?.classList.toggle("has-real-image", Boolean(story.image));
-        storyImageShell?.classList.toggle("has-fpo-ui", !story.image);
+        storyImageShell?.classList.toggle("has-real-image", Boolean(story.image && !story.isCloserToWorkStory));
+        storyImageShell?.classList.toggle("has-fpo-ui", !story.image || story.isCloserToWorkStory);
         storyImage.innerHTML = "";
-        if (story.image) {
+        if (story.isCloserToWorkStory) {
+          storyImage.style.backgroundImage = "none";
+          storyImage.style.background = "transparent";
+          storyImage.innerHTML = buildCloserToWorkFpoMarkup();
+        } else if (story.image) {
           storyImage.classList.remove("is-fpo");
           storyImage.style.backgroundImage = "none";
           storyImage.style.background = "#f7f5f1";
@@ -766,35 +896,10 @@
           img.loading = "eager";
           img.decoding = "async";
           storyImage.appendChild(img);
-        } else if (story.title === "Start Here") {
+        } else if (story.isWelcomeStory) {
           storyImage.style.backgroundImage = "none";
           storyImage.style.background = "transparent";
-          storyImage.innerHTML = `
-            <div class="story-image-fpo story-image-fpo--timeline" aria-hidden="true">
-              <div class="story-image-fpo__track">
-                <div class="story-image-fpo__runner">
-                  <div class="story-image-fpo__tickset">
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                  </div>
-                  <div class="story-image-fpo__tickset">
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
-                  </div>
-                  <div class="story-image-fpo__tickset">
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
-                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="story-image-fpo__pointer"></div>
-            </div>`;
+          storyImage.innerHTML = buildStartHereFpoMarkup();
         } else {
           storyImage.style.backgroundImage = "none";
           storyImage.style.background = "transparent";
@@ -826,12 +931,12 @@
       function applyTimelineCompany(company) {
         if (!timelineCompanyPill || !timelineCompanyLabel) return;
         if (!company) {
-          timelineCompanyLabel.textContent = "Highlights";
+          timelineCompanyLabel.textContent = "Highlight";
           timelineCompanyPill.classList.add("is-milestone");
           timelineCompanyPill.dataset.company = "";
-          timelineCompanyPill.style.backgroundColor = "#7d747e";
-          timelineCompanyPill.style.borderColor = "#7d747e";
-          timelineCompanyLabel.style.color = "#fff";
+          timelineCompanyPill.style.backgroundColor = "#8e8690";
+          timelineCompanyPill.style.borderColor = "#8e8690";
+          timelineCompanyLabel.style.color = "#fdfaf3";
           timelineCompanyPill.hidden = false;
           return;
         }
