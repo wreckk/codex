@@ -1693,8 +1693,8 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__glp1-pointer {
   position: absolute;
-  left: 62%;
-  top: 74%;
+  left: 72%;
+  top: 58%;
   z-index: 4;
   width: 36px;
   height: 36px;
@@ -1711,7 +1711,7 @@ body.preload-layout .page-loader {
   display: block;
   width: 36px;
   height: 36px;
-  filter: drop-shadow(0 7px 14px rgba(116, 102, 118, 0.18));
+  filter: drop-shadow(0 4px 10px rgba(116, 102, 118, 0.16));
 }
 
 .story-image-fpo__logo-field {
@@ -2163,7 +2163,7 @@ body.preload-layout .page-loader {
   }
 
   45% {
-    transform: translate3d(0, -22px, 0) rotate(-14deg) scale(0.98);
+    transform: translate3d(-4px, -28px, 0) rotate(-14deg) scale(0.98);
     opacity: 1;
   }
 
