@@ -2798,7 +2798,7 @@ body.preload-layout .page-loader {
     position: absolute;
     left: 18px;
     right: 18px;
-    bottom: 46px;
+    bottom: 0;
     height: 42px;
   }
 
@@ -2846,15 +2846,17 @@ body.preload-layout .page-loader {
 
   .story-image-fpo__welcome-stack {
     position: absolute;
-    inset: 18px 0 78px;
-    height: auto;
+    left: 0;
+    right: 0;
+    bottom: 42px;
+    height: 180px;
   }
 
   .story-image-fpo__welcome-card {
     left: 50%;
     top: 0;
     width: 39%;
-    height: 69%;
+    height: 100%;
     --story-welcome-card-radius: 10px;
   }
 
