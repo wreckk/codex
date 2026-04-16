@@ -40,7 +40,13 @@
           "/assets/images/examples-glp1/V1.png",
           "/assets/images/examples-glp1/Shipped.png"
         ],
-        "chips": ["Live Product", "Subscription", "Growth", "Product Vision"],
+        "chips": [
+          { "label": "Live Product", "href": "https://glp-1.ericcenteno.com" },
+          "Subscription",
+          "Growth",
+          "Product Vision"
+        ],
+        "description": "Original approach through AI exploration to the final shipped experience.",
         "notes": [
           "I stepped into the work when it wasn't really landing and pushed to reset the direction.",
           "Built a new vision in under 48 hours, tying product and brand together in a way that finally clicked.",

@@ -474,7 +474,7 @@
           copy: item.notes.join(" "),
           pills: item.chips,
           fill: item.fill || buildBrandFill(item.company, index),
-          note: isWelcomeStory ? "" : `${item.company} · FPO container for supporting imagery`,
+          note: item.description || (isWelcomeStory ? "" : `${item.company} · FPO container for supporting imagery`),
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
           image: item.image || null,
           gallery: item.gallery || null,
@@ -1323,8 +1323,10 @@
 
         const token = glp1GalleryAnimationToken;
         let activeIndex = 0;
-        const cycleDuration = 4300;
-        const fadeStart = 3300;
+        const initialPause = 1650;
+        const beatDuration = 300;
+        const beatPause = 560;
+        const postPause = 760;
 
         const animateActiveImage = (slide) => {
           const img = slide?.querySelector("img");
@@ -1334,55 +1336,64 @@
             if (token !== glp1GalleryAnimationToken) return;
             glp1GalleryImageAnimation?.cancel();
             const overflow = Math.max(0, img.offsetHeight - root.clientHeight);
-            const travel = overflow;
+            const viewportStep = root.clientHeight;
+            const stops = [];
+            let consumed = 0;
+            while (consumed < overflow - 1) {
+              consumed = Math.min(overflow, consumed + viewportStep);
+              stops.push(consumed);
+            }
             img.style.transform = "translateY(0)";
-            if (travel <= 1) return;
-            const beats = travel > root.clientHeight * 0.75 ? 3 : 2;
-            const firstStop = beats === 3 ? travel * 0.36 : travel * 0.52;
-            const secondStop = beats === 3 ? travel * 0.72 : travel;
-            const keyframes = beats === 3
-              ? [
-                  { offset: 0, transform: "translateY(0)" },
-                  { offset: 0.24, transform: `translateY(-${firstStop}px)` },
-                  { offset: 0.42, transform: `translateY(-${firstStop}px)` },
-                  { offset: 0.66, transform: `translateY(-${secondStop}px)` },
-                  { offset: 0.82, transform: `translateY(-${secondStop}px)` },
-                  { offset: 1, transform: `translateY(-${travel}px)` }
-                ]
-              : [
-                  { offset: 0, transform: "translateY(0)" },
-                  { offset: 0.32, transform: `translateY(-${firstStop}px)` },
-                  { offset: 0.56, transform: `translateY(-${firstStop}px)` },
-                  { offset: 1, transform: `translateY(-${travel}px)` }
-                ];
+            if (!stops.length) return { beats: 0, cycleDuration: initialPause + postPause, fadeStart: initialPause + postPause * 0.4 };
+            const totalDuration = initialPause + stops.length * (beatDuration + beatPause) + postPause;
+            const keyframes = [{ offset: 0, transform: "translateY(0)" }];
+            let elapsed = initialPause;
+            keyframes.push({ offset: initialPause / totalDuration, transform: "translateY(0)" });
+            stops.forEach((stop, index) => {
+              elapsed += beatDuration;
+              keyframes.push({ offset: elapsed / totalDuration, transform: `translateY(-${stop}px)` });
+              elapsed += beatPause;
+              keyframes.push({ offset: elapsed / totalDuration, transform: `translateY(-${stop}px)` });
+            });
             glp1GalleryImageAnimation = img.animate(
               keyframes,
               {
-                duration: cycleDuration,
+                duration: totalDuration,
                 easing: "cubic-bezier(0.2, 0.9, 0.28, 1)",
                 fill: "forwards"
               }
             );
+            return {
+              beats: stops.length,
+              cycleDuration: totalDuration,
+              fadeStart: initialPause + stops.length * (beatDuration + beatPause) + postPause * 0.28
+            };
           };
 
           if (img.complete) {
-            run();
+            return run();
           } else {
             img.addEventListener("load", run, { once: true });
+            return {
+              beats: 2,
+              cycleDuration: initialPause + 2 * (beatDuration + beatPause) + postPause,
+              fadeStart: initialPause + 2 * (beatDuration + beatPause) + postPause * 0.28
+            };
           }
         };
 
         const flickPointer = (distance = 1) => {
           if (!pointer || token !== glp1GalleryAnimationToken) return;
-          const amplitude = 18 + distance * 4;
+          const amplitude = 14 + distance * 3;
           pointer.animate(
             [
               { transform: "translate3d(0, 0, 0) rotate(-8deg) scale(1)" },
-              { transform: `translate3d(-7px, -${amplitude}px, 0) rotate(-12deg) scale(0.97)` },
-              { transform: `translate3d(-2px, -${Math.max(10, amplitude - 6)}px, 0) rotate(-10deg) scale(1)` }
+              { transform: `translate3d(-8px, -${amplitude}px, 0) rotate(-12deg) scale(0.97)` },
+              { transform: `translate3d(4px, -${Math.max(8, amplitude - 8)}px, 0) rotate(-7deg) scale(0.995)` },
+              { transform: "translate3d(0, 0, 0) rotate(-8deg) scale(1)" }
             ],
             {
-              duration: 540,
+              duration: beatDuration,
               easing: "cubic-bezier(0.22, 1, 0.36, 1)",
               fill: "forwards"
             }
@@ -1394,30 +1405,20 @@
           const current = slides[activeIndex];
           const nextIndex = (activeIndex + 1) % slides.length;
           const next = slides[nextIndex];
-          const currentImg = current.querySelector("img");
-          const overflow = currentImg ? Math.max(0, currentImg.offsetHeight - root.clientHeight) : 0;
-          const beats = overflow > root.clientHeight * 0.75 ? 3 : 2;
+          const motion = animateActiveImage(current) || { beats: 0, cycleDuration: initialPause + postPause, fadeStart: initialPause + postPause * 0.28 };
 
-          animateActiveImage(current);
-          flickPointer(beats);
-          if (beats >= 2) {
+          for (let beat = 0; beat < motion.beats; beat += 1) {
             queueGlp1GalleryTimeout(() => {
               if (token !== glp1GalleryAnimationToken) return;
-              flickPointer(beats - 0.35);
-            }, 1320);
-          }
-          if (beats === 3) {
-            queueGlp1GalleryTimeout(() => {
-              if (token !== glp1GalleryAnimationToken) return;
-              flickPointer(beats - 0.7);
-            }, 2460);
+              flickPointer(Math.max(1, motion.beats - beat * 0.12));
+            }, initialPause + beat * (beatDuration + beatPause));
           }
 
           queueGlp1GalleryTimeout(() => {
             if (token !== glp1GalleryAnimationToken) return;
             next.classList.add("is-entering");
             current.classList.add("is-exiting");
-          }, fadeStart);
+          }, motion.fadeStart);
 
           queueGlp1GalleryTimeout(() => {
             if (token !== glp1GalleryAnimationToken) return;
@@ -1427,7 +1428,7 @@
             next.classList.add("is-active");
             activeIndex = nextIndex;
             cycle();
-          }, cycleDuration);
+          }, motion.cycleDuration);
         };
 
         cycle();
@@ -1485,10 +1486,16 @@
         storyPills.innerHTML = "";
         const pillFragment = document.createDocumentFragment();
         story.pills.forEach((pill, index) => {
-          const span = document.createElement("span");
-          span.textContent = pill;
-          if (index === 0) span.classList.add("primary");
-          pillFragment.appendChild(span);
+          const isLinkedPill = pill && typeof pill === "object" && pill.href;
+          const pillNode = isLinkedPill ? document.createElement("a") : document.createElement("span");
+          pillNode.textContent = isLinkedPill ? pill.label : pill;
+          if (index === 0) pillNode.classList.add("primary");
+          if (isLinkedPill) {
+            pillNode.href = pill.href;
+            pillNode.target = "_blank";
+            pillNode.rel = "noreferrer";
+          }
+          pillFragment.appendChild(pillNode);
         });
         storyPills.appendChild(pillFragment);
 
