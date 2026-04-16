@@ -31,13 +31,14 @@
       },
       {
         "order": 3,
-        "title": "GLP-1 Launch",
+        "title": "💉 GLP-1 Subscription",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["Live Product", "Subscription", "Growth"],
+        "chips": ["Live Product", "Subscription", "Growth", "Product Vision"],
         "notes": [
-          "Led design for a new subscription category that became a major part of the business.",
-          "Unified product, brand, and experience into a single, scalable offering."
+          "I stepped into the work when it wasn't really landing and pushed to reset the direction.",
+          "Built a new vision in under 48 hours, tying product and brand together in a way that finally clicked.",
+          "Ended up being the most successful launch to date, ~1200% MoM subscription growth."
         ]
       }
     ]
