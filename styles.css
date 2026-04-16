@@ -3523,7 +3523,7 @@ body.preload-layout .page-loader {
   .story-head {
     gap: 8px;
     padding-inline: 16px;
-    padding-top: 14px;
+    padding-top: 0;
     padding-bottom: 2px;
   }
 
