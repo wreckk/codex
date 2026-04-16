@@ -2005,6 +2005,40 @@ body.preload-layout .page-loader {
   }
 }
 
+@keyframes story-fpo-pointer-mobile {
+  0%,
+  25.8% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0.92;
+  }
+
+  36.6% {
+    transform: translateX(-78px) rotate(-12deg);
+    opacity: 1;
+  }
+
+  62.4% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0.98;
+  }
+
+  73.1% {
+    transform: translateX(-78px) rotate(-12deg);
+    opacity: 1;
+  }
+
+  98.9%,
+  99.999% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0.96;
+  }
+
+  100% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0.92;
+  }
+}
+
 @keyframes story-logo-tile-in {
   0% {
     opacity: 0;
@@ -2733,30 +2767,65 @@ body.preload-layout .page-loader {
 }
 
   .story-image-fpo__welcome-rail {
-    flex-basis: 33%;
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 10px;
+    height: 42px;
+  }
+
+  .story-image-fpo__welcome-rail .story-image-fpo__track {
+    inset: 0;
+    transform: rotate(-90deg);
+    transform-origin: center center;
+    mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  }
+
+  .story-image-fpo__welcome-stack {
+    position: absolute;
+    inset: 8px 0 58px;
+    height: auto;
   }
 
   .story-image-fpo__welcome-card {
-    left: 20%;
+    left: 50%;
     width: 56%;
-    height: 74%;
+    height: calc(100% - 8px);
     --story-welcome-card-radius: 10px;
   }
 
+  .story-image-fpo__welcome-card.is-front {
+    transform: translate3d(-50%, -50%, 0) rotate(-2deg) scale(1);
+  }
+
   .story-image-fpo__welcome-card.is-mid {
-    transform: translate3d(10px, -50%, 0) rotate(2deg) scale(0.98);
+    transform: translate3d(calc(-50% + 10px), -50%, 0) rotate(2deg) scale(0.98);
   }
 
   .story-image-fpo__welcome-card.is-back {
-    transform: translate3d(20px, -50%, 0) rotate(4deg) scale(0.96);
+    transform: translate3d(calc(-50% + 20px), -50%, 0) rotate(4deg) scale(0.96);
   }
 
   .story-image-fpo__welcome-card.is-rear {
-    transform: translate3d(30px, -50%, 0) rotate(6deg) scale(0.94);
+    transform: translate3d(calc(-50% + 30px), -50%, 0) rotate(6deg) scale(0.94);
   }
 
   .story-image-fpo__welcome-card.is-spawn {
-    transform: translate3d(38px, -50%, 0) rotate(8deg) scale(0.92);
+    transform: translate3d(calc(-50% + 40px), -50%, 0) rotate(8deg) scale(0.92);
+  }
+
+  .story-image-fpo__welcome-card.is-exit,
+  .story-image-fpo__welcome-card.is-front.is-exit {
+    transform: translate3d(calc(-50% - 8px), -50%, 0) rotate(-8deg) scale(1.02);
+  }
+
+  .story-image-fpo__pointer {
+    left: auto;
+    right: 30px;
+    top: auto;
+    bottom: 12px;
+    animation-name: story-fpo-pointer-mobile;
   }
 
   .story-image-fpo__welcome-headline-line {
