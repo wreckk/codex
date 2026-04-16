@@ -2787,7 +2787,7 @@ body.preload-layout .page-loader {
   }
 
   .story-image-shell:has(.story-image-fpo--timeline) {
-    height: 356px;
+    height: 266px;
   }
 
 .story-scroll:has(.story-image-fpo--timeline) .story-pills {
@@ -2855,10 +2855,10 @@ body.preload-layout .page-loader {
 
   .story-image-fpo__welcome-card {
     left: 50%;
-    top: auto;
-    bottom: 0;
+    top: 0;
+    bottom: auto;
     width: 39%;
-    height: 69%;
+    height: 100%;
     --story-welcome-card-radius: 10px;
   }
 
