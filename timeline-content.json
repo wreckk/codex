@@ -35,10 +35,10 @@
         "company": "GoodRx",
         "type": "primary",
         "gallery": [
-          "/assets/images/examples-glp1/A1-V1.png",
-          "/assets/images/examples-glp1/A1 V2.png",
-          "/assets/images/examples-glp1/V1.png",
-          "/assets/images/examples-glp1/Shipped.png"
+          "/assets/images/examples-glp1/01 -  version 1.png",
+          "/assets/images/examples-glp1/02 - ai v1.png",
+          "/assets/images/examples-glp1/03 - ai v2.png",
+          "/assets/images/examples-glp1/04 - shipped.png"
         ],
         "chips": [
           { "label": "Live Prototype", "href": "https://glp-1.ericcenteno.com" },
