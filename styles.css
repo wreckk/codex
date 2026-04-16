@@ -2490,6 +2490,15 @@ body.preload-layout .page-loader {
     line-height: 1.3;
   }
 
+  .story-image-fpo__input-copy {
+    font-size: 11px;
+  }
+
+  .story-image-fpo__input-send {
+    width: 24px;
+    height: 24px;
+  }
+
   .mini-pills {
     gap: 5px;
   }
