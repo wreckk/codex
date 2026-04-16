@@ -897,11 +897,10 @@
       let welcomeTimers = [];
 
       const WELCOME_CARD_VARIANTS = [
-        { kicker: "2010-ish", titleA: "Burger", titleB: "Artist", lines: ["86%", "92%", "74%"], image: "wide" },
-        { kicker: "2016 era", titleA: "Pixel", titleB: "Wrangler", lines: ["82%", "88%", "70%"], image: "tall" },
-        { kicker: "2020-ish", titleA: "Deck", titleB: "Goblin", lines: ["84%", "76%", "66%"], image: "wide" },
-        { kicker: "2024 mode", titleA: "System", titleB: "Gremlin", lines: ["90%", "80%", "68%"], image: "tall" },
-        { kicker: "2026 now", titleA: "Timeline", titleB: "Mechanic", lines: ["88%", "86%", "72%"], image: "wide" }
+        { kicker: "2010-ish", titleA: "Burger", titleB: "Artist", lines: ["86%", "92%", "74%"], image: "wide", emoji: "🍔" },
+        { kicker: "off-hours", titleA: "Classic", titleB: "Gaming", lines: ["82%", "88%", "70%"], image: "tall", emoji: "🎮" },
+        { kicker: "weekend mode", titleA: "Bird", titleB: "Watching", lines: ["84%", "76%", "66%"], image: "wide", emoji: "🐦" },
+        { kicker: "analog era", titleA: "Vinyl", titleB: "MiniDisc", lines: ["90%", "80%", "68%"], image: "tall", emoji: "💿" }
       ];
 
       function queueCloserToWorkTimeout(fn, delay) {
@@ -960,7 +959,9 @@
               <span class="story-image-fpo__welcome-headline-line story-image-fpo__welcome-headline-line--b">${card.titleB}</span>
             </div>
             <div class="story-image-fpo__welcome-copy">${lines}</div>
-            <div class="story-image-fpo__welcome-image story-image-fpo__welcome-image--${card.image}"></div>
+            <div class="story-image-fpo__welcome-image story-image-fpo__welcome-image--${card.image}">
+              <span class="story-image-fpo__welcome-image-emoji">${card.emoji || "✨"}</span>
+            </div>
           </div>`;
       }
 
