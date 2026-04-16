@@ -2798,7 +2798,7 @@ body.preload-layout .page-loader {
     position: absolute;
     left: 18px;
     right: 18px;
-    bottom: 10px;
+    bottom: 46px;
     height: 42px;
   }
 
@@ -2846,7 +2846,7 @@ body.preload-layout .page-loader {
 
   .story-image-fpo__welcome-stack {
     position: absolute;
-    inset: 18px 0 42px;
+    inset: 18px 0 78px;
     height: auto;
   }
 
