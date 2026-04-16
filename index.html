@@ -54,10 +54,10 @@
                       attributeName="points"
                       dur="6.2s"
                       repeatCount="indefinite"
-                      keyTimes="0;0.32;0.42;0.48;1"
+                      keyTimes="0;0.32;0.38;0.41;1"
                       calcMode="spline"
-                      keySplines="0.3 0 0.2 1;0.24 0 0.18 1;0.28 0 0.2 1;0.3 0 0.2 1"
-                      values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,1 22,5 42,1; 2,5 22,5 42,5"
+                      keySplines="0.3 0 0.2 1;0.2 0 0.18 1;0.24 0 0.18 1;0.3 0 0.2 1"
+                      values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,5 22,5 42,5; 2,5 22,5 42,5"
                     />
                     <animateTransform
                       attributeName="transform"
@@ -65,9 +65,9 @@
                       type="translate"
                       dur="6.2s"
                       repeatCount="indefinite"
-                      keyTimes="0;0.32;0.42;0.45;0.48;0.52;1"
+                      keyTimes="0;0.32;0.38;0.395;0.41;0.44;1"
                       calcMode="spline"
-                      keySplines="0.3 0 0.2 1;0.18 0 0.18 1;0.18 0 0.18 1;0.24 0 0.18 1;0.24 0 0.18 1;0.3 0 0.2 1"
+                      keySplines="0.3 0 0.2 1;0.18 0 0.18 1;0.18 0 0.18 1;0.22 0 0.18 1;0.24 0 0.18 1;0.3 0 0.2 1"
                       values="0 0;0 0;0 0;0 1.9;0 0.45;0 0;0 0"
                     />
                   </polyline>
@@ -106,23 +106,35 @@
                 <span>Executive Partnership</span>
                 <span>Design Systems</span>
                 <span>Growth &amp; Monetization</span>
+                <span>UX Research</span>
+                <span>Vibe-Coding</span>
+                <span>Brand Design</span>
                 <span>AI Prototyping</span>
+                <span>Voice &amp; Tone</span>
+                <span>0–100 Initiatives</span>
                 <span>Culture Building</span>
-                <span>XFN Alignment</span>
+                <span>SaaS &amp; B2B</span>
               </div>
             </div>
 
             <div class="rail-section">
               <h2>Interests</h2>
               <div class="mini-pills">
-                <span>Sneakers</span>
-                <span>The Golden Girls</span>
                 <span>Classic Gaming</span>
-                <span>Cooking</span>
-                <span>Vinyl &amp; Minidisc</span>
-                <span>Photography</span>
+                <span>Coffee</span>
                 <span>Bird Watching</span>
+                <span>Home Networking</span>
+                <span>Sneakers</span>
+                <span>PC Building</span>
+                <span>Comics</span>
+                <span>Street Wear</span>
                 <span>Dadding</span>
+                <span>Vinyl &amp; Minidisc</span>
+                <span>Cooking</span>
+                <span>Smart Home</span>
+                <span>3D Printing</span>
+                <span>Photography</span>
+                <span>The Golden Girls</span>
               </div>
             </div>
           </div>
@@ -283,23 +295,6 @@
         Navan: "#8C2988",
         Okayplayer: "#000000",
       };
-      const COMPANY_PILL_GRADIENTS = {
-        GoodRx:
-          "radial-gradient(circle at 52% 48%, #f6d139 0% 25%, #27527f 30% 45%, #f3c6d8 50% 75%, #ebe4d9 80% 92%, #000 96% 100%)",
-        Outreach:
-          "radial-gradient(circle at 52% 48%, #554df5 0% 28%, #000 40% 56%, #e4e2d4 65% 100%)",
-        Slack:
-          "radial-gradient(circle at 52% 48%, #4a154b 0% 25.5%, #f90044 31% 36%, #f9aa00 41% 46%, #00be6d 56% 66%, #00ceff 76% 100%)",
-        Disney:
-          "radial-gradient(circle at 52% 48%, #bff5fd 0% 15%, #113ccf 30% 65%, #fff 75% 100%)",
-        AWeber:
-          "radial-gradient(circle at 52% 48%, #006cf0 0% 30%, #000 40% 48%, #fff 56% 100%)",
-        Navan:
-          "radial-gradient(circle at 52% 48%, #e96370 0% 8%, #902a89 12% 20%, #472080 28% 80%, #ff7466 88% 100%)",
-        Okayplayer:
-          "radial-gradient(circle at 52% 48%, #1a1a1a 0% 18%, #5e5e5e 36% 52%, #c8c1b4 70% 100%)",
-      };
-
       const timelineItemsRoot = document.getElementById("timeline-items-root");
       let timelineSpec = [];
 
@@ -340,6 +335,7 @@
           fill: item.fill || buildBrandFill(item.company, index),
           note: `${item.company} · FPO container for supporting imagery`,
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
+          image: item.title === "Taking a Break" ? "/assets/images/ai.png" : null,
         };
       }
 
@@ -470,6 +466,12 @@
       let timelineCompanyEnterTimeout = null;
       let isTimelineReversed = false;
       let activeTimelineCompany = null;
+      let storySwipeStartX = 0;
+      let storySwipeStartY = 0;
+      let storySwipeDeltaX = 0;
+      let storySwipeDeltaY = 0;
+      let storySwipeAxis = null;
+      let storySwipeTracking = false;
       const RESPONSIVE_BREAKPOINTS = {
         compact: 1200,
         mobile: 720,
@@ -512,11 +514,17 @@
         visualLift: 0,
       };
       const COMPACT_YEAR_SWAP_OFFSET = 28;
+      const DESKTOP_FOCUS_RATIO = 0.25;
+      const DESKTOP_YEAR_TRIGGER_RATIO = 0.25;
+      const DESKTOP_YEAR_CROSSFADE_PX = 18;
+      const STORY_SWAP_LEAD_DESKTOP = 18;
+      const STORY_SWAP_LEAD_COMPACT = 18;
       let activeTimelineEntry = null;
       let activeStoryId = null;
       let timelineFrame = null;
       let mobileMetricsFrame = null;
       let mobileMetricsObserver = null;
+      let lastTimelineScrollPosition = 0;
 
       if (window.gsap && window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
@@ -628,15 +636,25 @@
         storyCopy.textContent = story.copy;
         storyTitle.style.setProperty(
           "--story-title-gradient",
-          COMPANY_PILL_GRADIENTS[story.company] || "linear-gradient(135deg, #ff4632 0%, #ff4632 100%)"
+          "linear-gradient(135deg, #ff4632 0%, #ff4632 100%)"
         );
         storyKicker.style.backgroundImage = "";
         storyKicker.style.backgroundColor = "";
         storyKicker.style.borderColor = "";
         storyImage.classList.add("is-fpo");
-        storyImage.style.backgroundImage = "none";
-        storyImage.style.background = "#b8b8b8";
-        storyImage.innerHTML = '<div class="story-image-fpo" aria-hidden="true"><div class="story-image-fpo__stamp">FPO</div></div>';
+        storyImageShell?.classList.toggle("has-real-image", Boolean(story.image));
+        storyImage.innerHTML = "";
+        if (story.image) {
+          storyImage.style.background = "#f7f5f1";
+          storyImage.style.backgroundImage = `url("${story.image}")`;
+          storyImage.style.backgroundPosition = "center";
+          storyImage.style.backgroundRepeat = "no-repeat";
+          storyImage.style.backgroundSize = "cover";
+        } else {
+          storyImage.style.backgroundImage = "none";
+          storyImage.style.background = "#b8b8b8";
+          storyImage.innerHTML = '<div class="story-image-fpo" aria-hidden="true"><div class="story-image-fpo__stamp">FPO</div></div>';
+        }
 
         storyPills.innerHTML = "";
         const pillFragment = document.createDocumentFragment();
@@ -663,7 +681,6 @@
           timelineCompanyLabel.textContent = "MILESTONE";
           timelineCompanyPill.classList.add("is-milestone");
           timelineCompanyPill.dataset.company = "";
-          timelineCompanyPill.style.setProperty("--pill-glow-image", "none");
           timelineCompanyPill.style.backgroundColor = "#7d747e";
           timelineCompanyPill.style.borderColor = "#7d747e";
           timelineCompanyLabel.style.color = "#fff";
@@ -672,11 +689,9 @@
         }
 
         const pillColor = COMPANY_PILL_BACKGROUNDS[company] || "rgba(255, 252, 247, 0.96)";
-        const pillGradient = COMPANY_PILL_GRADIENTS[company] || "none";
         timelineCompanyPill.classList.remove("is-milestone");
         timelineCompanyPill.dataset.company = company;
         timelineCompanyLabel.textContent = company;
-        timelineCompanyPill.style.setProperty("--pill-glow-image", pillGradient);
         timelineCompanyPill.style.backgroundColor = pillColor;
         timelineCompanyPill.style.borderColor = company === "GoodRx" ? "#d0b300" : pillColor;
         timelineCompanyLabel.style.color = company === "GoodRx" ? "#463d47" : "#fff";
@@ -733,7 +748,7 @@
               timelineCompanyPill.style.width = "";
             }, 240);
           });
-        }, 95);
+        }, 55);
       }
 
       function clearStoryContent() {
@@ -820,6 +835,16 @@
           return;
         }
 
+        const previousIndex = timelineDisplayEntries.findIndex(
+          (entry) => entry.dataset.story === activeStoryId
+        );
+        const nextIndex = timelineDisplayEntries.findIndex(
+          (entry) => entry.dataset.story === id
+        );
+        const isReverseMove = previousIndex >= 0 && nextIndex >= 0 && nextIndex < previousIndex;
+        const swapOffsetY = isMobileLayout() ? "0px" : (isReverseMove ? "-50px" : "50px");
+        const swapOffsetX = isMobileLayout() ? (isReverseMove ? "35px" : "-35px") : "0px";
+
         activeStoryId = id;
         storySwapToken += 1;
         const currentToken = storySwapToken;
@@ -828,6 +853,8 @@
           storySwapTimeout = null;
         }
 
+        storyCard.style.setProperty("--story-swap-x", swapOffsetX);
+        storyCard.style.setProperty("--story-swap-y", swapOffsetY);
         storyCard.classList.add("is-story-swapping");
         storySwapTimeout = window.setTimeout(() => {
           if (currentToken !== storySwapToken) return;
@@ -836,7 +863,7 @@
             if (currentToken !== storySwapToken) return;
             storyCard.classList.remove("is-story-swapping");
           });
-        }, 48);
+        }, 28);
       }
 
       function getEntryY(entry) {
@@ -910,26 +937,31 @@
         const nextLabel = entry.dataset.year || "";
         if (window.gsap) {
           gsap.killTweensOf(timelineYearPin);
+          const fadeOutDuration = 0.16;
+          const fadeInDuration = 0.2;
+          const blurAmount = 22;
+          const fadeOutEase = "power2.in";
+          const fadeInEase = "power2.out";
           if (immediate || !previousEntry) {
             timelineYearPin.textContent = nextLabel;
             gsap.fromTo(
               timelineYearPin,
-              { autoAlpha: 0, filter: "blur(18px)" },
-              { autoAlpha: 1, filter: "blur(0px)", duration: 0.22, ease: "power2.out", overwrite: true }
+              { autoAlpha: 0, filter: `blur(${blurAmount}px)` },
+              { autoAlpha: 1, filter: "blur(0px)", duration: fadeInDuration, ease: fadeInEase, overwrite: true }
             );
           } else {
             gsap.to(timelineYearPin, {
               autoAlpha: 0,
-              filter: "blur(22px)",
-              duration: 0.16,
-              ease: "power2.in",
+              filter: `blur(${blurAmount}px)`,
+              duration: fadeOutDuration,
+              ease: fadeOutEase,
               overwrite: true,
               onComplete: () => {
                 timelineYearPin.textContent = nextLabel;
                 gsap.fromTo(
                   timelineYearPin,
-                  { autoAlpha: 0, filter: "blur(22px)" },
-                  { autoAlpha: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out", overwrite: true }
+                  { autoAlpha: 0, filter: `blur(${blurAmount}px)` },
+                  { autoAlpha: 1, filter: "blur(0px)", duration: fadeInDuration, ease: fadeInEase, overwrite: true }
                 );
               },
             });
@@ -956,6 +988,54 @@
           });
         } else {
           timelineYearPin.style.opacity = "0";
+        }
+      }
+
+      function getDesktopPinnedYearEntry(triggerLine) {
+        if (!yearEntries.length) return null;
+        const effectiveTriggerLine = triggerLine + DESKTOP_YEAR_CROSSFADE_PX;
+        let pinnedEntry = yearEntries[0];
+        for (let index = 0; index < yearEntries.length; index += 1) {
+          const entry = yearEntries[index];
+          if (getEntryY(entry) <= effectiveTriggerLine) {
+            pinnedEntry = entry;
+            continue;
+          }
+          break;
+        }
+        return pinnedEntry;
+      }
+
+      function syncDesktopYearPin() {
+        if (isCompactTimeline() || isMobileLayout() || !timelineYearPin) return;
+        const yearTriggerLine = track.scrollTop + track.clientHeight * DESKTOP_YEAR_TRIGGER_RATIO;
+        const matchingYearEntry = getDesktopPinnedYearEntry(yearTriggerLine);
+        if (!matchingYearEntry) {
+          hideCompactYearPin();
+          return;
+        }
+        showCompactYearPin(matchingYearEntry, { immediate: compactPinnedYearEntry === null });
+      }
+
+      function enforceCompactYearPinBounds() {
+        if (!isCompactTimeline() || !timelineYearPin || !yearEntries.length) return;
+        const clampedScrollLeft = getClampedTrackScrollLeft();
+        const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+
+        if (clampedScrollLeft <= 1) {
+          showCompactYearPin(yearEntries[0], { immediate: true });
+          yearEntries.forEach((entry, index) => {
+            entry.classList.toggle("is-pin-source", index === 0);
+          });
+          return;
+        }
+
+        if (clampedScrollLeft >= maxScrollLeft - 1) {
+          const lastYear = yearEntries[yearEntries.length - 1];
+          showCompactYearPin(lastYear, { immediate: true });
+          yearEntries.forEach((entry, index) => {
+            entry.classList.toggle("is-pin-source", index === yearEntries.length - 1);
+          });
         }
       }
 
@@ -1003,6 +1083,7 @@
           });
         }
 
+        enforceCompactYearPinBounds();
         ScrollTrigger.refresh();
       }
 
@@ -1013,6 +1094,12 @@
 
       function smoothstep(value) {
         return value * value * (3 - 2 * value);
+      }
+
+      function getClampedTrackScrollLeft() {
+        if (!track) return 0;
+        const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+        return Math.max(0, Math.min(track.scrollLeft, maxScrollLeft));
       }
 
       function getScaleForBandProgress(progress) {
@@ -1035,7 +1122,8 @@
       function layoutTimelineVertical() {
         if (!timelineContent) return;
 
-        let currentY = TIMELINE_LAYOUT.startY;
+        const startY = track ? snapToTick(track.clientHeight * DESKTOP_FOCUS_RATIO) : TIMELINE_LAYOUT.startY;
+        let currentY = startY;
         const yearGapStep = TIMELINE_LAYOUT.itemStep * TIMELINE_LAYOUT.yearGapRatio;
 
         timelineDisplayEntries.forEach((entry, index) => {
@@ -1071,11 +1159,11 @@
             : lastCenter + yearGapStep;
           const snappedTopBoundary = snapToTick(topBoundary);
           const snappedBottomBoundary = snapToTick(bottomBoundary);
-          const midY = (snappedTopBoundary + snappedBottomBoundary) / 2;
+          const yearAnchorY = snappedTopBoundary;
 
-          entry.style.setProperty("--y", `${midY}px`);
-          entry.style.setProperty("--line-top", `${snappedTopBoundary - midY}px`);
-          entry.style.setProperty("--line-bottom", `${snappedBottomBoundary - midY}px`);
+          entry.style.setProperty("--y", `${yearAnchorY}px`);
+          entry.style.setProperty("--line-top", `${snappedTopBoundary - yearAnchorY}px`);
+          entry.style.setProperty("--line-bottom", `${snappedBottomBoundary - yearAnchorY}px`);
 
           if (entryIndex === 0) {
             timelineContent.style.setProperty("--first-year-line-y", `${snappedTopBoundary}px`);
@@ -1118,7 +1206,14 @@
           timelineTailTicks.style.backgroundImage = `linear-gradient(to bottom, ${tailStops})`;
         }
 
-        timelineContent.style.height = `${currentY + TIMELINE_LAYOUT.bottomPadding}px`;
+        const desktopEndPadding = track
+          ? snapToTick(track.clientHeight * (1 - DESKTOP_FOCUS_RATIO))
+          : TIMELINE_LAYOUT.bottomPadding;
+        const contentHeight = Math.max(
+          currentY + TIMELINE_LAYOUT.bottomPadding,
+          lastTargetY + desktopEndPadding
+        );
+        timelineContent.style.height = `${contentHeight}px`;
         timelineContent.style.width = "";
       }
 
@@ -1253,7 +1348,8 @@
       function updateEntryDepth(activeEntry, triggerLine) {
         if (isCompactTimeline()) {
           const trackRect = track.getBoundingClientRect();
-          const centerX = triggerLine - track.scrollLeft;
+          const clampedScrollLeft = getClampedTrackScrollLeft();
+          const centerX = triggerLine - clampedScrollLeft;
           const activeBandHalf = trackRect.width * 0.425;
           const yearFocusLeft = centerX - activeBandHalf;
           const yearFocusRight = centerX + activeBandHalf;
@@ -1266,7 +1362,7 @@
             const pill = entry.querySelector(".entry-pill");
             const isActive = entry === activeEntry;
             const isYear = entry.classList.contains("year");
-            const entryCenterInTrack = getEntryCenter(entry) - track.scrollLeft;
+            const entryCenterInTrack = getEntryCenter(entry) - clampedScrollLeft;
             const compactBandProgress = Math.min(
               1,
               Math.max(0, (entryCenterInTrack - bandLeft) / (bandRight - bandLeft))
@@ -1369,7 +1465,9 @@
             yearProgress = smoothstep(Math.min(1, yearProgress));
             const yearScale = 0.6 + yearProgress * 0.4;
             const yearBlur = (1 - yearProgress) * 2.4;
-            entry.style.opacity = "1";
+            const yearAnchorInTrack = getEntryY(entry) - track.scrollTop;
+            const yearAnchorDistance = Math.abs(yearAnchorInTrack - triggerCenterInTrack);
+            entry.style.opacity = yearAnchorDistance < DESKTOP_YEAR_CROSSFADE_PX ? "0" : "1";
             entry.style.filter = "none";
             if (pill) {
               pill.style.setProperty("--entry-scale", `${yearScale}`);
@@ -1414,12 +1512,21 @@
       }
 
       function updateActiveTimeline() {
-        const activeCandidates = isCompactTimeline() ? timelineDisplayEntries : timelineTargets;
+        const activeCandidates = timelineDisplayEntries;
         if (!activeCandidates.length) return;
-        const triggerBandCenter = isCompactTimeline() ? track.clientWidth / 2 : TRIGGER_ZONE.fixedOffset;
+        if (isCompactTimeline()) {
+          enforceCompactYearPinBounds();
+        }
+        const triggerBandCenter = isCompactTimeline() ? track.clientWidth / 2 : track.clientHeight * DESKTOP_FOCUS_RATIO;
+        const clampedScrollLeft = isCompactTimeline() ? getClampedTrackScrollLeft() : 0;
         const triggerLine = isCompactTimeline()
-          ? track.scrollLeft + triggerBandCenter
+          ? clampedScrollLeft + triggerBandCenter
           : track.scrollTop + triggerBandCenter;
+        const currentScrollPosition = isCompactTimeline() ? clampedScrollLeft : track.scrollTop;
+        const scrollDelta = currentScrollPosition - lastTimelineScrollPosition;
+        lastTimelineScrollPosition = currentScrollPosition;
+        const storyLead = isCompactTimeline() ? STORY_SWAP_LEAD_COMPACT : STORY_SWAP_LEAD_DESKTOP;
+        const storyTriggerLine = triggerLine + (scrollDelta === 0 ? 0 : (scrollDelta > 0 ? storyLead : -storyLead));
         trackWrap?.style.setProperty(
           "--trigger-debug-top-y",
           `${triggerBandCenter - TRIGGER_ZONE.halfHeight - TRIGGER_ZONE.visualLift}px`
@@ -1441,12 +1548,29 @@
           }
         });
 
-        if (isCompactTimeline() && !active.dataset.story) {
+        let storyActive = active;
+        let storyBestDistance = Infinity;
+        activeCandidates.forEach((node) => {
+          if (!node.dataset.story) return;
+          const axisPosition = getEntryCenter(node);
+          const distance = Math.abs(storyTriggerLine - axisPosition);
+          if (distance < storyBestDistance) {
+            storyBestDistance = distance;
+            storyActive = node;
+          }
+        });
+
+        if (!active.dataset.story) {
           activeTimelineEntry?.classList.remove("active");
           activeTimelineEntry = null;
           renderStory(null);
           renderTimelineCompany(active.dataset.companyDisplay || null);
-          updateYearPositions();
+          if (isMobileLayout()) {
+            updateYearPositions();
+          } else {
+            syncDesktopYearPin();
+            updateYearPositions();
+          }
           updateEntryDepth(null, triggerLine);
           return;
         }
@@ -1457,9 +1581,14 @@
           activeTimelineEntry = active;
         }
 
-        renderStory(active.dataset.story || null);
+        renderStory(storyActive?.dataset.story || null);
         renderTimelineCompany(active.dataset.companyDisplay || null);
-        updateYearPositions();
+        if (isMobileLayout()) {
+          updateYearPositions();
+        } else {
+          syncDesktopYearPin();
+          updateYearPositions();
+        }
         updateEntryDepth(active, triggerLine);
       }
 
@@ -1488,6 +1617,79 @@
         track.scrollTo({ top: 0, behavior });
       }
 
+      function scrollToTimelineEntry(entry, behavior = "smooth") {
+        if (!entry) return;
+        if (isCompactTimeline()) {
+          const targetCenter = getEntryCenter(entry);
+          const targetLeft = Math.max(0, targetCenter - track.clientWidth / 2);
+          track.scrollTo({ left: targetLeft, behavior });
+          return;
+        }
+
+        const targetTop = Math.max(0, getEntryCenter(entry) - track.clientHeight * DESKTOP_FOCUS_RATIO);
+        track.scrollTo({ top: targetTop, behavior });
+      }
+
+      function moveStoryByOffset(offset) {
+        const storyEntries = timelineTargets.filter((entry) => entry.dataset.story);
+        if (!storyEntries.length) return;
+        const currentIndex = storyEntries.findIndex((entry) => entry.dataset.story === activeStoryId);
+        const baseIndex = currentIndex >= 0 ? currentIndex : 0;
+        const nextIndex = Math.max(0, Math.min(storyEntries.length - 1, baseIndex + offset));
+        if (nextIndex === baseIndex) return;
+        scrollToTimelineEntry(storyEntries[nextIndex], "smooth");
+      }
+
+      function handleTimelineTap(event) {
+        const pill = event.target.closest(".entry-pill");
+        if (!pill || !track?.contains(pill)) return;
+        const entry = pill.closest(".timeline-entry.minor, .timeline-entry.callout");
+        if (!entry) return;
+        scrollToTimelineEntry(entry, "smooth");
+      }
+
+      function handleStorySwipeStart(event) {
+        if (!isMobileLayout()) return;
+        if (event.touches.length !== 1) return;
+        const touch = event.touches[0];
+        storySwipeStartX = touch.clientX;
+        storySwipeStartY = touch.clientY;
+        storySwipeDeltaX = 0;
+        storySwipeDeltaY = 0;
+        storySwipeAxis = null;
+        storySwipeTracking = true;
+      }
+
+      function handleStorySwipeMove(event) {
+        if (!storySwipeTracking || !isMobileLayout()) return;
+        const touch = event.touches[0];
+        storySwipeDeltaX = touch.clientX - storySwipeStartX;
+        storySwipeDeltaY = touch.clientY - storySwipeStartY;
+        const absX = Math.abs(storySwipeDeltaX);
+        const absY = Math.abs(storySwipeDeltaY);
+
+        if (!storySwipeAxis && (absX > 8 || absY > 8)) {
+          storySwipeAxis = absX > absY ? "x" : "y";
+        }
+
+        if (storySwipeAxis === "x") {
+          event.preventDefault();
+        }
+      }
+
+      function handleStorySwipeEnd() {
+        if (!storySwipeTracking) return;
+        const shouldNavigate = storySwipeAxis === "x" && Math.abs(storySwipeDeltaX) >= 40;
+        const deltaX = storySwipeDeltaX;
+        storySwipeTracking = false;
+        storySwipeAxis = null;
+        storySwipeDeltaX = 0;
+        storySwipeDeltaY = 0;
+
+        if (!shouldNavigate) return;
+        moveStoryByOffset(deltaX < 0 ? 1 : -1);
+      }
+
       function rebuildTimeline({ resetToStart = false } = {}) {
         const previousStoryId = activeStoryId;
         storyContent = buildTimelineFromSpec();
@@ -1500,7 +1702,7 @@
         const nextStoryId =
           previousStoryId && storyContent[previousStoryId] ? previousStoryId : fallbackStoryId;
 
-        if (resetToStart && isCompactTimeline()) {
+        if (resetToStart) {
           renderStory(timelineDisplayEntries[0]?.dataset.story || null);
         } else {
           renderStory(nextStoryId);
@@ -1552,6 +1754,11 @@
           });
         }, 220);
       });
+      track?.addEventListener("click", handleTimelineTap);
+      storyCard?.addEventListener("touchstart", handleStorySwipeStart, { passive: true });
+      storyCard?.addEventListener("touchmove", handleStorySwipeMove, { passive: false });
+      storyCard?.addEventListener("touchend", handleStorySwipeEnd, { passive: true });
+      storyCard?.addEventListener("touchcancel", handleStorySwipeEnd, { passive: true });
       async function initializePageLayout() {
         if (document.fonts?.ready) {
           try {

@@ -13,9 +13,7 @@
         "chips": ["Reset", "Exploration"],
         "notes": [
           "Stepped away from full-time work to reset and explore new tools, workflows, and ways of making that feel more direct and durable.",
-          "Used the break to revisit how I build, prototype, and move from concept to something real without losing momentum or craft.",
-          "Focused on sharpening personal operating rhythm, experimenting with new interfaces, and pressure-testing what a faster creative loop could look like.",
-          "This stretch has been less about stepping back entirely and more about creating space to reconnect with curiosity, process, and a more hands-on way of working."
+          "Used the break to revisit how I build, prototype, and move from concept to something real without losing momentum or craft."
         ]
       },
       {
@@ -250,6 +248,17 @@
     "items": [
       {
         "order": 1,
+        "title": "Joined Outreach",
+        "company": "Outreach",
+        "type": "primary",
+        "chips": ["Leadership", "Transition"],
+        "notes": [
+          "Joined Outreach during a period of rapid product and organizational growth.",
+          "Started shaping the next phase of design leadership across the platform."
+        ]
+      },
+      {
+        "order": 2,
         "title": "Lemonade",
         "company": "Navan",
         "type": "primary",
@@ -260,14 +269,14 @@
         ]
       },
       {
-        "order": 2,
-        "title": "Joined Outreach",
-        "company": "Outreach",
+        "order": 3,
+        "title": "Joined Navan",
+        "company": "Navan",
         "type": "primary",
         "chips": ["Leadership", "Transition"],
         "notes": [
-          "Joined Outreach during a period of rapid product and organizational growth.",
-          "Started shaping the next phase of design leadership across the platform."
+          "Joined Navan and stepped into a new space at the intersection of travel, product, and brand.",
+          "Started defining how design could help scale the company into its next chapter."
         ]
       }
     ]
