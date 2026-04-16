@@ -1504,7 +1504,7 @@ body.preload-layout .page-loader {
 .story-image-fpo__welcome-card.is-exit,
 .story-image-fpo__welcome-card.is-front.is-exit {
   z-index: 5;
-  transform: translate3d(14px, -72%, 0) rotate(-10deg) scale(1.02);
+  transform: translate3d(-30px, -50%, 0) rotate(-8deg) scale(1.02);
   opacity: 0;
   filter: blur(8px);
 }
@@ -2878,7 +2878,7 @@ body.preload-layout .page-loader {
 
   .story-image-fpo__welcome-card.is-exit,
   .story-image-fpo__welcome-card.is-front.is-exit {
-    transform: translate3d(calc(-50% - 8px), -22px, 0) rotate(-8deg) scale(1.02);
+    transform: translate3d(calc(-50% - 34px), 0, 0) rotate(-8deg) scale(1.02);
   }
 
   .story-image-fpo__pointer {
