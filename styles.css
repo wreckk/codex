@@ -2491,12 +2491,12 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__input-copy {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .story-image-fpo__input-send {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
   }
 
   .mini-pills {
