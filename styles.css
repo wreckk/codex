@@ -1539,7 +1539,8 @@ body.preload-layout .page-loader {
 .story-image-fpo__welcome-copy {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
+  margin-bottom: 2px;
 }
 
 .story-image-fpo__welcome-line {
@@ -1551,7 +1552,7 @@ body.preload-layout .page-loader {
 }
 
 .story-image-fpo__welcome-image {
-  margin-top: auto;
+  margin-top: 2px;
   width: 100%;
   border-radius: 12px;
   background:
@@ -1561,11 +1562,11 @@ body.preload-layout .page-loader {
 }
 
 .story-image-fpo__welcome-image--wide {
-  height: 31%;
+  height: 38%;
 }
 
 .story-image-fpo__welcome-image--tall {
-  height: 36%;
+  height: 43%;
 }
 
 .story-image-fpo--default {
