@@ -897,10 +897,10 @@
       let welcomeTimers = [];
 
       const WELCOME_CARD_VARIANTS = [
-        { kicker: "Est. '79", titleA: "McDonalds", titleB: "Burger Artist", lines: ["86%", "92%", "74%"], image: "wide", emoji: "🍔" },
-        { kicker: "Later On", titleA: "At Home", titleB: "Barista", lines: ["82%", "88%", "70%"], image: "tall", emoji: "☕" },
-        { kicker: "Comfort Era", titleA: "Golden Girls", titleB: "Army", lines: ["84%", "76%", "66%"], image: "wide", emoji: "👵🏻" },
-        { kicker: "Current Form", titleA: "Network", titleB: "Enthusiast", lines: ["90%", "80%", "68%"], image: "tall", emoji: "📡" }
+        { kicker: "1986", titleA: "McDonalds", titleB: "Burger Artist", lines: ["86%", "92%", "74%"], image: "wide", emoji: "🍔" },
+        { kicker: "1997", titleA: "At Home", titleB: "Barista", lines: ["82%", "88%", "70%"], image: "tall", emoji: "☕" },
+        { kicker: "2021", titleA: "Golden Girls", titleB: "Army", lines: ["84%", "76%", "66%"], image: "wide", emoji: "👵🏻" },
+        { kicker: "2026", titleA: "Network", titleB: "Enthusiast", lines: ["90%", "80%", "68%"], image: "tall", emoji: "📡" }
       ];
 
       function queueCloserToWorkTimeout(fn, delay) {
@@ -952,7 +952,6 @@
           .join("");
         return `
           <div class="story-image-fpo__welcome-card-inner">
-            <span class="story-image-fpo__welcome-kicker"></span>
             <span class="story-image-fpo__welcome-kicker-text">${card.kicker}</span>
             <div class="story-image-fpo__welcome-headline">
               <span class="story-image-fpo__welcome-headline-line story-image-fpo__welcome-headline-line--a">${card.titleA}</span>
