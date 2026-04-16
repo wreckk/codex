@@ -1507,7 +1507,7 @@ body.preload-layout .page-loader {
   background: rgba(216, 208, 197, 0.9);
 }
 
-.story-image-fpo__welcome-date {
+.story-image-fpo__welcome-kicker-text {
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 9px;
   line-height: 1;
@@ -2760,7 +2760,7 @@ body.preload-layout .page-loader {
     font-size: 14px;
   }
 
-  .story-image-fpo__welcome-date {
+  .story-image-fpo__welcome-kicker-text {
     font-size: 8px;
   }
 
