@@ -1091,8 +1091,21 @@
           const rootRect = root.getBoundingClientRect();
           const tileRect = tile.getBoundingClientRect();
           const pointerOffset = pointerOffsets[tile.dataset.logoName] || { x: 0.68, y: 0.64, r: -8 };
-          const targetX = tileRect.left - rootRect.left + tileRect.width * pointerOffset.x - 18;
-          const targetY = tileRect.top - rootRect.top + tileRect.height * pointerOffset.y - 18;
+          const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+          const pointerSize = 36;
+          const pointerPadding = 2;
+          const maxX = rootRect.width - pointerSize - pointerPadding;
+          const maxY = rootRect.height - pointerSize - pointerPadding;
+          const targetX = clamp(
+            tileRect.left - rootRect.left + tileRect.width * pointerOffset.x - pointerSize / 2,
+            pointerPadding,
+            maxX
+          );
+          const targetY = clamp(
+            tileRect.top - rootRect.top + tileRect.height * pointerOffset.y - pointerSize / 2,
+            pointerPadding,
+            maxY
+          );
           const targetRotation = pointerOffset.r;
           const currentX = Number.parseFloat(pointer.dataset.x || `${targetX}`);
           const currentY = Number.parseFloat(pointer.dataset.y || `${targetY}`);
@@ -1105,8 +1118,16 @@
             const dy = targetY - currentY;
             const distance = Math.hypot(dx, dy) || 1;
             const arc = Math.min(16, Math.max(8, distance * 0.08));
-            const midX = currentX + dx * 0.5 - (dy / distance) * arc;
-            const midY = currentY + dy * 0.5 + (dx / distance) * arc;
+            const midX = clamp(
+              currentX + dx * 0.5 - (dy / distance) * arc,
+              pointerPadding,
+              maxX
+            );
+            const midY = clamp(
+              currentY + dy * 0.5 + (dx / distance) * arc,
+              pointerPadding,
+              maxY
+            );
             const midRotation = currentRotation + (targetRotation - currentRotation) * 0.5 - 2;
             closerToWorkPointerAnimation = pointer.animate(
               [
