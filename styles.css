@@ -2856,6 +2856,11 @@ body.preload-layout .page-loader {
     --story-welcome-card-radius: 10px;
   }
 
+  .story-image-fpo__welcome-card-inner {
+    padding: 10px 10px 10px;
+    gap: 6px;
+  }
+
   .story-image-fpo__welcome-card.is-front {
     transform: translate3d(-50%, 0, 0) rotate(-2deg) scale(1);
   }
@@ -2890,11 +2895,20 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-headline-line {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .story-image-fpo__welcome-kicker-text {
-    font-size: 8px;
+    font-size: 7px;
+  }
+
+  .story-image-fpo__welcome-copy {
+    gap: 4px;
+    margin-bottom: 1px;
+  }
+
+  .story-image-fpo__welcome-line {
+    height: 4px;
   }
 
   .story-image-fpo__welcome-image-emoji {
