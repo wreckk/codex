@@ -1935,6 +1935,8 @@ body.preload-layout .page-loader {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 6;
+  pointer-events: none;
   transform: translateY(0) rotate(0deg);
   animation: story-fpo-pointer 4.65s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   animation-play-state: paused;
