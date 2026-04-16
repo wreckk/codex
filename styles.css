@@ -1901,6 +1901,7 @@ body.preload-layout .page-loader {
   will-change: transform;
   backface-visibility: hidden;
   animation: story-fpo-ticks-up 4.65s cubic-bezier(0.22, 1.2, 0.36, 1) infinite;
+  animation-play-state: paused;
 }
 
 .story-image-fpo__tickset {
@@ -1936,6 +1937,7 @@ body.preload-layout .page-loader {
   justify-content: center;
   transform: translateY(0) rotate(0deg);
   animation: story-fpo-pointer 4.65s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-play-state: paused;
 }
 
 .story-image-fpo__pointer svg {
@@ -1943,6 +1945,11 @@ body.preload-layout .page-loader {
   width: 36px;
   height: 36px;
   filter: drop-shadow(0 6px 12px rgba(116, 102, 118, 0.16));
+}
+
+.story-image-fpo--timeline.is-running .story-image-fpo__runner,
+.story-image-fpo--timeline.is-running .story-image-fpo__pointer {
+  animation-play-state: running;
 }
 
 
@@ -2811,6 +2818,7 @@ body.preload-layout .page-loader {
     align-items: flex-end;
     gap: var(--story-fpo-col-gap);
     animation: story-fpo-ticks-across-mobile 4.65s cubic-bezier(0.22, 1.2, 0.36, 1) infinite;
+    animation-play-state: paused;
   }
 
   .story-image-fpo__welcome-rail .story-image-fpo__tick {
