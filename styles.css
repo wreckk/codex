@@ -1477,6 +1477,11 @@ body.preload-layout .page-loader {
   max-height: 74%;
 }
 
+.story-image-fpo__logo-tile[data-logo-name="Figma"] svg {
+  max-width: 62%;
+  max-height: 62%;
+}
+
 .story-image-fpo__input-shell {
   position: absolute;
   left: 5%;
@@ -1490,8 +1495,6 @@ body.preload-layout .page-loader {
   border-radius: 0;
   box-shadow: none;
   z-index: 6;
-  outline: 1px solid rgba(0, 255, 170, 0.95);
-  outline-offset: 0;
 }
 
 .story-image-fpo__input-shell img {
@@ -1503,10 +1506,10 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__input-copy {
   position: absolute;
-  left: 20%;
+  left: 5%;
   width: 46%;
   right: 5%;
-  top: 30%;
+  top: 25%;
   height: 1.3em;
   display: inline-flex;
   align-items: center;
@@ -1518,8 +1521,6 @@ body.preload-layout .page-loader {
   white-space: nowrap;
   z-index: 2;
   transform: translateY(0);
-  outline: 1px solid rgba(255, 59, 214, 0.95);
-  outline-offset: 0;
   transition:
     opacity 220ms ease,
     transform 220ms ease,
@@ -1529,7 +1530,7 @@ body.preload-layout .page-loader {
 .story-image-fpo__input-send {
   position: absolute;
   right: 5%;
-  top: 30%;
+  top: 25%;
   width: 28px;
   height: 28px;
   transform: translateY(0);
@@ -1539,8 +1540,6 @@ body.preload-layout .page-loader {
     transform 180ms ease,
     filter 180ms ease;
   z-index: 3;
-  outline: 1px solid rgba(0, 200, 255, 0.95);
-  outline-offset: 0;
 }
 
 .story-image-fpo__input-send svg {
