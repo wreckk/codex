@@ -989,6 +989,14 @@
         window.history.replaceState(null, "", nextUrl);
       }
 
+      function renderParagraphMarkup(text = "") {
+        const escaped = text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+        return escaped.replace(/\[\[(.+?)\]\]/g, "<mark>$1</mark>");
+      }
+
       function getStoryEntryById(id) {
         return timelineDisplayEntries.find((entry) => entry.dataset.story === id) || null;
       }
@@ -1341,87 +1349,37 @@
 
         const token = glp1GalleryAnimationToken;
         let activeIndex = 0;
-        const initialPause = 1800;
-        const beatDuration = 340;
-        const beatFollowDelay = 56;
-        const beatPause = 720;
-        const postPause = 980;
+        const initialPause = 5000;
+        const stepDuration = 520;
+        const stepFollowDelay = 80;
+        const stepPause = 5000;
+        const finalPause = 5000;
+        const fadeDuration = 980;
 
-        const animateActiveImage = (slide) => {
+        const getSlideMotion = (slide) => {
           const img = slide?.querySelector("img");
-          if (!img) return;
-
-          const run = () => {
-            if (token !== glp1GalleryAnimationToken) return;
-            const overflow = Math.max(0, img.offsetHeight - root.clientHeight);
-            const viewportStep = root.clientHeight;
-            const stops = [];
-            let consumed = 0;
-            while (consumed < overflow - 1) {
-              consumed = Math.min(overflow, consumed + viewportStep);
-              stops.push(consumed);
-            }
-            img.style.transform = "translateY(0)";
-            if (!stops.length) return { beats: 0, cycleDuration: initialPause + postPause, fadeStart: initialPause + postPause };
-
-            let previousStop = 0;
-            stops.forEach((stop, index) => {
-              const stepStart = initialPause + index * (beatDuration + beatPause);
-              queueGlp1GalleryTimeout(() => {
-                if (token !== glp1GalleryAnimationToken) return;
-                glp1GalleryImageAnimation?.cancel();
-                glp1GalleryImageAnimation = img.animate(
-                  [
-                    { transform: `translateY(-${previousStop}px)` },
-                    { transform: `translateY(-${stop}px)` }
-                  ],
-                  {
-                    duration: beatDuration,
-                    delay: beatFollowDelay,
-                    easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-                    fill: "forwards"
-                  }
-                );
-                previousStop = stop;
-              }, stepStart);
-            });
-            const totalDuration = initialPause + stops.length * (beatDuration + beatPause) + postPause;
-            return {
-              beats: stops.length,
-              cycleDuration: totalDuration,
-              fadeStart: totalDuration - postPause
-            };
-          };
-
-          if (img.complete) {
-            return run();
-          } else {
-            img.addEventListener("load", run, { once: true });
-            return {
-              beats: 2,
-              cycleDuration: initialPause + 2 * (beatDuration + beatPause) + postPause,
-              fadeStart: initialPause + 2 * (beatDuration + beatPause) + postPause * 0.28
-            };
+          if (!img) return { img: null, stops: [] };
+          const overflow = Math.max(0, img.offsetHeight - root.clientHeight);
+          const viewportStep = root.clientHeight;
+          const stops = [];
+          let consumed = 0;
+          while (consumed < overflow - 1) {
+            consumed = Math.min(overflow, consumed + viewportStep);
+            stops.push(consumed);
           }
+          img.style.transform = "translateY(0)";
+          return { img, stops };
         };
 
-        const flickPointer = (distance = 1) => {
+        const flickPointer = () => {
           if (!pointer || token !== glp1GalleryAnimationToken) return;
-          const amplitude = 14 + distance * 3;
-          pointer.getAnimations().forEach((animation) => animation.cancel());
-          pointer.animate(
-            [
-              { transform: "translate3d(0, 0, 0) rotate(-8deg) scale(1)" },
-              { transform: `translate3d(-8px, -${amplitude}px, 0) rotate(-12deg) scale(0.97)` },
-              { transform: `translate3d(4px, -${Math.max(8, amplitude - 8)}px, 0) rotate(-7deg) scale(0.995)` },
-              { transform: "translate3d(0, 0, 0) rotate(-8deg) scale(1)" }
-            ],
-            {
-              duration: beatDuration,
-              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-              fill: "forwards"
-            }
-          );
+          pointer.classList.remove("is-flicking");
+          void pointer.offsetWidth;
+          pointer.classList.add("is-flicking");
+          queueGlp1GalleryTimeout(() => {
+            if (token !== glp1GalleryAnimationToken) return;
+            pointer.classList.remove("is-flicking");
+          }, 560);
         };
 
         const cycle = () => {
@@ -1429,30 +1387,78 @@
           const current = slides[activeIndex];
           const nextIndex = (activeIndex + 1) % slides.length;
           const next = slides[nextIndex];
-          const motion = animateActiveImage(current) || { beats: 0, cycleDuration: initialPause + postPause, fadeStart: initialPause + postPause * 0.28 };
+          const run = () => {
+            if (token !== glp1GalleryAnimationToken) return;
+            const motion = getSlideMotion(current);
+            const img = motion.img;
+            const stops = motion.stops;
 
-          for (let beat = 0; beat < motion.beats; beat += 1) {
+            if (!img || !stops.length) {
+              queueGlp1GalleryTimeout(() => {
+                if (token !== glp1GalleryAnimationToken) return;
+                next.classList.add("is-entering");
+                current.classList.add("is-exiting");
+              }, initialPause + finalPause);
+              queueGlp1GalleryTimeout(() => {
+                if (token !== glp1GalleryAnimationToken) return;
+                current.classList.remove("is-active", "is-exiting");
+                next.classList.remove("is-entering");
+                next.classList.add("is-active");
+                activeIndex = nextIndex;
+                cycle();
+              }, initialPause + finalPause + fadeDuration);
+              return;
+            }
+
+            let previousStop = 0;
+            let elapsed = initialPause;
+            stops.forEach((stop, index) => {
+              queueGlp1GalleryTimeout(() => {
+                if (token !== glp1GalleryAnimationToken) return;
+                flickPointer();
+                queueGlp1GalleryTimeout(() => {
+                  if (token !== glp1GalleryAnimationToken) return;
+                  glp1GalleryImageAnimation?.cancel();
+                  glp1GalleryImageAnimation = img.animate(
+                    [
+                      { transform: `translateY(-${previousStop}px)` },
+                      { transform: `translateY(-${stop}px)` }
+                    ],
+                    {
+                      duration: stepDuration,
+                      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                      fill: "forwards"
+                    }
+                  );
+                  previousStop = stop;
+                }, stepFollowDelay);
+              }, elapsed);
+              elapsed += stepDuration + stepPause;
+            });
+
             queueGlp1GalleryTimeout(() => {
               if (token !== glp1GalleryAnimationToken) return;
-              flickPointer(Math.max(1, motion.beats - beat * 0.12));
-            }, initialPause + beat * (beatDuration + beatPause));
+              next.classList.add("is-entering");
+              current.classList.add("is-exiting");
+            }, elapsed + finalPause);
+
+            queueGlp1GalleryTimeout(() => {
+              if (token !== glp1GalleryAnimationToken) return;
+              current.classList.remove("is-active", "is-exiting");
+              current.querySelector("img")?.style.setProperty("transform", "translateY(0)");
+              next.classList.remove("is-entering");
+              next.classList.add("is-active");
+              activeIndex = nextIndex;
+              cycle();
+            }, elapsed + finalPause + fadeDuration);
+          };
+
+          const firstImg = current.querySelector("img");
+          if (firstImg?.complete) {
+            run();
+          } else {
+            firstImg?.addEventListener("load", run, { once: true });
           }
-
-          queueGlp1GalleryTimeout(() => {
-            if (token !== glp1GalleryAnimationToken) return;
-            next.classList.add("is-entering");
-            current.classList.add("is-exiting");
-          }, motion.fadeStart);
-
-          queueGlp1GalleryTimeout(() => {
-            if (token !== glp1GalleryAnimationToken) return;
-            current.classList.remove("is-active", "is-exiting");
-            current.querySelector("img")?.style.setProperty("transform", "translateY(0)");
-            next.classList.remove("is-entering");
-            next.classList.add("is-active");
-            activeIndex = nextIndex;
-            cycle();
-          }, motion.cycleDuration);
         };
 
         cycle();
@@ -1464,7 +1470,7 @@
         stopWelcomeAnimation();
         storyKicker.textContent = story.kicker;
         storyTitle.textContent = story.title;
-        storyCopy.textContent = story.copy;
+        storyCopy.innerHTML = renderParagraphMarkup(story.copy);
         storyTitle.style.setProperty(
           "--story-title-gradient",
           "linear-gradient(135deg, #ff4632 0%, #ff4632 100%)"
@@ -1525,7 +1531,7 @@
 
         storyNotes.innerHTML = "";
         const p = document.createElement("p");
-        p.textContent = story.note || "";
+        p.innerHTML = renderParagraphMarkup(story.note || "");
         storyNotes.appendChild(p);
         storyCard?.classList.remove("is-story-empty");
         if (storyImageShell) storyImageShell.hidden = false;
