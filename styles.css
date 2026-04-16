@@ -1522,7 +1522,7 @@ body.preload-layout .page-loader {
 .story-image-fpo__welcome-headline-line {
   display: block;
   font-family: "SF Pro Display Local", "SF Pro Display", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 0.95;
   font-weight: 100;
   letter-spacing: -0.03em;
@@ -2750,7 +2750,7 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-headline-line {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .story-image-fpo__welcome-date {
