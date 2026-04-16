@@ -321,7 +321,7 @@
           copy: item.notes.join(" "),
           pills: item.chips,
           fill: item.fill || buildBrandFill(item.company, index),
-          note: `${item.company} · FPO container for supporting imagery`,
+          note: item.title === "Start Here" ? "" : `${item.company} · FPO container for supporting imagery`,
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
           image: item.image || null,
         };
