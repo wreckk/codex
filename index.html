@@ -326,27 +326,32 @@
 
         return `
           <div class="story-image-fpo story-image-fpo--timeline" aria-hidden="true">
-            <div class="story-image-fpo__track">
-              <div class="story-image-fpo__runner">
-                ${bars}
+            <div class="story-image-fpo__welcome">
+              <div class="story-image-fpo__welcome-rail">
+                <div class="story-image-fpo__track">
+                  <div class="story-image-fpo__runner">
+                    ${bars}
+                  </div>
+                </div>
+                <div class="story-image-fpo__pointer">
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
+                      fill="white"
+                      stroke="#c4c4c4"
+                      stroke-width="1.5"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <div class="story-image-fpo__pointer">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
-                  fill="white"
-                  stroke="#c4c4c4"
-                  stroke-width="1.5"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <div class="story-image-fpo__welcome-stack" data-welcome-stack></div>
             </div>
           </div>`;
       }
@@ -888,6 +893,16 @@
       let closerToWorkAnimationToken = 0;
       let closerToWorkTimers = [];
       let closerToWorkPointerAnimation = null;
+      let welcomeAnimationToken = 0;
+      let welcomeTimers = [];
+
+      const WELCOME_CARD_VARIANTS = [
+        { kicker: "2019", titleA: "System", titleB: "Refresh", lines: ["86%", "92%", "74%"], image: "wide" },
+        { kicker: "2021", titleA: "Design", titleB: "Exploration", lines: ["82%", "88%", "70%"], image: "tall" },
+        { kicker: "2023", titleA: "Product", titleB: "Direction", lines: ["84%", "76%", "66%"], image: "wide" },
+        { kicker: "2024", titleA: "Platform", titleB: "Detail", lines: ["90%", "80%", "68%"], image: "tall" },
+        { kicker: "2026", titleA: "Timeline", titleB: "Story", lines: ["88%", "86%", "72%"], image: "wide" }
+      ];
 
       function queueCloserToWorkTimeout(fn, delay) {
         const id = window.setTimeout(fn, delay);
@@ -898,6 +913,17 @@
       function clearCloserToWorkTimers() {
         closerToWorkTimers.forEach((id) => window.clearTimeout(id));
         closerToWorkTimers = [];
+      }
+
+      function queueWelcomeTimeout(fn, delay) {
+        const id = window.setTimeout(fn, delay);
+        welcomeTimers.push(id);
+        return id;
+      }
+
+      function clearWelcomeTimers() {
+        welcomeTimers.forEach((id) => window.clearTimeout(id));
+        welcomeTimers = [];
       }
 
       function stopCloserToWorkAnimation() {
@@ -911,6 +937,120 @@
         root.querySelector(".story-image-fpo__click-pulse")?.classList.remove("is-active");
         root.querySelector(".story-image-fpo__input-copy")?.classList.remove("is-sending");
         root.querySelector(".story-image-fpo__input-send")?.classList.remove("is-ready", "is-clicking");
+      }
+
+      function stopWelcomeAnimation() {
+        welcomeAnimationToken += 1;
+        clearWelcomeTimers();
+        const root = storyImage?.querySelector(".story-image-fpo--timeline");
+        if (!root) return;
+        root.querySelector(".story-image-fpo__pointer")?.classList.remove("is-flicking");
+      }
+
+      function createWelcomeCardMarkup(card) {
+        const lines = card.lines
+          .map((width) => `<span class="story-image-fpo__welcome-line" style="--line-width: ${width};"></span>`)
+          .join("");
+        return `
+          <div class="story-image-fpo__welcome-card-inner">
+            <span class="story-image-fpo__welcome-kicker"></span>
+            <span class="story-image-fpo__welcome-date">${card.kicker}</span>
+            <div class="story-image-fpo__welcome-headline">
+              <span class="story-image-fpo__welcome-headline-line story-image-fpo__welcome-headline-line--a">${card.titleA}</span>
+              <span class="story-image-fpo__welcome-headline-line story-image-fpo__welcome-headline-line--b">${card.titleB}</span>
+            </div>
+            <div class="story-image-fpo__welcome-copy">${lines}</div>
+            <div class="story-image-fpo__welcome-image story-image-fpo__welcome-image--${card.image}"></div>
+          </div>`;
+      }
+
+      function startWelcomeAnimation() {
+        stopWelcomeAnimation();
+        const root = storyImage?.querySelector(".story-image-fpo--timeline");
+        const stack = root?.querySelector("[data-welcome-stack]");
+        const pointer = root?.querySelector(".story-image-fpo__pointer");
+        if (!root || !stack || !pointer) return;
+
+        const token = welcomeAnimationToken;
+        let nextCardIndex = 3;
+
+        const createCard = (card) => {
+          const element = document.createElement("div");
+          element.className = "story-image-fpo__welcome-card";
+          element.innerHTML = createWelcomeCardMarkup(card);
+          return element;
+        };
+
+        const seedCards = WELCOME_CARD_VARIANTS.slice(0, 3).map(createCard);
+        stack.innerHTML = "";
+        seedCards.forEach((card) => stack.appendChild(card));
+        seedCards[0].classList.add("is-front");
+        seedCards[1].classList.add("is-mid");
+        seedCards[2].classList.add("is-back");
+
+        const triggerPointerFlick = () => {
+          pointer.classList.remove("is-flicking");
+          void pointer.offsetWidth;
+          pointer.classList.add("is-flicking");
+          queueWelcomeTimeout(() => {
+            if (token !== welcomeAnimationToken) return;
+            pointer.classList.remove("is-flicking");
+          }, 520);
+        };
+
+        const cycleCards = () => {
+          if (token !== welcomeAnimationToken) return;
+          const front = stack.querySelector(".story-image-fpo__welcome-card.is-front");
+          const mid = stack.querySelector(".story-image-fpo__welcome-card.is-mid");
+          const back = stack.querySelector(".story-image-fpo__welcome-card.is-back");
+          if (!front || !mid || !back) return;
+
+          const nextCard = createCard(
+            WELCOME_CARD_VARIANTS[nextCardIndex % WELCOME_CARD_VARIANTS.length]
+          );
+          nextCardIndex += 1;
+          nextCard.classList.add("is-spawn");
+          stack.appendChild(nextCard);
+
+          triggerPointerFlick();
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              if (token !== welcomeAnimationToken) return;
+              front.classList.remove("is-front");
+              front.classList.add("is-exit");
+              mid.classList.remove("is-mid");
+              mid.classList.add("is-front");
+              back.classList.remove("is-back");
+              back.classList.add("is-mid");
+              nextCard.classList.remove("is-spawn");
+              nextCard.classList.add("is-back");
+            });
+          });
+
+          queueWelcomeTimeout(() => {
+            if (token !== welcomeAnimationToken) return;
+            front.remove();
+          }, 560);
+        };
+
+        const runWelcomeLoop = () => {
+          if (token !== welcomeAnimationToken) return;
+          queueWelcomeTimeout(() => {
+            if (token !== welcomeAnimationToken) return;
+            cycleCards();
+          }, 1200);
+          queueWelcomeTimeout(() => {
+            if (token !== welcomeAnimationToken) return;
+            cycleCards();
+          }, 3360);
+          queueWelcomeTimeout(() => {
+            if (token !== welcomeAnimationToken) return;
+            runWelcomeLoop();
+          }, 4650);
+        };
+
+        runWelcomeLoop();
       }
 
       function startCloserToWorkAnimation() {
@@ -1078,6 +1218,7 @@
 
       function applyStoryContent(story) {
         stopCloserToWorkAnimation();
+        stopWelcomeAnimation();
         storyKicker.textContent = story.kicker;
         storyTitle.textContent = story.title;
         storyCopy.textContent = story.copy;
@@ -1139,6 +1280,10 @@
         if (story.isCloserToWorkStory) {
           requestAnimationFrame(() => {
             if (activeStoryId === story.id) startCloserToWorkAnimation();
+          });
+        } else if (story.isWelcomeStory) {
+          requestAnimationFrame(() => {
+            if (activeStoryId === story.id) startWelcomeAnimation();
           });
         }
       }
@@ -1221,6 +1366,7 @@
 
       function clearStoryContent() {
         stopCloserToWorkAnimation();
+        stopWelcomeAnimation();
         activeStoryId = null;
         storyKicker.textContent = "";
         storyTitle.textContent = "";
