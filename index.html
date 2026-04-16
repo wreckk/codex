@@ -1157,21 +1157,21 @@
 
         const clickTile = (tile) => {
           placePointerOnTile(tile, true);
+          pulse.classList.add("is-active");
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
-            pulse.classList.add("is-active");
             tile.classList.add("is-clicked");
-          }, 12);
+          }, 68);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             tile.classList.add("is-release");
             pulse.classList.remove("is-active");
             placePointerOnTile(tile, false);
-          }, 74);
+          }, 130);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             tile.classList.remove("is-clicked", "is-release");
-          }, 143);
+          }, 196);
         };
 
         const typePrompt = (promptIndex = 0) => {
