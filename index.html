@@ -1018,25 +1018,23 @@
           triggerPointerFlick();
 
           requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              if (token !== welcomeAnimationToken) return;
-              front.classList.remove("is-front");
-              front.classList.add("is-exit");
-              mid.classList.remove("is-mid");
-              mid.classList.add("is-front");
-              back.classList.remove("is-back");
-              back.classList.add("is-mid");
-              rear.classList.remove("is-rear");
-              rear.classList.add("is-back");
-              nextCard.classList.remove("is-spawn");
-              nextCard.classList.add("is-rear");
-            });
+            if (token !== welcomeAnimationToken) return;
+            front.classList.remove("is-front");
+            front.classList.add("is-exit");
+            mid.classList.remove("is-mid");
+            mid.classList.add("is-front");
+            back.classList.remove("is-back");
+            back.classList.add("is-mid");
+            rear.classList.remove("is-rear");
+            rear.classList.add("is-back");
+            nextCard.classList.remove("is-spawn");
+            nextCard.classList.add("is-rear");
           });
 
           queueWelcomeTimeout(() => {
             if (token !== welcomeAnimationToken) return;
             front.remove();
-          }, 560);
+          }, 520);
         };
 
         const runWelcomeLoop = () => {
