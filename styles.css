@@ -3478,6 +3478,10 @@ body.preload-layout .page-loader {
     height: 264px;
   }
 
+  .story-image-shell:has(.story-image-fpo--timeline) {
+    height: 332px;
+  }
+
   .story-image-shell.has-real-image {
     height: auto;
   }
