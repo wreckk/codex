@@ -1394,8 +1394,8 @@ body.preload-layout .page-loader {
   display: block;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.94) 0%, rgba(255, 252, 247, 0.9) 34%, rgba(248, 243, 234, 0.92) 72%, rgba(240, 235, 228, 0.96) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(248, 243, 234, 0.94) 58%, rgba(241, 235, 228, 0.98) 100%);
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 253, 249, 0.96) 36%, rgba(249, 245, 238, 0.94) 72%, rgba(244, 239, 232, 0.96) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(250, 246, 240, 0.96) 58%, rgba(245, 240, 233, 0.98) 100%);
   border-radius: inherit;
 }
 
@@ -1414,6 +1414,8 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__welcome-rail .story-image-fpo__track {
   inset: 0;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 .story-image-fpo__welcome-stack {
