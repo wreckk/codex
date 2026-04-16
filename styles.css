@@ -3508,7 +3508,7 @@ body.preload-layout .page-loader {
   }
 
   .story-image-shell:has(.story-image-fpo--timeline) {
-    height: 332px;
+    height: 236px;
   }
 
   .story-image-shell.has-real-image {
