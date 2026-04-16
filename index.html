@@ -353,15 +353,15 @@
 
       function buildCloserToWorkFpoMarkup() {
         const logoItems = [
-          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "12%", y: "10%", w: "19%", delay: "0.02s", rotate: "-6deg" },
-          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "31%", y: "9%", w: "15%", delay: "0.08s", rotate: "4deg" },
-          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "48%", y: "10%", w: "13%", delay: "0.14s", rotate: "5deg" },
-          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "64%", y: "10%", w: "16%", delay: "0.2s", rotate: "4deg" },
-          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "81%", y: "12%", w: "10%", delay: "0.24s", rotate: "-3deg" },
-          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "15%", y: "38%", w: "16%", delay: "0.12s", rotate: "-4deg" },
-          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "34%", y: "35%", w: "14%", delay: "0.18s", rotate: "3deg" },
-          { svg: "figma", name: "Figma", x: "53%", y: "34%", w: "15%", delay: "0.22s", rotate: "-2deg" },
-          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "72%", y: "34%", w: "13%", delay: "0.28s", rotate: "-5deg" }
+          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "8%", y: "10%", w: "19%", delay: "0.02s", rotate: "-6deg" },
+          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "27%", y: "9%", w: "14%", delay: "0.08s", rotate: "4deg" },
+          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "43%", y: "10%", w: "12%", delay: "0.14s", rotate: "5deg" },
+          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "57%", y: "9%", w: "17%", delay: "0.2s", rotate: "4deg" },
+          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "75%", y: "11%", w: "13%", delay: "0.24s", rotate: "-3deg" },
+          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "11%", y: "38%", w: "17%", delay: "0.12s", rotate: "-4deg" },
+          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "29%", y: "35%", w: "15%", delay: "0.18s", rotate: "3deg" },
+          { svg: "figma", name: "Figma", x: "47%", y: "34%", w: "14%", delay: "0.22s", rotate: "-2deg" },
+          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "65%", y: "33%", w: "15%", delay: "0.28s", rotate: "-5deg" }
         ];
 
         const logos = logoItems
@@ -903,7 +903,7 @@
         clearCloserToWorkTimers();
         const root = storyImage?.querySelector(".story-image-fpo--closer");
         if (!root) return;
-        root.querySelectorAll(".story-image-fpo__logo-tile").forEach((tile) => tile.classList.remove("is-clicked"));
+        root.querySelectorAll(".story-image-fpo__logo-tile").forEach((tile) => tile.classList.remove("is-hover", "is-clicked", "is-release"));
         root.querySelector(".story-image-fpo__click-pulse")?.classList.remove("is-active");
         root.querySelector(".story-image-fpo__input-copy")?.classList.remove("is-sending");
         root.querySelector(".story-image-fpo__input-send")?.classList.remove("is-ready", "is-clicking");
@@ -935,7 +935,6 @@
         };
 
         const clickTile = (tile) => {
-          tiles.forEach((entry) => entry.classList.remove("is-hover", "is-clicked", "is-release"));
           tile.classList.add("is-clicked");
           pulse.classList.add("is-active");
           placePointerOnTile(tile, true);
@@ -944,11 +943,11 @@
             tile.classList.add("is-release");
             pulse.classList.remove("is-active");
             placePointerOnTile(tile, false);
-          }, 170);
+          }, 105);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
-            tile.classList.remove("is-hover", "is-clicked", "is-release");
-          }, 430);
+            tile.classList.remove("is-clicked", "is-release");
+          }, 220);
         };
 
         const typePrompt = (promptIndex = 0) => {
@@ -1002,15 +1001,15 @@
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             tile.classList.add("is-hover");
-          }, 700);
+          }, 560);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             clickTile(tile);
-          }, 1120);
+          }, 860);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             runClickLoop(step + 1);
-          }, 2060);
+          }, 1620);
         };
 
         const firstTile = tileByName.get(CLOSER_TO_WORK_CLICK_SEQUENCE[0]) || tiles[0];
