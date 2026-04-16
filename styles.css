@@ -1607,8 +1607,8 @@ body.preload-layout .page-loader {
   align-items: center;
   justify-content: center;
   transition:
-    left 640ms cubic-bezier(0.22, 1, 0.36, 1),
-    top 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 520ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 

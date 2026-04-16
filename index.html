@@ -1001,15 +1001,15 @@
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             tile.classList.add("is-hover");
-          }, 640);
+          }, 520);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             clickTile(tile);
-          }, 940);
+          }, 800);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             runClickLoop(step + 1);
-          }, 1700);
+          }, 1560);
         };
 
         const firstTile = tileByName.get(CLOSER_TO_WORK_CLICK_SEQUENCE[0]) || tiles[0];
