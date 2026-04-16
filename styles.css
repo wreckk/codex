@@ -2789,7 +2789,7 @@ body.preload-layout .page-loader {
     position: absolute;
     left: 18px;
     right: 18px;
-    bottom: 12px;
+    bottom: 0;
     height: 42px;
   }
 
@@ -2843,7 +2843,7 @@ body.preload-layout .page-loader {
   .story-image-fpo__welcome-card {
     left: 50%;
     width: 56%;
-    height: calc(100% - 8px);
+    height: 64%;
     --story-welcome-card-radius: 10px;
   }
 
