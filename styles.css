@@ -2499,6 +2499,10 @@ body.preload-layout .page-loader {
     height: 18px;
   }
 
+  .story-image-fpo__logo-tile {
+    border-radius: 14px;
+  }
+
   .mini-pills {
     gap: 5px;
   }
