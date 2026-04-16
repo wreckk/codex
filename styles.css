@@ -2864,8 +2864,8 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-card-inner {
-    padding: 7px 10px 10px;
-    gap: 5px;
+    padding: 4px 10px 10px;
+    gap: 4px;
   }
 
   .story-image-fpo__welcome-card.is-front {
@@ -2903,6 +2903,7 @@ body.preload-layout .page-loader {
 
   .story-image-fpo__welcome-headline-line {
     font-size: 13px;
+    line-height: 0.9;
   }
 
   .story-image-fpo__welcome-kicker-text {
@@ -2910,8 +2911,8 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-copy {
-    gap: 3px;
-    margin-bottom: 1px;
+    gap: 2px;
+    margin-bottom: 0;
   }
 
   .story-image-fpo__welcome-line {
