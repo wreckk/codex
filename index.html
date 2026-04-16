@@ -1007,7 +1007,7 @@
           if (token !== closerToWorkAnimationToken) return;
           const prompt = CLOSER_TO_WORK_PROMPTS[promptIndex % CLOSER_TO_WORK_PROMPTS.length];
           let charIndex = 0;
-          inputSend.classList.remove("is-ready", "is-clicking");
+          inputSend.classList.remove("is-ready", "is-clicking", "is-release");
           inputCopy.classList.remove("is-sending");
           inputText.textContent = "";
 
@@ -1027,15 +1027,20 @@
             }, 1380);
             queueCloserToWorkTimeout(() => {
               if (token !== closerToWorkAnimationToken) return;
+              inputSend.classList.remove("is-clicking");
+              inputSend.classList.add("is-release");
+            }, 1480);
+            queueCloserToWorkTimeout(() => {
+              if (token !== closerToWorkAnimationToken) return;
               inputCopy.classList.add("is-sending");
-            }, 1520);
+            }, 1560);
             queueCloserToWorkTimeout(() => {
               if (token !== closerToWorkAnimationToken) return;
               inputCopy.classList.remove("is-sending");
-              inputSend.classList.remove("is-ready", "is-clicking");
+              inputSend.classList.remove("is-ready", "is-clicking", "is-release");
               inputText.textContent = "";
               typePrompt(promptIndex + 1);
-            }, 1860);
+            }, 1880);
           };
 
           typeNext();

@@ -1535,10 +1535,11 @@ body.preload-layout .page-loader {
   transform: translateY(0);
   opacity: 0.72;
   transition:
-    opacity 180ms ease,
-    transform 180ms ease,
-    filter 180ms ease;
+    opacity 120ms ease,
+    transform 120ms ease,
+    filter 120ms ease;
   z-index: 3;
+  transform-origin: 50% 55%;
 }
 
 .story-image-fpo__input-send svg {
@@ -1591,8 +1592,14 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__input-send.is-clicking {
   opacity: 1;
-  transform: translateY(0) scale(0.92);
-  filter: brightness(1.28);
+  transform: translateY(2px) scale(0.94) rotateX(10deg);
+  filter: brightness(1.22);
+}
+
+.story-image-fpo__input-send.is-release {
+  opacity: 1;
+  transform: translateY(-1px) scale(1.03);
+  filter: brightness(1.18);
 }
 
 .story-image-fpo__montage-pointer {
