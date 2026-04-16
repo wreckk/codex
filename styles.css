@@ -2798,7 +2798,7 @@ body.preload-layout .page-loader {
     position: absolute;
     left: 18px;
     right: 18px;
-    bottom: 0;
+    bottom: 10px;
     height: 42px;
   }
 
