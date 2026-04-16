@@ -49,28 +49,7 @@
                   <polyline
                     points="2,5 22,5 42,5"
                     vector-effect="non-scaling-stroke"
-                  >
-                    <animate
-                      attributeName="points"
-                      dur="6.2s"
-                      repeatCount="indefinite"
-                      keyTimes="0;0.32;0.38;0.41;1"
-                      calcMode="spline"
-                      keySplines="0.3 0 0.2 1;0.2 0 0.18 1;0.24 0 0.18 1;0.3 0 0.2 1"
-                      values="2,5 22,5 42,5; 2,5 22,5 42,5; 2,1 22,5 42,1; 2,5 22,5 42,5; 2,5 22,5 42,5"
-                    />
-                    <animateTransform
-                      attributeName="transform"
-                      attributeType="XML"
-                      type="translate"
-                      dur="6.2s"
-                      repeatCount="indefinite"
-                      keyTimes="0;0.32;0.38;0.395;0.41;0.44;1"
-                      calcMode="spline"
-                      keySplines="0.3 0 0.2 1;0.18 0 0.18 1;0.18 0 0.18 1;0.22 0 0.18 1;0.24 0 0.18 1;0.3 0 0.2 1"
-                      values="0 0;0 0;0 0;0 1.9;0 0.45;0 0;0 0"
-                    />
-                  </polyline>
+                  ></polyline>
                 </svg>
               </span>
             </button>
@@ -202,7 +181,7 @@
             <div class="timeline-head-left">
               <h2 class="timeline-label">EXPERIENCE</h2>
               <div class="timeline-company-pill is-milestone" id="timeline-company-pill">
-                <span id="timeline-company-label">MILESTONE</span>
+                <span id="timeline-company-label">Highlights</span>
               </div>
             </div>
             <button
@@ -219,6 +198,13 @@
           <div class="timeline-track-wrap">
             <div class="timeline-trigger-debug timeline-trigger-debug-top" aria-hidden="true"></div>
             <div class="timeline-trigger-debug timeline-trigger-debug-bottom" aria-hidden="true"></div>
+            <div class="timeline-mobile-hint" aria-hidden="true">
+              <span class="timeline-mobile-hint__chevron">‹</span>
+              <span class="timeline-mobile-hint__copy">
+                <span class="timeline-mobile-hint__line">Scroll To</span>
+                <span class="timeline-mobile-hint__line">See More</span>
+              </span>
+            </div>
             <div class="timeline-year-pin" aria-hidden="true"></div>
             <div class="timeline-track">
               <div class="timeline-content">
@@ -327,7 +313,9 @@
 
       function buildStory(item, year, index) {
         return {
-          kicker: item.company ? `${item.company.toUpperCase()} • ${year}` : `${year}`,
+          kicker: item.title === "Start Here"
+            ? ""
+            : (item.company ? `${item.company.toUpperCase()} • ${year}` : `${year}`),
           title: item.title,
           company: item.company,
           copy: item.notes.join(" "),
@@ -335,7 +323,7 @@
           fill: item.fill || buildBrandFill(item.company, index),
           note: `${item.company} · FPO container for supporting imagery`,
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
-          image: item.title === "Taking a Break" ? "/assets/images/ai.png" : null,
+          image: item.image || null,
         };
       }
 
@@ -434,6 +422,7 @@
       const timelineShortTicks = document.querySelector(".timeline-shortticks");
       const timelineTailTicks = document.querySelector(".timeline-tailticks");
       const timelineMediumTicks = document.querySelector(".timeline-mediumticks");
+      const timelineMobileHint = document.querySelector(".timeline-mobile-hint");
       const storyKicker = document.getElementById("story-kicker");
       const storyTitle = document.getElementById("story-title");
       const storyCopy = document.getElementById("story-copy");
@@ -448,9 +437,11 @@
       const sidebarCard = document.querySelector(".sidebar-card");
       const sidebarHeading = document.querySelector(".sidebar-heading");
       const sidebarMobileToggle = document.querySelector(".sidebar-mobile-toggle");
+      const sidebarMobileTogglePullbar = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__pullbar");
       const sidebarMobileToggleCopy = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__copy");
       const sidebarMobileToggleName = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__name");
       const sidebarMobileToggleRole = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__role");
+      const sidebarMobileTogglePullbarLine = sidebarMobileToggle?.querySelector(".sidebar-mobile-toggle__pullbar polyline");
       const sidebarName = sidebarHeading?.querySelector("h1");
       const sidebarRole = sidebarHeading?.querySelector("p");
       let timelineEntries = [];
@@ -472,6 +463,10 @@
       let storySwipeDeltaY = 0;
       let storySwipeAxis = null;
       let storySwipeTracking = false;
+      let mobilePullbarAnimationFrame = null;
+      let mobilePullbarIdleTimeout = null;
+      let mobileTimelineHintDismissed = false;
+      let mobileTimelineHintTimeout = null;
       const RESPONSIVE_BREAKPOINTS = {
         compact: 1200,
         mobile: 720,
@@ -576,6 +571,122 @@
         });
       }
 
+      function updateTimelineMobileHint() {
+        if (!timelineMobileHint || !track) return;
+        const scrolled = isCompactTimeline() ? track.scrollLeft > 6 : track.scrollTop > 6;
+        if (scrolled) {
+          mobileTimelineHintDismissed = true;
+          if (mobileTimelineHintTimeout) {
+            clearTimeout(mobileTimelineHintTimeout);
+            mobileTimelineHintTimeout = null;
+          }
+          timelineMobileHint.classList.remove("is-visible");
+          timelineMobileHint.classList.add("is-hidden");
+          return;
+        }
+
+        if (!isMobileLayout()) {
+          timelineMobileHint.classList.remove("is-visible");
+          timelineMobileHint.classList.add("is-hidden");
+          return;
+        }
+
+        if (mobileTimelineHintDismissed) {
+          timelineMobileHint.classList.remove("is-visible");
+          timelineMobileHint.classList.add("is-hidden");
+          return;
+        }
+
+        if (mobileTimelineHintTimeout) return;
+        timelineMobileHint.classList.remove("is-visible");
+        timelineMobileHint.classList.add("is-hidden");
+        mobileTimelineHintTimeout = window.setTimeout(() => {
+          mobileTimelineHintTimeout = null;
+          if (mobileTimelineHintDismissed || !isMobileLayout()) return;
+          const stillScrolled = track.scrollLeft > 6;
+          if (stillScrolled) return;
+          timelineMobileHint.classList.remove("is-hidden");
+          timelineMobileHint.classList.add("is-visible");
+        }, 25000);
+      }
+
+      function setMobilePullbarPoints(points) {
+        if (!sidebarMobileTogglePullbarLine) return;
+        sidebarMobileTogglePullbarLine.setAttribute("points", points);
+      }
+
+      function scheduleMobilePullbarIdle(delay = 3200) {
+        if (mobilePullbarIdleTimeout) {
+          clearTimeout(mobilePullbarIdleTimeout);
+          mobilePullbarIdleTimeout = null;
+        }
+        if (!isMobileLayout() || !sidebarMobileTogglePullbarLine || !sidebarMobileTogglePullbar) return;
+        mobilePullbarIdleTimeout = window.setTimeout(() => {
+          mobilePullbarIdleTimeout = null;
+          animateMobilePullbar(true);
+        }, delay);
+      }
+
+      function animateMobilePullbar(fromIdle = false) {
+        if (!sidebarMobileTogglePullbarLine || !sidebarMobileTogglePullbar) return;
+        if (mobilePullbarIdleTimeout) {
+          clearTimeout(mobilePullbarIdleTimeout);
+          mobilePullbarIdleTimeout = null;
+        }
+        if (mobilePullbarAnimationFrame !== null) {
+          cancelAnimationFrame(mobilePullbarAnimationFrame);
+          mobilePullbarAnimationFrame = null;
+        }
+
+        const keyframes = [
+          { t: 0, ys: [5, 5, 5], offsetY: 0 },
+          { t: 220, ys: [1.8, 7.2, 1.8], offsetY: 0 },
+          { t: 420, ys: [1.8, 7.2, 1.8], offsetY: -2.5 },
+          { t: 640, ys: [1.8, 7.2, 1.8], offsetY: 2.5 },
+          { t: 860, ys: [1.8, 7.2, 1.8], offsetY: -2.5 },
+          { t: 1080, ys: [1.8, 7.2, 1.8], offsetY: 2.5 },
+          { t: 1360, ys: [5, 5, 5], offsetY: 0 },
+        ];
+
+        const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
+        const toPoints = (ys) => `2,${ys[0]} 22,${ys[1]} 42,${ys[2]}`;
+
+        const start = performance.now();
+        const step = (now) => {
+          const elapsed = now - start;
+          let current = keyframes[keyframes.length - 1];
+          if (elapsed <= keyframes[0].t) {
+            current = keyframes[0];
+          } else {
+            for (let i = 1; i < keyframes.length; i += 1) {
+              const from = keyframes[i - 1];
+              const to = keyframes[i];
+              if (elapsed <= to.t) {
+                const localProgress = Math.max(0, Math.min(1, (elapsed - from.t) / (to.t - from.t)));
+                const eased = easeInOutSine(localProgress);
+                current = {
+                  ys: from.ys.map((value, index) => value + (to.ys[index] - value) * eased),
+                  offsetY: from.offsetY + (to.offsetY - from.offsetY) * eased,
+                };
+                break;
+              }
+            }
+          }
+          setMobilePullbarPoints(toPoints(current.ys));
+          sidebarMobileTogglePullbar.style.transform = `translateX(-50%) translateY(${current.offsetY}px)`;
+          if (elapsed < keyframes[keyframes.length - 1].t) {
+            mobilePullbarAnimationFrame = requestAnimationFrame(step);
+          } else {
+            mobilePullbarAnimationFrame = null;
+            setMobilePullbarPoints("2,5 22,5 42,5");
+            sidebarMobileTogglePullbar.style.transform = "translateX(-50%) translateY(0)";
+            scheduleMobilePullbarIdle(fromIdle ? 5600 : 4200);
+          }
+        };
+
+        mobilePullbarAnimationFrame = requestAnimationFrame(step);
+      }
+
       function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
         if (!node || !sidebarHeading) return;
         node.style.transform = "";
@@ -643,17 +754,54 @@
         storyKicker.style.borderColor = "";
         storyImage.classList.add("is-fpo");
         storyImageShell?.classList.toggle("has-real-image", Boolean(story.image));
+        storyImageShell?.classList.toggle("has-fpo-ui", !story.image);
         storyImage.innerHTML = "";
         if (story.image) {
+          storyImage.classList.remove("is-fpo");
+          storyImage.style.backgroundImage = "none";
           storyImage.style.background = "#f7f5f1";
-          storyImage.style.backgroundImage = `url("${story.image}")`;
-          storyImage.style.backgroundPosition = "center";
-          storyImage.style.backgroundRepeat = "no-repeat";
-          storyImage.style.backgroundSize = "cover";
+          const img = document.createElement("img");
+          img.src = story.image;
+          img.alt = `${story.title} reference`;
+          img.loading = "eager";
+          img.decoding = "async";
+          storyImage.appendChild(img);
+        } else if (story.title === "Start Here") {
+          storyImage.style.backgroundImage = "none";
+          storyImage.style.background = "transparent";
+          storyImage.innerHTML = `
+            <div class="story-image-fpo story-image-fpo--timeline" aria-hidden="true">
+              <div class="story-image-fpo__track">
+                <div class="story-image-fpo__runner">
+                  <div class="story-image-fpo__tickset">
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                  </div>
+                  <div class="story-image-fpo__tickset">
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
+                  </div>
+                  <div class="story-image-fpo__tickset">
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--long"></div>
+                    <div class="story-image-fpo__tick story-image-fpo__tick--short"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="story-image-fpo__pointer"></div>
+            </div>`;
         } else {
           storyImage.style.backgroundImage = "none";
-          storyImage.style.background = "#b8b8b8";
-          storyImage.innerHTML = '<div class="story-image-fpo" aria-hidden="true"><div class="story-image-fpo__stamp">FPO</div></div>';
+          storyImage.style.background = "transparent";
+          storyImage.innerHTML = `
+            <div class="story-image-fpo story-image-fpo--default" aria-hidden="true">
+              <div class="story-image-fpo__stamp">FPO</div>
+            </div>`;
         }
 
         storyPills.innerHTML = "";
@@ -678,7 +826,7 @@
       function applyTimelineCompany(company) {
         if (!timelineCompanyPill || !timelineCompanyLabel) return;
         if (!company) {
-          timelineCompanyLabel.textContent = "MILESTONE";
+          timelineCompanyLabel.textContent = "Highlights";
           timelineCompanyPill.classList.add("is-milestone");
           timelineCompanyPill.dataset.company = "";
           timelineCompanyPill.style.backgroundColor = "#7d747e";
@@ -777,8 +925,8 @@
       function updateStoryScrollEffects() {
         if (!storyScroll) return;
         const textTrigger = 18;
-        const blockTrigger = 10;
-        const blockFadeDistance = 56;
+        const blockTrigger = 22;
+        const blockFadeDistance = 96;
         const blocks = storyScroll.querySelectorAll(".story-copy, .story-pills, .story-image-shell, .story-notes");
         blocks.forEach((block) => {
           const top = block.offsetTop - storyScroll.scrollTop;
@@ -807,14 +955,20 @@
             block.style.maskRepeat = "no-repeat";
           } else {
             const progress = Math.max(0, Math.min(1, (blockTrigger - top) / blockFadeDistance));
-            const opacity = 1 - progress;
-            const blur = progress * 3;
-            const lift = progress * -4;
+            const opacity = 1;
+            const blur = 0;
+            const lift = 0;
+            const topAlpha = Math.max(0, 1 - progress * 1.15);
+            const midAlpha = Math.max(0.18, 1 - progress * 0.72);
+            const revealDepth = 12 + progress * 20;
+            const maskValue = `linear-gradient(to bottom, rgba(0, 0, 0, ${topAlpha}) 0px, rgba(0, 0, 0, ${midAlpha}) 12px, rgba(0, 0, 0, 1) ${revealDepth}px, rgba(0, 0, 0, 1) 100%)`;
             block.style.opacity = `${opacity}`;
             block.style.filter = `blur(${blur}px)`;
             block.style.transform = `translateY(${lift}px)`;
-            block.style.webkitMaskImage = "";
-            block.style.maskImage = "";
+            block.style.webkitMaskImage = maskValue;
+            block.style.maskImage = maskValue;
+            block.style.webkitMaskRepeat = "no-repeat";
+            block.style.maskRepeat = "no-repeat";
           }
         });
       }
@@ -1724,7 +1878,10 @@
         scheduleTimelineUpdate();
       }
 
-      track.addEventListener("scroll", scheduleTimelineUpdate, { passive: true });
+      track.addEventListener("scroll", () => {
+        updateTimelineMobileHint();
+        scheduleTimelineUpdate();
+      }, { passive: true });
       timelineBackToTop?.addEventListener("click", () => {
         if (isCompactTimeline()) {
           track.scrollTo({ left: 0, behavior: "smooth" });
@@ -1735,6 +1892,7 @@
       sidebarMobileToggle?.addEventListener("click", () => {
         if (!sidebarCard || !isMobileLayout()) return;
         const nextOpen = !sidebarCard.classList.contains("is-mobile-open");
+        animateMobilePullbar(false);
         sidebarCard.classList.toggle("is-mobile-open", nextOpen);
         sidebarMobileToggle.setAttribute("aria-expanded", String(nextOpen));
         document.body.classList.toggle("mobile-sidebar-open", nextOpen);
@@ -1774,6 +1932,8 @@
         syncMobileSidebarState();
         scheduleMobileLayoutMetrics();
         resetTimelineToStart("auto");
+        updateTimelineMobileHint();
+        scheduleMobilePullbarIdle(3200);
         if (isCompactTimeline()) {
           requestAnimationFrame(() => {
             setupCompactYearPinning();
@@ -1796,6 +1956,8 @@
         syncMobileSidebarState();
         syncTimelineOrderToggle();
         scheduleMobileLayoutMetrics();
+        updateTimelineMobileHint();
+        scheduleMobilePullbarIdle(3200);
         scheduleTimelineUpdate();
       });
       if (window.visualViewport) {

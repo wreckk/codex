@@ -5,19 +5,32 @@
     "items": [
       {
         "order": 1,
-        "title": "Taking a Break",
+        "title": "Start Here",
         "company": "Personal",
         "type": "primary",
         "hideLogo": true,
-        "fill": "linear-gradient(145deg, rgba(78, 78, 78, 0.28), rgba(166, 166, 166, 0.88) 42%, rgba(96, 96, 96, 0.42) 100%)",
-        "chips": ["Reset", "Exploration"],
+        "chips": [],
         "notes": [
-          "Stepped away from full-time work to reset and explore new tools, workflows, and ways of making that feel more direct and durable.",
-          "Used the break to revisit how I build, prototype, and move from concept to something real without losing momentum or craft."
+          "This is a timeline of some of my work over the years, and a few highlights along the way.",
+          "Scroll through the timeline to explore, details update as you move."
         ]
       },
       {
         "order": 2,
+        "title": "Closer to the Work",
+        "company": "Personal",
+        "type": "primary",
+        "hideLogo": true,
+        "image": "/assets/images/ai.png",
+        "fill": "linear-gradient(145deg, rgba(78, 78, 78, 0.28), rgba(166, 166, 166, 0.88) 42%, rgba(96, 96, 96, 0.42) 100%)",
+        "chips": ["Design + Code", "Prototyping", "AI Tools", "Workflow", "Craft"],
+        "notes": [
+          "Took a short career break to focus on how things actually get built now.",
+          "Spent the time working across design, prototypes, and code to stay sharp and hands-on."
+        ]
+      },
+      {
+        "order": 3,
         "title": "GLP-1 Launch",
         "company": "GoodRx",
         "type": "primary",
