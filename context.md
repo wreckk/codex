@@ -29,18 +29,42 @@ cd "/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex"
 python3 -m http.server 4173
 ```
 
-## Important Safety Rule
+## Important Workflow Rule
 
-The user wants a plain-language checkpoint workflow, not Git jargon.
+This project uses an explicit local-commit workflow.
 
-Going forward:
-- if the user says `mark this clean`
-- or `save this state`
-- or similar plain-language checkpoint phrasing
+### Required behavior
 
-Treat that as a request to create a recoverable local checkpoint immediately.
+- Every save gets a local commit.
+- A “save” means any round of work that is handed back for review locally.
+- Do not wait for the user to separately ask to save it.
 
-The user specifically wants a future local checkpoint system, likely a `checkpoints/` folder with timestamped snapshots of key files, instead of relying only on Git.
+### User callouts
+
+If the user says things like:
+
+- `mark this`
+- `checkpoint this`
+- `this version is good`
+- `clean state`
+
+that should still create a local commit, and that phrasing should influence the commit message so rollback is easy later.
+
+### Push / pull rules
+
+- The user will be explicit about pushing to GitHub.
+- Do not push unless explicitly requested.
+- The user will be explicit about pulling from GitHub.
+- Do not pull unless explicitly requested.
+
+### Why
+
+The user wants to be able to say things like:
+
+- `roll back 2 versions`
+- `go back to the good checkpoint`
+
+and have that mean rolling back through local commits, not guessing from uncommitted working state.
 
 ## Source Of Truth
 
