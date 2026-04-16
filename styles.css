@@ -2777,9 +2777,9 @@ body.preload-layout .page-loader {
     width: 112px;
   }
 
-.story-image-shell:has(.story-image-fpo--timeline) {
-  height: 424px;
-}
+  .story-image-shell:has(.story-image-fpo--timeline) {
+    height: 356px;
+  }
 
 .story-scroll:has(.story-image-fpo--timeline) .story-pills {
   margin: 12px 0 8px;
@@ -2836,7 +2836,7 @@ body.preload-layout .page-loader {
 
   .story-image-fpo__welcome-stack {
     position: absolute;
-    inset: 25px 0 67px;
+    inset: 18px 0 50px;
     height: auto;
   }
 
@@ -2844,7 +2844,7 @@ body.preload-layout .page-loader {
     left: 50%;
     top: 0;
     width: 56%;
-    height: 64%;
+    height: 72%;
     --story-welcome-card-radius: 10px;
   }
 
