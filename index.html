@@ -972,7 +972,7 @@
         if (!root || !stack || !pointer) return;
 
         const token = welcomeAnimationToken;
-        let nextCardIndex = 3;
+        let nextCardIndex = 4;
 
         const createCard = (card) => {
           const element = document.createElement("div");
@@ -981,12 +981,13 @@
           return element;
         };
 
-        const seedCards = WELCOME_CARD_VARIANTS.slice(0, 3).map(createCard);
+        const seedCards = WELCOME_CARD_VARIANTS.slice(0, 4).map(createCard);
         stack.innerHTML = "";
         seedCards.forEach((card) => stack.appendChild(card));
         seedCards[0].classList.add("is-front");
         seedCards[1].classList.add("is-mid");
         seedCards[2].classList.add("is-back");
+        seedCards[3].classList.add("is-rear");
 
         const triggerPointerFlick = () => {
           pointer.classList.remove("is-flicking");
@@ -1003,7 +1004,8 @@
           const front = stack.querySelector(".story-image-fpo__welcome-card.is-front");
           const mid = stack.querySelector(".story-image-fpo__welcome-card.is-mid");
           const back = stack.querySelector(".story-image-fpo__welcome-card.is-back");
-          if (!front || !mid || !back) return;
+          const rear = stack.querySelector(".story-image-fpo__welcome-card.is-rear");
+          if (!front || !mid || !back || !rear) return;
 
           const nextCard = createCard(
             WELCOME_CARD_VARIANTS[nextCardIndex % WELCOME_CARD_VARIANTS.length]
@@ -1023,8 +1025,10 @@
               mid.classList.add("is-front");
               back.classList.remove("is-back");
               back.classList.add("is-mid");
+              rear.classList.remove("is-rear");
+              rear.classList.add("is-back");
               nextCard.classList.remove("is-spawn");
-              nextCard.classList.add("is-back");
+              nextCard.classList.add("is-rear");
             });
           });
 
