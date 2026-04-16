@@ -441,6 +441,23 @@
           <div class="story-image-fpo story-image-fpo--glp1" aria-hidden="true">
             <div class="story-image-fpo__glp1-viewport">
               ${slides}
+              <div class="story-image-fpo__glp1-pointer">
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
+                    fill="white"
+                    stroke="#c4c4c4"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
             </div>
           </div>`;
       }
@@ -1301,12 +1318,13 @@
         const root = storyImage?.querySelector(".story-image-fpo--glp1");
         if (!root) return;
         const slides = Array.from(root.querySelectorAll(".story-image-fpo__glp1-slide"));
+        const pointer = root.querySelector(".story-image-fpo__glp1-pointer");
         if (slides.length < 2) return;
 
         const token = glp1GalleryAnimationToken;
         let activeIndex = 0;
-        const cycleDuration = 3600;
-        const fadeStart = 2750;
+        const cycleDuration = 4300;
+        const fadeStart = 3300;
 
         const animateActiveImage = (slide) => {
           const img = slide?.querySelector("img");
@@ -1316,7 +1334,7 @@
             if (token !== glp1GalleryAnimationToken) return;
             glp1GalleryImageAnimation?.cancel();
             const overflow = Math.max(0, img.offsetHeight - root.clientHeight);
-            const travel = Math.min(overflow, Math.max(36, root.clientHeight * 0.22));
+            const travel = overflow;
             img.style.transform = "translateY(0)";
             if (travel <= 1) return;
             glp1GalleryImageAnimation = img.animate(
@@ -1326,7 +1344,7 @@
               ],
               {
                 duration: cycleDuration,
-                easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                easing: "cubic-bezier(0.2, 0.9, 0.28, 1)",
                 fill: "forwards"
               }
             );
@@ -1339,6 +1357,23 @@
           }
         };
 
+        const flickPointer = () => {
+          if (!pointer || token !== glp1GalleryAnimationToken) return;
+          pointer.getAnimations().forEach((animation) => animation.cancel());
+          pointer.animate(
+            [
+              { transform: "translate3d(0, 0, 0) rotate(-8deg) scale(1)" },
+              { transform: "translate3d(-6px, -22px, 0) rotate(-12deg) scale(0.97)" },
+              { transform: "translate3d(-2px, -18px, 0) rotate(-10deg) scale(1)" }
+            ],
+            {
+              duration: 620,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+              fill: "forwards"
+            }
+          );
+        };
+
         const cycle = () => {
           if (token !== glp1GalleryAnimationToken) return;
           const current = slides[activeIndex];
@@ -1346,6 +1381,7 @@
           const next = slides[nextIndex];
 
           animateActiveImage(current);
+          flickPointer();
 
           queueGlp1GalleryTimeout(() => {
             if (token !== glp1GalleryAnimationToken) return;
