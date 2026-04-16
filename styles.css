@@ -2864,8 +2864,12 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-card-inner {
-    padding: 4px 10px 10px;
+    padding: 0 10px 10px;
     gap: 4px;
+  }
+
+  .story-image-fpo__welcome-headline {
+    gap: 3px;
   }
 
   .story-image-fpo__welcome-card.is-front {
@@ -2916,7 +2920,7 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-line {
-    height: 3px;
+    height: 2px;
   }
 
   .story-image-fpo__welcome-image-emoji {
