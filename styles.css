@@ -963,6 +963,17 @@ body.preload-layout .page-loader {
     height 85ms ease-out;
 }
 
+.timeline-entry .month {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  transform: translateY(0.02em);
+}
+
 .timeline-entry::before {
   content: "";
   display: block;
@@ -1036,8 +1047,6 @@ body.preload-layout .page-loader {
 
 .timeline-entry.minor .month {
   color: var(--muted);
-  font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
-  font-weight: 700;
   margin-right: 5px;
   min-width: auto;
 }
