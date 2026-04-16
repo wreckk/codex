@@ -353,21 +353,21 @@
 
       function buildCloserToWorkFpoMarkup() {
         const logoItems = [
-          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "8%", y: "10%", w: "18%", delay: "0.02s", rotate: "-6deg", clickDelay: "0.9s" },
-          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "31%", y: "8%", w: "17%", delay: "0.08s", rotate: "4deg", clickDelay: "2.6s" },
-          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "55%", y: "12%", w: "12%", delay: "0.14s", rotate: "-3deg", clickDelay: "1.8s" },
-          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "72%", y: "9%", w: "16%", delay: "0.2s", rotate: "5deg", clickDelay: "3.4s" },
-          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "14%", y: "39%", w: "18%", delay: "0.12s", rotate: "-4deg", clickDelay: "4.2s" },
-          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "39%", y: "35%", w: "14%", delay: "0.18s", rotate: "3deg", clickDelay: "5.1s" },
-          { svg: "figma", name: "Figma", x: "56%", y: "35%", w: "14%", delay: "0.22s", rotate: "-2deg", clickDelay: "2.1s" },
-          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "73%", y: "35%", w: "16%", delay: "0.24s", rotate: "-5deg", clickDelay: "3.9s" },
-          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "72%", y: "58%", w: "16%", delay: "0.28s", rotate: "4deg", clickDelay: "8.6s" }
+          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "9%", y: "11%", w: "18%", delay: "0.02s", rotate: "-6deg" },
+          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "29%", y: "9%", w: "17%", delay: "0.08s", rotate: "4deg" },
+          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "49%", y: "10%", w: "15%", delay: "0.14s", rotate: "5deg" },
+          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "68%", y: "10%", w: "15%", delay: "0.2s", rotate: "4deg" },
+          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "83%", y: "13%", w: "11%", delay: "0.24s", rotate: "-3deg" },
+          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "13%", y: "39%", w: "18%", delay: "0.12s", rotate: "-4deg" },
+          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "34%", y: "36%", w: "14%", delay: "0.18s", rotate: "3deg" },
+          { svg: "figma", name: "Figma", x: "54%", y: "35%", w: "14%", delay: "0.22s", rotate: "-2deg" },
+          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "74%", y: "35%", w: "15%", delay: "0.28s", rotate: "-5deg" }
         ];
 
         const logos = logoItems
           .map(
             (logo) => `
-              <div class="story-image-fpo__logo-tile" style="--logo-x:${logo.x};--logo-y:${logo.y};--logo-w:${logo.w};--logo-delay:${logo.delay};--logo-rotate:${logo.rotate};--logo-click-delay:${logo.clickDelay};">
+              <div class="story-image-fpo__logo-tile" data-logo-name="${logo.name}" style="--logo-x:${logo.x};--logo-y:${logo.y};--logo-w:${logo.w};--logo-delay:${logo.delay};--logo-rotate:${logo.rotate};">
                 <div class="story-image-fpo__logo-tile-inner">
                   ${logo.svg === "figma"
                     ? `<svg viewBox="0 0 38 57" aria-label="${logo.name}" role="img">
@@ -390,17 +390,13 @@
               <div class="story-image-fpo__input-shell">
                 <img src="/assets/company-logos/ai-logos/ai-input.png" alt="AI input" loading="eager" decoding="async" />
                 <div class="story-image-fpo__input-copy">
-                  <span style="--line-chars: 24">Make me a cool website...</span>
-                  <span style="--line-chars: 31">Who needs design, when we have AI...</span>
-                  <span style="--line-chars: 38">Help me turn this into something real...</span>
-                  <span style="--line-chars: 30">Can you prototype this idea fast...</span>
-                  <span style="--line-chars: 33">Let's make this feel less generic...</span>
-                  <span style="--line-chars: 32">Take this from rough to launchable...</span>
+                  <span class="story-image-fpo__input-text"></span>
+                  <span class="story-image-fpo__input-caret" aria-hidden="true"></span>
                 </div>
                 <div class="story-image-fpo__input-send" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10" fill="rgba(52,52,52,0.9)"/>
-                    <path d="M12 7v7m0 0-3-3m3 3 3-3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 17V10m0 0-3 3m3-3 3 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
               </div>
@@ -496,6 +492,7 @@
             if (item.type === "primary") {
               const storyId = `${yearBlock.year}-${slugify(item.title)}`;
               stories[storyId] = buildStory(item, yearBlock.year, storyIndex);
+              stories[storyId].id = storyId;
               storyIndex += 1;
               const companyDisplay =
                 item.hideLogo || !(COMPANY_LOGOS[item.company || yearBlock.company || ""])
@@ -867,7 +864,154 @@
         }
       }
 
+      const CLOSER_TO_WORK_PROMPTS = [
+        "Make me a cool website...",
+        "Help me turn this into something real...",
+        "Can you prototype this idea fast...",
+        "Let's make this feel less generic...",
+        "Take this from rough to launchable..."
+      ];
+
+      const CLOSER_TO_WORK_CLICK_SEQUENCE = [
+        "Claude",
+        "Codex",
+        "Paper",
+        "ChatGPT",
+        "Cursor",
+        "GitHub",
+        "Figma",
+        "Vercel",
+        "v0"
+      ];
+
+      let closerToWorkAnimationToken = 0;
+      let closerToWorkTimers = [];
+
+      function queueCloserToWorkTimeout(fn, delay) {
+        const id = window.setTimeout(fn, delay);
+        closerToWorkTimers.push(id);
+        return id;
+      }
+
+      function clearCloserToWorkTimers() {
+        closerToWorkTimers.forEach((id) => window.clearTimeout(id));
+        closerToWorkTimers = [];
+      }
+
+      function stopCloserToWorkAnimation() {
+        closerToWorkAnimationToken += 1;
+        clearCloserToWorkTimers();
+        const root = storyImage?.querySelector(".story-image-fpo--closer");
+        if (!root) return;
+        root.querySelectorAll(".story-image-fpo__logo-tile").forEach((tile) => tile.classList.remove("is-clicked"));
+        root.querySelector(".story-image-fpo__click-pulse")?.classList.remove("is-active");
+        root.querySelector(".story-image-fpo__input-copy")?.classList.remove("is-sending");
+        root.querySelector(".story-image-fpo__input-send")?.classList.remove("is-ready", "is-clicking");
+      }
+
+      function startCloserToWorkAnimation() {
+        stopCloserToWorkAnimation();
+        const root = storyImage?.querySelector(".story-image-fpo--closer");
+        if (!root) return;
+        const token = closerToWorkAnimationToken;
+        const pointer = root.querySelector(".story-image-fpo__montage-pointer");
+        const pulse = root.querySelector(".story-image-fpo__click-pulse");
+        const inputCopy = root.querySelector(".story-image-fpo__input-copy");
+        const inputText = root.querySelector(".story-image-fpo__input-text");
+        const inputSend = root.querySelector(".story-image-fpo__input-send");
+        const tiles = Array.from(root.querySelectorAll(".story-image-fpo__logo-tile"));
+        const tileByName = new Map(tiles.map((tile) => [tile.dataset.logoName, tile]));
+
+        if (!pointer || !pulse || !inputCopy || !inputText || !inputSend || !tiles.length) return;
+
+        const placePointerOnTile = (tile, pressed = false) => {
+          const rootRect = root.getBoundingClientRect();
+          const tileRect = tile.getBoundingClientRect();
+          const left = tileRect.left - rootRect.left + tileRect.width * 0.68 - 18;
+          const top = tileRect.top - rootRect.top + tileRect.height * 0.64 - 18;
+          pointer.style.left = `${left}px`;
+          pointer.style.top = `${top}px`;
+          pointer.style.transform = `rotate(-8deg) scale(${pressed ? 0.9 : 1})`;
+        };
+
+        const clickTile = (tile) => {
+          tiles.forEach((entry) => entry.classList.remove("is-clicked"));
+          tile.classList.add("is-clicked");
+          pulse.classList.add("is-active");
+          placePointerOnTile(tile, true);
+          queueCloserToWorkTimeout(() => {
+            if (token !== closerToWorkAnimationToken) return;
+            tile.classList.remove("is-clicked");
+            pulse.classList.remove("is-active");
+            placePointerOnTile(tile, false);
+          }, 180);
+        };
+
+        const typePrompt = (promptIndex = 0) => {
+          if (token !== closerToWorkAnimationToken) return;
+          const prompt = CLOSER_TO_WORK_PROMPTS[promptIndex % CLOSER_TO_WORK_PROMPTS.length];
+          let charIndex = 0;
+          inputSend.classList.remove("is-ready", "is-clicking");
+          inputCopy.classList.remove("is-sending");
+          inputText.textContent = "";
+
+          const typeNext = () => {
+            if (token !== closerToWorkAnimationToken) return;
+            if (charIndex < prompt.length) {
+              charIndex += 1;
+              inputText.textContent = prompt.slice(0, charIndex);
+              queueCloserToWorkTimeout(typeNext, 85);
+              return;
+            }
+
+            inputSend.classList.add("is-ready");
+            queueCloserToWorkTimeout(() => {
+              if (token !== closerToWorkAnimationToken) return;
+              inputSend.classList.add("is-clicking");
+            }, 950);
+            queueCloserToWorkTimeout(() => {
+              if (token !== closerToWorkAnimationToken) return;
+              inputCopy.classList.add("is-sending");
+            }, 1080);
+            queueCloserToWorkTimeout(() => {
+              if (token !== closerToWorkAnimationToken) return;
+              inputCopy.classList.remove("is-sending");
+              inputSend.classList.remove("is-ready", "is-clicking");
+              inputText.textContent = "";
+              typePrompt(promptIndex + 1);
+            }, 1420);
+          };
+
+          typeNext();
+        };
+
+        const runClickLoop = (step = 0) => {
+          if (token !== closerToWorkAnimationToken) return;
+          const tileName = CLOSER_TO_WORK_CLICK_SEQUENCE[step % CLOSER_TO_WORK_CLICK_SEQUENCE.length];
+          const tile = tileByName.get(tileName);
+          if (!tile) {
+            queueCloserToWorkTimeout(() => runClickLoop(step + 1), 900);
+            return;
+          }
+          placePointerOnTile(tile, false);
+          queueCloserToWorkTimeout(() => {
+            if (token !== closerToWorkAnimationToken) return;
+            clickTile(tile);
+          }, 260);
+          queueCloserToWorkTimeout(() => {
+            if (token !== closerToWorkAnimationToken) return;
+            runClickLoop(step + 1);
+          }, 1320);
+        };
+
+        const firstTile = tileByName.get(CLOSER_TO_WORK_CLICK_SEQUENCE[0]) || tiles[0];
+        placePointerOnTile(firstTile, false);
+        typePrompt(0);
+        runClickLoop(0);
+      }
+
       function applyStoryContent(story) {
+        stopCloserToWorkAnimation();
         storyKicker.textContent = story.kicker;
         storyTitle.textContent = story.title;
         storyCopy.textContent = story.copy;
@@ -926,6 +1070,11 @@
         storyCard?.classList.remove("is-story-empty");
         if (storyImageShell) storyImageShell.hidden = false;
         updateStoryScrollEffects();
+        if (story.isCloserToWorkStory) {
+          requestAnimationFrame(() => {
+            if (activeStoryId === story.id) startCloserToWorkAnimation();
+          });
+        }
       }
 
       function applyTimelineCompany(company) {
@@ -1005,6 +1154,7 @@
       }
 
       function clearStoryContent() {
+        stopCloserToWorkAnimation();
         activeStoryId = null;
         storyKicker.textContent = "";
         storyTitle.textContent = "";
