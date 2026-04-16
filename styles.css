@@ -2859,7 +2859,7 @@ body.preload-layout .page-loader {
     top: 25px;
     bottom: auto;
     width: 39%;
-    height: calc(100% - 92px);
+    height: calc(100% - 117px);
     --story-welcome-card-radius: 10px;
   }
 
