@@ -2853,8 +2853,8 @@ body.preload-layout .page-loader {
   .story-image-fpo__welcome-card {
     left: 50%;
     top: 0;
-    width: 56%;
-    height: 92%;
+    width: 39%;
+    height: 69%;
     --story-welcome-card-radius: 10px;
   }
 
