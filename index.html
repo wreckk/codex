@@ -975,6 +975,24 @@
         welcomeTimers = [];
       }
 
+      function getStoryIdFromHash() {
+        const hash = window.location.hash.replace(/^#/, "");
+        if (!hash) return null;
+        const id = decodeURIComponent(hash);
+        return storyContent[id] ? id : null;
+      }
+
+      function syncStoryHash(id) {
+        const nextHash = id ? `#${encodeURIComponent(id)}` : "";
+        if (window.location.hash === nextHash) return;
+        const nextUrl = `${window.location.pathname}${window.location.search}${nextHash}`;
+        window.history.replaceState(null, "", nextUrl);
+      }
+
+      function getStoryEntryById(id) {
+        return timelineDisplayEntries.find((entry) => entry.dataset.story === id) || null;
+      }
+
       function stopCloserToWorkAnimation() {
         closerToWorkAnimationToken += 1;
         clearCloserToWorkTimers();
@@ -1323,10 +1341,11 @@
 
         const token = glp1GalleryAnimationToken;
         let activeIndex = 0;
-        const initialPause = 1650;
-        const beatDuration = 300;
-        const beatPause = 560;
-        const postPause = 760;
+        const initialPause = 1800;
+        const beatDuration = 340;
+        const beatFollowDelay = 56;
+        const beatPause = 720;
+        const postPause = 980;
 
         const animateActiveImage = (slide) => {
           const img = slide?.querySelector("img");
@@ -1334,7 +1353,6 @@
 
           const run = () => {
             if (token !== glp1GalleryAnimationToken) return;
-            glp1GalleryImageAnimation?.cancel();
             const overflow = Math.max(0, img.offsetHeight - root.clientHeight);
             const viewportStep = root.clientHeight;
             const stops = [];
@@ -1344,29 +1362,34 @@
               stops.push(consumed);
             }
             img.style.transform = "translateY(0)";
-            if (!stops.length) return { beats: 0, cycleDuration: initialPause + postPause, fadeStart: initialPause + postPause * 0.4 };
-            const totalDuration = initialPause + stops.length * (beatDuration + beatPause) + postPause;
-            const keyframes = [{ offset: 0, transform: "translateY(0)" }];
-            let elapsed = initialPause;
-            keyframes.push({ offset: initialPause / totalDuration, transform: "translateY(0)" });
+            if (!stops.length) return { beats: 0, cycleDuration: initialPause + postPause, fadeStart: initialPause + postPause };
+
+            let previousStop = 0;
             stops.forEach((stop, index) => {
-              elapsed += beatDuration;
-              keyframes.push({ offset: elapsed / totalDuration, transform: `translateY(-${stop}px)` });
-              elapsed += beatPause;
-              keyframes.push({ offset: elapsed / totalDuration, transform: `translateY(-${stop}px)` });
+              const stepStart = initialPause + index * (beatDuration + beatPause);
+              queueGlp1GalleryTimeout(() => {
+                if (token !== glp1GalleryAnimationToken) return;
+                glp1GalleryImageAnimation?.cancel();
+                glp1GalleryImageAnimation = img.animate(
+                  [
+                    { transform: `translateY(-${previousStop}px)` },
+                    { transform: `translateY(-${stop}px)` }
+                  ],
+                  {
+                    duration: beatDuration,
+                    delay: beatFollowDelay,
+                    easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                    fill: "forwards"
+                  }
+                );
+                previousStop = stop;
+              }, stepStart);
             });
-            glp1GalleryImageAnimation = img.animate(
-              keyframes,
-              {
-                duration: totalDuration,
-                easing: "cubic-bezier(0.2, 0.9, 0.28, 1)",
-                fill: "forwards"
-              }
-            );
+            const totalDuration = initialPause + stops.length * (beatDuration + beatPause) + postPause;
             return {
               beats: stops.length,
               cycleDuration: totalDuration,
-              fadeStart: initialPause + stops.length * (beatDuration + beatPause) + postPause * 0.28
+              fadeStart: totalDuration - postPause
             };
           };
 
@@ -1385,6 +1408,7 @@
         const flickPointer = (distance = 1) => {
           if (!pointer || token !== glp1GalleryAnimationToken) return;
           const amplitude = 14 + distance * 3;
+          pointer.getAnimations().forEach((animation) => animation.cancel());
           pointer.animate(
             [
               { transform: "translate3d(0, 0, 0) rotate(-8deg) scale(1)" },
@@ -1677,6 +1701,7 @@
         if (!id) {
           if (activeStoryId === null) return;
           clearStoryContent();
+          syncStoryHash("");
           return;
         }
 
@@ -1685,6 +1710,7 @@
 
         if (!activeStoryId || !storyCard) {
           activeStoryId = id;
+          syncStoryHash(id);
           applyStoryContent(story);
           return;
         }
@@ -1700,6 +1726,7 @@
         const swapOffsetX = isMobileLayout() ? (isReverseMove ? "35px" : "-35px") : "0px";
 
         activeStoryId = id;
+        syncStoryHash(id);
         storySwapToken += 1;
         const currentToken = storySwapToken;
         if (storySwapTimeout) {
@@ -2484,6 +2511,16 @@
         track.scrollTo({ top: targetTop, behavior });
       }
 
+      function focusStoryById(id, behavior = "auto") {
+        if (!id || !storyContent[id]) return;
+        const entry = getStoryEntryById(id);
+        if (entry) {
+          scrollToTimelineEntry(entry, behavior);
+        }
+        renderStory(id);
+        scheduleTimelineUpdate();
+      }
+
       function moveStoryByOffset(offset) {
         const storyEntries = timelineTargets.filter((entry) => entry.dataset.story);
         if (!storyEntries.length) return;
@@ -2630,7 +2667,10 @@
         fitSidebarHeading();
         syncMobileSidebarState();
         scheduleMobileLayoutMetrics();
-        resetTimelineToStart("auto");
+        const initialStoryId = getStoryIdFromHash();
+        if (!initialStoryId) {
+          resetTimelineToStart("auto");
+        }
         updateTimelineMobileHint();
         scheduleMobilePullbarIdle(3200);
         if (isCompactTimeline()) {
@@ -2638,7 +2678,13 @@
             setupCompactYearPinning();
           });
         }
-        renderStory(timelineDisplayEntries[0]?.dataset.story || null);
+        if (initialStoryId) {
+          requestAnimationFrame(() => {
+            focusStoryById(initialStoryId, "auto");
+          });
+        } else {
+          renderStory(timelineDisplayEntries[0]?.dataset.story || null);
+        }
         updateActiveTimeline();
         updateStoryScrollEffects();
         requestAnimationFrame(() => {
@@ -2658,6 +2704,11 @@
         updateTimelineMobileHint();
         scheduleMobilePullbarIdle(3200);
         scheduleTimelineUpdate();
+      });
+      window.addEventListener("hashchange", () => {
+        const id = getStoryIdFromHash();
+        if (!id) return;
+        focusStoryById(id, "smooth");
       });
       if (window.visualViewport) {
         window.visualViewport.addEventListener("resize", scheduleMobileLayoutMetrics);

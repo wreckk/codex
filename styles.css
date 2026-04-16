@@ -1301,7 +1301,8 @@ body.preload-layout .page-loader {
   margin: 15px 0;
 }
 
-.story-pills span {
+.story-pills span,
+.story-pills a {
   display: inline-flex;
   align-items: center;
   padding: 7px 10px;
@@ -1315,21 +1316,38 @@ body.preload-layout .page-loader {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
 }
 
 .story-pills span.primary,
-.story-pills span:first-child {
+.story-pills span:first-child,
+.story-pills a.primary,
+.story-pills a:first-child {
   background: #eee7df;
   color: var(--muted);
 }
 
-.story-pills span:nth-child(2) {
+.story-pills span:nth-child(2),
+.story-pills a:nth-child(2) {
   background: #ece7eb;
 }
 
-.story-pills span:nth-child(3) {
+.story-pills span:nth-child(3),
+.story-pills a:nth-child(3) {
   background: #f0ede7;
   color: var(--muted);
+}
+
+.story-pills a:hover,
+.story-pills a:focus-visible {
+  background: #ff4632;
+  border-color: #ff4632;
+  color: #fff;
+  outline: none;
 }
 
 .story-image-shell {
@@ -1611,6 +1629,9 @@ body.preload-layout .page-loader {
   inset: 0;
   display: block;
   overflow: hidden;
+  border: 2px solid rgba(176, 176, 176, 0.26);
+  border-radius: inherit;
+  box-sizing: border-box;
   background:
     linear-gradient(180deg, rgba(250, 248, 244, 0.98), rgba(242, 238, 232, 0.96));
 }
@@ -1619,9 +1640,6 @@ body.preload-layout .page-loader {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border: 2px solid rgba(176, 176, 176, 0.26);
-  border-radius: inherit;
-  box-sizing: border-box;
 }
 
 .story-image-fpo__glp1-slide {
@@ -1630,7 +1648,7 @@ body.preload-layout .page-loader {
   margin: 0;
   opacity: 0;
   filter: blur(8px);
-  transform: translate3d(16px, 10px, 0) scale(1.03) rotate(0.45deg);
+  transform: translate3d(0, 0, 0) scale(1.03);
   transition:
     opacity 920ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 920ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -1641,13 +1659,13 @@ body.preload-layout .page-loader {
 .story-image-fpo__glp1-slide.is-entering {
   opacity: 1;
   filter: blur(0);
-  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .story-image-fpo__glp1-slide.is-exiting {
   opacity: 0;
   filter: blur(18px);
-  transform: translate3d(-18px, -16px, 0) scale(0.985) rotate(-0.6deg);
+  transform: translate3d(0, -8px, 0) scale(1.08);
 }
 
 .story-image-fpo__glp1-slide img {

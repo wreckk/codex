@@ -41,7 +41,7 @@
           "/assets/images/examples-glp1/Shipped.png"
         ],
         "chips": [
-          { "label": "Live Product", "href": "https://glp-1.ericcenteno.com" },
+          { "label": "Live Prototype", "href": "https://glp-1.ericcenteno.com" },
           "Subscription",
           "Growth",
           "Product Vision"
