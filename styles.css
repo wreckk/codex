@@ -1390,13 +1390,13 @@ body.preload-layout .page-loader {
 }
 
 .story-image-fpo--timeline {
-  inset: 26px 28px 30px;
+  inset: 0;
   display: block;
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.94) 0%, rgba(255, 252, 247, 0.9) 34%, rgba(248, 243, 234, 0.92) 72%, rgba(240, 235, 228, 0.96) 100%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(248, 243, 234, 0.94) 58%, rgba(241, 235, 228, 0.98) 100%);
-  border-radius: 22px;
+  border-radius: inherit;
 }
 
 .story-image-fpo__welcome {
@@ -2699,7 +2699,7 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo--timeline {
-    inset: 20px 22px 24px;
+    inset: 0;
   }
 
   .story-image-fpo--timeline .story-image-fpo__runner {
