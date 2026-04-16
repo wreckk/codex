@@ -2857,8 +2857,8 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-card-inner {
-    padding: 10px 10px 10px;
-    gap: 6px;
+    padding: 7px 10px 10px;
+    gap: 5px;
   }
 
   .story-image-fpo__welcome-card.is-front {
@@ -2903,12 +2903,12 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__welcome-copy {
-    gap: 4px;
+    gap: 3px;
     margin-bottom: 1px;
   }
 
   .story-image-fpo__welcome-line {
-    height: 4px;
+    height: 3px;
   }
 
   .story-image-fpo__welcome-image-emoji {
