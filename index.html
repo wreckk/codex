@@ -935,16 +935,20 @@
         };
 
         const clickTile = (tile) => {
-          tiles.forEach((entry) => entry.classList.remove("is-clicked"));
+          tiles.forEach((entry) => entry.classList.remove("is-hover", "is-clicked", "is-release"));
           tile.classList.add("is-clicked");
           pulse.classList.add("is-active");
           placePointerOnTile(tile, true);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
-            tile.classList.remove("is-clicked");
+            tile.classList.add("is-release");
             pulse.classList.remove("is-active");
             placePointerOnTile(tile, false);
-          }, 180);
+          }, 170);
+          queueCloserToWorkTimeout(() => {
+            if (token !== closerToWorkAnimationToken) return;
+            tile.classList.remove("is-hover", "is-clicked", "is-release");
+          }, 430);
         };
 
         const typePrompt = (promptIndex = 0) => {
@@ -960,7 +964,7 @@
             if (charIndex < prompt.length) {
               charIndex += 1;
               inputText.textContent = prompt.slice(0, charIndex);
-              queueCloserToWorkTimeout(typeNext, 85);
+              queueCloserToWorkTimeout(typeNext, 112);
               return;
             }
 
@@ -968,18 +972,18 @@
             queueCloserToWorkTimeout(() => {
               if (token !== closerToWorkAnimationToken) return;
               inputSend.classList.add("is-clicking");
-            }, 950);
+            }, 1380);
             queueCloserToWorkTimeout(() => {
               if (token !== closerToWorkAnimationToken) return;
               inputCopy.classList.add("is-sending");
-            }, 1080);
+            }, 1520);
             queueCloserToWorkTimeout(() => {
               if (token !== closerToWorkAnimationToken) return;
               inputCopy.classList.remove("is-sending");
               inputSend.classList.remove("is-ready", "is-clicking");
               inputText.textContent = "";
               typePrompt(promptIndex + 1);
-            }, 1420);
+            }, 1860);
           };
 
           typeNext();
@@ -990,18 +994,23 @@
           const tileName = CLOSER_TO_WORK_CLICK_SEQUENCE[step % CLOSER_TO_WORK_CLICK_SEQUENCE.length];
           const tile = tileByName.get(tileName);
           if (!tile) {
-            queueCloserToWorkTimeout(() => runClickLoop(step + 1), 900);
+            queueCloserToWorkTimeout(() => runClickLoop(step + 1), 1400);
             return;
           }
+          tiles.forEach((entry) => entry.classList.remove("is-hover", "is-clicked", "is-release"));
           placePointerOnTile(tile, false);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
+            tile.classList.add("is-hover");
+          }, 700);
+          queueCloserToWorkTimeout(() => {
+            if (token !== closerToWorkAnimationToken) return;
             clickTile(tile);
-          }, 260);
+          }, 1120);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             runClickLoop(step + 1);
-          }, 1320);
+          }, 2060);
         };
 
         const firstTile = tileByName.get(CLOSER_TO_WORK_CLICK_SEQUENCE[0]) || tiles[0];
