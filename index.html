@@ -353,15 +353,15 @@
 
       function buildCloserToWorkFpoMarkup() {
         const logoItems = [
-          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "8%", y: "10%", w: "19%", delay: "0.02s", rotate: "-6deg" },
-          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "27%", y: "9%", w: "14%", delay: "0.08s", rotate: "4deg" },
-          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "43%", y: "10%", w: "12%", delay: "0.14s", rotate: "5deg" },
-          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "57%", y: "9%", w: "17%", delay: "0.2s", rotate: "4deg" },
-          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "75%", y: "11%", w: "13%", delay: "0.24s", rotate: "-3deg" },
-          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "11%", y: "38%", w: "17%", delay: "0.12s", rotate: "-4deg" },
-          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "29%", y: "35%", w: "15%", delay: "0.18s", rotate: "3deg" },
-          { svg: "figma", name: "Figma", x: "47%", y: "34%", w: "14%", delay: "0.22s", rotate: "-2deg" },
-          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "65%", y: "33%", w: "15%", delay: "0.28s", rotate: "-5deg" }
+          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "6%", y: "10%", w: "20%", delay: "0.02s", rotate: "-6deg" },
+          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "24%", y: "9%", w: "13%", delay: "0.08s", rotate: "4deg" },
+          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "40%", y: "10%", w: "15%", delay: "0.14s", rotate: "5deg" },
+          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "58%", y: "8%", w: "18%", delay: "0.2s", rotate: "4deg" },
+          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "78%", y: "11%", w: "14%", delay: "0.24s", rotate: "-3deg" },
+          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "9%", y: "38%", w: "18%", delay: "0.12s", rotate: "-4deg" },
+          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "29%", y: "35%", w: "14%", delay: "0.18s", rotate: "3deg" },
+          { svg: "figma", name: "Figma", x: "46%", y: "34%", w: "16%", delay: "0.22s", rotate: "-2deg" },
+          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "65%", y: "33%", w: "17%", delay: "0.28s", rotate: "-5deg" }
         ];
 
         const logos = logoItems
@@ -1001,15 +1001,15 @@
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             tile.classList.add("is-hover");
-          }, 560);
+          }, 640);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             clickTile(tile);
-          }, 860);
+          }, 940);
           queueCloserToWorkTimeout(() => {
             if (token !== closerToWorkAnimationToken) return;
             runClickLoop(step + 1);
-          }, 1620);
+          }, 1700);
         };
 
         const firstTile = tileByName.get(CLOSER_TO_WORK_CLICK_SEQUENCE[0]) || tiles[0];
