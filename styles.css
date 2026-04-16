@@ -2887,10 +2887,11 @@ body.preload-layout .page-loader {
   }
 
   .story-image-fpo__pointer {
-    left: auto;
-    right: 22px;
+    left: 50%;
+    right: auto;
     top: auto;
-    bottom: 26px;
+    bottom: 88px;
+    transform: translateX(-50%);
     animation-name: story-fpo-pointer-mobile;
   }
 
