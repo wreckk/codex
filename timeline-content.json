@@ -34,6 +34,12 @@
         "title": "💉 GLP-1 Subscription",
         "company": "GoodRx",
         "type": "primary",
+        "gallery": [
+          "/assets/images/examples-glp1/A1-V1.png",
+          "/assets/images/examples-glp1/A1 V2.png",
+          "/assets/images/examples-glp1/V1.png",
+          "/assets/images/examples-glp1/Shipped.png"
+        ],
         "chips": ["Live Product", "Subscription", "Growth", "Product Vision"],
         "notes": [
           "I stepped into the work when it wasn't really landing and pushed to reset the direction.",
