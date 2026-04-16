@@ -887,6 +887,7 @@
 
       let closerToWorkAnimationToken = 0;
       let closerToWorkTimers = [];
+      let closerToWorkPointerAnimation = null;
 
       function queueCloserToWorkTimeout(fn, delay) {
         const id = window.setTimeout(fn, delay);
@@ -902,6 +903,8 @@
       function stopCloserToWorkAnimation() {
         closerToWorkAnimationToken += 1;
         clearCloserToWorkTimers();
+        closerToWorkPointerAnimation?.cancel();
+        closerToWorkPointerAnimation = null;
         const root = storyImage?.querySelector(".story-image-fpo--closer");
         if (!root) return;
         root.querySelectorAll(".story-image-fpo__logo-tile").forEach((tile) => tile.classList.remove("is-hover", "is-clicked", "is-release"));
@@ -941,11 +944,47 @@
           const rootRect = root.getBoundingClientRect();
           const tileRect = tile.getBoundingClientRect();
           const pointerOffset = pointerOffsets[tile.dataset.logoName] || { x: 0.68, y: 0.64, r: -8 };
-          const left = tileRect.left - rootRect.left + tileRect.width * pointerOffset.x - 18;
-          const top = tileRect.top - rootRect.top + tileRect.height * pointerOffset.y - 18;
-          pointer.style.left = `${left}px`;
-          pointer.style.top = `${top}px`;
-          pointer.style.transform = `rotate(${pointerOffset.r}deg) scale(${pressed ? 0.9 : 1})`;
+          const targetX = tileRect.left - rootRect.left + tileRect.width * pointerOffset.x - 18;
+          const targetY = tileRect.top - rootRect.top + tileRect.height * pointerOffset.y - 18;
+          const targetRotation = pointerOffset.r;
+          const currentX = Number.parseFloat(pointer.dataset.x || `${targetX}`);
+          const currentY = Number.parseFloat(pointer.dataset.y || `${targetY}`);
+          const currentRotation = Number.parseFloat(pointer.dataset.rotation || `${targetRotation}`);
+
+          closerToWorkPointerAnimation?.cancel();
+
+          if (!pressed && (Math.abs(currentX - targetX) > 1 || Math.abs(currentY - targetY) > 1)) {
+            const dx = targetX - currentX;
+            const dy = targetY - currentY;
+            const distance = Math.hypot(dx, dy) || 1;
+            const arc = Math.min(16, Math.max(8, distance * 0.08));
+            const midX = currentX + dx * 0.5 - (dy / distance) * arc;
+            const midY = currentY + dy * 0.5 + (dx / distance) * arc;
+            const midRotation = currentRotation + (targetRotation - currentRotation) * 0.5 - 2;
+            closerToWorkPointerAnimation = pointer.animate(
+              [
+                { left: `${currentX}px`, top: `${currentY}px`, transform: `rotate(${currentRotation}deg) scale(1)` },
+                { left: `${midX}px`, top: `${midY}px`, transform: `rotate(${midRotation}deg) scale(1)` },
+                { left: `${targetX}px`, top: `${targetY}px`, transform: `rotate(${targetRotation}deg) scale(1)` }
+              ],
+              { duration: 520, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+            );
+          } else {
+            closerToWorkPointerAnimation = pointer.animate(
+              [
+                { left: `${currentX}px`, top: `${currentY}px`, transform: `rotate(${currentRotation}deg) scale(${pressed ? 1 : 0.9})` },
+                { left: `${targetX}px`, top: `${targetY}px`, transform: `rotate(${targetRotation}deg) scale(${pressed ? 0.9 : 1})` }
+              ],
+              { duration: 120, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+            );
+          }
+
+          pointer.style.left = `${targetX}px`;
+          pointer.style.top = `${targetY}px`;
+          pointer.style.transform = `rotate(${targetRotation}deg) scale(${pressed ? 0.9 : 1})`;
+          pointer.dataset.x = `${targetX}`;
+          pointer.dataset.y = `${targetY}`;
+          pointer.dataset.rotation = `${targetRotation}`;
         };
 
         const clickTile = (tile) => {
