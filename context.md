@@ -1,62 +1,54 @@
 # Codex Project Context
 
-This file is the handoff document for continuing work on `wreckk/codex` across machines.
+This file is the handoff doc for continuing work on `wreckk/codex` across machines.
 
 ## Project
 
 - Repo: `https://github.com/wreckk/codex`
-- Production branch: `main`
-- Site type: static `index.html` / `styles.css` / JSON content
-- Primary working files:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/index.html`
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/styles.css`
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/timeline-content.json`
+- Branch: `main`
+- Site type: static site driven by:
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/index.html`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/styles.css`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/timeline-content.json`
 
-## Current Workflow
+## Workflow
 
-- Local preview first, do not rely on Vercel for iteration.
-- The preferred workflow is:
+- Preferred workflow:
   1. edit locally
-  2. refresh local preview on desktop/mobile
+  2. verify in local preview
   3. only push when explicitly requested
-- Local preview has been used successfully across devices on the same network.
-- If resuming on another machine, pull latest repo state first, then read this file.
-
-## Local Preview
-
-- This machine is currently running a simple local server on port `4173`.
-- The current process is a Python server listening on `*:4173`.
 - Local preview URL:
   - `http://localhost:4173`
-- Same-network mobile testing URL should use the current machine IP with that same port.
 
-### Recommended local server command
+### Local server
 
-From the repo root:
+From repo root:
 
 ```bash
-cd "/Users/wreckk/Desktop/Projects/Vibe Coding/Codex"
+cd "/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex"
 python3 -m http.server 4173
 ```
 
-Then open:
+## Important Safety Rule
 
-```bash
-http://localhost:4173
-```
+The user wants a plain-language checkpoint workflow, not Git jargon.
 
-If testing on another device on the same network, use:
+Going forward:
+- if the user says `mark this clean`
+- or `save this state`
+- or similar plain-language checkpoint phrasing
 
-```bash
-http://<your-local-ip>:4173
-```
+Treat that as a request to create a recoverable local checkpoint immediately.
+
+The user specifically wants a future local checkpoint system, likely a `checkpoints/` folder with timestamped snapshots of key files, instead of relying only on Git.
 
 ## Source Of Truth
 
-- Content source of truth is now:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/timeline-content.json`
-- The old markdown planning doc is no longer the source of truth.
-- Timeline `order` numbers in the JSON are internal sequencing only.
+- Content source of truth:
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/timeline-content.json`
+- Layout / interaction source of truth:
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/index.html`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/styles.css`
 
 ## Current Layout Model
 
@@ -66,137 +58,197 @@ http://<your-local-ip>:4173
 - Left: profile / bio / strengths / interests / links
 - Middle: vertical timeline
 - Right: story/content card
+- Desktop timeline focus line is now around `25%` from the top
 
 ### Tablet
 
-- Left/right content remains visually similar to desktop
-- Timeline is moved to a fixed bottom rail
-- Tablet still has some known roughness, but the current geometry was considered acceptable enough to move on
+- Left and right cards remain similar to desktop
+- Timeline is a fixed bottom rail
+- Tablet uses its own mask / rail behavior and should not be casually merged with desktop fixes
 
 ### Mobile
 
-- Top: compact accordion version of the left card
-- Middle: right/story content card
+- Top: compact left-card summary
+- Middle: story/content card
 - Bottom: fixed horizontal timeline rail
-- Mobile timeline/header spacing is very sensitive and should be treated carefully
+- Mobile spacing is very sensitive
+- Desktop-only timeline fixes must stay desktop-only unless explicitly requested
 
-## GOOD Baseline
+## Timeline State
 
-If someone says “go back to the good version”, they mean the state after these were working together:
+### Desktop
 
-- mobile tick/spine behavior is correct
-- compact startup centering/callout handling is correct
-- compact reorder animation is correct
-- current timeline/header spacing model is correct
-- current active pill animation is correct
+- Active item focus is aligned to the desktop focus lane near `25%`
+- Desktop timeline items are clickable and auto-scroll into focus
+- Desktop pinned year behavior was heavily tuned
+- The scrolling desktop year labels use:
+  - `.timeline-entry.year .entry-pill { left: -71px; }`
+- Desktop year swap behavior currently depends on the year marker hitting the desktop trigger, not just story item activation
 
-### Important Mobile Timeline Rules
+### Mobile
 
-- The mobile timeline shell is fixed to the bottom of the viewport.
-- The `EXPERIENCE` row is in normal flow above the rail, not absolutely floated over it.
-- If spacing is added above/below the `EXPERIENCE` row, the shell height should increase rather than nudging rail geometry independently.
-- The mobile rail model is easiest to reason about as:
-  - header region
-  - gap under header
-  - rail/ticks region
-  - year region
-- Tick orientation matters:
-  - the spine is the anchor
-  - tick height should conceptually grow upward from the spine
-  - do not casually “fix” tick height by changing unrelated offsets
+- Mobile year spacing was recently tightened and is considered acceptable right now
+- Mobile timeline guide lines are currently OFF
+- Mobile active item scaling issue was fixed by changing transform origin so the pill grows from center instead of dropping downward
+- Mobile content card supports swipe left/right to move between timeline items
+- Mobile timeline items can be tapped to scroll them into focus
 
-## Current Timeline / Content Behavior
+## Current Story / Content Behavior
 
-- Compact timelines center the first visible item on initial load in either direction.
-- In forward mode, the first/current item should be centered on load.
-- In reverse mode, the earliest item should also be centered on load.
-- Callouts do not drive the story card.
-- If a centered item is a callout, the story card clears instead of selecting another work item.
-- The reorder toggle now rebuilds the rail from the new start side rather than jumping to the far end.
-- Compact year locking uses the newer pin/lock treatment and was being refined; do not assume old fake-overlay experiments are valid.
+- Story card transitions:
+  - desktop uses stronger vertical motion
+  - mobile uses horizontal motion
+  - content card transition blur is intentionally present
+- Story image area supports:
+  - real image
+  - default FPO placeholder
+  - animated no-image fallback for `Start Here` only
 
-## Current Company / Identity Behavior
+### First entries in 2026
 
-- The employer pill lives beside `EXPERIENCE` in the timeline header.
-- The content card no longer uses a separate company pill.
-- The `COMPANY • YEAR` line in the content card should remain plain text.
-- For non-company items, use a `MILESTONE` pill/state in the timeline header so the header row remains stable.
-- Callouts inherit the employer grouping they belong to.
-- `Taking a Break` is a non-company item and should behave like a milestone.
+Current first entries:
 
-### Employer Pill Transition Intent
+1. `Start Here`
+2. `Closer to the Work`
+3. `GLP-1 Launch`
 
-- The header employer pill should never disappear during a swap.
-- The pill shape stays present.
-- Width stretches/compresses to fit the next label.
-- Background/border color crossfades.
-- Label text can blur/fade in/out.
-- The transition should feel like one persistent pill morphing, not a pill blinking out and a new one appearing.
+### `Start Here`
 
-## Current Story Card Behavior
+- This is now the first entry before `Closer to the Work`
+- It has:
+  - no kicker
+  - no chips
+  - no note/caption under the fallback visual
+- Copy:
+  - `This is a timeline of some of my work over the years, and a few highlights along the way.`
+  - `Scroll through the timeline to explore, details update as you move.`
+- Its no-image state now uses a custom animated fallback graphic instead of the normal FPO container
 
-- The story card uses a faint top-left company tint.
-- FPO screens are now neutral gray.
-- Story image area is a container, not treated as a final image layout.
-- The `COMPANY • YEAR` kicker sits above the story title as plain text.
-- Headline-to-paragraph spacing was tightened recently.
+### `Closer to the Work`
 
-### Scroll / Fade Behavior
+- Headline:
+  - `Closer to the Work`
+- Copy:
+  - `Took a short career break to focus on how things actually get built now.`
+  - `Spent the time working across design, prototypes, and code to stay sharp and hands-on.`
+- Tags:
+  - `Design + Code`
+  - `Prototyping`
+  - `AI Tools`
+  - `Workflow`
+  - `Craft`
+- Real image asset:
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/images/ai.png`
 
-- The previous hard white header mask was removed.
-- Story content now experiments with scroll-driven fade/blur.
-- The desired effect is:
-  - no hard clipping line
-  - fade should begin before content crosses the cutoff
-  - text should fade progressively, not as one instant block
-- This area is still being refined locally.
+## FPO / Image Behavior
 
-## Current Content Notes
+### Real image
 
-- `timeline-content.json` is the living content document.
-- `2026` order is:
-  1. `Taking a Break`
-  2. `GLP-1 Launch`
-- `McDonald’s` is a callout and should not become an active selected story.
+- `Closer to the Work` uses a real `<img>` from `/assets/images/ai.png`
+- The real-image container grows to the image height instead of forcing the old fixed FPO box
 
-## Current Employer Colors
+### Default FPO container
 
-- GoodRx: `#FDDB00`
-- Outreach: `#4F47EA`
-- Slack: `#4A154B`
-- Disney: `#36A3D7`
-- AWeber: `#1173BC`
-- Navan: `#8C2988`
-- Okayplayer: `#000000`
+- Non-updated / non-image stories are back to a plain centered `FPO` placeholder
+- The animated fallback is NOT global anymore
 
-## What Is Already Pushed
+### Animated fallback
 
-- Latest pushed checkpoint at the time of this handoff:
-  - commit `9f6d568`
-- That push included:
-  - plain-text `COMPANY • YEAR`
-  - employer pill beside `EXPERIENCE`
-  - timeline/content transition refinements
-  - progressive text fade work in progress
+- Only `Start Here` uses the animated fallback
+- Current direction of that animation:
+  - green box = default viewport
+  - pink section scrolls in
+  - blue section scrolls in
+  - then the loop repeats
+- The current structure is intentionally a `6 + 3 + 3` tick runner
+- This area was still being refined at the end of the session, but the active goal is explicit:
+  - no blank space during flicks
+  - first flick reveals the next 3 ticks
+  - second flick reveals the next 3 ticks
+  - then loop
 
-## Current Local-Only State
+## Current Labels / Pills
 
-There are currently unpushed local edits in:
+- Fallback milestone/company pill label is now:
+  - `Highlights`
+- `Taking a Break` was replaced by:
+  - `Closer to the Work`
 
-- `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/index.html`
-- `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/styles.css`
+## Mobile UI Details
 
-These local changes are mainly:
+### Scroll hint
 
-- content card `COMPANY • YEAR` remains plain text with no background
-- `story-scroll` top padding forced to `0`
-- employer pill beside `EXPERIENCE` stays visible during company/milestone swaps and morphs instead of disappearing
-- story scroll fade/blur behavior is still being tuned to avoid hard clipping
+- Mobile has a delayed hint:
+  - `Scroll To`
+  - `See More`
+- Chevron sits to the left of the two-line label
+- It only appears after `25s` of no timeline scrolling
+- Once the user scrolls the timeline, it should stay dismissed
 
-If resuming on another machine and you need the exact local state, copy these unpushed changes first or push them before switching.
+### Header pullbar / arrow
+
+- Mobile header pullbar is an idle animation now
+- Intended sequence:
+  - flat line
+  - transform to down arrow
+  - bounce twice
+  - flatten again
+- This was refined a lot and is still delicate
+
+## Visual Details
+
+- Story image border is now a dedicated overlay on `.story-image-shell`
+- The visible image object border was lightened and made thinner
+- Real image / FPO shell behavior is intentionally different depending on state
+
+## Strengths / Interests
+
+### Strengths
+
+- `ORG SCALE`
+- `EXECUTIVE PARTNERSHIP`
+- `DESIGN SYSTEMS`
+- `GROWTH & MONETIZATION`
+- `UX RESEARCH`
+- `VIBE-CODING`
+- `BRAND DESIGN`
+- `AI PROTOTYPING`
+- `VOICE & TONE`
+- `0–100 INITIATIVES`
+- `CULTURE BUILDING`
+- `SAAS & B2B`
+
+### Interests
+
+- `CLASSIC GAMING`
+- `COFFEE`
+- `BIRD WATCHING`
+- `HOME NETWORKING`
+- `SNEAKERS`
+- `PC BUILDING`
+- `COMICS`
+- `STREET WEAR`
+- `DADDING`
+- `VINYL & MINIDISC`
+- `COOKING`
+- `SMART HOME`
+- `3D PRINTING`
+- `PHOTOGRAPHY`
+- `THE GOLDEN GIRLS`
+
+## Latest Pushed State
+
+- Latest pushed commit at handoff time:
+  - `57c9391`
+
+That includes:
+- `Start Here` note/caption removed
+- animated fallback only on `Start Here`
+- plain FPO placeholder restored for other non-image stories
+- real image for `Closer to the Work`
 
 ## Resume Prompt
 
-On another machine, the fastest handoff prompt is:
+Use this on the laptop:
 
-`Pull latest repo state, read context.md, then continue working on codex locally. Respect the current mobile timeline “good baseline” and do not casually rework the tick/header spacing model.`
+`Pull latest main, read /Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/context.md, then continue locally. Respect the current mobile spacing, desktop year logic, and the rule that only Start Here uses the animated FPO fallback.`
