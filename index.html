@@ -873,7 +873,7 @@
         if (isTabletLayout) {
           if (sidebarName) sidebarName.style.transform = "";
         } else {
-          fitSidebarHeadingLine(sidebarName, { minScale: 0.94, maxScale: 1.32 });
+          fitSidebarHeadingLine(sidebarName, { minScale: 0.82, maxScale: 1.32 });
         }
         if (sidebarRole) {
           sidebarRole.style.transform = "";
@@ -884,7 +884,7 @@
           if (available && width && !isTabletLayout) {
             if (width > available) {
               const rawScale = available / width;
-              const scale = Math.max(0.88, Math.min(1, rawScale));
+              const scale = Math.max(0.8, Math.min(1, rawScale));
               sidebarRole.style.transform = `scaleX(${scale})`;
             } else if (characters > 0) {
               const extra = (available - width) / characters;
