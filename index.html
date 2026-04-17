@@ -641,6 +641,7 @@
         compact: 990,
         mobile: 720,
       };
+      const NARROW_DESKTOP_BREAKPOINT = 1280;
       const TIMELINE_LAYOUT = {
         startY: 90,
         itemStep: 108,
@@ -697,6 +698,10 @@
 
       function isCompactTimeline() {
         return window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact;
+      }
+
+      function isNarrowDesktopLayout() {
+        return window.innerWidth > RESPONSIVE_BREAKPOINTS.compact && window.innerWidth <= NARROW_DESKTOP_BREAKPOINT;
       }
 
       function isMobileLayout() {
@@ -1997,8 +2002,13 @@
       }
 
       function getScaleForBandProgress(progress) {
-        if (progress <= 0) return ACTIVE_SCALE_STOPS[0][1];
-        if (progress >= 1) return ACTIVE_SCALE_STOPS[ACTIVE_SCALE_STOPS.length - 1][1];
+        const applyDesktopScaleAdjustment = (scale) =>
+          isNarrowDesktopLayout() ? 1 + (scale - 1) * 0.9 : scale;
+
+        if (progress <= 0) return applyDesktopScaleAdjustment(ACTIVE_SCALE_STOPS[0][1]);
+        if (progress >= 1) {
+          return applyDesktopScaleAdjustment(ACTIVE_SCALE_STOPS[ACTIVE_SCALE_STOPS.length - 1][1]);
+        }
 
         for (let index = 0; index < ACTIVE_SCALE_STOPS.length - 1; index += 1) {
           const [startProgress, startScale] = ACTIVE_SCALE_STOPS[index];
@@ -2006,7 +2016,9 @@
           if (progress >= startProgress && progress <= endProgress) {
             const localProgress = (progress - startProgress) / (endProgress - startProgress);
             const easedProgress = smoothstep(localProgress);
-            return startScale + (endScale - startScale) * easedProgress;
+            return applyDesktopScaleAdjustment(
+              startScale + (endScale - startScale) * easedProgress
+            );
           }
         }
 
