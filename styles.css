@@ -176,7 +176,7 @@ body.preload-layout .page-loader {
 
 .page-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 356px minmax(0, 1.6fr);
+  grid-template-columns: minmax(0, 1.14fr) 356px minmax(0, 1.46fr);
   gap: 8px;
   margin-top: 0;
   height: calc(100vh - 58px);
