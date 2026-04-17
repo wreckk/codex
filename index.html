@@ -915,7 +915,9 @@
         const maxFontSize = baseFontSize * 1.32;
 
         sidebarName.style.fontSize = `${maxFontSize}px`;
-        if (measureNameWidth() <= available) return;
+        const _dbgMeasure = measureNameWidth();
+        console.log('[fitSidebarName] available:', available, 'textWidth@max:', _dbgMeasure, 'baseFontSize:', baseFontSize, 'viewport:', window.innerWidth);
+        if (_dbgMeasure <= available) return;
 
         let lo = minFontSize, hi = maxFontSize, best = minFontSize;
         for (let i = 0; i < 10; i++) {
