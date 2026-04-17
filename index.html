@@ -921,7 +921,11 @@
         if (sidebarRole) {
           sidebarRole.style.transform = "";
           sidebarRole.style.fontSize = "";
-          sidebarRole.style.letterSpacing = isTabletLayout ? "2.2px" : "3px";
+          if (!sidebarRole.dataset.baseLetterSpacing) {
+            sidebarRole.dataset.baseLetterSpacing = "3";
+          }
+          const baseLetterSpacing = parseFloat(sidebarRole.dataset.baseLetterSpacing);
+          sidebarRole.style.letterSpacing = isTabletLayout ? "2.2px" : `${baseLetterSpacing}px`;
           if (!sidebarRole.dataset.baseFontSize) {
             sidebarRole.dataset.baseFontSize = window.getComputedStyle(sidebarRole).fontSize;
           }
@@ -931,14 +935,21 @@
           const width = sidebarRole.scrollWidth;
           if (available && width && !isTabletLayout) {
             if (width > available) {
-              if (!Number.isNaN(baseFontSize)) {
-                let low = baseFontSize * 0.8;
-                let high = baseFontSize;
-                let best = low;
+              if (!Number.isNaN(baseFontSize) && !Number.isNaN(baseLetterSpacing)) {
+                const minFontSize = baseFontSize * 0.84;
+                const minLetterSpacing = 1.8;
+                let low = 0;
+                let high = 1;
+                let best = 0;
 
                 for (let index = 0; index < 8; index += 1) {
                   const mid = (low + high) / 2;
-                  sidebarRole.style.fontSize = `${mid}px`;
+                  const candidateFontSize = minFontSize + (baseFontSize - minFontSize) * mid;
+                  const candidateLetterSpacing =
+                    minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * mid;
+
+                  sidebarRole.style.fontSize = `${candidateFontSize}px`;
+                  sidebarRole.style.letterSpacing = `${candidateLetterSpacing}px`;
 
                   if (sidebarRole.scrollWidth <= available) {
                     best = mid;
@@ -948,11 +959,15 @@
                   }
                 }
 
-                sidebarRole.style.fontSize = `${best}px`;
+                const resolvedFontSize = minFontSize + (baseFontSize - minFontSize) * best;
+                const resolvedLetterSpacing =
+                  minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * best;
+                sidebarRole.style.fontSize = `${resolvedFontSize}px`;
+                sidebarRole.style.letterSpacing = `${resolvedLetterSpacing}px`;
               }
             } else if (characters > 0) {
               const extra = (available - width) / characters;
-              sidebarRole.style.letterSpacing = `${3 + extra}px`;
+              sidebarRole.style.letterSpacing = `${baseLetterSpacing + extra}px`;
             }
           }
         }
