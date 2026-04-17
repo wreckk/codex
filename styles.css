@@ -1037,12 +1037,20 @@ body.preload-layout .page-loader {
 }
 
 .timeline-welcome-wave {
+  display: inline-flex;
   margin-right: 6px;
   vertical-align: -0.02em;
+  text-shadow: none;
+  filter: none;
 }
 
 .timeline-welcome-text {
   display: inline-block;
+}
+
+.timeline-entry.active .timeline-welcome-wave {
+  text-shadow: none;
+  filter: none;
 }
 
 .timeline-entry.minor .month {
@@ -1660,9 +1668,18 @@ body.preload-layout .page-loader {
   overflow: hidden;
   border-radius: inherit;
   box-sizing: border-box;
-  box-shadow: inset 0 0 0 2px rgba(176, 176, 176, 0.48);
   background:
     linear-gradient(180deg, rgba(250, 248, 244, 0.98), rgba(242, 238, 232, 0.96));
+}
+
+.story-image-fpo--glp1::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border: 2px solid rgba(176, 176, 176, 0.56);
+  border-radius: calc(12px - 1px);
+  pointer-events: none;
+  z-index: 5;
 }
 
 .story-image-fpo__glp1-viewport {
