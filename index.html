@@ -1856,7 +1856,7 @@
       function getCompactYearRange(entry, index) {
         const peers = timelineTargetsByYear.get(entry.dataset.year) || [];
         if (!peers.length) return null;
-        const itemStep = isMobileLayout() ? 178 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const itemStep = isMobileLayout() ? 204 : COMPACT_TIMELINE_LAYOUT.itemStep;
         const firstCenter = getEntryX(peers[0]);
         const lastCenter = getEntryX(peers[peers.length - 1]);
         const previousYear = yearEntries[index - 1];
@@ -2178,7 +2178,7 @@
       function layoutTimelineCompact() {
         if (!timelineContent) return;
 
-        const itemStep = isMobileLayout() ? 178 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const itemStep = isMobileLayout() ? 204 : COMPACT_TIMELINE_LAYOUT.itemStep;
         const startX = snapToTick(track.clientWidth / 2);
         const yearGapStep = itemStep * (isMobileLayout() ? 0.5 : COMPACT_TIMELINE_LAYOUT.yearGapRatio);
         let currentX = startX;
