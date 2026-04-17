@@ -607,8 +607,20 @@
       const storyCard = document.querySelector(".story-card");
       const sidebarCard = document.querySelector(".sidebar-card");
       const sidebarHeading = document.querySelector(".sidebar-heading");
+      const sidebarHeadingHome = sidebarHeading?.parentElement || null;
       const sidebarName = sidebarHeading?.querySelector("h1");
       const sidebarRole = sidebarHeading?.querySelector("p");
+
+      function reparentSidebarHeading() {
+        if (!sidebarHeading) return;
+        if (isMobileLayout()) {
+          if (sidebarHeading.parentElement !== document.body) {
+            document.body.appendChild(sidebarHeading);
+          }
+        } else if (sidebarHeadingHome && sidebarHeading.parentElement !== sidebarHeadingHome) {
+          sidebarHeadingHome.insertBefore(sidebarHeading, sidebarHeadingHome.firstChild);
+        }
+      }
       let timelineEntries = [];
       let yearEntries = [];
       let timelineDisplayEntries = [];
@@ -2728,6 +2740,7 @@
         hydrateTimelineCollections();
         layoutTimeline();
         syncTimelineOrderToggle();
+        reparentSidebarHeading();
         scheduleSidebarHeadingFit();
         scheduleMobileLayoutMetrics();
         const initialStoryId = getStoryIdFromHash();
@@ -2759,6 +2772,7 @@
       });
       window.addEventListener("resize", () => {
         layoutTimeline();
+        reparentSidebarHeading();
         scheduleSidebarHeadingFit();
         syncTimelineOrderToggle();
         scheduleMobileLayoutMetrics();

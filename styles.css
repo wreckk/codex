@@ -3367,14 +3367,14 @@ body.preload-layout .page-loader {
 
   .mobile-tabs__pill {
     appearance: none;
-    border: 1px solid rgba(225, 213, 193, 0.85);
-    background: #fff;
+    border: 1px solid rgba(225, 213, 193, 0.38);
+    background: transparent;
     color: var(--ink);
     border-radius: 999px;
-    padding: 9px 16px 9px 12px;
+    padding: 10px 22px;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
     font-size: 13px;
     font-weight: 500;
@@ -3382,11 +3382,19 @@ body.preload-layout .page-loader {
     line-height: 1;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    transform-origin: center center;
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
     transition:
-      background 160ms ease,
-      border-color 160ms ease,
-      color 160ms ease,
-      box-shadow 160ms ease;
+      background 220ms ease,
+      border-color 220ms ease,
+      border-width 220ms ease,
+      color 220ms ease,
+      box-shadow 220ms ease,
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 260ms ease,
+      opacity 220ms ease;
   }
 
   .mobile-tabs__pill .mobile-tabs__emoji {
@@ -3396,9 +3404,10 @@ body.preload-layout .page-loader {
 
   .mobile-tabs__pill.is-active {
     background: rgba(255, 252, 247, 0.98);
-    border-color: var(--accent);
+    border: 2px solid var(--accent);
     color: var(--accent);
     box-shadow: 0 10px 20px rgba(216, 198, 176, 0.18);
+    transform: scale(1.08);
   }
 
   .timeline-head-left {
