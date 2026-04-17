@@ -2009,7 +2009,7 @@
       function getScaleForBandProgress(progress) {
         const applyDesktopScaleAdjustment = (scale) =>
           isNarrowDesktopLayout()
-            ? 1 + (scale - 1) * (isTightDesktopLayout() ? 0.78 : 0.9)
+            ? 1 + (scale - 1) * (isTightDesktopLayout() ? 0.62 : 0.9)
             : scale;
 
         if (progress <= 0) return applyDesktopScaleAdjustment(ACTIVE_SCALE_STOPS[0][1]);
