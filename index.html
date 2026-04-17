@@ -925,15 +925,13 @@
         if (sidebarRole) {
           sidebarRole.style.transform = "";
           sidebarRole.style.fontSize = "";
-          if (!sidebarRole.dataset.baseLetterSpacing) {
-            sidebarRole.dataset.baseLetterSpacing = "3";
-          }
-          const baseLetterSpacing = parseFloat(sidebarRole.dataset.baseLetterSpacing);
+          sidebarRole.style.letterSpacing = "";
+          const computedRoleStyles = window.getComputedStyle(sidebarRole);
+          const baseLetterSpacing = Number.isNaN(parseFloat(computedRoleStyles.letterSpacing))
+            ? 3
+            : parseFloat(computedRoleStyles.letterSpacing);
+          const baseFontSize = parseFloat(computedRoleStyles.fontSize);
           sidebarRole.style.letterSpacing = isTabletLayout ? "2.2px" : `${baseLetterSpacing}px`;
-          if (!sidebarRole.dataset.baseFontSize) {
-            sidebarRole.dataset.baseFontSize = window.getComputedStyle(sidebarRole).fontSize;
-          }
-          const baseFontSize = parseFloat(sidebarRole.dataset.baseFontSize);
           const available = sidebarHeading?.clientWidth || 0;
           const characters = Math.max(1, sidebarRole.textContent.trim().length - 1);
           const width = sidebarRole.scrollWidth;
