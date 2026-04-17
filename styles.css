@@ -1571,7 +1571,7 @@ body.preload-layout .page-loader {
 .story-image-fpo__welcome-card.is-exit,
 .story-image-fpo__welcome-card.is-front.is-exit {
   z-index: 5;
-  transform: translate3d(30px, -50%, 0) rotate(8deg) scale(1.02);
+  transform: translate3d(0, -62%, 0) rotate(-5deg) scale(1.02);
   opacity: 0;
   filter: blur(8px);
 }
