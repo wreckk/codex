@@ -149,7 +149,7 @@ body.preload-layout .page-loader {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
   display: block;
   font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 46px;
@@ -168,7 +168,7 @@ body.preload-layout .page-loader {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
   display: block;
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;

@@ -874,133 +874,143 @@
         mobilePullbarAnimationFrame = requestAnimationFrame(step);
       }
 
-      function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
-        if (!node || !sidebarHeading) return;
-        node.style.transform = "";
-        if (!node.dataset.baseFontSize) {
-          node.dataset.baseFontSize = window.getComputedStyle(node).fontSize;
+      function fitSidebarName() {
+        if (!sidebarName || !sidebarHeading) return;
+        if (isMobileLayout()) {
+          sidebarName.style.fontSize = "";
+          sidebarName.style.letterSpacing = "";
+          sidebarName.style.transform = "";
+          return;
         }
-        const baseFontSize = parseFloat(node.dataset.baseFontSize);
+        sidebarName.style.letterSpacing = "";
+        sidebarName.style.transform = "";
+
+        // Always read fresh — CSS font-size changes across grid breakpoints so a cached
+        // value from a wider viewport gives the wrong base when the column narrows
+        sidebarName.style.fontSize = "";
+        const baseFontSize = parseFloat(window.getComputedStyle(sidebarName).fontSize);
         const available = sidebarHeading.clientWidth;
         if (!available || Number.isNaN(baseFontSize)) return;
 
-        const minFontSize = baseFontSize * minScale;
-        const maxFontSize = baseFontSize * maxScale;
-        let low = minFontSize;
-        let high = maxFontSize;
-        let best = minFontSize;
-
-        node.style.fontSize = `${maxFontSize}px`;
-        if (node.scrollWidth <= available) {
-          return;
+        function measureNameWidth() {
+          // Pop out of flex layout so flex-shrink can't constrain the measurement
+          sidebarName.style.position = 'absolute';
+          sidebarName.style.width = 'auto';
+          sidebarName.style.maxWidth = 'none';
+          const w = sidebarName.offsetWidth;
+          sidebarName.style.position = '';
+          sidebarName.style.width = '';
+          sidebarName.style.maxWidth = '';
+          return w;
         }
 
-        for (let index = 0; index < 8; index += 1) {
-          const mid = (low + high) / 2;
-          node.style.fontSize = `${mid}px`;
+        const minFontSize = baseFontSize * 0.82;
+        const maxFontSize = baseFontSize * 1.32;
 
-          if (node.scrollWidth <= available) {
-            best = mid;
-            low = mid;
-          } else {
-            high = mid;
+        sidebarName.style.fontSize = `${maxFontSize}px`;
+        if (measureNameWidth() <= available) return;
+
+        let lo = minFontSize, hi = maxFontSize, best = minFontSize;
+        for (let i = 0; i < 10; i++) {
+          const mid = (lo + hi) / 2;
+          sidebarName.style.fontSize = `${mid}px`;
+          if (measureNameWidth() <= available) { best = mid; lo = mid; }
+          else { hi = mid; }
+        }
+        sidebarName.style.fontSize = `${best}px`;
+      }
+
+      function fitSidebarTitle() {
+        if (!sidebarRole || !sidebarHeading) return;
+        sidebarRole.style.fontSize = "";
+        sidebarRole.style.letterSpacing = "";
+        sidebarRole.style.transform = "";
+
+        if (window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact && !isMobileLayout()) return;
+
+        const available = sidebarHeading.clientWidth;
+        if (!available) return;
+
+        const cs = window.getComputedStyle(sidebarRole);
+        const baseFontSize = parseFloat(cs.fontSize);
+        const baseLetterSpacing = parseFloat(cs.letterSpacing) || 3;
+        if (Number.isNaN(baseFontSize)) return;
+
+        function measureTextWidth() {
+          sidebarRole.style.position = 'absolute';
+          sidebarRole.style.width = 'auto';
+          sidebarRole.style.maxWidth = 'none';
+          const w = sidebarRole.offsetWidth;
+          sidebarRole.style.position = '';
+          sidebarRole.style.width = '';
+          sidebarRole.style.maxWidth = '';
+          return w;
+        }
+
+        sidebarRole.style.fontSize = `${baseFontSize}px`;
+        sidebarRole.style.letterSpacing = `${baseLetterSpacing}px`;
+        const baseWidth = measureTextWidth();
+
+        if (Math.abs(baseWidth - available) <= 1) return;
+
+        // letter-spacing applies after every character including the last (visually
+        // trimmed but affects range width), so use full char count as divisor for nudge
+        const charCount = Math.max(1, sidebarRole.textContent.trim().length);
+
+        if (baseWidth > available) {
+          // Shrink — spacing reduces first (70% of range), font shrinks after
+          const minSpacing = 1.8;
+          const minFont = baseFontSize * 0.84;
+          let lo = 0, hi = 1, best = 1;
+          for (let i = 0; i < 10; i++) {
+            const mid = (lo + hi) / 2;
+            const st = Math.min(1, mid / 0.7);
+            const ft = Math.max(0, (mid - 0.7) / 0.3);
+            sidebarRole.style.letterSpacing = `${baseLetterSpacing + (minSpacing - baseLetterSpacing) * st}px`;
+            sidebarRole.style.fontSize = `${baseFontSize + (minFont - baseFontSize) * ft}px`;
+            if (measureTextWidth() <= available) { best = mid; hi = mid; }
+            else { lo = mid; }
+          }
+          const st = Math.min(1, best / 0.7);
+          const ft = Math.max(0, (best - 0.7) / 0.3);
+          sidebarRole.style.letterSpacing = `${baseLetterSpacing + (minSpacing - baseLetterSpacing) * st}px`;
+          sidebarRole.style.fontSize = `${baseFontSize + (minFont - baseFontSize) * ft}px`;
+          // Close remaining gap after shrink binary search
+          const shrinkGap = available - measureTextWidth();
+          if (shrinkGap > 0.5) {
+            const currentSpacing = parseFloat(sidebarRole.style.letterSpacing) || baseLetterSpacing;
+            sidebarRole.style.letterSpacing = `${currentSpacing + shrinkGap / charCount}px`;
+          }
+        } else {
+          // Expand — spacing grows first (70% of range), font grows after
+          const maxSpacing = baseLetterSpacing + 24;
+          const maxFont = baseFontSize * 1.18;
+          let lo = 0, hi = 1, best = 0;
+          for (let i = 0; i < 10; i++) {
+            const mid = (lo + hi) / 2;
+            const st = Math.min(1, mid / 0.7);
+            const ft = Math.max(0, (mid - 0.7) / 0.3);
+            sidebarRole.style.letterSpacing = `${baseLetterSpacing + (maxSpacing - baseLetterSpacing) * st}px`;
+            sidebarRole.style.fontSize = `${baseFontSize + (maxFont - baseFontSize) * ft}px`;
+            if (measureTextWidth() <= available) { best = mid; lo = mid; }
+            else { hi = mid; }
+          }
+          const st = Math.min(1, best / 0.7);
+          const ft = Math.max(0, (best - 0.7) / 0.3);
+          sidebarRole.style.letterSpacing = `${baseLetterSpacing + (maxSpacing - baseLetterSpacing) * st}px`;
+          sidebarRole.style.fontSize = `${baseFontSize + (maxFont - baseFontSize) * ft}px`;
+          // Close remaining gap
+          const gap = available - measureTextWidth();
+          if (gap > 0.5) {
+            const currentSpacing = parseFloat(sidebarRole.style.letterSpacing) || baseLetterSpacing;
+            sidebarRole.style.letterSpacing = `${currentSpacing + gap / charCount}px`;
           }
         }
-
-        node.style.fontSize = `${best}px`;
       }
 
       function fitSidebarHeading() {
-        const isTabletLayout = window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact && !isMobileLayout();
-        if (isTabletLayout) {
-          if (sidebarName) {
-            sidebarName.style.transform = "";
-            sidebarName.style.fontSize = "";
-            sidebarName.style.letterSpacing = "";
-          }
-        } else {
-          if (sidebarName) {
-            sidebarName.style.letterSpacing = "";
-          }
-          fitSidebarHeadingLine(sidebarName, { minScale: 0.82, maxScale: 1.32 });
-        }
-        if (sidebarRole) {
-          sidebarRole.style.transform = "";
-          sidebarRole.style.fontSize = "";
-          sidebarRole.style.letterSpacing = "";
-          const computedRoleStyles = window.getComputedStyle(sidebarRole);
-          const baseLetterSpacing = Number.isNaN(parseFloat(computedRoleStyles.letterSpacing))
-            ? 3
-            : parseFloat(computedRoleStyles.letterSpacing);
-          const baseFontSize = parseFloat(computedRoleStyles.fontSize);
-          sidebarRole.style.letterSpacing = isTabletLayout ? "2.2px" : `${baseLetterSpacing}px`;
-          const available = sidebarHeading?.clientWidth || 0;
-          const characters = Math.max(1, sidebarRole.textContent.trim().length - 1);
-          const width = sidebarRole.scrollWidth;
-          if (available && width && !isTabletLayout) {
-            if (width > available) {
-              if (!Number.isNaN(baseFontSize) && !Number.isNaN(baseLetterSpacing)) {
-                const minFontSize = baseFontSize * 0.84;
-                const minLetterSpacing = 1.8;
-                let low = 0;
-                let high = 1;
-                let best = 0;
-
-                for (let index = 0; index < 8; index += 1) {
-                  const mid = (low + high) / 2;
-                  const candidateFontSize = minFontSize + (baseFontSize - minFontSize) * mid;
-                  const candidateLetterSpacing =
-                    minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * mid;
-
-                  sidebarRole.style.fontSize = `${candidateFontSize}px`;
-                  sidebarRole.style.letterSpacing = `${candidateLetterSpacing}px`;
-
-                  if (sidebarRole.scrollWidth <= available) {
-                    best = mid;
-                    low = mid;
-                  } else {
-                    high = mid;
-                  }
-                }
-
-                const resolvedFontSize = minFontSize + (baseFontSize - minFontSize) * best;
-                const resolvedLetterSpacing =
-                  minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * best;
-                sidebarRole.style.fontSize = `${resolvedFontSize}px`;
-                sidebarRole.style.letterSpacing = `${resolvedLetterSpacing}px`;
-              }
-            } else if (characters > 0 && !Number.isNaN(baseFontSize) && !Number.isNaN(baseLetterSpacing)) {
-              sidebarRole.style.fontSize = `${baseFontSize}px`;
-              sidebarRole.style.letterSpacing = `${baseLetterSpacing}px`;
-
-              let low = baseLetterSpacing;
-              let high =
-                baseLetterSpacing + Math.max(6, ((available - sidebarRole.scrollWidth) / characters) * 1.5);
-              let best = baseLetterSpacing;
-
-              sidebarRole.style.letterSpacing = `${high}px`;
-              while (sidebarRole.scrollWidth < available && high < baseLetterSpacing + 24) {
-                low = high;
-                high += 3;
-                sidebarRole.style.letterSpacing = `${high}px`;
-              }
-
-              for (let index = 0; index < 10; index += 1) {
-                const mid = (low + high) / 2;
-                sidebarRole.style.letterSpacing = `${mid}px`;
-
-                if (sidebarRole.scrollWidth <= available) {
-                  best = mid;
-                  low = mid;
-                } else {
-                  high = mid;
-                }
-              }
-
-              sidebarRole.style.letterSpacing = `${best}px`;
-            }
-          }
-        }
+        fitSidebarName();
+        fitSidebarTitle();
 
         if (sidebarMobileToggleName) {
           sidebarMobileToggleName.style.transform = "";
