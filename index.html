@@ -972,7 +972,7 @@
             } else if (characters > 0 && !Number.isNaN(baseFontSize) && !Number.isNaN(baseLetterSpacing)) {
               const widthRatio = available / width;
               const baseExtraTracking = (available - width) / characters;
-              const fontDelta = baseFontSize * Math.max(0, (widthRatio - 1) * 0.3);
+              const fontDelta = baseFontSize * Math.max(0, (widthRatio - 1) * 0.55);
               const trackingDelta = baseExtraTracking * 0.7;
               let low = 0;
               let high = 1;
