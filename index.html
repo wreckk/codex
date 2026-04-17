@@ -970,18 +970,20 @@
                 sidebarRole.style.letterSpacing = `${resolvedLetterSpacing}px`;
               }
             } else if (characters > 0 && !Number.isNaN(baseFontSize) && !Number.isNaN(baseLetterSpacing)) {
-              const widthRatio = available / width;
-              const targetFontSize = baseFontSize * (1 + Math.max(0, (widthRatio - 1) * 0.3));
-              sidebarRole.style.fontSize = `${targetFontSize}px`;
+              sidebarRole.style.fontSize = `${baseFontSize}px`;
               sidebarRole.style.letterSpacing = `${baseLetterSpacing}px`;
 
-              const widthAfterFontSize = sidebarRole.scrollWidth;
-              const targetLetterSpacing =
-                baseLetterSpacing + Math.max(0, (available - widthAfterFontSize) / characters);
-
               let low = baseLetterSpacing;
-              let high = targetLetterSpacing;
+              let high =
+                baseLetterSpacing + Math.max(6, ((available - sidebarRole.scrollWidth) / characters) * 1.5);
               let best = baseLetterSpacing;
+
+              sidebarRole.style.letterSpacing = `${high}px`;
+              while (sidebarRole.scrollWidth < available && high < baseLetterSpacing + 24) {
+                low = high;
+                high += 3;
+                sidebarRole.style.letterSpacing = `${high}px`;
+              }
 
               for (let index = 0; index < 10; index += 1) {
                 const mid = (low + high) / 2;
