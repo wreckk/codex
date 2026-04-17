@@ -971,28 +971,21 @@
               }
             } else if (characters > 0 && !Number.isNaN(baseFontSize) && !Number.isNaN(baseLetterSpacing)) {
               const widthRatio = available / width;
-              const baseExtraTracking = (available - width) / characters;
-              const fontDelta = baseFontSize * Math.max(0, (widthRatio - 1) * 0.55);
-              const trackingDelta = baseExtraTracking * 0.7;
-              let low = 0;
-              let high = 1;
-              let best = 0;
+              const targetFontSize = baseFontSize * (1 + Math.max(0, (widthRatio - 1) * 0.3));
+              sidebarRole.style.fontSize = `${targetFontSize}px`;
+              sidebarRole.style.letterSpacing = `${baseLetterSpacing}px`;
 
-              const applyExpansion = (factor) => {
-                sidebarRole.style.fontSize = `${baseFontSize + fontDelta * factor}px`;
-                sidebarRole.style.letterSpacing = `${baseLetterSpacing + trackingDelta * factor}px`;
-              };
+              const widthAfterFontSize = sidebarRole.scrollWidth;
+              const targetLetterSpacing =
+                baseLetterSpacing + Math.max(0, (available - widthAfterFontSize) / characters);
 
-              applyExpansion(high);
-              while (sidebarRole.scrollWidth < available && high < 8) {
-                low = high;
-                high *= 2;
-                applyExpansion(high);
-              }
+              let low = baseLetterSpacing;
+              let high = targetLetterSpacing;
+              let best = baseLetterSpacing;
 
               for (let index = 0; index < 10; index += 1) {
                 const mid = (low + high) / 2;
-                applyExpansion(mid);
+                sidebarRole.style.letterSpacing = `${mid}px`;
 
                 if (sidebarRole.scrollWidth <= available) {
                   best = mid;
@@ -1002,7 +995,7 @@
                 }
               }
 
-              applyExpansion(best);
+              sidebarRole.style.letterSpacing = `${best}px`;
             }
           }
         }
