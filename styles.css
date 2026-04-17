@@ -724,6 +724,9 @@ body.preload-layout .page-loader {
 @media (max-width: 1280px) and (min-width: 991px) {
   /* Narrow desktop breakpoint:
      keep all desktop-only layout massage for widths between 1280px and tablet here. */
+  .page-body {
+    grid-template-columns: 30% 31% 39%;
+  }
 }
 
 .timeline-track::before,
