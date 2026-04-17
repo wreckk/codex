@@ -3633,6 +3633,28 @@ body.preload-layout .page-loader {
     top: var(--mobile-timeline-items-top);
   }
 
+  .timeline-entry .entry-pill {
+    align-items: center;
+  }
+
+  .timeline-entry .label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .timeline-entry-emoji,
+  .timeline-welcome-wave {
+    align-self: center;
+    transform: translateY(0);
+    margin-right: 0.24em;
+  }
+
+  .timeline-entry-text,
+  .timeline-welcome-text {
+    display: inline-flex;
+    align-items: center;
+  }
+
   .timeline-entry::before {
     position: absolute;
     left: 50%;
