@@ -2242,10 +2242,13 @@
         }
         if (timelineShortTicks) {
           timelineShortTicks.style.height = `${lastTargetY}px`;
+          timelineShortTicks.style.width = "";
         }
         if (timelineTailTicks) {
           timelineTailTicks.style.top = `${lastTargetY}px`;
           timelineTailTicks.style.height = `${tailLength}px`;
+          timelineTailTicks.style.left = "";
+          timelineTailTicks.style.width = "";
           const tailStops = Array.from({ length: TAIL_TICKS.count }, (_, index) => {
             const start = index * TAIL_TICKS.step;
             const end = start + 1;
@@ -2349,6 +2352,7 @@
           timelineTailTicks.style.left = `${lastTargetX}px`;
           timelineTailTicks.style.width = `${tailLength}px`;
           timelineTailTicks.style.height = "";
+          timelineTailTicks.style.top = "";
           const tailStops = Array.from({ length: TAIL_TICKS.count }, (_, index) => {
             const start = index * TAIL_TICKS.step;
             const end = start + 1;
