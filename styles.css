@@ -712,7 +712,7 @@ body.preload-layout .page-loader {
   transform: translateY(100px);
 }
 
-@media (max-width: 990px) {
+@media (max-width: 960px) {
   .timeline-track.is-reordering-in .timeline-entry,
   .timeline-track.is-reordering-in .timeline-backtotop,
   .timeline-track.is-reordering-in .timeline-progress-line,
@@ -721,7 +721,7 @@ body.preload-layout .page-loader {
   }
 }
 
-@media (max-width: 1280px) and (min-width: 991px) {
+@media (max-width: 1280px) and (min-width: 961px) {
   /* Narrow desktop breakpoint:
      keep all desktop-only layout massage for widths between 1280px and tablet here. */
   .page-body {
@@ -768,7 +768,7 @@ body.preload-layout .page-loader {
   }
 }
 
-@media (max-width: 1060px) and (min-width: 991px) {
+@media (max-width: 1060px) and (min-width: 961px) {
   .page-body {
     grid-template-columns: 27% 29% 44%;
   }
@@ -2668,7 +2668,7 @@ body.preload-layout .page-loader {
   }
 }
 
-@media (max-width: 990px) {
+@media (max-width: 960px) {
   :root {
     --tablet-timeline-height: 154px;
     --tablet-shell-padding: 16px;
