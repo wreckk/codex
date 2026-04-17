@@ -1675,11 +1675,12 @@ body.preload-layout .page-loader {
 .story-image-fpo--glp1::after {
   content: "";
   position: absolute;
-  inset: 1px;
+  inset: 0;
   border: 2px solid rgb(214, 214, 214);
-  border-radius: calc(12px - 1px);
+  border-radius: inherit;
   pointer-events: none;
   z-index: 5;
+  box-sizing: border-box;
 }
 
 .story-image-fpo__glp1-viewport {
