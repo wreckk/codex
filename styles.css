@@ -712,7 +712,7 @@ body.preload-layout .page-loader {
   transform: translateY(100px);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 990px) {
   .timeline-track.is-reordering-in .timeline-entry,
   .timeline-track.is-reordering-in .timeline-backtotop,
   .timeline-track.is-reordering-in .timeline-progress-line,
@@ -2615,7 +2615,7 @@ body.preload-layout .page-loader {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 990px) {
   :root {
     --tablet-timeline-height: 154px;
     --tablet-shell-padding: 16px;
