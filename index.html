@@ -742,10 +742,13 @@
           return;
         }
 
-        const headerHeight = Math.ceil((sidebarHeading?.getBoundingClientRect().height) || 0);
-        const timelineHeight = Math.ceil(timelineColumn.getBoundingClientRect().height);
+        // Use offsetHeight — getBoundingClientRect returns transformed dimensions,
+        // so measuring the timeline while it's scaled down (tab-about) would feed
+        // a smaller value into the CSS vars and grow the card on the next swap back.
+        const headerHeight = Math.ceil(sidebarHeading?.offsetHeight || 0);
+        const timelineHeight = Math.ceil(timelineColumn.offsetHeight || 0);
         const tabsEl = document.querySelector(".mobile-tabs");
-        const tabsHeight = Math.ceil((tabsEl?.getBoundingClientRect().height) || 0);
+        const tabsHeight = Math.ceil(tabsEl?.offsetHeight || 0);
         document.documentElement.style.setProperty("--mobile-header-height", `${headerHeight}px`);
         document.documentElement.style.setProperty("--mobile-timeline-height", `${timelineHeight}px`);
         document.documentElement.style.setProperty("--mobile-tabs-height", `${tabsHeight}px`);
