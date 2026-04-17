@@ -970,22 +970,28 @@
                 sidebarRole.style.letterSpacing = `${resolvedLetterSpacing}px`;
               }
             } else if (characters > 0 && !Number.isNaN(baseFontSize) && !Number.isNaN(baseLetterSpacing)) {
-              const widthRatio = available / width;
-              const targetFontSize = baseFontSize * (1 + (widthRatio - 1) * 0.3);
-              const targetLetterSpacing =
-                baseLetterSpacing + ((available - width) / characters) * 0.7;
+              const baseExtraTracking = (available - width) / characters;
+              const fontDelta = baseFontSize * 0.3;
+              const trackingDelta = baseExtraTracking * 0.7;
               let low = 0;
               let high = 1;
               let best = 0;
 
-              for (let index = 0; index < 8; index += 1) {
-                const mid = (low + high) / 2;
-                const candidateFontSize = baseFontSize + (targetFontSize - baseFontSize) * mid;
-                const candidateLetterSpacing =
-                  baseLetterSpacing + (targetLetterSpacing - baseLetterSpacing) * mid;
+              const applyExpansion = (factor) => {
+                sidebarRole.style.fontSize = `${baseFontSize + fontDelta * factor}px`;
+                sidebarRole.style.letterSpacing = `${baseLetterSpacing + trackingDelta * factor}px`;
+              };
 
-                sidebarRole.style.fontSize = `${candidateFontSize}px`;
-                sidebarRole.style.letterSpacing = `${candidateLetterSpacing}px`;
+              applyExpansion(high);
+              while (sidebarRole.scrollWidth < available && high < 8) {
+                low = high;
+                high *= 2;
+                applyExpansion(high);
+              }
+
+              for (let index = 0; index < 10; index += 1) {
+                const mid = (low + high) / 2;
+                applyExpansion(mid);
 
                 if (sidebarRole.scrollWidth <= available) {
                   best = mid;
@@ -995,11 +1001,7 @@
                 }
               }
 
-              const resolvedFontSize = baseFontSize + (targetFontSize - baseFontSize) * best;
-              const resolvedLetterSpacing =
-                baseLetterSpacing + (targetLetterSpacing - baseLetterSpacing) * best;
-              sidebarRole.style.fontSize = `${resolvedFontSize}px`;
-              sidebarRole.style.letterSpacing = `${resolvedLetterSpacing}px`;
+              applyExpansion(best);
             }
           }
         }
