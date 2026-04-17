@@ -519,6 +519,12 @@
             return '<span class="label"><span class="wave timeline-welcome-wave" aria-hidden="true">👋</span><span class="timeline-welcome-text">Welcome</span></span>';
           }
 
+          const emojiMatch = title.match(/^([\p{Extended_Pictographic}\uFE0F]+)\s*(.+)$/u);
+          if (emojiMatch) {
+            const [, emoji, text] = emojiMatch;
+            return `<span class="label"><span class="timeline-entry-emoji" aria-hidden="true">${emoji}</span><span class="timeline-entry-text">${text}</span></span>`;
+          }
+
           return `<span class="label">${title}</span>`;
         };
 
