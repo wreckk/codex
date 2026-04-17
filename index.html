@@ -833,29 +833,20 @@
         }
 
         const minFontSize = baseFontSize * 0.4;
-        const maxFontSize = baseFontSize * 1.32;
+        const maxFontSize = baseFontSize * 2.0;
 
-        sidebarName.style.fontSize = `${maxFontSize}px`;
-        if (measureNameWidth() > available) {
-          let lo = minFontSize, hi = maxFontSize, best = minFontSize;
-          for (let i = 0; i < 10; i++) {
-            const mid = (lo + hi) / 2;
-            sidebarName.style.fontSize = `${mid}px`;
-            if (measureNameWidth() <= available) { best = mid; lo = mid; }
-            else { hi = mid; }
-          }
-          sidebarName.style.fontSize = `${best}px`;
+        // Binary search for the largest font-size that fits the available width.
+        // Don't fall back to letter-spacing stretching for the name — we want
+        // the name to grow by font-size only. If there's residual slack, it's
+        // the title's job (via its own tracking logic) to match this width.
+        let lo = minFontSize, hi = maxFontSize, best = minFontSize;
+        for (let i = 0; i < 14; i++) {
+          const mid = (lo + hi) / 2;
+          sidebarName.style.fontSize = `${mid}px`;
+          if (measureNameWidth() <= available) { best = mid; lo = mid; }
+          else { hi = mid; }
         }
-
-        // After font-size is set, track letter-spacing to stretch name flush
-        // with available width (match the title's tracking behavior)
-        const gap = available - measureNameWidth();
-        if (gap > 0.5) {
-          const charCount = Math.max(1, sidebarName.textContent.trim().length);
-          const baseLetterSpacing =
-            parseFloat(window.getComputedStyle(sidebarName).letterSpacing) || 0;
-          sidebarName.style.letterSpacing = `${baseLetterSpacing + gap / charCount}px`;
-        }
+        sidebarName.style.fontSize = `${best}px`;
 
         nameProbe.remove();
       }
@@ -865,8 +856,6 @@
         sidebarRole.style.fontSize = "";
         sidebarRole.style.letterSpacing = "";
         sidebarRole.style.transform = "";
-
-        if (window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact && !isMobileLayout()) return;
 
         const available = sidebarRole.parentElement?.clientWidth || sidebarHeading.clientWidth;
         if (!available) return;
