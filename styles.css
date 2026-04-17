@@ -3421,13 +3421,16 @@ body.preload-layout .page-loader {
     gap: 8px;
     flex: 1 1 0;
     font-family: "SF Pro Text Local";
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
     line-height: 1;
+    text-transform: uppercase;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: color 260ms ease 0ms;
+    transition:
+      color 260ms ease 0ms,
+      font-weight 0ms 0ms;
   }
 
   .mobile-tabs__pill .mobile-tabs__emoji,
@@ -3449,7 +3452,10 @@ body.preload-layout .page-loader {
 
   .mobile-tabs__pill.is-active {
     color: var(--accent);
-    transition: color 320ms ease 240ms;
+    font-weight: 500;
+    transition:
+      color 320ms ease 240ms,
+      font-weight 0ms 660ms;
   }
 
   .mobile-tabs__pill.is-active .mobile-tabs__emoji {
