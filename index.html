@@ -673,7 +673,6 @@
         [5 / 6, 1.08],
         [1, 1],
       ];
-      const DESKTOP_ACTIVE_SCALE_MULTIPLIER = 0.9;
       const TRIGGER_ZONE = {
         fixedOffset: 96,
         halfHeight: 54,
@@ -1998,13 +1997,8 @@
       }
 
       function getScaleForBandProgress(progress) {
-        const applyDesktopScaleAdjustment = (scale) =>
-          isCompactTimeline() ? scale : 1 + (scale - 1) * DESKTOP_ACTIVE_SCALE_MULTIPLIER;
-
-        if (progress <= 0) return applyDesktopScaleAdjustment(ACTIVE_SCALE_STOPS[0][1]);
-        if (progress >= 1) {
-          return applyDesktopScaleAdjustment(ACTIVE_SCALE_STOPS[ACTIVE_SCALE_STOPS.length - 1][1]);
-        }
+        if (progress <= 0) return ACTIVE_SCALE_STOPS[0][1];
+        if (progress >= 1) return ACTIVE_SCALE_STOPS[ACTIVE_SCALE_STOPS.length - 1][1];
 
         for (let index = 0; index < ACTIVE_SCALE_STOPS.length - 1; index += 1) {
           const [startProgress, startScale] = ACTIVE_SCALE_STOPS[index];
@@ -2012,9 +2006,7 @@
           if (progress >= startProgress && progress <= endProgress) {
             const localProgress = (progress - startProgress) / (endProgress - startProgress);
             const easedProgress = smoothstep(localProgress);
-            return applyDesktopScaleAdjustment(
-              startScale + (endScale - startScale) * easedProgress
-            );
+            return startScale + (endScale - startScale) * easedProgress;
           }
         }
 
