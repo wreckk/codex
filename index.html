@@ -692,6 +692,8 @@
       let timelineFrame = null;
       let mobileMetricsFrame = null;
       let mobileMetricsObserver = null;
+      let sidebarHeadingObserver = null;
+      let sidebarHeadingFitFrame = null;
       let lastTimelineScrollPosition = 0;
 
       if (window.gsap && window.ScrollTrigger) {
@@ -990,6 +992,19 @@
             sidebarMobileToggleRole.style.letterSpacing = `calc(0.24em + ${trackingPx}px)`;
           }
         }
+      }
+
+      function scheduleSidebarHeadingFit() {
+        if (sidebarHeadingFitFrame !== null) {
+          cancelAnimationFrame(sidebarHeadingFitFrame);
+        }
+        sidebarHeadingFitFrame = requestAnimationFrame(() => {
+          sidebarHeadingFitFrame = null;
+          fitSidebarHeading();
+          requestAnimationFrame(() => {
+            fitSidebarHeading();
+          });
+        });
       }
 
       const CLOSER_TO_WORK_PROMPTS = [
@@ -2767,7 +2782,7 @@
         hydrateTimelineCollections();
         layoutTimeline();
         syncTimelineOrderToggle();
-        fitSidebarHeading();
+        scheduleSidebarHeadingFit();
         syncMobileSidebarState();
         scheduleMobileLayoutMetrics();
         const initialStoryId = getStoryIdFromHash();
@@ -2800,7 +2815,7 @@
       });
       window.addEventListener("resize", () => {
         layoutTimeline();
-        fitSidebarHeading();
+        scheduleSidebarHeadingFit();
         syncMobileSidebarState();
         syncTimelineOrderToggle();
         scheduleMobileLayoutMetrics();
@@ -2823,6 +2838,10 @@
         });
         mobileMetricsObserver.observe(sidebarCard);
         mobileMetricsObserver.observe(timelineColumn);
+        sidebarHeadingObserver = new ResizeObserver(() => {
+          scheduleSidebarHeadingFit();
+        });
+        if (sidebarHeading) sidebarHeadingObserver.observe(sidebarHeading);
       }
       storyScroll?.addEventListener("scroll", updateStoryScrollEffects, { passive: true });
     </script>

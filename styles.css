@@ -3048,11 +3048,17 @@ body.preload-layout .page-loader {
     animation-play-state: paused;
   }
 
+.story-image-fpo__welcome-rail .story-image-fpo__tick {
+  width: var(--story-fpo-col-width);
+  height: auto;
+  flex: 0 0 auto;
+}
+
+@media (min-width: 961px) {
   .story-image-fpo__welcome-rail .story-image-fpo__tick {
-    width: var(--story-fpo-col-width);
-    height: auto;
-    flex: 0 0 auto;
+    opacity: 0.7;
   }
+}
 
   .story-image-fpo__welcome-rail .story-image-fpo__tick--short {
     width: var(--story-fpo-col-width);
