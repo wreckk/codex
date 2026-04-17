@@ -875,24 +875,38 @@
       function fitSidebarHeadingLine(node, { minScale = 0.88, maxScale = 1 } = {}) {
         if (!node || !sidebarHeading) return;
         node.style.transform = "";
+        if (!node.dataset.baseFontSize) {
+          node.dataset.baseFontSize = window.getComputedStyle(node).fontSize;
+        }
+        const baseFontSize = parseFloat(node.dataset.baseFontSize);
         const available = sidebarHeading.clientWidth;
         const width = node.scrollWidth;
         if (!available || !width) return;
         const rawScale = available / width;
         const scale = Math.min(maxScale, Math.max(minScale, rawScale));
-        node.style.transform = `scaleX(${scale})`;
+        if (!Number.isNaN(baseFontSize)) {
+          node.style.fontSize = `${baseFontSize * scale}px`;
+        }
       }
 
       function fitSidebarHeading() {
         const isTabletLayout = window.innerWidth <= RESPONSIVE_BREAKPOINTS.compact && !isMobileLayout();
         if (isTabletLayout) {
-          if (sidebarName) sidebarName.style.transform = "";
+          if (sidebarName) {
+            sidebarName.style.transform = "";
+            sidebarName.style.fontSize = "";
+          }
         } else {
           fitSidebarHeadingLine(sidebarName, { minScale: 0.82, maxScale: 1.32 });
         }
         if (sidebarRole) {
           sidebarRole.style.transform = "";
+          sidebarRole.style.fontSize = "";
           sidebarRole.style.letterSpacing = isTabletLayout ? "2.2px" : "3px";
+          if (!sidebarRole.dataset.baseFontSize) {
+            sidebarRole.dataset.baseFontSize = window.getComputedStyle(sidebarRole).fontSize;
+          }
+          const baseFontSize = parseFloat(sidebarRole.dataset.baseFontSize);
           const available = sidebarHeading?.clientWidth || 0;
           const width = sidebarRole.scrollWidth;
           const characters = Math.max(1, sidebarRole.textContent.trim().length - 1);
@@ -900,7 +914,9 @@
             if (width > available) {
               const rawScale = available / width;
               const scale = Math.max(0.8, Math.min(1, rawScale));
-              sidebarRole.style.transform = `scaleX(${scale})`;
+              if (!Number.isNaN(baseFontSize)) {
+                sidebarRole.style.fontSize = `${baseFontSize * scale}px`;
+              }
             } else if (characters > 0) {
               const extra = (available - width) / characters;
               sidebarRole.style.letterSpacing = `${3 + extra}px`;
