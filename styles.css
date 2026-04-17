@@ -734,12 +734,6 @@ body.preload-layout .page-loader {
     grid-template-columns: 30% 31% 39%;
   }
 
-  .sidebar-card,
-  .story-card {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
   .sidebar-heading,
   .sidebar-scroll,
   .sidebar-intro,
@@ -753,18 +747,6 @@ body.preload-layout .page-loader {
   .sidebar-heading p {
     width: 100%;
     max-width: 100%;
-  }
-
-  .portrait-shell {
-    width: 30%;
-    min-width: 96px;
-    max-width: 112px;
-    height: 148px;
-    margin-right: 12px;
-  }
-
-  .sidebar-links {
-    gap: 8px;
   }
 }
 
