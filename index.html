@@ -643,6 +643,7 @@
       };
       const NARROW_DESKTOP_BREAKPOINT = 1280;
       const TIGHT_DESKTOP_BREAKPOINT = 1105;
+      const EXTRA_TIGHT_DESKTOP_BREAKPOINT = 1040;
       const TIMELINE_LAYOUT = {
         startY: 90,
         itemStep: 108,
@@ -707,6 +708,10 @@
 
       function isTightDesktopLayout() {
         return window.innerWidth > RESPONSIVE_BREAKPOINTS.compact && window.innerWidth <= TIGHT_DESKTOP_BREAKPOINT;
+      }
+
+      function isExtraTightDesktopLayout() {
+        return window.innerWidth > RESPONSIVE_BREAKPOINTS.compact && window.innerWidth <= EXTRA_TIGHT_DESKTOP_BREAKPOINT;
       }
 
       function isMobileLayout() {
@@ -2009,7 +2014,7 @@
       function getScaleForBandProgress(progress) {
         const applyDesktopScaleAdjustment = (scale) =>
           isNarrowDesktopLayout()
-            ? 1 + (scale - 1) * (isTightDesktopLayout() ? 0.44 : 0.9)
+            ? 1 + (scale - 1) * (isExtraTightDesktopLayout() ? 0.34 : isTightDesktopLayout() ? 0.44 : 0.9)
             : scale;
 
         if (progress <= 0) return applyDesktopScaleAdjustment(ACTIVE_SCALE_STOPS[0][1]);
