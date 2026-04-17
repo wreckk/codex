@@ -675,11 +675,11 @@
       };
       const ACTIVE_SCALE_STOPS = [
         [0, 1],
-        [1 / 6, 1.12],
-        [2 / 6, 1.24],
-        [3 / 6, 1.36],
-        [4 / 6, 1.18],
-        [5 / 6, 1.08],
+        [1 / 6, 1.096],
+        [2 / 6, 1.192],
+        [3 / 6, 1.288],
+        [4 / 6, 1.144],
+        [5 / 6, 1.064],
         [1, 1],
       ];
       const TRIGGER_ZONE = {
@@ -827,16 +827,27 @@
         const maxFontSize = baseFontSize * 1.32;
 
         sidebarName.style.fontSize = `${maxFontSize}px`;
-        if (measureNameWidth() <= available) return;
-
-        let lo = minFontSize, hi = maxFontSize, best = minFontSize;
-        for (let i = 0; i < 10; i++) {
-          const mid = (lo + hi) / 2;
-          sidebarName.style.fontSize = `${mid}px`;
-          if (measureNameWidth() <= available) { best = mid; lo = mid; }
-          else { hi = mid; }
+        if (measureNameWidth() > available) {
+          let lo = minFontSize, hi = maxFontSize, best = minFontSize;
+          for (let i = 0; i < 10; i++) {
+            const mid = (lo + hi) / 2;
+            sidebarName.style.fontSize = `${mid}px`;
+            if (measureNameWidth() <= available) { best = mid; lo = mid; }
+            else { hi = mid; }
+          }
+          sidebarName.style.fontSize = `${best}px`;
         }
-        sidebarName.style.fontSize = `${best}px`;
+
+        // After font-size is set, track letter-spacing to stretch name flush
+        // with available width (match the title's tracking behavior)
+        const gap = available - measureNameWidth();
+        if (gap > 0.5) {
+          const charCount = Math.max(1, sidebarName.textContent.trim().length);
+          const baseLetterSpacing =
+            parseFloat(window.getComputedStyle(sidebarName).letterSpacing) || 0;
+          sidebarName.style.letterSpacing = `${baseLetterSpacing + gap / charCount}px`;
+        }
+
         nameProbe.remove();
       }
 
@@ -2714,7 +2725,8 @@
       storyCard?.addEventListener("touchcancel", handleStorySwipeEnd, { passive: true });
 
       const mobileTabs = document.querySelectorAll(".mobile-tabs__pill");
-      function setMobileTab(tab) {
+      const mobileTabsIndicator = document.querySelector(".mobile-tabs__indicator");
+      function setMobileTab(tab, { animate = true } = {}) {
         const next = tab === "about" ? "about" : "work";
         document.body.classList.toggle("tab-about", next === "about");
         document.body.classList.toggle("tab-work", next === "work");
@@ -2723,12 +2735,17 @@
           pill.classList.toggle("is-active", isActive);
           pill.setAttribute("aria-pressed", String(isActive));
         });
+        if (animate && mobileTabsIndicator) {
+          mobileTabsIndicator.classList.remove("is-gliding");
+          void mobileTabsIndicator.offsetWidth;
+          mobileTabsIndicator.classList.add("is-gliding");
+        }
         requestAnimationFrame(scheduleMobileLayoutMetrics);
       }
       mobileTabs.forEach((pill) => {
         pill.addEventListener("click", () => setMobileTab(pill.dataset.tab));
       });
-      document.body.classList.add("tab-work");
+      setMobileTab("work", { animate: false });
 
       async function initializePageLayout() {
         if (document.fonts?.ready) {
