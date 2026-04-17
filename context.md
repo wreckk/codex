@@ -7,11 +7,11 @@ This is the handoff doc for continuing work on `wreckk/codex` across machines.
 - Repo: `https://github.com/wreckk/codex`
 - Branch: `main`
 - Current local repo path:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex`
 - Primary source files:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/index.html`
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/styles.css`
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/timeline-content.json`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/index.html`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/styles.css`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/timeline-content.json`
 
 ## Workflow
 
@@ -19,13 +19,16 @@ This is the handoff doc for continuing work on `wreckk/codex` across machines.
   1. edit locally
   2. verify in local preview
   3. only push when explicitly requested
+- Every local save / reviewable state should get a local commit.
+- If Eric says `mark this`, `checkpoint`, or `good version`, use that language to shape the commit message.
+- Only pull from GitHub when explicitly requested.
 
 ### Local preview
 
 From repo root:
 
 ```bash
-cd "/Users/wreckk/Desktop/Projects/Vibe Coding/Codex"
+cd "/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex"
 python3 -m http.server 4173
 ```
 
@@ -37,10 +40,10 @@ python3 -m http.server 4173
 ## Source Of Truth
 
 - Timeline/story content:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/timeline-content.json`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/timeline-content.json`
 - Layout and behavior:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/index.html`
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/styles.css`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/index.html`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/styles.css`
 
 ## Stable Baseline
 
@@ -91,9 +94,9 @@ This is the most recent active refinement area.
 ### What should remain true
 
 - use assets from:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/ai-logos`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/company-logos/ai-logos`
 - use employer logos from:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/employers`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/company-logos/employers`
 - frosted tiles and varied placement are correct
 - the AI input should sit on top of the icon layer
 - the AI input should feel like a real prompt field rather than a generic tile
@@ -128,9 +131,9 @@ This is the most recent active refinement area.
 The logo assets were reorganized.
 
 - employer logos now live in:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/employers`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/company-logos/employers`
 - AI montage assets live in:
-  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/ai-logos`
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/company-logos/ai-logos`
 
 If employer logo rendering breaks, check `COMPANY_LOGOS` in `index.html` first and make sure it still points at `employers/...`.
 
@@ -148,9 +151,61 @@ If employer logo rendering breaks, check `COMPANY_LOGOS` in `index.html` first a
 - this area is still sensitive and easy to overdo
 - avoid bringing back a hard clipping edge near the top mask/cutline
 
+## `💉 GLP-1 Subscription`
+
+- Headline:
+  - `💉 GLP-1 Subscription`
+- Text:
+  - `I stepped into the work when it wasn’t really landing and pushed to reset the direction.`
+  - `Built a new vision in under 48 hours, tying product and brand together in a way that finally clicked.`
+  - `Ended up being the most successful launch to date, ~1200% MoM subscription growth.`
+- Pills:
+  - `Live Prototype` → `https://glp-1.ericcenteno.com`
+  - `Subscription`
+  - `Growth`
+  - `Product Vision`
+- Description:
+  - `Original approach through AI exploration to the final shipped experience.`
+
+### GLP-1 example behavior
+
+- Local gallery assets live in:
+  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/images/examples-glp1`
+- Files are numbered and should be shown in filename order:
+  1. `01 -  version 1.png`
+  2. `02 - ai v1.png`
+  3. `03 - ai v2.png`
+  4. `04 - shipped.png`
+- The gallery is not a carousel.
+- Each image should:
+  - load full-width
+  - be top-aligned
+  - pause
+  - scroll in page-down style steps
+  - pause between each step
+  - never scroll past the bottom of the image
+- After the final pause, transition to the next screen with:
+  - crossfade
+  - blur
+  - zoom
+- The faux cursor should:
+  - live in the top-right quadrant
+  - use the shared glass cursor styling
+  - flick simply, not over-animate
+- The sample container uses a very light visible border. Current work recently focused on making sure the border does not clip at the rounded corners.
+
+## Welcome Example Notes
+
+- Mobile `👋 Welcome` has a custom cards + faux timeline example.
+- Important mobile layout rules:
+  - card size is intentionally smaller than earlier revisions
+  - faux timeline stays bottom-fixed
+  - card/tick spacing is controlled by layout offsets, not by shrinking the card via padding
+  - top spacing should stay around `25px`
+
 ## Last Known Good Push
 
-- Last requested push before this handoff:
-  - `b13acb7`
-- There have been additional local edits after that point before this handoff push.
-
+- Most recent pushed state should include the context from the commits after `b13acb7`, including:
+  - custom `Welcome` example work
+  - `Closer to the Work` AI montage
+  - `GLP-1 Subscription` gallery behavior
