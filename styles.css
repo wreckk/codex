@@ -3636,16 +3636,20 @@ body.preload-layout .page-loader {
 
   .timeline-entry .entry-pill {
     align-items: center;
+    min-height: 0;
   }
 
   .timeline-entry .label {
     display: inline-flex;
     align-items: center;
+    line-height: 1;
   }
 
   .timeline-entry-emoji,
   .timeline-welcome-wave {
     align-self: center;
+    font-size: 0.9em;
+    line-height: 1;
     transform: translateY(0);
     margin-right: 0.24em;
   }
@@ -3654,6 +3658,7 @@ body.preload-layout .page-loader {
   .timeline-welcome-text {
     display: inline-flex;
     align-items: center;
+    line-height: 1;
   }
 
   .timeline-entry::before {
