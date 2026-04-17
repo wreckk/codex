@@ -3190,7 +3190,7 @@ body.preload-layout .page-loader {
     position: fixed;
     left: 50%;
     top: calc(8px + var(--mobile-header-height, 82px) + 15px);
-    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-tabs-height, 56px) + 45px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-tabs-height, 56px) + 10px);
     transform: translateX(-50%);
     z-index: 20;
     display: grid;
@@ -3263,7 +3263,7 @@ body.preload-layout .page-loader {
     position: fixed;
     left: 50%;
     top: calc(8px + var(--mobile-header-height, 82px) + 15px);
-    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + var(--mobile-tabs-height, 56px) + 45px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + var(--mobile-tabs-height, 56px) + 10px);
     transform: translateX(-50%) scale(1);
     padding: 0;
     z-index: 20;
@@ -3372,7 +3372,8 @@ body.preload-layout .page-loader {
     border-radius: 999px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transform: translate3d(0, 0, 0);
-    transition: transform 620ms cubic-bezier(0.2, 0.9, 0.25, 1);
+    transform-origin: center;
+    transition: transform 620ms cubic-bezier(0.34, 1.56, 0.3, 1);
     z-index: 0;
     pointer-events: none;
   }
@@ -3382,18 +3383,25 @@ body.preload-layout .page-loader {
   }
 
   .mobile-tabs__indicator.is-gliding {
-    animation: tab-indicator-glide 620ms cubic-bezier(0.2, 0.9, 0.25, 1);
+    animation: tab-indicator-glide 620ms cubic-bezier(0.34, 1.56, 0.3, 1);
   }
 
   @keyframes tab-indicator-glide {
     0% {
       filter: blur(0);
+      scale: 1 1;
     }
-    45% {
-      filter: blur(1.2px);
+    35% {
+      filter: blur(1.5px);
+      scale: 1.18 1;
+    }
+    72% {
+      filter: blur(0);
+      scale: 1.05 1;
     }
     100% {
       filter: blur(0);
+      scale: 1 1;
     }
   }
 
@@ -3403,7 +3411,7 @@ body.preload-layout .page-loader {
     z-index: 1;
     border: 0;
     background: transparent;
-    color: rgba(116, 102, 118, 0.8);
+    color: rgba(116, 102, 118, 0.85);
     border-radius: 999px;
     padding: 10px 34px;
     display: inline-flex;
@@ -3419,7 +3427,8 @@ body.preload-layout .page-loader {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition:
-      color 200ms ease 0ms;
+      color 200ms ease 0ms,
+      font-weight 200ms ease 0ms;
   }
 
   .mobile-tabs__pill .mobile-tabs__emoji,
@@ -3427,7 +3436,7 @@ body.preload-layout .page-loader {
     display: inline-block;
     transform: scale(1);
     transform-origin: center;
-    transition: transform 220ms ease 0ms;
+    transition: transform 240ms cubic-bezier(0.34, 1.56, 0.3, 1) 0ms;
   }
 
   .mobile-tabs__pill .mobile-tabs__emoji {
@@ -3436,26 +3445,28 @@ body.preload-layout .page-loader {
     filter: grayscale(1) opacity(0.6);
     transition:
       filter 200ms ease 0ms,
-      transform 220ms ease 0ms;
+      transform 240ms cubic-bezier(0.34, 1.56, 0.3, 1) 0ms;
   }
 
   .mobile-tabs__pill.is-active {
     color: var(--accent);
-    font-weight: 500;
-    transition: color 220ms ease 420ms, font-weight 220ms ease 420ms;
+    font-weight: 600;
+    transition:
+      color 240ms ease 460ms,
+      font-weight 240ms ease 460ms;
   }
 
   .mobile-tabs__pill.is-active .mobile-tabs__emoji {
     filter: grayscale(0) opacity(1);
-    transform: scale(1.12);
+    transform: scale(1.22);
     transition:
-      filter 220ms ease 420ms,
-      transform 220ms ease 420ms;
+      filter 240ms ease 460ms,
+      transform 280ms cubic-bezier(0.34, 1.7, 0.3, 1) 460ms;
   }
 
   .mobile-tabs__pill.is-active .mobile-tabs__label {
-    transform: scale(1.08);
-    transition: transform 220ms ease 420ms;
+    transform: scale(1.14);
+    transition: transform 280ms cubic-bezier(0.34, 1.7, 0.3, 1) 460ms;
   }
 
   .timeline-head-left {
