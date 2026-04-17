@@ -990,40 +990,45 @@
           if (
             !isTabletLayout &&
             available &&
-            width > available &&
             !Number.isNaN(baseFontSize) &&
             !Number.isNaN(baseLetterSpacing)
           ) {
-            const minFontSize = baseFontSize * 0.9;
-            const minLetterSpacing = baseLetterSpacing * 0.3;
-            let low = 0;
-            let high = 1;
-            let best = 0;
+            if (width > available) {
+              const minFontSize = baseFontSize * 0.9;
+              const minLetterSpacing = baseLetterSpacing * 0.3;
+              let low = 0;
+              let high = 1;
+              let best = 0;
 
-            for (let index = 0; index < 8; index += 1) {
-              const mid = (low + high) / 2;
-              const candidateLetterSpacing =
-                minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * (0.3 + mid * 0.7);
-              const candidateFontSize =
-                minFontSize + (baseFontSize - minFontSize) * (0.7 + mid * 0.3);
+              for (let index = 0; index < 8; index += 1) {
+                const mid = (low + high) / 2;
+                const candidateLetterSpacing =
+                  minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * (0.3 + mid * 0.7);
+                const candidateFontSize =
+                  minFontSize + (baseFontSize - minFontSize) * (0.7 + mid * 0.3);
 
-              sidebarName.style.letterSpacing = `${candidateLetterSpacing}px`;
-              sidebarName.style.fontSize = `${candidateFontSize}px`;
+                sidebarName.style.letterSpacing = `${candidateLetterSpacing}px`;
+                sidebarName.style.fontSize = `${candidateFontSize}px`;
 
-              if (sidebarName.scrollWidth <= available) {
-                best = mid;
-                low = mid;
-              } else {
-                high = mid;
+                if (sidebarName.scrollWidth <= available) {
+                  best = mid;
+                  low = mid;
+                } else {
+                  high = mid;
+                }
               }
-            }
 
-            const resolvedLetterSpacing =
-              minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * (0.3 + best * 0.7);
-            const resolvedFontSize =
-              minFontSize + (baseFontSize - minFontSize) * (0.7 + best * 0.3);
-            sidebarName.style.letterSpacing = `${resolvedLetterSpacing}px`;
-            sidebarName.style.fontSize = `${resolvedFontSize}px`;
+              const resolvedLetterSpacing =
+                minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * (0.3 + best * 0.7);
+              const resolvedFontSize =
+                minFontSize + (baseFontSize - minFontSize) * (0.7 + best * 0.3);
+              sidebarName.style.letterSpacing = `${resolvedLetterSpacing}px`;
+              sidebarName.style.fontSize = `${resolvedFontSize}px`;
+            } else {
+              const extra = available - width;
+              const glyphCount = Math.max(1, sidebarName.textContent.trim().length - 1);
+              sidebarName.style.letterSpacing = `${baseLetterSpacing + extra / glyphCount}px`;
+            }
           }
         }
 
