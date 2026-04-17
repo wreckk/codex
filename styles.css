@@ -146,7 +146,10 @@ body.preload-layout .page-loader {
 
 .sidebar-heading h1 {
   margin: 0;
-  width: max-content;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   display: block;
   font-family: "Poppins", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 46px;
@@ -162,7 +165,10 @@ body.preload-layout .page-loader {
 .sidebar-heading p {
   margin: 6px 0 0 0;
   color: var(--muted);
-  width: max-content;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   display: block;
   font-family: "SF Pro Rounded Local", "SF Pro Rounded", "SF Pro Text Local", "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
