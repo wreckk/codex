@@ -914,9 +914,8 @@
           if (sidebarName) {
             sidebarName.style.transform = "";
             sidebarName.style.fontSize = "";
+            sidebarName.style.letterSpacing = "";
           }
-        } else {
-          fitSidebarHeadingLine(sidebarName, { minScale: 0.82, maxScale: 1.32 });
         }
         if (sidebarRole) {
           sidebarRole.style.transform = "";
@@ -975,6 +974,7 @@
         if (sidebarName) {
           sidebarName.style.transform = "";
           sidebarName.style.fontSize = "";
+          sidebarName.style.letterSpacing = "";
           if (!sidebarName.dataset.baseLetterSpacing) {
             const computedTracking = window.getComputedStyle(sidebarName).letterSpacing;
             sidebarName.dataset.baseLetterSpacing = Number.isNaN(parseFloat(computedTracking))
