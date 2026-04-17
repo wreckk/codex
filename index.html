@@ -642,6 +642,7 @@
         mobile: 720,
       };
       const NARROW_DESKTOP_BREAKPOINT = 1280;
+      const TIGHT_DESKTOP_BREAKPOINT = 1105;
       const TIMELINE_LAYOUT = {
         startY: 90,
         itemStep: 108,
@@ -702,6 +703,10 @@
 
       function isNarrowDesktopLayout() {
         return window.innerWidth > RESPONSIVE_BREAKPOINTS.compact && window.innerWidth <= NARROW_DESKTOP_BREAKPOINT;
+      }
+
+      function isTightDesktopLayout() {
+        return window.innerWidth > RESPONSIVE_BREAKPOINTS.compact && window.innerWidth <= TIGHT_DESKTOP_BREAKPOINT;
       }
 
       function isMobileLayout() {
@@ -2003,7 +2008,9 @@
 
       function getScaleForBandProgress(progress) {
         const applyDesktopScaleAdjustment = (scale) =>
-          isNarrowDesktopLayout() ? 1 + (scale - 1) * 0.9 : scale;
+          isNarrowDesktopLayout()
+            ? 1 + (scale - 1) * (isTightDesktopLayout() ? 0.78 : 0.9)
+            : scale;
 
         if (progress <= 0) return applyDesktopScaleAdjustment(ACTIVE_SCALE_STOPS[0][1]);
         if (progress >= 1) {
