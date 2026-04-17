@@ -3633,11 +3633,6 @@ body.preload-layout .page-loader {
     top: var(--mobile-timeline-items-top);
   }
 
-  .timeline-entry .entry-pill,
-  .timeline-entry.active .entry-pill {
-    transform-origin: 50% 50%;
-  }
-
   .timeline-entry::before {
     position: absolute;
     left: 50%;
