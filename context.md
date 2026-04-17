@@ -143,9 +143,9 @@ This is the most recent active refinement area.
 The logo assets were reorganized.
 
 - employer logos now live in:
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/company-logos/employers`
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/employers`
 - AI montage assets live in:
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/company-logos/ai-logos`
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/company-logos/ai-logos`
 
 If employer logo rendering breaks, check `COMPANY_LOGOS` in `index.html` first and make sure it still points at `employers/...`.
 
@@ -163,10 +163,10 @@ If employer logo rendering breaks, check `COMPANY_LOGOS` in `index.html` first a
 - this area is still sensitive and easy to overdo
 - avoid bringing back a hard clipping edge near the top mask/cutline
 
-## `💉 GLP-1 Subscription`
+## `💉 GLP-1 Launch`
 
 - Headline:
-  - `💉 GLP-1 Subscription`
+  - `💉 GLP-1 Launch`
 - Text:
   - `I stepped into the work when it wasn’t really landing and pushed to reset the direction.`
   - `Built a new vision in under 48 hours, tying product and brand together in a way that finally clicked.`
@@ -182,7 +182,7 @@ If employer logo rendering breaks, check `COMPANY_LOGOS` in `index.html` first a
 ### GLP-1 example behavior
 
 - Local gallery assets live in:
-  - `/Users/ericcenteno/Desktop/Projects/Vibe Coding/codex/assets/images/examples-glp1`
+  - `/Users/wreckk/Desktop/Projects/Vibe Coding/Codex/assets/images/examples-glp1`
 - Files are numbered and should be shown in filename order:
   1. `01 -  version 1.png`
   2. `02 - ai v1.png`
@@ -209,15 +209,53 @@ If employer logo rendering breaks, check `COMPANY_LOGOS` in `index.html` first a
 ## Welcome Example Notes
 
 - Mobile `👋 Welcome` has a custom cards + faux timeline example.
+- Desktop `👋 Welcome` also has:
+  - desktop-only tick opacity softened to about `70%`
+  - sidebar title/name fit work that is still sensitive during live resize
 - Important mobile layout rules:
   - card size is intentionally smaller than earlier revisions
   - faux timeline stays bottom-fixed
   - card/tick spacing is controlled by layout offsets, not by shrinking the card via padding
   - top spacing should stay around `25px`
 
+## Responsive / Sidebar Fit Notes
+
+- Compact / tablet breakpoint is currently:
+  - `960px`
+- Narrow desktop band is:
+  - `1280px -> 961px`
+- Timeline desktop column is intended to stay visually stable while left/right columns rebalance in the narrow desktop band.
+- Sidebar name and title are intentionally separate fit systems:
+  - name / logo line:
+    - should resize by font-size only
+    - should always expand back to full width when room is available
+  - title / role line:
+    - should preserve the wide tracked look
+    - current direction is a tracking-led full-width fit
+    - this area has been especially sensitive around `1280px+`
+- Recent fixes added:
+  - live computed baseline reads for title fitting
+  - `ResizeObserver` + double-`requestAnimationFrame` scheduling for heading fit
+  - removal of sidebar-only breakpoint snaps at `1280px`
+- If the title starts underfilling or clipping again:
+  - inspect the `fitSidebarHeading()` logic in `index.html`
+  - verify the desktop "extra room" path for `sidebarRole`
+  - verify no CSS breakpoint override is shrinking `.sidebar-heading p`
+
 ## Last Known Good Push
 
 - Most recent pushed state should include the context from the commits after `b13acb7`, including:
   - custom `Welcome` example work
   - `Closer to the Work` AI montage
-  - `GLP-1 Subscription` gallery behavior
+  - `💉 GLP-1 Launch` gallery behavior
+
+## Recent Local Commit Trail
+
+- Recent desktop responsive / title-fit commits included:
+  - `2acb121` Separate name fit from title fit
+  - `f9e03c6` Use live baseline for title fit
+  - `39c9b60` Remove sidebar breakpoint snaps at 1280
+  - `dd1558b` Stabilize heading fit on resize
+  - `5d2b931` Use tracking-only fill for title expansion
+- These were iterative and sometimes partially superseded by later commits.
+- If reverting title-fit behavior, do it surgically rather than resetting all sidebar responsive work.
