@@ -893,9 +893,10 @@
         if (!available || Number.isNaN(baseFontSize)) return;
 
         function measureNameWidth() {
-          // Pop out of flex layout so flex-shrink can't constrain the measurement
-          sidebarName.style.position = 'absolute';
-          sidebarName.style.width = 'auto';
+          // fixed escapes flex + sticky containing-block constraints;
+          // max-content width is intrinsic and not capped by containing-block width
+          sidebarName.style.position = 'fixed';
+          sidebarName.style.width = 'max-content';
           sidebarName.style.maxWidth = 'none';
           const w = sidebarName.offsetWidth;
           sidebarName.style.position = '';
@@ -937,8 +938,8 @@
         if (Number.isNaN(baseFontSize)) return;
 
         function measureTextWidth() {
-          sidebarRole.style.position = 'absolute';
-          sidebarRole.style.width = 'auto';
+          sidebarRole.style.position = 'fixed';
+          sidebarRole.style.width = 'max-content';
           sidebarRole.style.maxWidth = 'none';
           const w = sidebarRole.offsetWidth;
           sidebarRole.style.position = '';
