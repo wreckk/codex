@@ -11,7 +11,7 @@
         "hideLogo": true,
         "chips": [],
         "notes": [
-          "Thanks for stopping by. This is a timeline of some of my work over the years, with a few highlights mixed in.",
+          "<mark>Thanks for stopping by</mark>. This is a timeline of some of my work over the years, with a few highlights mixed in.",
           "Scroll through to explore, the details update as you move through each moment, unfolding as you go."
         ]
       },
@@ -31,7 +31,7 @@
       },
       {
         "order": 3,
-        "title": "💉 GLP-1 Subscription",
+        "title": "💉 GLP-1 Launch",
         "company": "GoodRx",
         "type": "primary",
         "gallery": [

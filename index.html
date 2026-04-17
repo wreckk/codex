@@ -1000,7 +1000,9 @@
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
-        return escaped.replace(/\[\[(.+?)\]\]/g, "<mark>$1</mark>");
+        return escaped
+          .replace(/\[\[(.+?)\]\]/g, "<mark>$1</mark>")
+          .replace(/&lt;mark&gt;(.+?)&lt;\/mark&gt;/g, "<mark>$1</mark>");
       }
 
       function getStoryEntryById(id) {

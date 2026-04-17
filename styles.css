@@ -985,18 +985,27 @@ body.preload-layout .page-loader {
   flex-shrink: 0;
 }
 
-.timeline-entry.minor {
+.timeline-entry.minor:not(.active) {
   color: var(--timeline-ink-strong);
   font-size: 13px;
   line-height: 1;
   pointer-events: none;
 }
 
-.timeline-entry.callout {
+.timeline-entry.callout:not(.active) {
   color: #9e93a0;
   font-size: 12px;
   line-height: 1;
   pointer-events: none;
+}
+
+.timeline-entry.minor:not(.active) .label {
+  font-size: 15px;
+}
+
+.timeline-entry.callout:not(.active) .label,
+.timeline-entry.callout:not(.active) .month {
+  font-size: 14px;
 }
 
 .timeline-entry.minor .entry-pill,
@@ -1318,16 +1327,19 @@ body.preload-layout .page-loader {
 }
 
 .story-copy mark,
-.story-notes mark {
+.story-notes mark,
+.story-highlight {
   color: inherit;
   background:
     linear-gradient(
       to bottom,
-      transparent 0 48%,
-      rgba(255, 70, 50, 0.22) 48% 100%
+      transparent 0 50%,
+      rgba(255, 70, 50, 0.24) 50% 100%
     );
   padding: 0 0.05em;
   border-radius: 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 .story-pills {
@@ -1458,8 +1470,8 @@ body.preload-layout .page-loader {
   display: block;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 18%, rgba(252, 247, 241, 0.98) 0%, rgba(252, 247, 241, 0.96) 36%, rgba(249, 245, 238, 0.94) 72%, rgba(244, 239, 232, 0.96) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(250, 246, 240, 0.96) 58%, rgba(245, 240, 233, 0.98) 100%);
+    radial-gradient(circle at 50% 18%, rgba(220, 212, 222, 0.98) 0%, rgba(194, 186, 196, 0.95) 26%, rgba(144, 136, 146, 0.94) 60%, rgba(108, 101, 110, 0.98) 100%),
+    linear-gradient(180deg, rgba(154, 146, 156, 0.86), rgba(132, 124, 134, 0.92) 58%, rgba(104, 97, 106, 0.98) 100%);
   border-radius: inherit;
 }
 
@@ -1498,7 +1510,7 @@ body.preload-layout .page-loader {
   width: clamp(150px, 52%, 190px);
   height: 75%;
   border-radius: var(--story-welcome-card-radius);
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 253, 249, 0.96);
   border: 1px solid rgba(216, 208, 197, 0.76);
   box-shadow:
     0 16px 30px rgba(182, 168, 153, 0.22),
@@ -2056,7 +2068,7 @@ body.preload-layout .page-loader {
 .story-image-fpo__tick {
   height: var(--story-fpo-bar-height);
   border-radius: 999px;
-  background: #ded9cf;
+  background: #6d6670;
 }
 
 .story-image-fpo__tick--short {
