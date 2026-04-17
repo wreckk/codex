@@ -727,6 +727,39 @@ body.preload-layout .page-loader {
   .page-body {
     grid-template-columns: 30% 31% 39%;
   }
+
+  .sidebar-card,
+  .story-card {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .sidebar-heading,
+  .sidebar-scroll,
+  .sidebar-intro,
+  .sidebar-bio,
+  .sidebar-links {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .sidebar-heading h1,
+  .sidebar-heading p {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .portrait-shell {
+    width: 30%;
+    min-width: 96px;
+    max-width: 112px;
+    height: 148px;
+    margin-right: 12px;
+  }
+
+  .sidebar-links {
+    gap: 8px;
+  }
 }
 
 .timeline-track::before,
