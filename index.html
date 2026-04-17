@@ -916,6 +916,11 @@
             sidebarName.style.fontSize = "";
             sidebarName.style.letterSpacing = "";
           }
+        } else {
+          if (sidebarName) {
+            sidebarName.style.letterSpacing = "";
+          }
+          fitSidebarHeadingLine(sidebarName, { minScale: 0.82, maxScale: 1.32 });
         }
         if (sidebarRole) {
           sidebarRole.style.transform = "";
@@ -967,67 +972,6 @@
             } else if (characters > 0) {
               const extra = (available - width) / characters;
               sidebarRole.style.letterSpacing = `${baseLetterSpacing + extra}px`;
-            }
-          }
-        }
-
-        if (sidebarName) {
-          sidebarName.style.transform = "";
-          sidebarName.style.fontSize = "";
-          sidebarName.style.letterSpacing = "";
-          if (!sidebarName.dataset.baseLetterSpacing) {
-            const computedTracking = window.getComputedStyle(sidebarName).letterSpacing;
-            sidebarName.dataset.baseLetterSpacing = Number.isNaN(parseFloat(computedTracking))
-              ? "-2.07"
-              : `${parseFloat(computedTracking)}`;
-          }
-
-          const baseFontSize = parseFloat(sidebarName.dataset.baseFontSize || "");
-          const baseLetterSpacing = parseFloat(sidebarName.dataset.baseLetterSpacing);
-          const available = sidebarHeading?.clientWidth || 0;
-          const width = sidebarName.scrollWidth;
-
-          if (
-            !isTabletLayout &&
-            available &&
-            !Number.isNaN(baseFontSize) &&
-            !Number.isNaN(baseLetterSpacing)
-          ) {
-            if (width > available) {
-              const minFontSize = baseFontSize * 0.9;
-              const minLetterSpacing = baseLetterSpacing * 0.3;
-              let low = 0;
-              let high = 1;
-              let best = 0;
-
-              for (let index = 0; index < 8; index += 1) {
-                const mid = (low + high) / 2;
-                const candidateLetterSpacing =
-                  minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * (0.3 + mid * 0.7);
-                const candidateFontSize =
-                  minFontSize + (baseFontSize - minFontSize) * (0.7 + mid * 0.3);
-
-                sidebarName.style.letterSpacing = `${candidateLetterSpacing}px`;
-                sidebarName.style.fontSize = `${candidateFontSize}px`;
-
-                if (sidebarName.scrollWidth <= available) {
-                  best = mid;
-                  low = mid;
-                } else {
-                  high = mid;
-                }
-              }
-
-              const resolvedLetterSpacing =
-                minLetterSpacing + (baseLetterSpacing - minLetterSpacing) * (0.3 + best * 0.7);
-              const resolvedFontSize =
-                minFontSize + (baseFontSize - minFontSize) * (0.7 + best * 0.3);
-              sidebarName.style.letterSpacing = `${resolvedLetterSpacing}px`;
-              sidebarName.style.fontSize = `${resolvedFontSize}px`;
-            } else {
-              const extra = available - width;
-              const glyphCount = Math.max(1, sidebarName.textContent.trim().length - 1);
-              sidebarName.style.letterSpacing = `${baseLetterSpacing + extra / glyphCount}px`;
             }
           }
         }
