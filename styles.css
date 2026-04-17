@@ -3427,9 +3427,7 @@ body.preload-layout .page-loader {
     line-height: 1;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition:
-      color 200ms ease 0ms,
-      font-weight 200ms ease 0ms;
+    transition: color 260ms ease 0ms;
   }
 
   .mobile-tabs__pill .mobile-tabs__emoji,
@@ -3451,10 +3449,7 @@ body.preload-layout .page-loader {
 
   .mobile-tabs__pill.is-active {
     color: var(--accent);
-    font-weight: 600;
-    transition:
-      color 320ms ease 240ms,
-      font-weight 320ms ease 240ms;
+    transition: color 320ms ease 240ms;
   }
 
   .mobile-tabs__pill.is-active .mobile-tabs__emoji {
