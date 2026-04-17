@@ -724,6 +724,21 @@ body.preload-layout .page-loader {
 @media (max-width: 1280px) and (min-width: 991px) {
   /* Narrow desktop breakpoint:
      keep all desktop-only layout massage for widths between 1280px and tablet here. */
+  :root {
+    --narrow-desktop-scale: clamp(0.82, calc(100vw / 1280), 1);
+  }
+
+  .page-shell {
+    overflow: hidden;
+  }
+
+  .page-body {
+    width: calc(100% / var(--narrow-desktop-scale));
+    height: calc((100vh - 58px) / var(--narrow-desktop-scale));
+    transform: scale(var(--narrow-desktop-scale));
+    transform-origin: top center;
+    margin: 0 auto;
+  }
 }
 
 .timeline-track::before,
