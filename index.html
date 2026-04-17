@@ -911,13 +911,11 @@
           return nameProbe.offsetWidth;
         }
 
-        const minFontSize = baseFontSize * 0.82;
+        const minFontSize = baseFontSize * 0.4;
         const maxFontSize = baseFontSize * 1.32;
 
         sidebarName.style.fontSize = `${maxFontSize}px`;
-        const _dbgMeasure = measureNameWidth();
-        console.log('[fitSidebarName] available:', available, 'textWidth@max:', _dbgMeasure, 'baseFontSize:', baseFontSize, 'viewport:', window.innerWidth);
-        if (_dbgMeasure <= available) return;
+        if (measureNameWidth() <= available) return;
 
         let lo = minFontSize, hi = maxFontSize, best = minFontSize;
         for (let i = 0; i < 10; i++) {
