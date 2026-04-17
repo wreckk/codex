@@ -3434,11 +3434,12 @@ body.preload-layout .page-loader {
     letter-spacing: 0.08em;
     line-height: 1;
     text-transform: uppercase;
+    text-shadow: 0 0 0 transparent;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition:
       color 260ms ease 0ms,
-      font-weight 0ms 0ms;
+      text-shadow 260ms ease 0ms;
   }
 
   .mobile-tabs__pill .mobile-tabs__emoji,
@@ -3460,10 +3461,12 @@ body.preload-layout .page-loader {
 
   .mobile-tabs__pill.is-active {
     color: var(--accent);
-    font-weight: 700;
+    text-shadow:
+      0.015em 0 0 currentColor,
+      -0.015em 0 0 currentColor;
     transition:
       color 320ms ease 240ms,
-      font-weight 0ms 660ms;
+      text-shadow 360ms ease 240ms;
   }
 
   .mobile-tabs__pill.is-active .mobile-tabs__emoji {
