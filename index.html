@@ -2725,6 +2725,7 @@
       storyCard?.addEventListener("touchcancel", handleStorySwipeEnd, { passive: true });
 
       const mobileTabs = document.querySelectorAll(".mobile-tabs__pill");
+      const mobileTabsEl = document.querySelector(".mobile-tabs");
       const mobileTabsIndicator = document.querySelector(".mobile-tabs__indicator");
       function setMobileTab(tab, { animate = true } = {}) {
         const next = tab === "about" ? "about" : "work";
@@ -2743,9 +2744,86 @@
         requestAnimationFrame(scheduleMobileLayoutMetrics);
       }
       mobileTabs.forEach((pill) => {
-        pill.addEventListener("click", () => setMobileTab(pill.dataset.tab));
+        pill.addEventListener("click", (e) => {
+          if (pill.dataset.swallowClick === "1") {
+            pill.dataset.swallowClick = "";
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+          setMobileTab(pill.dataset.tab);
+        });
       });
       setMobileTab("work", { animate: false });
+
+      if (mobileTabsEl && mobileTabsIndicator) {
+        let dragState = null;
+
+        const currentTabIsAbout = () => document.body.classList.contains("tab-about");
+
+        const endDrag = (e, canceled = false) => {
+          if (!dragState || (e && e.pointerId !== dragState.pointerId)) return;
+          const totalDx = dragState.currentX - dragState.startX;
+          const elapsed = Math.max(1, performance.now() - dragState.startTime);
+          const velocity = totalDx / elapsed; // px/ms
+
+          mobileTabsIndicator.classList.remove("is-dragging");
+          mobileTabsIndicator.style.transform = "";
+          try { mobileTabsEl.releasePointerCapture(dragState.pointerId); } catch (_) {}
+
+          if (!canceled && dragState.moved) {
+            const baseProgress = dragState.originTab === "about" ? 1 : 0;
+            const dragProgress = baseProgress + totalDx / dragState.pillWidth;
+            const flickThreshold = 0.55; // px/ms
+            let target;
+            if (Math.abs(velocity) > flickThreshold) {
+              target = velocity > 0 ? "about" : "work";
+            } else {
+              target = dragProgress >= 0.5 ? "about" : "work";
+            }
+            setMobileTab(target);
+
+            if (dragState.targetPill) dragState.targetPill.dataset.swallowClick = "1";
+          }
+          dragState = null;
+        };
+
+        mobileTabsEl.addEventListener("pointerdown", (e) => {
+          if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
+          const rect = mobileTabsEl.getBoundingClientRect();
+          const pillWidth = (rect.width - 10) / 2;
+          dragState = {
+            startX: e.clientX,
+            currentX: e.clientX,
+            startTime: performance.now(),
+            pillWidth,
+            originTab: currentTabIsAbout() ? "about" : "work",
+            pointerId: e.pointerId,
+            moved: false,
+            targetPill: e.target.closest(".mobile-tabs__pill") || null,
+          };
+          try { mobileTabsEl.setPointerCapture(e.pointerId); } catch (_) {}
+        });
+
+        mobileTabsEl.addEventListener("pointermove", (e) => {
+          if (!dragState || e.pointerId !== dragState.pointerId) return;
+          dragState.currentX = e.clientX;
+          const dx = e.clientX - dragState.startX;
+          if (!dragState.moved && Math.abs(dx) > 4) {
+            dragState.moved = true;
+            mobileTabsIndicator.classList.add("is-dragging");
+            mobileTabsIndicator.classList.remove("is-gliding");
+          }
+          if (dragState.moved) {
+            const baseProgress = dragState.originTab === "about" ? 1 : 0;
+            const progress = Math.max(0, Math.min(1, baseProgress + dx / dragState.pillWidth));
+            mobileTabsIndicator.style.transform = `translate3d(${progress * 100}%, 0, 0)`;
+          }
+        });
+
+        mobileTabsEl.addEventListener("pointerup", (e) => endDrag(e, false));
+        mobileTabsEl.addEventListener("pointercancel", (e) => endDrag(e, true));
+      }
 
       async function initializePageLayout() {
         if (document.fonts?.ready) {

@@ -3362,6 +3362,10 @@ body.preload-layout .page-loader {
     isolation: isolate;
   }
 
+  .mobile-tabs {
+    overflow: hidden;
+  }
+
   .mobile-tabs__indicator {
     position: absolute;
     top: 5px;
@@ -3373,7 +3377,7 @@ body.preload-layout .page-loader {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transform: translate3d(0, 0, 0);
     transform-origin: center;
-    transition: transform 620ms cubic-bezier(0.34, 1.56, 0.3, 1);
+    transition: transform 580ms cubic-bezier(0.22, 1, 0.28, 1);
     z-index: 0;
     pointer-events: none;
   }
@@ -3382,25 +3386,22 @@ body.preload-layout .page-loader {
     transform: translate3d(100%, 0, 0);
   }
 
+  .mobile-tabs__indicator.is-dragging {
+    transition: none;
+  }
+
   .mobile-tabs__indicator.is-gliding {
-    animation: tab-indicator-glide 620ms cubic-bezier(0.34, 1.56, 0.3, 1);
+    animation: tab-indicator-glide 580ms cubic-bezier(0.22, 1, 0.28, 1);
   }
 
   @keyframes tab-indicator-glide {
     0% {
-      filter: blur(0);
       scale: 1 1;
     }
     35% {
-      filter: blur(1.5px);
-      scale: 1.18 1;
-    }
-    72% {
-      filter: blur(0);
-      scale: 1.05 1;
+      scale: 1.06 1;
     }
     100% {
-      filter: blur(0);
       scale: 1 1;
     }
   }
@@ -3436,7 +3437,7 @@ body.preload-layout .page-loader {
     display: inline-block;
     transform: scale(1);
     transform-origin: center;
-    transition: transform 240ms cubic-bezier(0.34, 1.56, 0.3, 1) 0ms;
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1) 0ms;
   }
 
   .mobile-tabs__pill .mobile-tabs__emoji {
@@ -3444,29 +3445,29 @@ body.preload-layout .page-loader {
     line-height: 1;
     filter: grayscale(1) opacity(0.6);
     transition:
-      filter 200ms ease 0ms,
-      transform 240ms cubic-bezier(0.34, 1.56, 0.3, 1) 0ms;
+      filter 260ms ease 0ms,
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1) 0ms;
   }
 
   .mobile-tabs__pill.is-active {
     color: var(--accent);
     font-weight: 600;
     transition:
-      color 240ms ease 460ms,
-      font-weight 240ms ease 460ms;
+      color 320ms ease 240ms,
+      font-weight 320ms ease 240ms;
   }
 
   .mobile-tabs__pill.is-active .mobile-tabs__emoji {
     filter: grayscale(0) opacity(1);
-    transform: scale(1.22);
+    transform: scale(1.2);
     transition:
-      filter 240ms ease 460ms,
-      transform 280ms cubic-bezier(0.34, 1.7, 0.3, 1) 460ms;
+      filter 320ms ease 240ms,
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1) 240ms;
   }
 
   .mobile-tabs__pill.is-active .mobile-tabs__label {
     transform: scale(1.14);
-    transition: transform 280ms cubic-bezier(0.34, 1.7, 0.3, 1) 460ms;
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1) 240ms;
   }
 
   .timeline-head-left {
