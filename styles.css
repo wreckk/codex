@@ -762,9 +762,15 @@ body.preload-layout .page-loader {
   }
 }
 
+@media (max-width: 1160px) and (min-width: 1061px) {
+  .page-body {
+    grid-template-columns: 29% 30% 41%;
+  }
+}
+
 @media (max-width: 1060px) and (min-width: 991px) {
   .page-body {
-    grid-template-columns: 28% 29% 43%;
+    grid-template-columns: 27% 29% 44%;
   }
 }
 
