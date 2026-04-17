@@ -19,7 +19,19 @@ This is the handoff doc for continuing work on `wreckk/codex` across machines.
   1. edit locally
   2. verify in local preview
   3. only push when explicitly requested
-- Every local save / reviewable state should get a local commit.
+
+### Local commit rule
+
+- Every change should get a local commit.
+- Do not batch multiple unrelated tweaks into one uncommitted working state.
+- A “save” means any change at all, not just a review handoff.
+- If the user says things like:
+  - `mark this`
+  - `checkpoint this`
+  - `this version is good`
+  - `clean state`
+  that should still create a local commit with an intentional message.
+- Do not push unless explicitly requested.
 - If Eric says `mark this`, `checkpoint`, or `good version`, use that language to shape the commit message.
 - Only pull from GitHub when explicitly requested.
 
