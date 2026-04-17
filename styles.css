@@ -930,6 +930,7 @@ body.preload-layout .page-loader {
 }
 
 .entry-pill {
+  box-sizing: border-box;
   display: inline-flex;
   align-items: baseline;
   gap: 0;
