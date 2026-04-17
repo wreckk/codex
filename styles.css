@@ -3112,8 +3112,8 @@ body.preload-layout .page-loader {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
-    padding: 16px;
+    gap: 14px;
+    padding: 0;
     background: transparent;
   }
 
@@ -3174,7 +3174,7 @@ body.preload-layout .page-loader {
 
   .sidebar-heading p {
     display: block;
-    margin: 0;
+    margin: 0 0 0 -2px;
     width: 100%;
     max-width: 100%;
     font-size: 12px;
@@ -3189,14 +3189,14 @@ body.preload-layout .page-loader {
   .sidebar-card {
     position: fixed;
     left: 50%;
-    top: calc(16px + var(--mobile-header-height, 110px) + 14px);
+    top: calc(8px + var(--mobile-header-height, 80px) + 12px);
     transform: translateX(-50%);
     z-index: 20;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
     padding: 16px 16px 12px;
     height: auto;
-    max-height: calc(100dvh - var(--mobile-header-height, 110px) - var(--mobile-tabs-height, 56px) - 48px);
+    max-height: calc(100dvh - 8px - var(--mobile-header-height, 80px) - 12px - env(safe-area-inset-bottom, 0px) - var(--mobile-tabs-height, 56px) - 8px);
     background: #fff;
     border: 1px solid #e1d5c1;
     border-radius: 12px;
@@ -3262,8 +3262,9 @@ body.preload-layout .page-loader {
   .story-card {
     position: fixed;
     left: 50%;
-    top: calc(16px + var(--mobile-header-height, 110px) + 14px);
-    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-timeline-height, 190px) + var(--mobile-tabs-height, 56px) + 8px);
+    top: calc(8px + var(--mobile-header-height, 80px) + 12px);
+    bottom: auto;
+    max-height: calc(100dvh - 8px - var(--mobile-header-height, 80px) - 12px - env(safe-area-inset-bottom, 0px) - var(--mobile-timeline-height, 190px) - var(--mobile-tabs-height, 56px) - 8px);
     transform: translateX(-50%) scale(1);
     padding: 0;
     z-index: 20;
@@ -3363,11 +3364,11 @@ body.preload-layout .page-loader {
 
   .mobile-tabs__pill {
     appearance: none;
-    border: 1px solid rgba(192, 175, 149, 0.7);
+    border: 0;
     background: transparent;
-    color: var(--ink);
+    color: rgba(116, 102, 118, 0.55);
     border-radius: 999px;
-    padding: 10px 22px;
+    padding: 10px 18px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -3384,10 +3385,7 @@ body.preload-layout .page-loader {
     opacity: 1;
     transition:
       background 320ms ease,
-      border-color 320ms ease,
-      border-width 320ms ease,
       color 320ms ease,
-      box-shadow 320ms ease,
       font-weight 320ms ease,
       transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
       filter 320ms ease,
@@ -3397,15 +3395,19 @@ body.preload-layout .page-loader {
   .mobile-tabs__pill .mobile-tabs__emoji {
     font-size: 15px;
     line-height: 1;
+    filter: grayscale(1) opacity(0.55);
+    transition: filter 320ms ease;
   }
 
   .mobile-tabs__pill.is-active {
-    background: #fff;
-    border: 2px solid var(--accent);
-    color: var(--accent);
+    background: rgba(116, 102, 118, 0.12);
+    color: var(--ink);
     font-weight: 700;
-    box-shadow: 0 10px 20px rgba(216, 198, 176, 0.18);
-    transform: scale(1.08);
+    transform: scale(1.04);
+  }
+
+  .mobile-tabs__pill.is-active .mobile-tabs__emoji {
+    filter: grayscale(0) opacity(1);
   }
 
   .timeline-head-left {
