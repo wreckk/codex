@@ -892,17 +892,23 @@
         const available = sidebarHeading.clientWidth;
         if (!available || Number.isNaN(baseFontSize)) return;
 
+        // Probe span appended to body — completely outside the card's flex/sticky
+        // layout, so its offsetWidth is pure text width with no constraint from ancestors
+        const nameProbe = document.createElement('span');
+        nameProbe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;pointer-events:none;';
+        document.body.appendChild(nameProbe);
+        const nameCS = window.getComputedStyle(sidebarName);
+        nameProbe.style.fontFamily = nameCS.fontFamily;
+        nameProbe.style.fontWeight = nameCS.fontWeight;
+        nameProbe.style.textTransform = nameCS.textTransform;
+        nameProbe.textContent = sidebarName.textContent;
+
         function measureNameWidth() {
-          // fixed escapes flex + sticky containing-block constraints;
-          // max-content width is intrinsic and not capped by containing-block width
-          sidebarName.style.position = 'fixed';
-          sidebarName.style.width = 'max-content';
-          sidebarName.style.maxWidth = 'none';
-          const w = sidebarName.offsetWidth;
-          sidebarName.style.position = '';
-          sidebarName.style.width = '';
-          sidebarName.style.maxWidth = '';
-          return w;
+          // Copy current font-size and its computed letter-spacing (em resolves to px here)
+          const cs = window.getComputedStyle(sidebarName);
+          nameProbe.style.fontSize = cs.fontSize;
+          nameProbe.style.letterSpacing = cs.letterSpacing;
+          return nameProbe.offsetWidth;
         }
 
         const minFontSize = baseFontSize * 0.82;
@@ -919,6 +925,7 @@
           else { hi = mid; }
         }
         sidebarName.style.fontSize = `${best}px`;
+        nameProbe.remove();
       }
 
       function fitSidebarTitle() {
@@ -937,15 +944,20 @@
         const baseLetterSpacing = parseFloat(cs.letterSpacing) || 3;
         if (Number.isNaN(baseFontSize)) return;
 
+        const titleProbe = document.createElement('span');
+        titleProbe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;pointer-events:none;';
+        document.body.appendChild(titleProbe);
+        const titleCS = window.getComputedStyle(sidebarRole);
+        titleProbe.style.fontFamily = titleCS.fontFamily;
+        titleProbe.style.fontWeight = titleCS.fontWeight;
+        titleProbe.style.textTransform = titleCS.textTransform;
+        titleProbe.textContent = sidebarRole.textContent;
+
         function measureTextWidth() {
-          sidebarRole.style.position = 'fixed';
-          sidebarRole.style.width = 'max-content';
-          sidebarRole.style.maxWidth = 'none';
-          const w = sidebarRole.offsetWidth;
-          sidebarRole.style.position = '';
-          sidebarRole.style.width = '';
-          sidebarRole.style.maxWidth = '';
-          return w;
+          const cs = window.getComputedStyle(sidebarRole);
+          titleProbe.style.fontSize = cs.fontSize;
+          titleProbe.style.letterSpacing = cs.letterSpacing;
+          return titleProbe.offsetWidth;
         }
 
         sidebarRole.style.fontSize = `${baseFontSize}px`;
@@ -1007,6 +1019,7 @@
             sidebarRole.style.letterSpacing = `${currentSpacing + gap / charCount}px`;
           }
         }
+        titleProbe.remove();
       }
 
       function fitSidebarHeading() {
