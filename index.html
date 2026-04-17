@@ -1119,10 +1119,9 @@
           nextCard.classList.add("is-spawn");
           stack.appendChild(nextCard);
 
-          triggerPointerFlick();
-
           requestAnimationFrame(() => {
             if (token !== welcomeAnimationToken) return;
+            triggerPointerFlick();
             front.classList.remove("is-front");
             front.classList.add("is-exit");
             mid.classList.remove("is-mid");
