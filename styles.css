@@ -1676,7 +1676,7 @@ body.preload-layout .page-loader {
   content: "";
   position: absolute;
   inset: 1px;
-  border: 2px solid rgba(176, 176, 176, 0.56);
+  border: 2px solid rgb(214, 214, 214);
   border-radius: calc(12px - 1px);
   pointer-events: none;
   z-index: 5;
