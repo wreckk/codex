@@ -341,23 +341,7 @@
                     ${bars}
                   </div>
                 </div>
-                <div class="story-image-fpo__pointer">
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
-                      fill="white"
-                      stroke="#c4c4c4"
-                      stroke-width="1.5"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
+                <div class="story-image-fpo__pointer">${pointerSvg()}</div>
               </div>
               <div class="story-image-fpo__welcome-stack" data-welcome-stack></div>
             </div>
@@ -366,15 +350,16 @@
 
       function buildCloserToWorkFpoMarkup() {
         const logoItems = [
-          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "8%", y: "12.5%", w: "20%", delay: "0.02s", rotate: "-4deg" },
-          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "29%", y: "12.5%", w: "14.5%", delay: "0.08s", rotate: "3deg" },
-          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "46%", y: "12.5%", w: "15%", delay: "0.14s", rotate: "6deg" },
-          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "64%", y: "12.5%", w: "13%", delay: "0.2s", rotate: "2deg" },
-          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "78%", y: "12.5%", w: "16%", delay: "0.24s", rotate: "-2deg" },
-          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "12%", y: "42%", w: "17%", delay: "0.12s", rotate: "-3deg" },
-          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "33%", y: "39%", w: "15%", delay: "0.18s", rotate: "2deg" },
-          { svg: "figma", name: "Figma", x: "54%", y: "39%", w: "16%", delay: "0.22s", rotate: "-1deg" },
-          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "73%", y: "39%", w: "16%", delay: "0.28s", rotate: "-4deg" }
+          { src: "/assets/company-logos/ai-logos/claude.png", name: "Claude", x: "15%", y: "12.5%", w: "19%", delay: "0.02s", rotate: "-4deg" },
+          { src: "/assets/company-logos/ai-logos/codex.png", name: "Codex", x: "32%", y: "12.5%", w: "14.5%", delay: "0.08s", rotate: "3deg" },
+          { src: "/assets/company-logos/ai-logos/paper.png", name: "Paper", x: "44.5%", y: "12.5%", w: "15%", delay: "0.14s", rotate: "6deg" },
+          { src: "/assets/company-logos/ai-logos/chatgpt.png", name: "ChatGPT", x: "57.5%", y: "12.5%", w: "13.5%", delay: "0.2s", rotate: "2deg" },
+          { src: "/assets/company-logos/ai-logos/v0.png", name: "v0", x: "69%", y: "12.5%", w: "16%", delay: "0.24s", rotate: "-2deg" },
+          { src: "/assets/company-logos/ai-logos/cursor.png", name: "Cursor", x: "15%", y: "42%", w: "17.5%", delay: "0.12s", rotate: "-4deg" },
+          { src: "/assets/company-logos/ai-logos/github.png", name: "GitHub", x: "30.5%", y: "39%", w: "14%", delay: "0.18s", rotate: "3deg" },
+          { src: "/assets/company-logos/ai-logos/claudecode.svg", name: "Claude Code", x: "42.5%", y: "39%", w: "16.5%", delay: "0.22s", rotate: "-2deg" },
+          { src: "/assets/company-logos/ai-logos/vercel.png", name: "Vercel", x: "57%", y: "39%", w: "14.5%", delay: "0.28s", rotate: "5deg" },
+          { svg: "figma", name: "Figma", x: "69.5%", y: "39%", w: "15.5%", delay: "0.32s", rotate: "-3deg" }
         ];
 
         const logos = logoItems
@@ -401,71 +386,112 @@
             <div class="story-image-fpo__logo-field">
               ${logos}
               <div class="story-image-fpo__input-shell">
-                <img src="/assets/company-logos/ai-logos/ai-input.png" alt="AI input" loading="eager" decoding="async" />
-                <div class="story-image-fpo__input-copy">
-                  <span class="story-image-fpo__input-text"></span>
-                  <span class="story-image-fpo__input-caret" aria-hidden="true"></span>
+                <div class="story-image-fpo__input-top">
+                  <div class="story-image-fpo__input-copy">
+                    <span class="story-image-fpo__input-text"></span>
+                    <span class="story-image-fpo__input-caret" aria-hidden="true"></span>
+                  </div>
                 </div>
-                <div class="story-image-fpo__input-send" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" fill="rgba(52,52,52,0.9)"/>
-                    <path d="M12 17V10m0 0-3 3m3-3 3 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                <div class="story-image-fpo__input-meta" aria-hidden="true">
+                  <div class="story-image-fpo__input-plus">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="story-image-fpo__input-actions">
+                    <span class="story-image-fpo__input-model-group">
+                      <span class="story-image-fpo__input-model-name">Opus 4.7</span>
+                      <span class="story-image-fpo__input-model-mode">Adaptive</span>
+                      <svg class="story-image-fpo__input-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <div class="story-image-fpo__input-mic">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="9.25" y="4" width="5.5" height="12" rx="2.75" stroke="currentColor" stroke-width="1.6" fill="none"/>
+                        <path d="M6 11a6 6 0 0012 0M12 19v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                    <div class="story-image-fpo__input-send" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17V10m0 0-3 3m3-3 3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="story-image-fpo__montage-pointer">
                 <span class="story-image-fpo__click-pulse" aria-hidden="true"></span>
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
-                    fill="white"
-                    stroke="#c4c4c4"
-                    stroke-width="1.5"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                ${pointerSvg()}
               </div>
             </div>
           </div>`;
       }
 
+      function pointerSvg() {
+        return `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.71 5.51Q4 4 5.51 7.71L8.99 16.29Q10.5 20 11.85 16.23L13 13L16.23 11.85Q20 10.5 16.29 8.99Z" fill="white" stroke="#c4c4c4" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+      }
+
+      function deriveSlideLabel(src) {
+        const file = (src || "").split("/").pop() || "";
+        const base = file.replace(/\.[^.]+$/, "");
+        const cleaned = base.replace(/^\s*\d+\s*-\s*/, "").trim();
+        return cleaned
+          .split(/\s+/)
+          .map((word) => {
+            if (/^[A-Za-z]+$/.test(word) && word.length <= 2) return word.toUpperCase();
+            if (/[A-Za-z]/.test(word) && /\d/.test(word)) return word;
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+          })
+          .join(" ");
+      }
+
       function buildGlp1GalleryMarkup(images = []) {
         const slides = images
-          .map(
-            (src, index) => `
-              <figure class="story-image-fpo__glp1-slide${index === 0 ? " is-active" : ""}" data-gallery-index="${index}">
-                <img src="${src}" alt="GLP-1 screen ${index + 1}" loading="eager" decoding="async" />
-              </figure>`
-          )
+          .map((src, index) => {
+            const label = deriveSlideLabel(src);
+            const loading = index === 0 ? "eager" : "lazy";
+            const priority = index === 0 ? "high" : "low";
+            return `
+              <figure class="story-image-fpo__glp1-slide${index === 0 ? " is-active" : ""}" data-gallery-index="${index}" data-label="${label}">
+                <img src="${src}" alt="GLP-1 ${label}" loading="${loading}" fetchpriority="${priority}" decoding="async" />
+              </figure>`;
+          })
           .join("");
+
+        const initialLabel = deriveSlideLabel(images[0] || "");
 
         return `
           <div class="story-image-fpo story-image-fpo--glp1" aria-hidden="true">
             <div class="story-image-fpo__glp1-viewport">
               ${slides}
-              <div class="story-image-fpo__glp1-pointer">
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 4L10.5 20L13 13L20 10.5L4 4Z"
-                    fill="white"
-                    stroke="#c4c4c4"
-                    stroke-width="1.5"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
+              <div class="story-image-fpo__glp1-pointer">${pointerSvg()}</div>
+              <div class="story-image-fpo__glp1-label" data-glp1-label>${initialLabel}</div>
+            </div>
+          </div>`;
+      }
+
+      function buildWideGalleryMarkup(images = []) {
+        const slides = images
+          .map((src, index) => {
+            const label = deriveSlideLabel(src);
+            const loading = index === 0 ? "eager" : "lazy";
+            const priority = index === 0 ? "high" : "low";
+            return `
+              <figure class="story-image-fpo__glp1-slide${index === 0 ? " is-active" : ""}" data-gallery-index="${index}" data-label="${label}">
+                <img src="${src}" alt="Wide gallery ${label}" loading="${loading}" fetchpriority="${priority}" decoding="async" />
+              </figure>`;
+          })
+          .join("");
+
+        const initialLabel = deriveSlideLabel(images[0] || "");
+
+        return `
+          <div class="story-image-fpo story-image-fpo--glp1 story-image-fpo--wide" aria-hidden="true">
+            <div class="story-image-fpo__glp1-viewport">
+              ${slides}
+              <div class="story-image-fpo__glp1-pointer">${pointerSvg()}</div>
+              <div class="story-image-fpo__glp1-label" data-glp1-label>${initialLabel}</div>
             </div>
           </div>`;
       }
@@ -486,6 +512,7 @@
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
           image: item.image || null,
           gallery: item.gallery || null,
+          galleryType: item.galleryType || null,
           isWelcomeStory,
           isCloserToWorkStory,
         };
@@ -977,6 +1004,7 @@
         "ChatGPT",
         "Codex",
         "Vercel",
+        "Claude Code",
         "GitHub",
         "Cursor",
         "v0"
@@ -988,14 +1016,17 @@
       let glp1GalleryAnimationToken = 0;
       let glp1GalleryTimers = [];
       let glp1GalleryImageAnimation = null;
+      let wideGalleryAnimationToken = 0;
+      let wideGalleryTimers = [];
+      let wideGalleryImageAnimation = null;
       let welcomeAnimationToken = 0;
       let welcomeTimers = [];
 
       const WELCOME_CARD_VARIANTS = [
         { kicker: "1997", titleA: "McDonalds", titleB: "Burger Artist", lines: ["86%", "92%", "74%"], image: "wide", emoji: "🍔" },
-        { kicker: "2020", titleA: "At Home", titleB: "Barista", lines: ["82%", "88%", "70%"], image: "tall", emoji: "☕" },
-        { kicker: "1989", titleA: "Golden Girls", titleB: "Army", lines: ["84%", "76%", "66%"], image: "wide", emoji: "👵🏻" },
-        { kicker: "2022", titleA: "Network", titleB: "Enthusiast", lines: ["90%", "80%", "68%"], image: "tall", emoji: "📡" }
+        { kicker: "2026", titleA: "GLP-1", titleB: "Launch", lines: ["88%", "72%", "68%"], image: "tall", emoji: "💉" },
+        { kicker: "2024", titleA: "Growth &", titleB: "Monetization", lines: ["80%", "92%", "70%"], image: "wide", emoji: "💰" },
+        { kicker: "2020", titleA: "Moved to", titleB: "Los Angeles", lines: ["86%", "78%", "64%"], image: "tall", emoji: "🌴" }
       ];
 
       function queueCloserToWorkTimeout(fn, delay) {
@@ -1018,6 +1049,17 @@
       function clearGlp1GalleryTimers() {
         glp1GalleryTimers.forEach((id) => window.clearTimeout(id));
         glp1GalleryTimers = [];
+      }
+
+      function queueWideGalleryTimeout(fn, delay) {
+        const id = window.setTimeout(fn, delay);
+        wideGalleryTimers.push(id);
+        return id;
+      }
+
+      function clearWideGalleryTimers() {
+        wideGalleryTimers.forEach((id) => window.clearTimeout(id));
+        wideGalleryTimers = [];
       }
 
       function queueWelcomeTimeout(fn, delay) {
@@ -1077,7 +1119,7 @@
         clearGlp1GalleryTimers();
         glp1GalleryImageAnimation?.cancel();
         glp1GalleryImageAnimation = null;
-        const root = storyImage?.querySelector(".story-image-fpo--glp1");
+        const root = storyImage?.querySelector(".story-image-fpo--glp1:not(.story-image-fpo--wide)");
         if (!root) return;
         root.querySelectorAll(".story-image-fpo__glp1-slide").forEach((slide, index) => {
           slide.classList.remove("is-active", "is-entering", "is-exiting");
@@ -1086,6 +1128,32 @@
         root.querySelectorAll(".story-image-fpo__glp1-slide img").forEach((img) => {
           img.style.transform = "translateY(0)";
         });
+        const labelEl = root.querySelector("[data-glp1-label]");
+        const firstSlide = root.querySelector(".story-image-fpo__glp1-slide");
+        if (labelEl && firstSlide) labelEl.textContent = firstSlide.dataset.label || "";
+      }
+
+      function stopWideGalleryAnimation() {
+        wideGalleryAnimationToken += 1;
+        clearWideGalleryTimers();
+        wideGalleryImageAnimation?.cancel();
+        wideGalleryImageAnimation = null;
+        if (storyImageShell) {
+          storyImageShell.style.aspectRatio = "";
+          storyImageShell.style.height = "";
+        }
+        const root = storyImage?.querySelector(".story-image-fpo--wide");
+        if (!root) return;
+        root.querySelectorAll(".story-image-fpo__glp1-slide").forEach((slide, index) => {
+          slide.classList.remove("is-active", "is-entering", "is-exiting");
+          if (index === 0) slide.classList.add("is-active");
+        });
+        root.querySelectorAll(".story-image-fpo__glp1-slide img").forEach((img) => {
+          img.style.transform = "translate(0, 0) scale(1)";
+        });
+        const labelEl = root.querySelector("[data-glp1-label]");
+        const firstSlide = root.querySelector(".story-image-fpo__glp1-slide");
+        if (labelEl && firstSlide) labelEl.textContent = firstSlide.dataset.label || "";
       }
 
       function stopWelcomeAnimation() {
@@ -1233,7 +1301,8 @@
           Cursor: { x: 0.8, y: 0.78, r: -8 },
           GitHub: { x: 0.6, y: 0.7, r: -5 },
           Figma: { x: 0.7, y: 0.68, r: -4 },
-          Vercel: { x: 0.62, y: 0.64, r: -9 }
+          Vercel: { x: 0.62, y: 0.64, r: -9 },
+          "Claude Code": { x: 0.68, y: 0.72, r: -6 }
         };
 
         const placePointerOnTile = (tile, pressed = false) => {
@@ -1398,11 +1467,19 @@
 
       function startGlp1GalleryAnimation() {
         stopGlp1GalleryAnimation();
-        const root = storyImage?.querySelector(".story-image-fpo--glp1");
+        const root = storyImage?.querySelector(".story-image-fpo--glp1:not(.story-image-fpo--wide)");
         if (!root) return;
         const slides = Array.from(root.querySelectorAll(".story-image-fpo__glp1-slide"));
         const pointer = root.querySelector(".story-image-fpo__glp1-pointer");
+        const labelEl = root.querySelector("[data-glp1-label]");
         if (slides.length < 2) return;
+
+        const updateGlp1Label = (slide) => {
+          if (!labelEl || !slide) return;
+          const next = slide.dataset.label || "";
+          if (labelEl.textContent === next) return;
+          labelEl.textContent = next;
+        };
 
         const token = glp1GalleryAnimationToken;
         let activeIndex = 0;
@@ -1410,6 +1487,7 @@
         const stepDuration = 520;
         const stepFollowDelay = 80;
         const stepPause = 3000;
+        const lastStopPause = 1200;
         const finalPause = 3000;
         const fadeDuration = 980;
 
@@ -1455,6 +1533,7 @@
                 if (token !== glp1GalleryAnimationToken) return;
                 next.classList.add("is-entering");
                 current.classList.add("is-exiting");
+                updateGlp1Label(next);
               }, initialPause + finalPause);
               queueGlp1GalleryTimeout(() => {
                 if (token !== glp1GalleryAnimationToken) return;
@@ -1490,14 +1569,16 @@
                   previousStop = stop;
                 }, stepFollowDelay);
               }, elapsed);
-              elapsed += stepDuration + stepPause;
+              const isLast = index === stops.length - 1;
+              elapsed += stepDuration + (isLast ? lastStopPause : stepPause);
             });
 
             queueGlp1GalleryTimeout(() => {
               if (token !== glp1GalleryAnimationToken) return;
               next.classList.add("is-entering");
               current.classList.add("is-exiting");
-            }, elapsed + finalPause);
+              updateGlp1Label(next);
+            }, elapsed);
 
             queueGlp1GalleryTimeout(() => {
               if (token !== glp1GalleryAnimationToken) return;
@@ -1507,7 +1588,7 @@
               next.classList.add("is-active");
               activeIndex = nextIndex;
               cycle();
-            }, elapsed + finalPause + fadeDuration);
+            }, elapsed + fadeDuration);
           };
 
           const firstImg = current.querySelector("img");
@@ -1521,10 +1602,221 @@
         cycle();
       }
 
+      function startWideGalleryAnimation() {
+        stopWideGalleryAnimation();
+        const root = storyImage?.querySelector(".story-image-fpo--wide");
+        if (!root) return;
+        const slides = Array.from(root.querySelectorAll(".story-image-fpo__glp1-slide"));
+        const pointer = root.querySelector(".story-image-fpo__glp1-pointer");
+        const labelEl = root.querySelector("[data-glp1-label]");
+        if (!slides.length) return;
+
+        const token = wideGalleryAnimationToken;
+        let activeIndex = 0;
+
+        const establishPause = 3000;
+        const quadrantPause = 3000;
+        const finalPause = 1200;
+        const panDuration = 520;
+        const flickDuration = 700;
+        const zoomInDuration = 520;
+        const zoomOutDuration = 1100;
+        const fadeDuration = 2200;
+        const tapToZoomDelay = 280;
+        const crossFadeTriggerAt = 0.55;
+        const SCALE = 2;
+        const OFFSET = (SCALE - 1) * 100;
+
+        const transformFor = (state) => {
+          switch (state) {
+            case "UL": return `translate(0%, 0%) scale(${SCALE})`;
+            case "UR": return `translate(-${OFFSET}%, 0%) scale(${SCALE})`;
+            case "LL": return `translate(0%, -${OFFSET}%) scale(${SCALE})`;
+            case "LR": return `translate(-${OFFSET}%, -${OFFSET}%) scale(${SCALE})`;
+            default: return "translate(0, 0) scale(1)";
+          }
+        };
+
+        const updateLabel = (slide) => {
+          if (!labelEl || !slide) return;
+          const nextText = slide.dataset.label || "";
+          if (labelEl.textContent === nextText) return;
+          labelEl.textContent = nextText;
+        };
+
+        const flickClasses = ["is-flicking-rtl", "is-flicking-up", "is-flicking-tap"];
+        const flickDurations = { rtl: 540, up: 720, tap: 520 };
+        const flickPointer = (direction) => {
+          if (!pointer || !direction || token !== wideGalleryAnimationToken) return;
+          flickClasses.forEach((c) => pointer.classList.remove(c));
+          void pointer.offsetWidth;
+          const cls = `is-flicking-${direction}`;
+          pointer.classList.add(cls);
+          queueWideGalleryTimeout(() => {
+            if (token !== wideGalleryAnimationToken) return;
+            pointer.classList.remove(cls);
+          }, flickDurations[direction] || 540);
+        };
+
+        const animateTo = (img, from, to, duration, easing = "cubic-bezier(0.22, 1, 0.36, 1)", flickDirection = null) => {
+          if (!img) return;
+          if (flickDirection) flickPointer(flickDirection);
+          wideGalleryImageAnimation?.cancel();
+          wideGalleryImageAnimation = img.animate(
+            [
+              { transform: transformFor(from) },
+              { transform: transformFor(to) }
+            ],
+            { duration, easing, fill: "forwards" }
+          );
+        };
+
+        const cycle = () => {
+          if (token !== wideGalleryAnimationToken) return;
+          const current = slides[activeIndex];
+          const nextIndex = (activeIndex + 1) % slides.length;
+          const next = slides[nextIndex];
+          const img = current.querySelector("img");
+          if (!img) return;
+
+          img.style.transform = transformFor("full");
+
+          const run = () => {
+            if (token !== wideGalleryAnimationToken) return;
+
+            let elapsed = establishPause;
+
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              flickPointer("tap");
+            }, elapsed);
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              animateTo(img, "full", "UL", zoomInDuration);
+            }, elapsed + tapToZoomDelay);
+            elapsed += tapToZoomDelay + zoomInDuration + quadrantPause;
+
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              animateTo(img, "UL", "UR", panDuration, undefined, "rtl");
+            }, elapsed);
+            elapsed += panDuration + quadrantPause;
+
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              animateTo(img, "UR", "LL", flickDuration, "cubic-bezier(0.2, 1.05, 0.25, 1)", "up");
+            }, elapsed);
+            elapsed += flickDuration + quadrantPause;
+
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              animateTo(img, "LL", "LR", panDuration, undefined, "rtl");
+            }, elapsed);
+            elapsed += panDuration + finalPause;
+
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              flickPointer("tap");
+            }, elapsed);
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              animateTo(img, "LR", "full", zoomOutDuration);
+            }, elapsed + tapToZoomDelay);
+
+            const fadeStart = elapsed + tapToZoomDelay + zoomOutDuration * crossFadeTriggerAt;
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              next.classList.add("is-entering");
+              current.classList.add("is-exiting");
+              updateLabel(next);
+              const nextImg = next.querySelector("img");
+              if (nextImg) nextImg.style.transform = transformFor("full");
+            }, fadeStart);
+
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              current.classList.remove("is-active", "is-exiting");
+              const curImg = current.querySelector("img");
+              if (curImg) curImg.style.transform = transformFor("full");
+              next.classList.remove("is-entering");
+              next.classList.add("is-active");
+              activeIndex = nextIndex;
+              cycle();
+            }, fadeStart + fadeDuration);
+          };
+
+          const firstImg = current.querySelector("img");
+          if (firstImg?.complete) {
+            run();
+          } else {
+            firstImg?.addEventListener("load", run, { once: true });
+          }
+        };
+
+        let maxAspect = 0;
+        let pending = slides.length;
+        const commit = () => {
+          if (token !== wideGalleryAnimationToken) return;
+          if (maxAspect > 0 && storyImageShell) {
+            storyImageShell.style.aspectRatio = `${maxAspect}`;
+            storyImageShell.style.height = "auto";
+          }
+          cycle();
+        };
+        slides.forEach((slide) => {
+          const img = slide.querySelector("img");
+          if (!img) {
+            pending -= 1;
+            if (pending === 0) commit();
+            return;
+          }
+          const measure = () => {
+            if (img.naturalWidth && img.naturalHeight) {
+              const aspect = img.naturalWidth / img.naturalHeight;
+              if (aspect > maxAspect) maxAspect = aspect;
+            }
+            pending -= 1;
+            if (pending === 0) commit();
+          };
+          if (img.complete) measure();
+          else {
+            img.addEventListener("load", measure, { once: true });
+            img.addEventListener("error", measure, { once: true });
+          }
+        });
+      }
+
+      const preloadedGalleryImages = new Set();
+      function preloadAdjacentStoryImages(currentId) {
+        if (!currentId || !timelineDisplayEntries?.length) return;
+        const currentIndex = timelineDisplayEntries.findIndex((e) => e.dataset.story === currentId);
+        if (currentIndex < 0) return;
+        const neighborOffsets = [1, -1, 2];
+        neighborOffsets.forEach((offset) => {
+          const entry = timelineDisplayEntries[currentIndex + offset];
+          const id = entry?.dataset.story;
+          if (!id) return;
+          const neighbor = storyContent[id];
+          const firstSrc = neighbor?.gallery?.[0] || neighbor?.image;
+          if (!firstSrc || preloadedGalleryImages.has(firstSrc)) return;
+          preloadedGalleryImages.add(firstSrc);
+          const img = new Image();
+          img.fetchPriority = "low";
+          img.decoding = "async";
+          img.src = firstSrc;
+        });
+      }
+
+      const scheduleIdle = typeof requestIdleCallback === "function"
+        ? (fn) => requestIdleCallback(fn, { timeout: 1200 })
+        : (fn) => window.setTimeout(fn, 500);
+
       function applyStoryContent(story) {
         stopCloserToWorkAnimation();
         stopGlp1GalleryAnimation();
+        stopWideGalleryAnimation();
         stopWelcomeAnimation();
+        if (storyScroll) storyScroll.scrollTop = 0;
         storyKicker.textContent = story.kicker;
         storyTitle.textContent = story.title;
         storyCopy.innerHTML = renderParagraphMarkup(story.copy);
@@ -1546,7 +1838,9 @@
         } else if (story.gallery?.length) {
           storyImage.style.backgroundImage = "none";
           storyImage.style.background = "transparent";
-          storyImage.innerHTML = buildGlp1GalleryMarkup(story.gallery);
+          storyImage.innerHTML = story.galleryType === "wide"
+            ? buildWideGalleryMarkup(story.gallery)
+            : buildGlp1GalleryMarkup(story.gallery);
         } else if (story.image) {
           storyImage.classList.remove("is-fpo");
           storyImage.style.backgroundImage = "none";
@@ -1599,13 +1893,20 @@
           });
         } else if (story.gallery?.length) {
           requestAnimationFrame(() => {
-            if (activeStoryId === story.id) startGlp1GalleryAnimation();
+            if (activeStoryId === story.id) {
+              if (story.galleryType === "wide") startWideGalleryAnimation();
+              else startGlp1GalleryAnimation();
+            }
           });
         } else if (story.isWelcomeStory) {
           requestAnimationFrame(() => {
             if (activeStoryId === story.id) startWelcomeAnimation();
           });
         }
+
+        scheduleIdle(() => {
+          if (activeStoryId === story.id) preloadAdjacentStoryImages(story.id);
+        });
       }
 
       function applyTimelineCompany(company) {
@@ -1711,6 +2012,12 @@
 
       function updateStoryScrollEffects() {
         if (!storyScroll) return;
+        const canScroll = storyScroll.scrollHeight - storyScroll.clientHeight > 2;
+        const atBottom = storyScroll.scrollTop + storyScroll.clientHeight >= storyScroll.scrollHeight - 2;
+        const atTop = storyScroll.scrollTop <= 2;
+        storyScroll.classList.toggle("is-scrollable", canScroll);
+        storyScroll.classList.toggle("is-at-bottom", canScroll && atBottom);
+        storyScroll.classList.toggle("is-at-top", canScroll && atTop);
         const textTrigger = 18;
         const blockTrigger = 22;
         const blockFadeDistance = 96;
@@ -1854,7 +2161,7 @@
       function getCompactYearRange(entry, index) {
         const peers = timelineTargetsByYear.get(entry.dataset.year) || [];
         if (!peers.length) return null;
-        const itemStep = isMobileLayout() ? 188 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const itemStep = isMobileLayout() ? 214 : COMPACT_TIMELINE_LAYOUT.itemStep;
         const firstCenter = getEntryX(peers[0]);
         const lastCenter = getEntryX(peers[peers.length - 1]);
         const previousYear = yearEntries[index - 1];
@@ -2176,7 +2483,7 @@
       function layoutTimelineCompact() {
         if (!timelineContent) return;
 
-        const itemStep = isMobileLayout() ? 188 : COMPACT_TIMELINE_LAYOUT.itemStep;
+        const itemStep = isMobileLayout() ? 214 : COMPACT_TIMELINE_LAYOUT.itemStep;
         const startX = snapToTick(track.clientWidth / 2);
         const yearGapStep = itemStep * (isMobileLayout() ? 0.5 : COMPACT_TIMELINE_LAYOUT.yearGapRatio);
         let currentX = startX;
@@ -2717,6 +3024,19 @@
         }, 220);
       });
       track?.addEventListener("click", handleTimelineTap);
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+        const target = event.target;
+        if (target instanceof HTMLElement) {
+          const tag = target.tagName;
+          if (tag === "INPUT" || tag === "TEXTAREA" || target.isContentEditable) return;
+        }
+        event.preventDefault();
+        moveStoryByOffset(event.key === "ArrowDown" ? 1 : -1);
+      });
+
       storyCard?.addEventListener("touchstart", handleStorySwipeStart, { passive: true });
       storyCard?.addEventListener("touchmove", handleStorySwipeMove, { passive: false });
       storyCard?.addEventListener("touchend", handleStorySwipeEnd, { passive: true });
@@ -2896,6 +3216,25 @@
         if (sidebarHeading) sidebarHeadingObserver.observe(sidebarHeading);
       }
       storyScroll?.addEventListener("scroll", updateStoryScrollEffects, { passive: true });
+
+      const sidebarScroll = document.querySelector(".sidebar-scroll");
+      if (sidebarScroll) {
+        const updateSidebarScrollState = () => {
+          const canScroll = sidebarScroll.scrollHeight - sidebarScroll.clientHeight > 2;
+          const atBottom = sidebarScroll.scrollTop + sidebarScroll.clientHeight >= sidebarScroll.scrollHeight - 2;
+          const atTop = sidebarScroll.scrollTop <= 2;
+          sidebarScroll.classList.toggle("is-scrollable", canScroll);
+          sidebarScroll.classList.toggle("is-at-bottom", canScroll && atBottom);
+          sidebarScroll.classList.toggle("is-at-top", canScroll && atTop);
+        };
+        sidebarScroll.addEventListener("scroll", updateSidebarScrollState, { passive: true });
+        window.addEventListener("resize", updateSidebarScrollState);
+        if (typeof ResizeObserver !== "undefined") {
+          const sidebarResizeObserver = new ResizeObserver(updateSidebarScrollState);
+          sidebarResizeObserver.observe(sidebarScroll);
+        }
+        updateSidebarScrollState();
+      }
     </script>
   </body>
 </html>

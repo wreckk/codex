@@ -21,7 +21,7 @@
         "company": "Personal",
         "type": "primary",
         "hideLogo": true,
-        "image": "/assets/images/ai.png",
+        "image": "/assets/images/ai.webp",
         "fill": "linear-gradient(145deg, rgba(78, 78, 78, 0.28), rgba(166, 166, 166, 0.88) 42%, rgba(96, 96, 96, 0.42) 100%)",
         "chips": ["Design + Code", "Prototyping", "AI Tools", "Workflow", "Craft"],
         "notes": [
@@ -35,10 +35,10 @@
         "company": "GoodRx",
         "type": "primary",
         "gallery": [
-          "/assets/images/examples-glp1/01 -  version 1.png",
-          "/assets/images/examples-glp1/02 - ai v1.png",
-          "/assets/images/examples-glp1/03 - ai v2.png",
-          "/assets/images/examples-glp1/04 - shipped.png"
+          "/assets/images/examples-glp1/01 - Original approach.webp",
+          "/assets/images/examples-glp1/02 - Quick AI explorations.webp",
+          "/assets/images/examples-glp1/03 - Vision Prototype.webp",
+          "/assets/images/examples-glp1/04 - Shipped Product.webp"
         ],
         "chips": [
           { "label": "Live Prototype", "href": "https://glp-1.ericcenteno.com" },
@@ -61,31 +61,49 @@
     "items": [
       {
         "order": 1,
-        "title": "ED + Hair Loss",
+        "title": "💊 Subscription Launch",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["Launch", "New Category"],
+        "gallery": [
+          "/assets/images/examples-subscription/01 - ED Treatment.webp",
+          "/assets/images/examples-subscription/02 - Hair Loss.webp"
+        ],
+        "chips": ["Subscription", "New Category", "Live Product", "Growth"],
+        "description": "Hair Loss and ED treatment experiences, from early concepts to final subscription-based flows.",
         "notes": [
-          "Expanded the product into new treatment categories with full end-to-end design.",
-          "Turned early concepts into real, revenue-generating experiences."
+          "Expanded GoodRx into subscriptions with its first recurring product, starting with ED and later extending to Hair Loss, building the full experience end to end to support ongoing use and predictable revenue."
         ]
       },
       {
         "order": 2,
-        "title": "Homepage Redesign",
+        "title": "🏠 Homepage Redesign",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["Brand", "Entry Point"],
+        "gallery": [
+          "/assets/images/examples-homepage/01 - Old Homepage.webp",
+          "/assets/images/examples-homepage/02 - Homepage Explorations.webp",
+          "/assets/images/examples-homepage/03 - New Homepage.webp"
+        ],
+        "chips": ["Homepage", "E-commerce", "Merchandising", "Discovery"],
+        "description": "From early discovery to final merchandised homepage experience.",
         "notes": [
-          "Reworked the homepage to better reflect the product and business direction.",
-          "Established a clearer, more cohesive front door to the experience."
+          "Reworked the homepage into a merchandised, retail-style experience aligned with the product and business direction.",
+          "Created a clearer front door that better supports discovery and conversion."
         ]
       },
       {
         "order": 3,
-        "title": "App IA Redesign",
+        "title": "📱 App IA Redesign",
         "company": "GoodRx",
         "type": "primary",
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-mobile-ia/01 - Prior Experience.webp",
+          "/assets/images/examples-mobile-ia/02 - Issue Finding.webp",
+          "/assets/images/examples-mobile-ia/03 - Information Architecture.webp",
+          "/assets/images/examples-mobile-ia/04 - Wireframing.webp",
+          "/assets/images/examples-mobile-ia/05 - New Experience.webp"
+        ],
         "chips": ["IA", "Structure"],
         "notes": [
           "Redesigned the app structure to support product growth and complexity.",
@@ -100,46 +118,51 @@
     "items": [
       {
         "order": 1,
-        "title": "New Look and Feel",
+        "title": "📍 Customer Journeys",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["Design System", "Brand"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-customer-journey/01 - User Journey V1.webp",
+          "/assets/images/examples-customer-journey/02 - Customer Emotions.webp",
+          "/assets/images/examples-customer-journey/03 - Components.webp",
+          "/assets/images/examples-customer-journey/04 - Customer Journey v2.webp"
+        ],
+        "chips": ["Journey Mapping", "Research", "Information Design", "Alignment"],
+        "description": "The evolution of the customer journey.",
         "notes": [
-          "Rolled out an updated visual system across core product surfaces.",
-          "Increased consistency and overall product quality."
+          "Defined end-to-end customer journeys across the product, working with research, illustration, and information design to bring them to life.",
+          "Rolled out across PDE teams and company leadership to align on a shared understanding of the experience."
         ]
       },
       {
         "order": 2,
-        "title": "Partner Integrations",
+        "title": "🎩 New Look and Feel",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["Partnerships", "Integration"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-look-and-feel/01 - Moodboards & Inspo.webp",
+          "/assets/images/examples-look-and-feel/02 - Mobile Explorations.webp",
+          "/assets/images/examples-look-and-feel/03 - Desktop Explorations.webp",
+          "/assets/images/examples-look-and-feel/04 - Desktop Concepts.webp",
+          "/assets/images/examples-look-and-feel/05 - Price Page Explorations.webp"
+        ],
+        "chips": ["Design System", "Visual Design", "Workshops", "Iteration"],
+        "description": "Rapid concepting, workshopping, and iteration to explore and refine the direction.",
         "notes": [
-          "Integrated the product experience into partner ecosystems.",
-          "Maintained consistency while adapting to external constraints."
+          "Rolled out an updated visual system across core product surfaces, using concepting and workshops to push direction, secure company buy-in, and then test and iterate into a more cohesive, scalable system."
         ]
       },
       {
         "order": 3,
-        "title": "Core Platform Refresh",
+        "title": "Price Page Refresh",
         "company": "GoodRx",
         "type": "primary",
         "chips": ["Core Product", "Optimization"],
         "notes": [
           "Rebuilt high-traffic surfaces including coupon and pricing pages.",
           "Improved clarity, usability, and decision-making speed."
-        ]
-      },
-      {
-        "order": 4,
-        "title": "Customer Journeys",
-        "company": "GoodRx",
-        "type": "primary",
-        "chips": ["Journey Mapping", "Alignment"],
-        "notes": [
-          "Defined end-to-end customer journeys across the product.",
-          "Aligned teams around a shared understanding of the experience."
         ]
       }
     ]
