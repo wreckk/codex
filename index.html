@@ -498,7 +498,7 @@
 
       function buildStory(item, year, index) {
         const isWelcomeStory = item.title === "Start Here" || item.title === "👋 Welcome";
-        const isCloserToWorkStory = item.title === "Closer to the Work" || item.title === "✨ Doing the Work";
+        const isCloserToWorkStory = item.title === "Closer to the Work" || item.title === "✨ Doing the Work" || item.title === "✨ Prompt + Vibe Coding";
         return {
           kicker: isWelcomeStory
             ? ""
@@ -508,7 +508,7 @@
           copy: item.notes.join(" "),
           pills: item.chips,
           fill: item.fill || buildBrandFill(item.company, index),
-          note: item.description || (isWelcomeStory ? "" : `${item.company} · FPO container for supporting imagery`),
+          note: item.description !== undefined ? item.description : (isWelcomeStory ? "" : `${item.company} · FPO container for supporting imagery`),
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
           image: item.image || null,
           gallery: item.gallery || null,

@@ -17,16 +17,17 @@
       },
       {
         "order": 2,
-        "title": "✨ Doing the Work",
+        "title": "✨ Prompt + Vibe Coding",
         "company": "Personal",
         "type": "primary",
         "hideLogo": true,
         "image": "/assets/images/ai.webp",
         "fill": "linear-gradient(145deg, rgba(78, 78, 78, 0.28), rgba(166, 166, 166, 0.88) 42%, rgba(96, 96, 96, 0.42) 100%)",
         "chips": ["Design + Code", "Prototyping", "AI Tools", "Workflow", "Craft"],
+        "description": "",
         "notes": [
-          "I'm taking a short break from full-time work to focus on how things actually get built now.",
-          "I'm spending the time fully hands-on across design, prototypes, and code, immersing myself in the tools and rebuilding how I turn ideas into real output."
+          "I've taken a short break from full-time work to focus on how things actually get built now.",
+          "I'm working hands-on across design, prototypes, and code, applying what I've done for years in new ways to move faster, with less overhead and fewer dependencies."
         ]
       },
       {
