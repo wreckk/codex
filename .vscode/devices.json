@@ -1,0 +1,49 @@
+{
+  "devices": [
+    {
+      "name": "iPhone 2026",
+      "width": 390,
+      "height": 759,
+      "deviceScaleFactor": 3,
+      "mobile": true,
+      "hasTouch": true,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "name": "iPhone Pro Max 2026",
+      "width": 440,
+      "height": 844,
+      "deviceScaleFactor": 3,
+      "mobile": true,
+      "hasTouch": true,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "name": "iPad mini 2026",
+      "width": 744,
+      "height": 1024,
+      "deviceScaleFactor": 2,
+      "mobile": true,
+      "hasTouch": true,
+      "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "name": "iPad 11\" 2026",
+      "width": 820,
+      "height": 1080,
+      "deviceScaleFactor": 2,
+      "mobile": true,
+      "hasTouch": true,
+      "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+    },
+    {
+      "name": "iPad 13\" 2026",
+      "width": 1024,
+      "height": 1294,
+      "deviceScaleFactor": 2,
+      "mobile": true,
+      "hasTouch": true,
+      "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+    "piny.project_settings": {
+        "open-pages": [
+            "pinyfakepage.html"
+        ],
+        "component-settings": {
+            "index.html:::Temp": {
+                "route": null,
+                "black-box": false
+            }
+        },
+        "urls": {
+            "pinyfakepage.html": {
+                "open-page-views": [
+                    {
+                        "w": 320,
+                        "h": 0
+                    }
+                ]
+            }
+        }
+    }
+}
