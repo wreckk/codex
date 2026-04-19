@@ -184,24 +184,13 @@
       },
       {
         "order": 2,
-        "title": "Design Team Rigor",
+        "title": "Design Excellence",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["Culture", "Craft"],
+        "chips": ["Culture", "Craft", "Org Design"],
         "notes": [
-          "Raised critique standards and working norms across the team.",
-          "Created clearer expectations around quality and execution."
-        ]
-      },
-      {
-        "order": 3,
-        "title": "Org Buildout",
-        "company": "GoodRx",
-        "type": "primary",
-        "chips": ["Hiring", "Org Design"],
-        "notes": [
-          "Built out key roles across content, operations, and leadership.",
-          "Strengthened the foundation for scaling the organization."
+          "Raised the bar on critique standards and working norms while building out key roles across content, operations, and leadership.",
+          "Sharper expectations on quality and execution, paired with a stronger organizational foundation to scale durably."
         ]
       }
     ]
