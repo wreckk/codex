@@ -837,7 +837,10 @@
         // value from a wider viewport gives the wrong base when the column narrows
         sidebarName.style.fontSize = "";
         const baseFontSize = parseFloat(window.getComputedStyle(sidebarName).fontSize);
-        const available = sidebarName.parentElement?.clientWidth || sidebarHeading.clientWidth;
+        // Reserve ~2px for glyph ink overshoot past advance-width (e.g. bold "O" bleeds
+        // past its metric box and gets clipped when overflow:hidden applies at ≤960px)
+        const rawAvailable = sidebarName.parentElement?.clientWidth || sidebarHeading.clientWidth;
+        const available = rawAvailable ? rawAvailable - 2 : 0;
         if (!available || Number.isNaN(baseFontSize)) return;
 
         // Probe span appended to body — completely outside the card's flex/sticky
