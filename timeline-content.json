@@ -156,13 +156,18 @@
       },
       {
         "order": 3,
-        "title": "Price Page Refresh",
+        "title": "🏥 Price Page Refresh",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["Core Product", "Optimization"],
+        "gallery": [
+          "/assets/images/examples-price-page/02 - Price Page 2024.png",
+          "/assets/images/examples-price-page/03 - Price Page 2026.png"
+        ],
+        "chips": ["Core Product", "Experimentation", "Conversion", "Pricing"],
+        "description": "From early versions through ongoing A/B testing to the final experience.",
         "notes": [
-          "Rebuilt high-traffic surfaces including coupon and pricing pages.",
-          "Improved clarity, usability, and decision-making speed."
+          "Rebuilt high-traffic pricing and coupon pages through continuous experimentation and iteration.",
+          "Evolved the experience over multiple versions, improving clarity, usability, and decision-making on one of the company's largest revenue drivers."
         ]
       }
     ]
