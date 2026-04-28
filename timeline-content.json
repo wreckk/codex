@@ -12,7 +12,7 @@
         "chips": [],
         "notes": [
           "<mark>Thanks for stopping by</mark>. This is a timeline of some of my work over the years, with a few highlights mixed in.",
-          "Scroll through to explore, the details update as you move through each moment, unfolding as you go."
+          "Scroll through to explore. The details update as you move through each moment, unfolding as you go."
         ]
       },
       {
@@ -26,7 +26,7 @@
         "chips": ["Design + Code", "Prototyping", "AI Tools", "Workflow", "Craft"],
         "description": "",
         "notes": [
-          "I've taken a short break from full-time work to focus on how things actually get built now.",
+          "I've taken a <mark>short break from full-time work</mark> to focus on how things actually get built now.",
           "I'm working hands-on across design, prototypes, and code, applying what I've done for years in new ways to move faster, with less overhead and fewer dependencies."
         ]
       },
@@ -51,7 +51,7 @@
         "notes": [
           "I stepped into the work when it wasn't really landing and pushed to reset the direction.",
           "Built a new vision in under 48 hours, tying product and brand together in a way that finally clicked.",
-          "Ended up being the most successful launch to date, ~1200% MoM subscription growth."
+          "Ended up being the most successful launch to date, <mark>~1200% MoM subscription growth</mark>."
         ]
       }
     ]
@@ -72,7 +72,7 @@
         "chips": ["Subscription", "New Category", "Live Product", "Growth"],
         "description": "Hair Loss and ED treatment experiences, from early concepts to final subscription-based flows.",
         "notes": [
-          "Expanded GoodRx into subscriptions with its first recurring product, starting with ED and later extending to Hair Loss, building the full experience end to end to support ongoing use and predictable revenue."
+          "Expanded GoodRx's offerings with its <mark>first recurring subscription product</mark>, starting with ED and later extending to Hair Loss, building the full experience end to end to support ongoing use and predictable revenue."
         ]
       },
       {
@@ -88,7 +88,7 @@
         "chips": ["Homepage", "E-commerce", "Merchandising", "Discovery"],
         "description": "From early discovery to final merchandised homepage experience.",
         "notes": [
-          "Reworked the homepage into a merchandised, retail-style experience aligned with the product and business direction.",
+          "Reworked the homepage into a <mark>merchandised, retail-style experience</mark> aligned with the product and business direction.",
           "Created a clearer front door that better supports discovery and conversion."
         ]
       },
@@ -107,7 +107,7 @@
         ],
         "chips": ["IA", "Structure"],
         "notes": [
-          "Redesigned the app structure to support product growth and complexity.",
+          "Redesigned the app structure to <mark>support product growth and complexity</mark>.",
           "Simplified navigation and improved clarity across key flows."
         ]
       }
@@ -133,7 +133,7 @@
         "description": "The evolution of the customer journey.",
         "notes": [
           "Defined end-to-end customer journeys across the product, working with research, illustration, and information design to bring them to life.",
-          "Rolled out across PDE teams and company leadership to align on a shared understanding of the experience."
+          "Rolled out across PDE teams and company leadership to align on a <mark>shared understanding of the experience</mark>."
         ]
       },
       {
@@ -152,7 +152,7 @@
         "chips": ["Design System", "Visual Design", "Workshops", "Iteration"],
         "description": "Rapid concepting, workshopping, and iteration to explore and refine the direction.",
         "notes": [
-          "Rolled out an updated visual system across core product surfaces, using concepting and workshops to push direction, secure company buy-in, and then test and iterate into a more cohesive, scalable system."
+          "Rolled out an <mark>updated visual system</mark> across core product surfaces, using concepting and workshops to push direction, secure company buy-in, and then test and iterate into a more cohesive, scalable system."
         ]
       },
       {
@@ -168,7 +168,7 @@
         "description": "From early versions through ongoing A/B testing to the final experience.",
         "notes": [
           "Rebuilt high-traffic pricing and coupon pages through continuous experimentation and iteration.",
-          "Evolved the experience over multiple versions, improving clarity, usability, and decision-making on one of the company's largest revenue drivers."
+          "Evolved the experience over multiple versions, improving clarity, usability, and decision-making on one of the company's <mark>largest revenue drivers</mark>."
         ]
       }
     ]
@@ -179,24 +179,34 @@
     "items": [
       {
         "order": 1,
-        "title": "Medicine Cabinet",
+        "title": "👩🏻‍⚕️ Medicine Cabinet",
         "company": "GoodRx",
         "type": "primary",
-        "chips": ["New Product", "Retention"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-medicine-cabinet/01 - Smart Dashboard.png"
+        ],
+        "chips": ["New Product", "Vision", "Concepting", "Retention"],
+        "description": "Early blueprint wires used to set the vision and align the team.",
         "notes": [
-          "Launched a product focused on ongoing value beyond transactions.",
-          "Shifted the experience toward repeat engagement."
+          "Partnered with the team to ideate and <mark>shape the early vision</mark> for the product.",
+          "Used blueprint wires and concept work to set direction and align on what Medicine Cabinet could become."
         ]
       },
       {
         "order": 2,
-        "title": "Design Excellence",
+        "title": "💎 Design Excellence",
         "company": "GoodRx",
         "type": "primary",
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-design-excellence/01 - Ceremonies and Frameworks.png"
+        ],
         "chips": ["Culture", "Craft", "Org Design"],
+        "description": "Ceremonies, processes, and frameworks.",
         "notes": [
-          "Raised the bar on critique standards and working norms while building out key roles across content, operations, and leadership.",
-          "Sharper expectations on quality and execution, paired with a stronger organizational foundation to scale durably."
+          "<mark>Raised the bar</mark> on craft and critique while filling key roles across content, ops, and leadership.",
+          "A stronger foundation for quality and durability at scale."
         ]
       }
     ]
@@ -207,46 +217,84 @@
     "items": [
       {
         "order": 1,
-        "title": "Joined GoodRx",
+        "title": "💼 Joined GoodRx",
         "company": "GoodRx",
         "type": "primary",
+        "galleryType": "wide",
+        "noPan": true,
+        "gallery": [
+          "/assets/images/examples-joined-goodrx/goodrx-sign.jpeg"
+        ],
         "chips": ["Leadership", "Scale"],
         "notes": [
-          "Stepped into SVP Product Design role across product and content.",
-          "Focused on improving quality and alignment across teams."
+          "Joined as <mark>SVP of Product Design</mark> across product and content.",
+          "Focused on helping more Americans get the health care they need."
         ]
       },
       {
         "order": 2,
-        "title": "Outreach Redesign",
+        "title": "🖌️ Brand Redesign",
         "company": "Outreach",
         "type": "primary",
-        "chips": ["Design System", "Product"],
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-outreach-brand/01 - Refreshed Brand.png",
+          "/assets/images/examples-outreach-brand/02 - Previous Brand.png"
+        ],
+        "chips": ["Brand", "Marketing", "Visual Design"],
         "notes": [
-          "Delivered a new look and feel across the product.",
-          "Helped unify a fragmented experience during growth."
+          "Refreshed the brand to align with the new product look and feel direction.",
+          "<mark>Modernized the marketing surface</mark> so it finally lived up to the quality of the work we were shipping."
         ]
       },
       {
         "order": 3,
-        "title": "Customer Journeys",
+        "title": "🎨 Product Redesign",
         "company": "Outreach",
         "type": "primary",
-        "chips": ["Alignment", "System"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-outreach-redesign/01 - Dashboard Original.png",
+          "/assets/images/examples-outreach-redesign/02 - Dashboard Redesign.png",
+          "/assets/images/examples-outreach-redesign/03 - Layout and Color Study.png",
+          "/assets/images/examples-outreach-redesign/04 - Across Displays.png"
+        ],
+        "chips": ["Design System", "Visual Design", "Product"],
         "notes": [
-          "Introduced structured journeys across product and go-to-market.",
-          "Connected previously siloed experiences."
+          "Delivered a <mark>new look and feel</mark> across the product, taking it from a dense, cluttered surface to a calmer, clearer experience.",
+          "Used layout and color studies to unify a fragmented system and scale the design across every device."
         ]
       },
       {
         "order": 4,
-        "title": "International Expansion",
+        "title": "🗺️ Customer Journeys",
         "company": "Outreach",
         "type": "primary",
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-outreach-journeys/01 - Customer Journey.png",
+          "/assets/images/examples-outreach-journeys/02 - Customer Jobs.png"
+        ],
+        "chips": ["Journey Mapping", "Alignment", "System"],
+        "notes": [
+          "<mark>Mapped the end-to-end journey</mark> across every Outreach role, from Admin to CRO.",
+          "Gave product and go-to-market a shared frame to plan against."
+        ]
+      },
+      {
+        "order": 5,
+        "title": "🇨🇿 International Expansion",
+        "company": "Outreach",
+        "type": "primary",
+        "galleryType": "wide",
+        "noPan": true,
+        "gallery": [
+          "/assets/images/examples-international-expansion/01 - Prague Team.jpeg"
+        ],
         "chips": ["International", "Org Growth"],
         "notes": [
-          "Expanded the design team internationally, including the Prague office.",
-          "Built a more distributed and scalable team."
+          "Expanded the design team internationally with the launch of the <mark>Prague office</mark>.",
+          "Built a more distributed, scalable team across time zones."
         ]
       }
     ]
@@ -257,32 +305,18 @@
     "items": [
       {
         "order": 1,
-        "title": "Org Expansion",
-        "company": "Outreach",
-        "type": "primary",
-        "chips": ["Hiring", "Ops"],
-        "notes": [
-          "Added key roles across content and design operations.",
-          "Improved team structure and execution at scale."
-        ]
-      },
-      {
-        "order": 2,
-        "title": "Meeting Intelligence",
-        "company": "Outreach",
-        "type": "primary",
-        "chips": ["AI", "Product"],
-        "notes": [
-          "Launched AI-powered meeting intelligence for note-taking and follow-through.",
-          "Extended the platform beyond core workflows into meeting capture and synthesis."
-        ]
-      },
-      {
-        "order": 3,
-        "title": "Moved to Portland",
-        "emoji": "🌲",
+        "title": "🌲 Moved to Portland",
         "company": "Personal",
-        "type": "callout"
+        "type": "primary",
+        "hideLogo": true,
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-moved-portland/01 - Portland.jpeg"
+        ],
+        "chips": [],
+        "notes": []
       }
     ]
   },
@@ -292,35 +326,51 @@
     "items": [
       {
         "order": 1,
-        "title": "Joined Outreach",
+        "title": "💼 Joined Outreach",
         "company": "Outreach",
         "type": "primary",
+        "galleryType": "wide",
+        "noPan": true,
+        "gallery": [
+          "/assets/images/examples-joined-outreach/01 - Outreach Team.jpeg"
+        ],
         "chips": ["Leadership", "Transition"],
         "notes": [
-          "Joined Outreach during a period of rapid product and organizational growth.",
-          "Started shaping the next phase of design leadership across the platform."
+          "Joined Outreach as VP of Design during a period of <mark>rapid product and org growth</mark>.",
+          "Stepped into design leadership across the platform."
         ]
       },
       {
         "order": 2,
-        "title": "Lemonade",
+        "title": "🍋 Lemonade",
         "company": "Navan",
         "type": "primary",
-        "chips": ["0→1", "Launch"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-lemonade/01 - Business Travel.png",
+          "/assets/images/examples-lemonade/02 - Personal Travel.png"
+        ],
+        "chips": ["0→1", "Consumer", "Launch"],
         "notes": [
-          "Launched the company’s first consumer product in under 9 months.",
-          "Expanded the business beyond enterprise into new territory."
+          "My time at Navan was short, but I helped <mark>set the vision for consumer travel</mark> just as the pandemic was upending day-to-day business travel.",
+          "Shipped Navan's first consumer product in under 9 months, pushing the company beyond enterprise travel into a new category."
         ]
       },
       {
         "order": 3,
-        "title": "Joined Navan",
+        "title": "💼 Joined Navan",
         "company": "Navan",
         "type": "primary",
         "chips": ["Leadership", "Transition"],
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-joined-navan/01 - Design Studio.png"
+        ],
         "notes": [
-          "Joined Navan and stepped into a new space at the intersection of travel, product, and brand.",
-          "Started defining how design could help scale the company into its next chapter."
+          "Joined Navan to lead design at the intersection of travel, product, and brand.",
+          "Started shaping how design would scale the company into its next chapter."
         ]
       }
     ]
@@ -331,43 +381,49 @@
     "items": [
       {
         "order": 1,
-        "title": "Slack IA",
+        "title": "🏗️ Slack IA",
         "company": "Slack",
         "type": "primary",
         "chips": ["IA", "Foundation"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-slack-ia/01 - IA Menus.png",
+          "/assets/images/examples-slack-ia/02 - IA Blueprints.png"
+        ],
         "notes": [
-          "Led foundational information architecture work for scale.",
-          "Helped shape how the product could evolve long term."
+          "Led the workstream, partnering <mark>directly with the CEO</mark> to rethink Slack's information architecture.",
+          "Restructured the interface to scale with the product's future across more surfaces, more tools, and more people."
         ]
       },
       {
         "order": 2,
-        "title": "Journey Mapping",
+        "title": "🗺️ Journey Mapping",
         "company": "Slack",
         "type": "primary",
         "chips": ["Strategy", "Alignment"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-journey-mapping/01 - Journey Map.png"
+        ],
         "notes": [
-          "Rolled out journey mapping across the organization.",
-          "Created shared understanding of user experience."
+          "Rolled out journey mapping across the organization to build a shared understanding of the user experience.",
+          "Ran workshops <mark>across every function</mark>, including engineering, product, marketing, sales, and the C-suite."
         ]
       },
       {
         "order": 3,
-        "title": "Future Inbox",
-        "company": "Slack",
-        "type": "primary",
-        "chips": ["Exploration", "Product"],
-        "notes": [
-          "Built an experimental inbox concept with executive leadership.",
-          "Explored new directions outside the core roadmap."
-        ]
-      },
-      {
-        "order": 4,
-        "title": "First Trip to Japan",
-        "emoji": "🇯🇵",
+        "title": "🇯🇵 First Trip to Japan",
         "company": "Personal",
-        "type": "callout"
+        "type": "primary",
+        "hideLogo": true,
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-first-japan/01 - Shibuya.jpeg"
+        ],
+        "chips": [],
+        "notes": []
       }
     ]
   },
@@ -377,24 +433,35 @@
     "items": [
       {
         "order": 1,
-        "title": "Head of Design",
+        "title": "📥 Slack Inbox",
         "company": "Slack",
         "type": "primary",
-        "chips": ["Leadership", "Scale"],
+        "chips": ["Exploration", "Product"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-slack-inbox/01 - Slack with an Inbox.png",
+          "/assets/images/examples-slack-inbox/02 - Visual Design Exploration.png"
+        ],
         "notes": [
-          "Took ownership of design across the product organization.",
-          "Led through a major period of growth and expansion."
+          "Skunkworks project with the CEO, a Principal Engineer, and a small handful of others.",
+          "Designed a new tool to triage Slack, a way to cut through noise and <mark>surface what actually mattered</mark>."
         ]
       },
       {
         "order": 2,
-        "title": "Team Operating System",
+        "title": "🎉 Best Onboarding",
         "company": "Slack",
         "type": "primary",
-        "chips": ["Systems", "Org"],
+        "chips": ["Onboarding", "Product"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-best-onboarding/01 - Creating Your Workspace.png",
+          "/assets/images/examples-best-onboarding/02 - Adding Co-Worker.png",
+          "/assets/images/examples-best-onboarding/03 - You're In.png"
+        ],
         "notes": [
-          "Built operating rigor across systems, ladders, and quality standards.",
-          "Enabled the team to scale while maintaining consistency."
+          "Rebuilt the first-run experience so new users and teams got started right.",
+          "Indexed on <mark>long-term customer love</mark> over quick-fix activation metrics."
         ]
       }
     ]
@@ -405,31 +472,51 @@
     "items": [
       {
         "order": 1,
-        "title": "Joined Slack",
+        "title": "💼 Joined Slack",
         "company": "Slack",
         "type": "primary",
-        "chips": ["Leadership", "Platform"],
+        "chips": ["Leadership", "Growth"],
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-joined-slack/01 - Slack Badge.jpg"
+        ],
         "notes": [
-          "Joined Slack to help shape the product through a major scale-up phase.",
-          "Brought a systems lens to quality, org design, and product direction."
+          "Joined to lead Growth, helping more people and teams find their way into Slack.",
+          "Eventually stepped up to Head of Design, owning craft and direction across the product."
         ]
       },
       {
         "order": 2,
-        "title": "Moved to SF",
-        "emoji": "🌉",
+        "title": "🌉 Moved to SF",
         "company": "Personal",
-        "type": "callout"
+        "type": "primary",
+        "hideLogo": true,
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-moved-sf/01 - SF.jpeg"
+        ],
+        "chips": [],
+        "notes": []
       },
       {
         "order": 3,
-        "title": "Streamer Platform Design",
+        "title": "🏰 Early Disney+",
         "company": "Disney",
         "type": "primary",
         "chips": ["TV", "Streaming"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-early-disney-plus/01 - Apple TV Home.png",
+          "/assets/images/examples-early-disney-plus/02 - Apple TV Details.png",
+          "/assets/images/examples-early-disney-plus/03 - Mobile App.png"
+        ],
         "notes": [
-          "Helped design early streaming platform experiences ahead of Disney+.",
-          "Helped extend product thinking beyond web and mobile."
+          "Designed the overseas beta that became <mark>the foundation for Disney+</mark>.",
+          "Shaped the streaming experience across Apple TV and mobile before the global launch."
         ]
       }
     ]
@@ -440,90 +527,73 @@
     "items": [
       {
         "order": 1,
-        "title": "Wallet App",
+        "title": "💸 Wallet App",
         "company": "Disney",
         "type": "primary",
         "chips": ["Labs", "Fintech"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-wallet-app/01 - Kids Wallet.png",
+          "/assets/images/examples-wallet-app/02 - Parental Controls.png",
+          "/assets/images/examples-wallet-app/03 - Home Screen.png"
+        ],
         "notes": [
-          "Built an experimental kids allowance and wallet product.",
-          "Explored new product directions within Disney Labs."
+          "Built an <mark>experimental</mark> kids' allowance and wallet product inside Disney Labs.",
+          "Explored how families could share money, set controls, and pay in-store with confidence."
         ]
       },
       {
         "order": 2,
-        "title": "Dadding",
-        "emoji": "👶",
+        "title": "👶 Dadding",
         "company": "Personal",
-        "type": "callout"
-      }
-    ]
-  },
-  {
-    "year": "2015",
-    "company": "Disney",
-    "items": [
-      {
-        "order": 1,
-        "title": "Labs Projects",
-        "company": "Disney",
         "type": "primary",
-        "chips": ["Exploration", "Concepts"],
-        "notes": [
-          "Contributed to early-stage product explorations.",
-          "Focused on experimentation and concept development."
-        ]
+        "hideLogo": true,
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-dadding/01 - Dadding.jpg"
+        ],
+        "chips": [],
+        "notes": []
       }
     ]
   },
   {
     "year": "2014",
-    "company": "Disney / AWeber",
+    "company": "Disney",
     "items": [
       {
         "order": 1,
-        "title": "Joined Disney",
+        "title": "💼 Joined Disney",
         "company": "Disney",
         "type": "primary",
         "chips": ["Transition", "Labs"],
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-joined-disney/01 - Disney Badge.jpg"
+        ],
         "notes": [
-          "Joined Disney to work on new platform concepts and early product directions.",
-          "Shifted from a smaller company scale into a broader entertainment ecosystem."
+          "Joined Disney to work on <mark>new platform concepts</mark> and early product directions.",
+          "Stepped from a smaller-company environment into a much broader entertainment ecosystem."
         ]
       },
       {
         "order": 2,
-        "title": "Moved to Los Angeles",
-        "emoji": "🌴",
+        "title": "🌴 Moved to LA",
         "company": "Personal",
-        "type": "callout"
-      },
-      {
-        "order": 3,
-        "title": "Mobile App",
-        "company": "AWeber",
         "type": "primary",
-        "chips": ["Mobile", "0→1"],
-        "notes": [
-          "Led the first cross-functional mobile app effort.",
-          "Expanded the product beyond web into new usage patterns."
-        ]
-      }
-    ]
-  },
-  {
-    "year": "2010",
-    "company": "AWeber",
-    "items": [
-      {
-        "order": 1,
-        "title": "AWeber Leadership",
-        "company": "AWeber",
-        "type": "primary",
-        "chips": ["Org", "Product"],
-        "notes": [
-          "Built and led the design team across product and brand.",
-          "Helped scale the company through a major growth phase."
-        ]
+        "hideLogo": true,
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-moved-la/01 - LA.jpg"
+        ],
+        "chips": [],
+        "notes": []
       }
     ]
   },
@@ -533,13 +603,19 @@
     "items": [
       {
         "order": 1,
-        "title": "Joined AWeber",
+        "title": "✉️ AWeber",
         "company": "AWeber",
         "type": "primary",
-        "chips": ["Career Start", "Product"],
+        "galleryType": "wide",
+        "gallery": [
+          "/assets/images/examples-aweber/01 - Mobile App.png",
+          "/assets/images/examples-aweber/02 - Marketing Pages.png",
+          "/assets/images/examples-aweber/03 - Dashboard Vision.png"
+        ],
+        "chips": ["Creative Director", "Marketing", "Branding", "UI / UX"],
         "notes": [
-          "Joined AWeber and began building across product, marketing, and brand surfaces.",
-          "Set the foundation for later team and design leadership work."
+          "Creative Director leading a team of 15+ across marketing, branding, UI, and UX.",
+          "<mark>Owned the full creative surface</mark> as the company scaled through its biggest growth phase."
         ]
       }
     ]
@@ -550,40 +626,41 @@
     "items": [
       {
         "order": 1,
-        "title": "Okayplayer",
+        "title": "👌 Okayplayer",
         "company": "Okayplayer",
         "type": "primary",
-        "chips": ["Culture", "Community"],
+        "gallery": [
+          "/assets/images/examples-okayplayer/01 - Roots TV.png",
+          "/assets/images/examples-okayplayer/02 - Quest Diary.png",
+          "/assets/images/examples-okayplayer/03 - Slum Village.png"
+        ],
+        "chips": ["Creative Director", "Flash", "Brand", "Music"],
         "notes": [
-          "Early work at the intersection of music, culture, and digital.",
-          "Helped shape long-term taste and creative direction."
+          "Creative Director <mark>building brand expressions in Flash</mark>, crafting interactive experiences for artists like D'Angelo, Common, The Roots, Montell Jordan, and more."
         ]
       }
     ]
   },
   {
-    "year": "1999",
-    "company": "Freelance",
-    "items": [
-      {
-        "order": 1,
-        "title": "Freelance Begins",
-        "emoji": "💻",
-        "company": "Personal",
-        "type": "callout"
-      }
-    ]
-  },
-  {
     "year": "1996",
-    "company": "McDonald’s",
+    "company": "Personal",
     "items": [
       {
         "order": 1,
-        "title": "McDonald’s",
-        "emoji": "🍔",
+        "title": "🍔 Burger Artist",
         "company": "Personal",
-        "type": "callout"
+        "type": "primary",
+        "hideLogo": true,
+        "galleryType": "wide",
+        "noPan": true,
+        "noLabel": true,
+        "gallery": [
+          "/assets/images/examples-burger-artist/01 - Burger Artist.jpg"
+        ],
+        "chips": [],
+        "notes": [
+          "Worked at <mark>McDonald's</mark>, saving every paycheck for a Nintendo 64. Moved through a few department store jobs after that, but most of my time was spent at home teaching myself how to build websites and mastering my pirated copy of Photoshop. Around then I started picking up early freelance work as a digital graphic designer, figuring it out as I went."
+        ]
       }
     ]
   }

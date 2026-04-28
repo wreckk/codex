@@ -228,7 +228,6 @@
             </div>
 
             <div class="story-notes" id="story-notes">
-              <p>GoodRx · FPO container ready for supporting imagery</p>
             </div>
           </div>
         </section>
@@ -508,11 +507,14 @@
           copy: item.notes.join(" "),
           pills: item.chips,
           fill: item.fill || buildBrandFill(item.company, index),
-          note: item.description !== undefined ? item.description : (isWelcomeStory ? "" : `${item.company} · FPO container for supporting imagery`),
+          note: item.description !== undefined ? item.description : "",
           logo: item.hideLogo ? null : (COMPANY_LOGOS[item.company] || null),
           image: item.image || null,
           gallery: item.gallery || null,
           galleryType: item.galleryType || null,
+          noPan: Boolean(item.noPan),
+          noLabel: Boolean(item.noLabel),
+          xfade: Boolean(item.xfade),
           isWelcomeStory,
           isCloserToWorkStory,
         };
@@ -554,7 +556,7 @@
             return '<span class="label"><span class="wave timeline-welcome-wave" aria-hidden="true">👋</span><span class="timeline-welcome-text">Welcome</span></span>';
           }
 
-          const emojiMatch = title.match(/^([\p{Extended_Pictographic}\uFE0F]+)\s*(.+)$/u);
+          const emojiMatch = title.match(/^([\p{Extended_Pictographic}\p{Emoji_Modifier}\uFE0F\u200D]+)\s*(.+)$/u);
           if (emojiMatch) {
             const [, emoji, text] = emojiMatch;
             return `<span class="label"><span class="timeline-entry-emoji" aria-hidden="true">${emoji}</span><span class="timeline-entry-text">${text}</span></span>`;
@@ -1605,10 +1607,11 @@
         cycle();
       }
 
-      function startWideGalleryAnimation() {
+      function startWideGalleryAnimation(staticOnly = false, xfadeOnly = false) {
         stopWideGalleryAnimation();
         const root = storyImage?.querySelector(".story-image-fpo--wide");
         if (!root) return;
+        if (staticOnly || xfadeOnly) root.classList.add("is-static");
         const slides = Array.from(root.querySelectorAll(".story-image-fpo__glp1-slide"));
         const pointer = root.querySelector(".story-image-fpo__glp1-pointer");
         const labelEl = root.querySelector("[data-glp1-label]");
@@ -1618,8 +1621,8 @@
         let activeIndex = 0;
 
         const establishPause = 3000;
-        const quadrantPause = 3000;
-        const finalPause = 1200;
+        const quadrantPause = 2040;
+        const finalPause = 816;
         const panDuration = 520;
         const flickDuration = 700;
         const zoomInDuration = 520;
@@ -1684,6 +1687,38 @@
 
           img.style.transform = transformFor("full");
 
+          if (xfadeOnly) {
+            const xfadeHold = 3200;
+            if (slides.length === 1) {
+              queueWideGalleryTimeout(() => {
+                if (token !== wideGalleryAnimationToken) return;
+                cycle();
+              }, xfadeHold);
+              return;
+            }
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              next.classList.add("is-entering");
+              current.classList.add("is-exiting");
+              updateLabel(next);
+              const nextImg = next.querySelector("img");
+              if (nextImg) nextImg.style.transform = transformFor("full");
+              const nextAspect = parseFloat(next.dataset.aspect);
+              if (nextAspect > 0 && storyImageShell) {
+                storyImageShell.style.aspectRatio = `${nextAspect}`;
+              }
+            }, xfadeHold);
+            queueWideGalleryTimeout(() => {
+              if (token !== wideGalleryAnimationToken) return;
+              current.classList.remove("is-active", "is-exiting");
+              next.classList.remove("is-entering");
+              next.classList.add("is-active");
+              activeIndex = nextIndex;
+              cycle();
+            }, xfadeHold + fadeDuration);
+            return;
+          }
+
           const run = () => {
             if (token !== wideGalleryAnimationToken) return;
 
@@ -1726,6 +1761,14 @@
               animateTo(img, "LR", "full", zoomOutDuration);
             }, elapsed + tapToZoomDelay);
 
+            if (slides.length === 1) {
+              queueWideGalleryTimeout(() => {
+                if (token !== wideGalleryAnimationToken) return;
+                cycle();
+              }, elapsed + tapToZoomDelay + zoomOutDuration + 1600);
+              return;
+            }
+
             const fadeStart = elapsed + tapToZoomDelay + zoomOutDuration * crossFadeTriggerAt;
             queueWideGalleryTimeout(() => {
               if (token !== wideGalleryAnimationToken) return;
@@ -1734,6 +1777,10 @@
               updateLabel(next);
               const nextImg = next.querySelector("img");
               if (nextImg) nextImg.style.transform = transformFor("full");
+              const nextAspect = parseFloat(next.dataset.aspect);
+              if (nextAspect > 0 && storyImageShell) {
+                storyImageShell.style.aspectRatio = `${nextAspect}`;
+              }
             }, fadeStart);
 
             queueWideGalleryTimeout(() => {
@@ -1756,15 +1803,15 @@
           }
         };
 
-        let maxAspect = 0;
         let pending = slides.length;
         const commit = () => {
           if (token !== wideGalleryAnimationToken) return;
-          if (maxAspect > 0 && storyImageShell) {
-            storyImageShell.style.aspectRatio = `${maxAspect}`;
+          const firstAspect = parseFloat(slides[0]?.dataset.aspect);
+          if (firstAspect > 0 && storyImageShell) {
+            storyImageShell.style.aspectRatio = `${firstAspect}`;
             storyImageShell.style.height = "auto";
           }
-          cycle();
+          if (!staticOnly) cycle();
         };
         slides.forEach((slide) => {
           const img = slide.querySelector("img");
@@ -1775,8 +1822,7 @@
           }
           const measure = () => {
             if (img.naturalWidth && img.naturalHeight) {
-              const aspect = img.naturalWidth / img.naturalHeight;
-              if (aspect > maxAspect) maxAspect = aspect;
+              slide.dataset.aspect = String(img.naturalWidth / img.naturalHeight);
             }
             pending -= 1;
             if (pending === 0) commit();
@@ -1844,6 +1890,7 @@
           storyImage.innerHTML = story.galleryType === "wide"
             ? buildWideGalleryMarkup(story.gallery)
             : buildGlp1GalleryMarkup(story.gallery);
+          if (story.noLabel) storyImage.querySelector(".story-image-fpo")?.classList.add("is-no-label");
         } else if (story.image) {
           storyImage.classList.remove("is-fpo");
           storyImage.style.backgroundImage = "none";
@@ -1884,9 +1931,11 @@
         storyPills.appendChild(pillFragment);
 
         storyNotes.innerHTML = "";
-        const p = document.createElement("p");
-        p.innerHTML = renderParagraphMarkup(story.note || "");
-        storyNotes.appendChild(p);
+        if (story.note) {
+          const p = document.createElement("p");
+          p.innerHTML = renderParagraphMarkup(story.note);
+          storyNotes.appendChild(p);
+        }
         storyCard?.classList.remove("is-story-empty");
         if (storyImageShell) storyImageShell.hidden = false;
         updateStoryScrollEffects();
@@ -1897,7 +1946,7 @@
         } else if (story.gallery?.length) {
           requestAnimationFrame(() => {
             if (activeStoryId === story.id) {
-              if (story.galleryType === "wide") startWideGalleryAnimation();
+              if (story.galleryType === "wide") startWideGalleryAnimation(Boolean(story.noPan), Boolean(story.xfade));
               else startGlp1GalleryAnimation();
             }
           });
