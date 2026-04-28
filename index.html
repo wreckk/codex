@@ -1835,24 +1835,43 @@
         });
       }
 
+      function wireImageFadeIn(img) {
+        if (!img) return;
+        const markLoaded = () => img.classList.add("is-loaded");
+        if (img.complete && img.naturalWidth > 0) {
+          markLoaded();
+        } else {
+          img.addEventListener("load", markLoaded, { once: true });
+          img.addEventListener("error", markLoaded, { once: true });
+        }
+      }
+
       const preloadedGalleryImages = new Set();
+      function warmImage(src) {
+        if (!src || preloadedGalleryImages.has(src)) return;
+        preloadedGalleryImages.add(src);
+        const img = new Image();
+        img.fetchPriority = "low";
+        img.decoding = "async";
+        img.src = src;
+      }
       function preloadAdjacentStoryImages(currentId) {
         if (!currentId || !timelineDisplayEntries?.length) return;
         const currentIndex = timelineDisplayEntries.findIndex((e) => e.dataset.story === currentId);
         if (currentIndex < 0) return;
-        const neighborOffsets = [1, -1, 2];
-        neighborOffsets.forEach((offset) => {
-          const entry = timelineDisplayEntries[currentIndex + offset];
-          const id = entry?.dataset.story;
-          if (!id) return;
-          const neighbor = storyContent[id];
-          const firstSrc = neighbor?.gallery?.[0] || neighbor?.image;
-          if (!firstSrc || preloadedGalleryImages.has(firstSrc)) return;
-          preloadedGalleryImages.add(firstSrc);
-          const img = new Image();
-          img.fetchPriority = "low";
-          img.decoding = "async";
-          img.src = firstSrc;
+        // Immediate neighbors get the full gallery; further neighbors only the first image.
+        const fullGalleryOffsets = [1, -1];
+        const firstOnlyOffsets = [2, -2, 3];
+        fullGalleryOffsets.forEach((offset) => {
+          const neighbor = storyContent[timelineDisplayEntries[currentIndex + offset]?.dataset.story];
+          if (!neighbor) return;
+          if (Array.isArray(neighbor.gallery)) neighbor.gallery.forEach(warmImage);
+          else warmImage(neighbor.image);
+        });
+        firstOnlyOffsets.forEach((offset) => {
+          const neighbor = storyContent[timelineDisplayEntries[currentIndex + offset]?.dataset.story];
+          if (!neighbor) return;
+          warmImage(neighbor.gallery?.[0] || neighbor.image);
         });
       }
 
@@ -1891,6 +1910,7 @@
             ? buildWideGalleryMarkup(story.gallery)
             : buildGlp1GalleryMarkup(story.gallery);
           if (story.noLabel) storyImage.querySelector(".story-image-fpo")?.classList.add("is-no-label");
+          storyImage.querySelectorAll("img").forEach(wireImageFadeIn);
         } else if (story.image) {
           storyImage.classList.remove("is-fpo");
           storyImage.style.backgroundImage = "none";
@@ -1901,6 +1921,7 @@
           img.loading = "eager";
           img.decoding = "async";
           storyImage.appendChild(img);
+          wireImageFadeIn(img);
         } else if (story.isWelcomeStory) {
           storyImage.style.backgroundImage = "none";
           storyImage.style.background = "transparent";

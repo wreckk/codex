@@ -1852,6 +1852,25 @@ body.preload-layout .page-loader {
   transform: translateY(0);
   transform-origin: top center;
   will-change: transform, opacity, filter;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.story-image-fpo__glp1-slide img.is-loaded {
+  opacity: 1;
+  filter: blur(0);
+}
+
+.story-image-shell.has-real-image .story-image img {
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.story-image-shell.has-real-image .story-image img.is-loaded {
+  opacity: 1;
+  filter: blur(0);
 }
 
 .story-image-fpo--wide .story-image-fpo__glp1-slide img {

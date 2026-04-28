@@ -161,8 +161,8 @@
         "company": "GoodRx",
         "type": "primary",
         "gallery": [
-          "/assets/images/examples-price-page/02 - Price Page 2024.png",
-          "/assets/images/examples-price-page/03 - Price Page 2026.png"
+          "/assets/images/examples-price-page/02 - Price Page 2024.webp",
+          "/assets/images/examples-price-page/03 - Price Page 2026.webp"
         ],
         "chips": ["Core Product", "Experimentation", "Conversion", "Pricing"],
         "description": "From early versions through ongoing A/B testing to the final experience.",
@@ -184,7 +184,7 @@
         "type": "primary",
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-medicine-cabinet/01 - Smart Dashboard.png"
+          "/assets/images/examples-medicine-cabinet/01 - Smart Dashboard.webp"
         ],
         "chips": ["New Product", "Vision", "Concepting", "Retention"],
         "description": "Early blueprint wires used to set the vision and align the team.",
@@ -200,7 +200,7 @@
         "type": "primary",
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-design-excellence/01 - Ceremonies and Frameworks.png"
+          "/assets/images/examples-design-excellence/01 - Ceremonies and Frameworks.webp"
         ],
         "chips": ["Culture", "Craft", "Org Design"],
         "description": "Ceremonies, processes, and frameworks.",
@@ -223,7 +223,7 @@
         "galleryType": "wide",
         "noPan": true,
         "gallery": [
-          "/assets/images/examples-joined-goodrx/goodrx-sign.jpeg"
+          "/assets/images/examples-joined-goodrx/goodrx-sign.webp"
         ],
         "chips": ["Leadership", "Scale"],
         "notes": [
@@ -238,8 +238,8 @@
         "type": "primary",
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-outreach-brand/01 - Refreshed Brand.png",
-          "/assets/images/examples-outreach-brand/02 - Previous Brand.png"
+          "/assets/images/examples-outreach-brand/01 - Refreshed Brand.webp",
+          "/assets/images/examples-outreach-brand/02 - Previous Brand.webp"
         ],
         "chips": ["Brand", "Marketing", "Visual Design"],
         "notes": [
@@ -254,10 +254,10 @@
         "type": "primary",
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-outreach-redesign/01 - Dashboard Original.png",
-          "/assets/images/examples-outreach-redesign/02 - Dashboard Redesign.png",
-          "/assets/images/examples-outreach-redesign/03 - Layout and Color Study.png",
-          "/assets/images/examples-outreach-redesign/04 - Across Displays.png"
+          "/assets/images/examples-outreach-redesign/01 - Dashboard Original.webp",
+          "/assets/images/examples-outreach-redesign/02 - Dashboard Redesign.webp",
+          "/assets/images/examples-outreach-redesign/03 - Layout and Color Study.webp",
+          "/assets/images/examples-outreach-redesign/04 - Across Displays.webp"
         ],
         "chips": ["Design System", "Visual Design", "Product"],
         "notes": [
@@ -272,8 +272,8 @@
         "type": "primary",
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-outreach-journeys/01 - Customer Journey.png",
-          "/assets/images/examples-outreach-journeys/02 - Customer Jobs.png"
+          "/assets/images/examples-outreach-journeys/01 - Customer Journey.webp",
+          "/assets/images/examples-outreach-journeys/02 - Customer Jobs.webp"
         ],
         "chips": ["Journey Mapping", "Alignment", "System"],
         "notes": [
@@ -289,7 +289,7 @@
         "galleryType": "wide",
         "noPan": true,
         "gallery": [
-          "/assets/images/examples-international-expansion/01 - Prague Team.jpeg"
+          "/assets/images/examples-international-expansion/01 - Prague Team.webp"
         ],
         "chips": ["International", "Org Growth"],
         "notes": [
@@ -313,7 +313,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-moved-portland/01 - Portland.jpeg"
+          "/assets/images/examples-moved-portland/01 - Portland.webp"
         ],
         "chips": [],
         "notes": []
@@ -332,7 +332,7 @@
         "galleryType": "wide",
         "noPan": true,
         "gallery": [
-          "/assets/images/examples-joined-outreach/01 - Outreach Team.jpeg"
+          "/assets/images/examples-joined-outreach/01 - Outreach Team.webp"
         ],
         "chips": ["Leadership", "Transition"],
         "notes": [
@@ -347,8 +347,8 @@
         "type": "primary",
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-lemonade/01 - Business Travel.png",
-          "/assets/images/examples-lemonade/02 - Personal Travel.png"
+          "/assets/images/examples-lemonade/01 - Business Travel.webp",
+          "/assets/images/examples-lemonade/02 - Personal Travel.webp"
         ],
         "chips": ["0→1", "Consumer", "Launch"],
         "notes": [
@@ -366,7 +366,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-joined-navan/01 - Design Studio.png"
+          "/assets/images/examples-joined-navan/01 - Design Studio.webp"
         ],
         "notes": [
           "Joined Navan to lead design at the intersection of travel, product, and brand.",
@@ -387,8 +387,8 @@
         "chips": ["IA", "Foundation"],
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-slack-ia/01 - IA Menus.png",
-          "/assets/images/examples-slack-ia/02 - IA Blueprints.png"
+          "/assets/images/examples-slack-ia/01 - IA Menus.webp",
+          "/assets/images/examples-slack-ia/02 - IA Blueprints.webp"
         ],
         "notes": [
           "Led the workstream, partnering <mark>directly with the CEO</mark> to rethink Slack's information architecture.",
@@ -403,7 +403,7 @@
         "chips": ["Strategy", "Alignment"],
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-journey-mapping/01 - Journey Map.png"
+          "/assets/images/examples-journey-mapping/01 - Journey Map.webp"
         ],
         "notes": [
           "Rolled out journey mapping across the organization to build a shared understanding of the user experience.",
@@ -420,7 +420,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-first-japan/01 - Shibuya.jpeg"
+          "/assets/images/examples-first-japan/01 - Shibuya.webp"
         ],
         "chips": [],
         "notes": []
@@ -439,8 +439,8 @@
         "chips": ["Exploration", "Product"],
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-slack-inbox/01 - Slack with an Inbox.png",
-          "/assets/images/examples-slack-inbox/02 - Visual Design Exploration.png"
+          "/assets/images/examples-slack-inbox/01 - Slack with an Inbox.webp",
+          "/assets/images/examples-slack-inbox/02 - Visual Design Exploration.webp"
         ],
         "notes": [
           "Skunkworks project with the CEO, a Principal Engineer, and a small handful of others.",
@@ -455,9 +455,9 @@
         "chips": ["Onboarding", "Product"],
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-best-onboarding/01 - Creating Your Workspace.png",
-          "/assets/images/examples-best-onboarding/02 - Adding Co-Worker.png",
-          "/assets/images/examples-best-onboarding/03 - You're In.png"
+          "/assets/images/examples-best-onboarding/01 - Creating Your Workspace.webp",
+          "/assets/images/examples-best-onboarding/02 - Adding Co-Worker.webp",
+          "/assets/images/examples-best-onboarding/03 - You're In.webp"
         ],
         "notes": [
           "Rebuilt the first-run experience so new users and teams got started right.",
@@ -480,7 +480,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-joined-slack/01 - Slack Badge.jpg"
+          "/assets/images/examples-joined-slack/01 - Slack Badge.webp"
         ],
         "notes": [
           "Joined to lead Growth, helping more people and teams find their way into Slack.",
@@ -497,7 +497,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-moved-sf/01 - SF.jpeg"
+          "/assets/images/examples-moved-sf/01 - SF.webp"
         ],
         "chips": [],
         "notes": []
@@ -510,9 +510,9 @@
         "chips": ["TV", "Streaming"],
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-early-disney-plus/01 - Apple TV Home.png",
-          "/assets/images/examples-early-disney-plus/02 - Apple TV Details.png",
-          "/assets/images/examples-early-disney-plus/03 - Mobile App.png"
+          "/assets/images/examples-early-disney-plus/01 - Apple TV Home.webp",
+          "/assets/images/examples-early-disney-plus/02 - Apple TV Details.webp",
+          "/assets/images/examples-early-disney-plus/03 - Mobile App.webp"
         ],
         "notes": [
           "Designed the overseas beta that became <mark>the foundation for Disney+</mark>.",
@@ -533,9 +533,9 @@
         "chips": ["Labs", "Fintech"],
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-wallet-app/01 - Kids Wallet.png",
-          "/assets/images/examples-wallet-app/02 - Parental Controls.png",
-          "/assets/images/examples-wallet-app/03 - Home Screen.png"
+          "/assets/images/examples-wallet-app/01 - Kids Wallet.webp",
+          "/assets/images/examples-wallet-app/02 - Parental Controls.webp",
+          "/assets/images/examples-wallet-app/03 - Home Screen.webp"
         ],
         "notes": [
           "Built an <mark>experimental</mark> kids' allowance and wallet product inside Disney Labs.",
@@ -552,7 +552,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-dadding/01 - Dadding.jpg"
+          "/assets/images/examples-dadding/01 - Dadding.webp"
         ],
         "chips": [],
         "notes": []
@@ -573,7 +573,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-joined-disney/01 - Disney Badge.jpg"
+          "/assets/images/examples-joined-disney/01 - Disney Badge.webp"
         ],
         "notes": [
           "Joined Disney to work on <mark>new platform concepts</mark> and early product directions.",
@@ -590,7 +590,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-moved-la/01 - LA.jpg"
+          "/assets/images/examples-moved-la/01 - LA.webp"
         ],
         "chips": [],
         "notes": []
@@ -608,9 +608,9 @@
         "type": "primary",
         "galleryType": "wide",
         "gallery": [
-          "/assets/images/examples-aweber/01 - Mobile App.png",
-          "/assets/images/examples-aweber/02 - Marketing Pages.png",
-          "/assets/images/examples-aweber/03 - Dashboard Vision.png"
+          "/assets/images/examples-aweber/01 - Mobile App.webp",
+          "/assets/images/examples-aweber/02 - Marketing Pages.webp",
+          "/assets/images/examples-aweber/03 - Dashboard Vision.webp"
         ],
         "chips": ["Creative Director", "Marketing", "Branding", "UI / UX"],
         "notes": [
@@ -630,9 +630,9 @@
         "company": "Okayplayer",
         "type": "primary",
         "gallery": [
-          "/assets/images/examples-okayplayer/01 - Roots TV.png",
-          "/assets/images/examples-okayplayer/02 - Quest Diary.png",
-          "/assets/images/examples-okayplayer/03 - Slum Village.png"
+          "/assets/images/examples-okayplayer/01 - Roots TV.webp",
+          "/assets/images/examples-okayplayer/02 - Quest Diary.webp",
+          "/assets/images/examples-okayplayer/03 - Slum Village.webp"
         ],
         "chips": ["Creative Director", "Flash", "Brand", "Music"],
         "notes": [
@@ -655,7 +655,7 @@
         "noPan": true,
         "noLabel": true,
         "gallery": [
-          "/assets/images/examples-burger-artist/01 - Burger Artist.jpg"
+          "/assets/images/examples-burger-artist/01 - Burger Artist.webp"
         ],
         "chips": [],
         "notes": [
