@@ -1813,8 +1813,8 @@ body.preload-layout .page-loader {
 
 .story-image-fpo__glp1-viewport {
   position: absolute;
-  inset: 1px;
-  border-radius: 11px;
+  inset: 0;
+  border-radius: 12px;
   overflow: hidden;
 }
 
