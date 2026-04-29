@@ -1900,7 +1900,7 @@ body.preload-layout .page-loader {
 .story-image-shell .story-image-fpo,
 .story-image-shell.has-real-image .story-image img {
   opacity: 0;
-  filter: blur(14px);
+  filter: blur(6px);
 }
 
 .story-image-shell.is-loaded .story-image-fpo,
