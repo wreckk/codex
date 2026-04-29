@@ -1846,35 +1846,32 @@
         });
       }
 
-      let shellRevealTimer = null;
       let shellRevealToken = 0;
-      const SHELL_REVEAL_DELAY_MS = 540;
+      const SHELL_NO_IMAGE_DELAY_MS = 200;
       function resetShellReveal() {
         shellRevealToken += 1;
-        if (shellRevealTimer) {
-          window.clearTimeout(shellRevealTimer);
-          shellRevealTimer = null;
-        }
         storyImageShell?.classList.remove("is-loaded");
+      }
+      function markShellLoaded(myToken) {
+        if (myToken !== shellRevealToken) return;
+        storyImageShell?.classList.add("is-loaded");
       }
       function revealShellWhenReady(img) {
         const myToken = ++shellRevealToken;
-        if (shellRevealTimer) {
-          window.clearTimeout(shellRevealTimer);
-          shellRevealTimer = null;
-        }
-        const finalize = () => {
-          if (myToken !== shellRevealToken) return;
-          shellRevealTimer = window.setTimeout(() => {
-            if (myToken !== shellRevealToken) return;
-            storyImageShell?.classList.add("is-loaded");
-          }, SHELL_REVEAL_DELAY_MS);
-        };
-        if (!img || (img.complete && img.naturalWidth > 0)) {
-          finalize();
+        if (!img) {
+          window.setTimeout(() => markShellLoaded(myToken), SHELL_NO_IMAGE_DELAY_MS);
           return;
         }
-        const onDone = () => finalize();
+        const ready = img.complete && img.naturalWidth > 0;
+        if (typeof img.decode === "function") {
+          img.decode().then(() => markShellLoaded(myToken)).catch(() => markShellLoaded(myToken));
+          return;
+        }
+        if (ready) {
+          markShellLoaded(myToken);
+          return;
+        }
+        const onDone = () => markShellLoaded(myToken);
         img.addEventListener("load", onDone, { once: true });
         img.addEventListener("error", onDone, { once: true });
       }
