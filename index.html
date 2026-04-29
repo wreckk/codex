@@ -2162,6 +2162,14 @@
         blocks.forEach((block) => {
           const top = block.offsetTop - storyScroll.scrollTop;
           const bottom = top + block.offsetHeight;
+          if (block.classList.contains("story-image-shell")) {
+            block.style.opacity = "1";
+            block.style.filter = "";
+            block.style.transform = "";
+            block.style.webkitMaskImage = "";
+            block.style.maskImage = "";
+            return;
+          }
           if (block.classList.contains("story-copy") || block.classList.contains("story-notes")) {
             const visibleBelowTrigger = Math.max(0, bottom - textTrigger);
             const visibleRatio = Math.max(
