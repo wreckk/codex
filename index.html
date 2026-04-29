@@ -1022,6 +1022,7 @@
       let glp1GalleryTimers = [];
       let glp1GalleryImageAnimation = null;
       let wideGalleryAnimationToken = 0;
+      let wideGalleryResizeHandler = null;
       let wideGalleryTimers = [];
       let wideGalleryImageAnimation = null;
       let welcomeAnimationToken = 0;
@@ -1143,6 +1144,10 @@
         clearWideGalleryTimers();
         wideGalleryImageAnimation?.cancel();
         wideGalleryImageAnimation = null;
+        if (wideGalleryResizeHandler) {
+          window.removeEventListener("resize", wideGalleryResizeHandler);
+          wideGalleryResizeHandler = null;
+        }
         if (storyImageShell) {
           storyImageShell.style.aspectRatio = "";
           storyImageShell.style.height = "";
@@ -1703,10 +1708,7 @@
               updateLabel(next);
               const nextImg = next.querySelector("img");
               if (nextImg) nextImg.style.transform = transformFor("full");
-              const nextAspect = parseFloat(next.dataset.aspect);
-              if (nextAspect > 0 && storyImageShell) {
-                storyImageShell.style.aspectRatio = `${nextAspect}`;
-              }
+              applyShellAspect(parseFloat(next.dataset.aspect));
             }, xfadeHold);
             queueWideGalleryTimeout(() => {
               if (token !== wideGalleryAnimationToken) return;
@@ -1777,10 +1779,7 @@
               updateLabel(next);
               const nextImg = next.querySelector("img");
               if (nextImg) nextImg.style.transform = transformFor("full");
-              const nextAspect = parseFloat(next.dataset.aspect);
-              if (nextAspect > 0 && storyImageShell) {
-                storyImageShell.style.aspectRatio = `${nextAspect}`;
-              }
+              applyShellAspect(parseFloat(next.dataset.aspect));
             }, fadeStart);
 
             queueWideGalleryTimeout(() => {
@@ -1803,14 +1802,26 @@
           }
         };
 
+        const applyShellAspect = (aspect) => {
+          if (!storyImageShell || !(aspect > 0)) return;
+          const width = storyImageShell.getBoundingClientRect().width;
+          if (width <= 0) return;
+          storyImageShell.style.aspectRatio = `${aspect}`;
+          storyImageShell.style.height = `${width / aspect}px`;
+        };
+
+        if (wideGalleryResizeHandler) window.removeEventListener("resize", wideGalleryResizeHandler);
+        wideGalleryResizeHandler = () => {
+          if (token !== wideGalleryAnimationToken) return;
+          const active = root.querySelector(".story-image-fpo__glp1-slide.is-active") || slides[0];
+          applyShellAspect(parseFloat(active?.dataset.aspect));
+        };
+        window.addEventListener("resize", wideGalleryResizeHandler);
+
         let pending = slides.length;
         const commit = () => {
           if (token !== wideGalleryAnimationToken) return;
-          const firstAspect = parseFloat(slides[0]?.dataset.aspect);
-          if (firstAspect > 0 && storyImageShell) {
-            storyImageShell.style.aspectRatio = `${firstAspect}`;
-            storyImageShell.style.height = "auto";
-          }
+          applyShellAspect(parseFloat(slides[0]?.dataset.aspect));
           if (!staticOnly) cycle();
         };
         slides.forEach((slide) => {
