@@ -1881,26 +1881,33 @@
           window.setTimeout(() => markShellLoaded(myToken), SHELL_NO_IMAGE_DELAY_MS);
           return;
         }
-        const readySync = img.complete && img.naturalWidth > 0;
-        if (readySync && typeof img.decode !== "function") {
-          markShellLoaded(myToken);
-          return;
-        }
-        // Only show the spinner if the image hasn't resolved within a short grace window —
-        // cached/preloaded images skip it entirely.
+        // Spinner shows only if we're still waiting after the grace window — cached/
+        // preloaded images skip it entirely.
         const graceTimer = window.setTimeout(() => {
           if (myToken === shellRevealToken) storyImageArea?.classList.add("is-loading");
         }, SHELL_LOADER_GRACE_MS);
         const finish = () => {
+          if (myToken !== shellRevealToken) return;
           window.clearTimeout(graceTimer);
           markShellLoaded(myToken);
         };
-        if (typeof img.decode === "function") {
-          img.decode().then(finish).catch(finish);
-          return;
+        const decodeAndFinish = () => {
+          if (myToken !== shellRevealToken) return;
+          if (typeof img.decode === "function") {
+            img.decode().then(finish).catch(finish);
+          } else {
+            finish();
+          }
+        };
+        // Wait for the bytes first (the load event), THEN ask the browser to decode.
+        // decode() called too early on a not-yet-fetched image can resolve before
+        // the image is actually paint-ready in some browsers.
+        if (img.complete && img.naturalWidth > 0) {
+          decodeAndFinish();
+        } else {
+          img.addEventListener("load", decodeAndFinish, { once: true });
+          img.addEventListener("error", finish, { once: true });
         }
-        img.addEventListener("load", finish, { once: true });
-        img.addEventListener("error", finish, { once: true });
       }
 
       const preloadedGalleryImages = new Set();
