@@ -1852,23 +1852,18 @@ body.preload-layout .page-loader {
   transform: translateY(0);
   transform-origin: top center;
   will-change: transform, opacity, filter;
+}
+
+.story-image-shell {
   opacity: 0;
   filter: blur(10px);
-  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    aspect-ratio 2200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.story-image-fpo__glp1-slide img.is-loaded {
-  opacity: 1;
-  filter: blur(0);
-}
-
-.story-image-shell.has-real-image .story-image img {
-  opacity: 0;
-  filter: blur(10px);
-  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.story-image-shell.has-real-image .story-image img.is-loaded {
+.story-image-shell.is-loaded {
   opacity: 1;
   filter: blur(0);
 }
@@ -1889,9 +1884,6 @@ body.preload-layout .page-loader {
     transform 2200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.story-image-shell {
-  transition: aspect-ratio 2200ms cubic-bezier(0.22, 1, 0.36, 1);
-}
 
 .story-image-fpo--wide.is-static .story-image-fpo__glp1-pointer,
 .story-image-fpo--wide.is-static .story-image-fpo__glp1-label {
