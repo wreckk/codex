@@ -1848,7 +1848,10 @@
 
       function wireImageFadeIn(img) {
         if (!img) return;
-        const markLoaded = () => img.classList.add("is-loaded");
+        const IMAGE_FADE_DELAY_MS = 320;
+        const markLoaded = () => {
+          window.setTimeout(() => img.classList.add("is-loaded"), IMAGE_FADE_DELAY_MS);
+        };
         if (img.complete && img.naturalWidth > 0) {
           markLoaded();
         } else {
