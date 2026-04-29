@@ -223,8 +223,13 @@
               <span>Growth</span>
             </div>
 
-            <div class="story-image-shell">
-              <div class="story-image" id="story-image" aria-hidden="true"></div>
+            <div class="story-image-area">
+              <div class="story-image-shell">
+                <div class="story-image" id="story-image" aria-hidden="true"></div>
+              </div>
+              <div class="story-image-loader" aria-hidden="true">
+                <span class="story-image-loader__ring"></span>
+              </div>
             </div>
 
             <div class="story-notes" id="story-notes">
@@ -635,6 +640,7 @@
       const storyCopy = document.getElementById("story-copy");
       const storyPills = document.getElementById("story-pills");
       const storyImageShell = document.querySelector(".story-image-shell");
+      const storyImageArea = document.querySelector(".story-image-area");
       const storyImage = document.getElementById("story-image");
       const storyNotes = document.getElementById("story-notes");
       const storyScroll = document.querySelector(".story-scroll");
@@ -1848,13 +1854,16 @@
 
       let shellRevealToken = 0;
       const SHELL_NO_IMAGE_DELAY_MS = 200;
+      const SHELL_LOADER_GRACE_MS = 180;
       function resetShellReveal() {
         shellRevealToken += 1;
         storyImageShell?.classList.remove("is-loaded");
+        storyImageArea?.classList.remove("is-loading");
       }
       function markShellLoaded(myToken) {
         if (myToken !== shellRevealToken) return;
         storyImageShell?.classList.add("is-loaded");
+        storyImageArea?.classList.remove("is-loading");
       }
       function revealShellWhenReady(img) {
         const myToken = ++shellRevealToken;
@@ -1862,18 +1871,26 @@
           window.setTimeout(() => markShellLoaded(myToken), SHELL_NO_IMAGE_DELAY_MS);
           return;
         }
-        const ready = img.complete && img.naturalWidth > 0;
-        if (typeof img.decode === "function") {
-          img.decode().then(() => markShellLoaded(myToken)).catch(() => markShellLoaded(myToken));
-          return;
-        }
-        if (ready) {
+        const readySync = img.complete && img.naturalWidth > 0;
+        if (readySync && typeof img.decode !== "function") {
           markShellLoaded(myToken);
           return;
         }
-        const onDone = () => markShellLoaded(myToken);
-        img.addEventListener("load", onDone, { once: true });
-        img.addEventListener("error", onDone, { once: true });
+        // Only show the spinner if the image hasn't resolved within a short grace window —
+        // cached/preloaded images skip it entirely.
+        const graceTimer = window.setTimeout(() => {
+          if (myToken === shellRevealToken) storyImageArea?.classList.add("is-loading");
+        }, SHELL_LOADER_GRACE_MS);
+        const finish = () => {
+          window.clearTimeout(graceTimer);
+          markShellLoaded(myToken);
+        };
+        if (typeof img.decode === "function") {
+          img.decode().then(finish).catch(finish);
+          return;
+        }
+        img.addEventListener("load", finish, { once: true });
+        img.addEventListener("error", finish, { once: true });
       }
 
       const preloadedGalleryImages = new Set();
