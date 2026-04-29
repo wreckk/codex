@@ -1873,10 +1873,8 @@ body.preload-layout .page-loader {
   opacity: 1;
 }
 
-.story-image-area.is-fresh-mount .story-image,
-.story-image-area.is-fresh-mount .story-image *,
-.story-image-area.is-fresh-mount .story-image-fpo,
-.story-image-area.is-fresh-mount .story-image-fpo * {
+.story-image-area.is-fresh-mount .story-image-fpo__glp1-slide,
+.story-image-area.is-fresh-mount .story-image-fpo__glp1-slide * {
   transition: none !important;
   animation: none !important;
 }
