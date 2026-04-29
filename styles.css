@@ -1890,9 +1890,7 @@ body.preload-layout .page-loader {
 }
 
 .story-image-shell {
-  transition:
-    aspect-ratio 2200ms cubic-bezier(0.22, 1, 0.36, 1),
-    height 2200ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: aspect-ratio 2200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .story-image-fpo--wide.is-static .story-image-fpo__glp1-pointer,
