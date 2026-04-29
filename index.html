@@ -1859,6 +1859,16 @@
         shellRevealToken += 1;
         storyImageShell?.classList.remove("is-loaded");
         storyImageArea?.classList.remove("is-loading");
+        // Suppress any descendant transitions for one frame so the new slide's
+        // .is-active state doesn't run an opacity/blur transition on mount.
+        if (storyImageArea) {
+          storyImageArea.classList.add("is-fresh-mount");
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              storyImageArea.classList.remove("is-fresh-mount");
+            });
+          });
+        }
       }
       function markShellLoaded(myToken) {
         if (myToken !== shellRevealToken) return;
