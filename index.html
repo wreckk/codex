@@ -642,6 +642,28 @@
       const storyImageShell = document.querySelector(".story-image-shell");
       const storyImageArea = document.querySelector(".story-image-area");
       const storyImage = document.getElementById("story-image");
+
+      // Each double-click on the image shell advances the running gallery.
+      // Pure double-tap detection: every two clicks within 350ms fires once;
+      // afterward the tap chain resets so a third click starts a fresh pair.
+      let __lastShellTapAt = -Infinity;
+      const DOUBLE_TAP_WINDOW_MS = 350;
+      const triggerAdvance = () => {
+        const wideRoot = storyImage?.querySelector(".story-image-fpo--wide");
+        const tallRoot = storyImage?.querySelector(".story-image-fpo--glp1:not(.story-image-fpo--wide)");
+        const root = wideRoot || tallRoot;
+        if (root && typeof root.__advance === "function") root.__advance();
+      };
+      storyImageShell?.addEventListener("click", (e) => {
+        const now = performance.now();
+        if (now - __lastShellTapAt <= DOUBLE_TAP_WINDOW_MS) {
+          e.preventDefault();
+          __lastShellTapAt = -Infinity;
+          triggerAdvance();
+        } else {
+          __lastShellTapAt = now;
+        }
+      });
       const storyNotes = document.getElementById("story-notes");
       const storyScroll = document.querySelector(".story-scroll");
       const timelineCompanyPill = document.getElementById("timeline-company-pill");
@@ -737,6 +759,13 @@
       let activeTimelineEntry = null;
       let activeStoryId = null;
       let timelineFrame = null;
+      // When the user explicitly picks a timeline entry (click, swipe, hash
+      // nav), we lock that entry as active until the smooth scroll settles
+      // OR the user starts a manual wheel/touch scroll. This prevents the
+      // intermediate "nearest" entries from briefly stealing active state
+      // as the smooth scroll passes through them.
+      let timelineLockEntry = null;
+      let timelineLockUntil = 0;
       let mobileMetricsFrame = null;
       let mobileMetricsObserver = null;
       let sidebarHeadingObserver = null;
@@ -1157,6 +1186,9 @@
         if (storyImageShell) {
           storyImageShell.style.aspectRatio = "";
           storyImageShell.style.height = "";
+          storyImageShell.style.width = "";
+          storyImageShell.style.marginLeft = "";
+          storyImageShell.style.marginRight = "";
         }
         const root = storyImage?.querySelector(".story-image-fpo--wide");
         if (!root) return;
@@ -1165,7 +1197,7 @@
           if (index === 0) slide.classList.add("is-active");
         });
         root.querySelectorAll(".story-image-fpo__glp1-slide img").forEach((img) => {
-          img.style.transform = "translate(0, 0) scale(1)";
+          img.style.transform = "translate(0%, 0%) scale(0.5)";
         });
         const labelEl = root.querySelector("[data-glp1-label]");
         const firstSlide = root.querySelector(".story-image-fpo__glp1-slide");
@@ -1533,78 +1565,89 @@
           }, 560);
         };
 
+        // State for the running slide. advance() reads currentStopIndex to
+        // fast-forward through scroll waypoints.
+        let currentStopIndex = -1;     // -1 = pre-first-stop (initial pause)
+        let currentStops = [];
+        let cycleImg = null;
+        let cycleCurrent = null;
+        let cycleNext = null;
+        let cycleNextIndex = 0;
+        let crossfading = false;
+
+        const startGlp1Crossfade = () => {
+          if (token !== glp1GalleryAnimationToken) return;
+          crossfading = true;
+          const current = cycleCurrent;
+          const next = cycleNext;
+          const nextIndex = cycleNextIndex;
+          if (slides.length <= 1) return;
+          next.classList.add("is-entering");
+          current.classList.add("is-exiting");
+          updateGlp1Label(next);
+          queueGlp1GalleryTimeout(() => {
+            if (token !== glp1GalleryAnimationToken) return;
+            current.classList.remove("is-active", "is-exiting");
+            current.querySelector("img")?.style.setProperty("transform", "translateY(0)");
+            next.classList.remove("is-entering");
+            next.classList.add("is-active");
+            activeIndex = nextIndex;
+            crossfading = false;
+            cycle();
+          }, fadeDuration);
+        };
+
+        const runStop = (idx) => {
+          if (token !== glp1GalleryAnimationToken) return;
+          currentStopIndex = idx;
+          if (idx >= currentStops.length) {
+            startGlp1Crossfade();
+            return;
+          }
+          const stop = currentStops[idx];
+          const previousStop = idx > 0 ? currentStops[idx - 1] : 0;
+          // Lock inline style to where we are NOW so the upcoming cancel +
+          // 80ms gap before the new animation doesn't reset to translateY(0).
+          if (cycleImg) cycleImg.style.transform = `translateY(-${previousStop}px)`;
+          flickPointer();
+          queueGlp1GalleryTimeout(() => {
+            if (token !== glp1GalleryAnimationToken) return;
+            glp1GalleryImageAnimation?.cancel();
+            glp1GalleryImageAnimation = cycleImg.animate(
+              [
+                { transform: `translateY(-${previousStop}px)` },
+                { transform: `translateY(-${stop}px)` }
+              ],
+              { duration: stepDuration, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+            );
+          }, stepFollowDelay);
+          const isLast = idx === currentStops.length - 1;
+          const hold = isLast ? lastStopPause : stepPause;
+          queueGlp1GalleryTimeout(() => runStop(idx + 1), stepFollowDelay + stepDuration + hold);
+        };
+
         const cycle = () => {
           if (token !== glp1GalleryAnimationToken) return;
           const current = slides[activeIndex];
           const nextIndex = (activeIndex + 1) % slides.length;
           const next = slides[nextIndex];
+          cycleCurrent = current;
+          cycleNext = next;
+          cycleNextIndex = nextIndex;
+          crossfading = false;
           const run = () => {
             if (token !== glp1GalleryAnimationToken) return;
             const motion = getSlideMotion(current);
-            const img = motion.img;
-            const stops = motion.stops;
+            cycleImg = motion.img;
+            currentStops = motion.stops;
+            currentStopIndex = -1;
 
-            if (!img || !stops.length) {
-              queueGlp1GalleryTimeout(() => {
-                if (token !== glp1GalleryAnimationToken) return;
-                next.classList.add("is-entering");
-                current.classList.add("is-exiting");
-                updateGlp1Label(next);
-              }, initialPause + finalPause);
-              queueGlp1GalleryTimeout(() => {
-                if (token !== glp1GalleryAnimationToken) return;
-                current.classList.remove("is-active", "is-exiting");
-                next.classList.remove("is-entering");
-                next.classList.add("is-active");
-                activeIndex = nextIndex;
-                cycle();
-              }, initialPause + finalPause + fadeDuration);
+            if (!cycleImg || !currentStops.length) {
+              queueGlp1GalleryTimeout(() => startGlp1Crossfade(), initialPause + finalPause);
               return;
             }
 
-            let previousStop = 0;
-            let elapsed = initialPause;
-            stops.forEach((stop, index) => {
-              queueGlp1GalleryTimeout(() => {
-                if (token !== glp1GalleryAnimationToken) return;
-                flickPointer();
-                queueGlp1GalleryTimeout(() => {
-                  if (token !== glp1GalleryAnimationToken) return;
-                  glp1GalleryImageAnimation?.cancel();
-                  glp1GalleryImageAnimation = img.animate(
-                    [
-                      { transform: `translateY(-${previousStop}px)` },
-                      { transform: `translateY(-${stop}px)` }
-                    ],
-                    {
-                      duration: stepDuration,
-                      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-                      fill: "forwards"
-                    }
-                  );
-                  previousStop = stop;
-                }, stepFollowDelay);
-              }, elapsed);
-              const isLast = index === stops.length - 1;
-              elapsed += stepDuration + (isLast ? lastStopPause : stepPause);
-            });
-
-            queueGlp1GalleryTimeout(() => {
-              if (token !== glp1GalleryAnimationToken) return;
-              next.classList.add("is-entering");
-              current.classList.add("is-exiting");
-              updateGlp1Label(next);
-            }, elapsed);
-
-            queueGlp1GalleryTimeout(() => {
-              if (token !== glp1GalleryAnimationToken) return;
-              current.classList.remove("is-active", "is-exiting");
-              current.querySelector("img")?.style.setProperty("transform", "translateY(0)");
-              next.classList.remove("is-entering");
-              next.classList.add("is-active");
-              activeIndex = nextIndex;
-              cycle();
-            }, elapsed + fadeDuration);
+            queueGlp1GalleryTimeout(() => runStop(0), initialPause);
           };
 
           const firstImg = current.querySelector("img");
@@ -1613,6 +1656,101 @@
           } else {
             firstImg?.addEventListener("load", run, { once: true });
           }
+        };
+
+        // Double-tap handler. Same model as wide gallery:
+        //   - mid scroll-anim: fast-finish to current stop's Y in ~160ms
+        //   - in a hold: scroll to next stop at 50% of normal step duration
+        const ADVANCE_HOLD_SPEED = 0.5;
+        const ADVANCE_MID_ANIM_MS = 160;
+        root.__advance = () => {
+          if (token !== glp1GalleryAnimationToken) return;
+          if (!cycleImg && !cycleCurrent) return;
+          clearGlp1GalleryTimers();
+
+          if (crossfading) {
+            glp1GalleryImageAnimation?.cancel();
+            glp1GalleryImageAnimation = null;
+            const current = cycleCurrent;
+            const next = cycleNext;
+            const nextIndex = cycleNextIndex;
+            current.classList.remove("is-active", "is-exiting");
+            current.querySelector("img")?.style.setProperty("transform", "translateY(0)");
+            next.classList.remove("is-entering");
+            next.classList.add("is-active");
+            activeIndex = nextIndex;
+            crossfading = false;
+            cycle();
+            return;
+          }
+
+          const animRunning = glp1GalleryImageAnimation
+            && glp1GalleryImageAnimation.playState === "running";
+
+          // Commit the current animated transform to inline style so a
+          // subsequent .cancel() doesn't snap the image back to translateY(0)
+          // (which would flash the top of the slide for the gap before the
+          // new animation starts).
+          const persistCurrentTransform = () => {
+            if (!cycleImg) return;
+            if (glp1GalleryImageAnimation) {
+              try { glp1GalleryImageAnimation.commitStyles(); } catch (e) {
+                const c = getComputedStyle(cycleImg).transform;
+                if (c && c !== "none") cycleImg.style.transform = c;
+              }
+            }
+          };
+
+          if (animRunning && cycleImg
+              && currentStopIndex >= 0 && currentStopIndex < currentStops.length) {
+            const targetY = currentStops[currentStopIndex];
+            persistCurrentTransform();
+            const startFrom = cycleImg.style.transform || getComputedStyle(cycleImg).transform;
+            glp1GalleryImageAnimation.cancel();
+            glp1GalleryImageAnimation = cycleImg.animate(
+              [
+                { transform: startFrom && startFrom !== "none" ? startFrom : "translateY(0px)" },
+                { transform: `translateY(-${targetY}px)` }
+              ],
+              { duration: ADVANCE_MID_ANIM_MS, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+            );
+            const isLast = currentStopIndex === currentStops.length - 1;
+            const hold = isLast ? lastStopPause : stepPause;
+            queueGlp1GalleryTimeout(() => runStop(currentStopIndex + 1), ADVANCE_MID_ANIM_MS + hold);
+            return;
+          }
+
+          persistCurrentTransform();
+          glp1GalleryImageAnimation?.cancel();
+          glp1GalleryImageAnimation = null;
+          if (!cycleImg) {
+            startGlp1Crossfade();
+            return;
+          }
+          const nextIdx = currentStopIndex + 1;
+          if (nextIdx >= currentStops.length) {
+            startGlp1Crossfade();
+            return;
+          }
+          currentStopIndex = nextIdx;
+          const previousStop = nextIdx > 0 ? currentStops[nextIdx - 1] : 0;
+          const targetY = currentStops[nextIdx];
+          const fastDuration = Math.max(80, Math.round(stepDuration * ADVANCE_HOLD_SPEED));
+          flickPointer();
+          queueGlp1GalleryTimeout(() => {
+            if (token !== glp1GalleryAnimationToken) return;
+            glp1GalleryImageAnimation?.cancel();
+            glp1GalleryImageAnimation = cycleImg.animate(
+              [
+                { transform: `translateY(-${previousStop}px)` },
+                { transform: `translateY(-${targetY}px)` }
+              ],
+              { duration: fastDuration, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+            );
+          }, stepFollowDelay);
+          const isLast = nextIdx === currentStops.length - 1;
+          const hold = isLast ? lastStopPause : stepPause;
+          queueGlp1GalleryTimeout(() => runStop(nextIdx + 1), stepFollowDelay + fastDuration + hold);
         };
 
         cycle();
@@ -1641,16 +1779,17 @@
         const fadeDuration = 2200;
         const tapToZoomDelay = 280;
         const crossFadeTriggerAt = 0.55;
-        const SCALE = 2;
-        const OFFSET = (SCALE - 1) * 100;
-
+        // The img CSS sets width: 200%, so its natural box is 2x the slide.
+        // Base "full" view scales that down to 0.5 (visually 1x). Quadrant
+        // states use scale(1) (visually 2x) and translate by 50% of the
+        // element box (= 100% of the slide) for UR/LL/LR.
         const transformFor = (state) => {
           switch (state) {
-            case "UL": return `translate(0%, 0%) scale(${SCALE})`;
-            case "UR": return `translate(-${OFFSET}%, 0%) scale(${SCALE})`;
-            case "LL": return `translate(0%, -${OFFSET}%) scale(${SCALE})`;
-            case "LR": return `translate(-${OFFSET}%, -${OFFSET}%) scale(${SCALE})`;
-            default: return "translate(0, 0) scale(1)";
+            case "UL": return `translate(0%, 0%) scale(1)`;
+            case "UR": return `translate(-50%, 0%) scale(1)`;
+            case "LL": return `translate(0%, -50%) scale(1)`;
+            case "LR": return `translate(-50%, -50%) scale(1)`;
+            default: return "translate(0%, 0%) scale(0.5)";
           }
         };
 
@@ -1688,6 +1827,68 @@
           );
         };
 
+        // Step state for the running slide. Updated each cycle() invocation;
+        // advance() reads currentStepIndex to fast-forward through waypoints.
+        let currentStepIndex = -1;
+        let currentSteps = [];
+        let cycleImg = null;
+        let cycleCurrent = null;
+        let cycleNext = null;
+        let cycleNextIndex = 0;
+        let crossfading = false;
+
+        const startCrossfade = () => {
+          if (token !== wideGalleryAnimationToken) return;
+          crossfading = true;
+          const current = cycleCurrent;
+          const next = cycleNext;
+          const nextIndex = cycleNextIndex;
+          if (slides.length === 1) {
+            queueWideGalleryTimeout(() => cycle(), 1200);
+            return;
+          }
+          next.classList.add("is-entering");
+          current.classList.add("is-exiting");
+          updateLabel(next);
+          const nextImg = next.querySelector("img");
+          if (nextImg) nextImg.style.transform = transformFor("full");
+          applyShellAspect(parseFloat(next.dataset.aspect));
+          queueWideGalleryTimeout(() => {
+            if (token !== wideGalleryAnimationToken) return;
+            current.classList.remove("is-active", "is-exiting");
+            const curImg = current.querySelector("img");
+            if (curImg) curImg.style.transform = transformFor("full");
+            next.classList.remove("is-entering");
+            next.classList.add("is-active");
+            activeIndex = nextIndex;
+            crossfading = false;
+            cycle();
+          }, fadeDuration);
+        };
+
+        const runStep = (idx) => {
+          if (token !== wideGalleryAnimationToken) return;
+          currentStepIndex = idx;
+          if (idx >= currentSteps.length) {
+            startCrossfade();
+            return;
+          }
+          const step = currentSteps[idx];
+          const startAnim = () => {
+            if (token !== wideGalleryAnimationToken) return;
+            if (step.duration > 0 && step.from !== step.to) {
+              animateTo(cycleImg, step.from, step.to, step.duration, step.easing, step.flick);
+            }
+            queueWideGalleryTimeout(() => runStep(idx + 1), step.duration + step.hold);
+          };
+          if (step.tap) {
+            flickPointer("tap");
+            queueWideGalleryTimeout(startAnim, tapToZoomDelay);
+          } else {
+            startAnim();
+          }
+        };
+
         const cycle = () => {
           if (token !== wideGalleryAnimationToken) return;
           const current = slides[activeIndex];
@@ -1695,110 +1896,32 @@
           const next = slides[nextIndex];
           const img = current.querySelector("img");
           if (!img) return;
+          cycleImg = img;
+          cycleCurrent = current;
+          cycleNext = next;
+          cycleNextIndex = nextIndex;
+          crossfading = false;
 
           img.style.transform = transformFor("full");
 
           if (xfadeOnly) {
             const xfadeHold = 3200;
-            if (slides.length === 1) {
-              queueWideGalleryTimeout(() => {
-                if (token !== wideGalleryAnimationToken) return;
-                cycle();
-              }, xfadeHold);
-              return;
-            }
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              next.classList.add("is-entering");
-              current.classList.add("is-exiting");
-              updateLabel(next);
-              const nextImg = next.querySelector("img");
-              if (nextImg) nextImg.style.transform = transformFor("full");
-              applyShellAspect(parseFloat(next.dataset.aspect));
-            }, xfadeHold);
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              current.classList.remove("is-active", "is-exiting");
-              next.classList.remove("is-entering");
-              next.classList.add("is-active");
-              activeIndex = nextIndex;
-              cycle();
-            }, xfadeHold + fadeDuration);
+            currentSteps = [];
+            currentStepIndex = -1;
+            queueWideGalleryTimeout(() => startCrossfade(), xfadeHold);
             return;
           }
 
-          const run = () => {
-            if (token !== wideGalleryAnimationToken) return;
+          currentSteps = [
+            { from: "full", to: "full", duration: 0, hold: establishPause - tapToZoomDelay },
+            { from: "full", to: "UL", tap: true, duration: zoomInDuration, hold: quadrantPause },
+            { from: "UL", to: "UR", duration: panDuration, hold: quadrantPause, flick: "rtl" },
+            { from: "UR", to: "LL", duration: flickDuration, hold: quadrantPause, flick: "up", easing: "cubic-bezier(0.2, 1.05, 0.25, 1)" },
+            { from: "LL", to: "LR", duration: panDuration, hold: finalPause, flick: "rtl" },
+            { from: "LR", to: "full", tap: true, duration: zoomOutDuration, hold: 1600 }
+          ];
 
-            let elapsed = establishPause;
-
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              flickPointer("tap");
-            }, elapsed);
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              animateTo(img, "full", "UL", zoomInDuration);
-            }, elapsed + tapToZoomDelay);
-            elapsed += tapToZoomDelay + zoomInDuration + quadrantPause;
-
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              animateTo(img, "UL", "UR", panDuration, undefined, "rtl");
-            }, elapsed);
-            elapsed += panDuration + quadrantPause;
-
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              animateTo(img, "UR", "LL", flickDuration, "cubic-bezier(0.2, 1.05, 0.25, 1)", "up");
-            }, elapsed);
-            elapsed += flickDuration + quadrantPause;
-
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              animateTo(img, "LL", "LR", panDuration, undefined, "rtl");
-            }, elapsed);
-            elapsed += panDuration + finalPause;
-
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              flickPointer("tap");
-            }, elapsed);
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              animateTo(img, "LR", "full", zoomOutDuration);
-            }, elapsed + tapToZoomDelay);
-
-            if (slides.length === 1) {
-              queueWideGalleryTimeout(() => {
-                if (token !== wideGalleryAnimationToken) return;
-                cycle();
-              }, elapsed + tapToZoomDelay + zoomOutDuration + 1600);
-              return;
-            }
-
-            const fadeStart = elapsed + tapToZoomDelay + zoomOutDuration * crossFadeTriggerAt;
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              next.classList.add("is-entering");
-              current.classList.add("is-exiting");
-              updateLabel(next);
-              const nextImg = next.querySelector("img");
-              if (nextImg) nextImg.style.transform = transformFor("full");
-              applyShellAspect(parseFloat(next.dataset.aspect));
-            }, fadeStart);
-
-            queueWideGalleryTimeout(() => {
-              if (token !== wideGalleryAnimationToken) return;
-              current.classList.remove("is-active", "is-exiting");
-              const curImg = current.querySelector("img");
-              if (curImg) curImg.style.transform = transformFor("full");
-              next.classList.remove("is-entering");
-              next.classList.add("is-active");
-              activeIndex = nextIndex;
-              cycle();
-            }, fadeStart + fadeDuration);
-          };
+          const run = () => runStep(0);
 
           const firstImg = current.querySelector("img");
           if (firstImg?.complete) {
@@ -1808,12 +1931,138 @@
           }
         };
 
+        // Multi-image galleries cap at 340px tall on desktop, 300px on
+        // mobile (≤720px). When the natural aspect would push the shell
+        // taller, we narrow the shell (centered via margin auto) to keep
+        // the image proportional.
         const applyShellAspect = (aspect) => {
           if (!storyImageShell || !(aspect > 0)) return;
-          const width = storyImageShell.getBoundingClientRect().width;
-          if (width <= 0) return;
+          const containerEl = storyImageArea || storyImageShell.parentElement;
+          const containerWidth = containerEl?.getBoundingClientRect().width
+            ?? storyImageShell.getBoundingClientRect().width;
+          if (containerWidth <= 0) return;
+          const maxMultiHeight = window.innerWidth <= 720 ? 300 : 340;
+          let height = containerWidth / aspect;
+          let width = containerWidth;
+          if (slides.length > 1 && height > maxMultiHeight) {
+            height = maxMultiHeight;
+            width = height * aspect;
+          }
           storyImageShell.style.aspectRatio = `${aspect}`;
-          storyImageShell.style.height = `${width / aspect}px`;
+          storyImageShell.style.height = `${height}px`;
+          if (width < containerWidth - 0.5) {
+            storyImageShell.style.width = `${width}px`;
+            storyImageShell.style.marginLeft = "auto";
+            storyImageShell.style.marginRight = "auto";
+          } else {
+            storyImageShell.style.width = "";
+            storyImageShell.style.marginLeft = "";
+            storyImageShell.style.marginRight = "";
+          }
+        };
+
+        // Double-tap handler. Two cases:
+        //   - mid-animation: fast-finish current step to its destination
+        //     (~160ms). Step counter does not advance — the user is just
+        //     accelerating the in-flight transition.
+        //   - in a hold (or pre-step): play the NEXT step at 50% of its
+        //     normal duration, then continue cycle from the step after.
+        // Mid-crossfade snaps to the next slide.
+        const ADVANCE_HOLD_SPEED = 0.5;
+        const ADVANCE_MID_ANIM_MS = 160;
+        root.__advance = () => {
+          if (token !== wideGalleryAnimationToken) return;
+          if (!cycleImg) return;
+          clearWideGalleryTimers();
+
+          if (crossfading) {
+            wideGalleryImageAnimation?.cancel();
+            wideGalleryImageAnimation = null;
+            const current = cycleCurrent;
+            const next = cycleNext;
+            const nextIndex = cycleNextIndex;
+            current.classList.remove("is-active", "is-exiting");
+            const curImg = current.querySelector("img");
+            if (curImg) curImg.style.transform = transformFor("full");
+            next.classList.remove("is-entering");
+            next.classList.add("is-active");
+            activeIndex = nextIndex;
+            crossfading = false;
+            cycle();
+            return;
+          }
+
+          const animRunning = wideGalleryImageAnimation
+            && wideGalleryImageAnimation.playState === "running";
+
+          // Lock the current visual transform to inline style before cancel,
+          // so any gap (e.g. tap-pointer delay) doesn't render the image at
+          // its CSS-default transform.
+          const persistCurrentTransform = () => {
+            if (!cycleImg) return;
+            if (wideGalleryImageAnimation) {
+              try { wideGalleryImageAnimation.commitStyles(); } catch (e) {
+                const c = getComputedStyle(cycleImg).transform;
+                if (c && c !== "none") cycleImg.style.transform = c;
+              }
+            }
+          };
+
+          if (animRunning && currentStepIndex >= 0 && currentStepIndex < currentSteps.length) {
+            // Mid-anim — fast-finish current step to destination, keep step
+            // counter, continue cycle from next step after normal hold.
+            const step = currentSteps[currentStepIndex];
+            persistCurrentTransform();
+            const startFrom = cycleImg.style.transform || getComputedStyle(cycleImg).transform;
+            wideGalleryImageAnimation.cancel();
+            if (step.from !== step.to) {
+              wideGalleryImageAnimation = cycleImg.animate(
+                [
+                  { transform: startFrom && startFrom !== "none" ? startFrom : transformFor(step.from) },
+                  { transform: transformFor(step.to) }
+                ],
+                { duration: ADVANCE_MID_ANIM_MS, easing: "cubic-bezier(0.4, 0, 0.2, 1)", fill: "forwards" }
+              );
+            } else {
+              cycleImg.style.transform = transformFor(step.to);
+            }
+            queueWideGalleryTimeout(() => runStep(currentStepIndex + 1), ADVANCE_MID_ANIM_MS + step.hold);
+            return;
+          }
+
+          // In a hold (or pre-step): play next step at 50% normal speed.
+          persistCurrentTransform();
+          wideGalleryImageAnimation?.cancel();
+          wideGalleryImageAnimation = null;
+          const nextIdx = currentStepIndex + 1;
+          if (nextIdx >= currentSteps.length) {
+            startCrossfade();
+            return;
+          }
+          currentStepIndex = nextIdx;
+          const step = currentSteps[nextIdx];
+          const fastDuration = Math.max(80, Math.round(step.duration * ADVANCE_HOLD_SPEED));
+          const playAnim = () => {
+            if (token !== wideGalleryAnimationToken) return;
+            if (step.from !== step.to) {
+              wideGalleryImageAnimation = cycleImg.animate(
+                [
+                  { transform: transformFor(step.from) },
+                  { transform: transformFor(step.to) }
+                ],
+                { duration: fastDuration, easing: step.easing || "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+              );
+            } else {
+              cycleImg.style.transform = transformFor(step.to);
+            }
+            queueWideGalleryTimeout(() => runStep(nextIdx + 1), fastDuration + step.hold);
+          };
+          if (step.tap) {
+            flickPointer("tap");
+            queueWideGalleryTimeout(playAnim, tapToZoomDelay);
+          } else {
+            playAnim();
+          }
         };
 
         if (wideGalleryResizeHandler) window.removeEventListener("resize", wideGalleryResizeHandler);
@@ -1858,6 +2107,7 @@
       function resetShellReveal() {
         shellRevealToken += 1;
         storyImageShell?.classList.remove("is-loaded");
+        storyImageShell?.classList.remove("is-revealed");
         storyImageArea?.classList.remove("is-loading");
         // Suppress any descendant transitions for one frame so the new slide's
         // .is-active state doesn't run an opacity/blur transition on mount.
@@ -1874,6 +2124,12 @@
         if (myToken !== shellRevealToken) return;
         storyImageShell?.classList.add("is-loaded");
         storyImageArea?.classList.remove("is-loading");
+        // After the blur fade-in finishes, clear filter so Safari can release
+        // the compositor layer and render at native sharpness.
+        window.setTimeout(() => {
+          if (myToken !== shellRevealToken) return;
+          storyImageShell?.classList.add("is-revealed");
+        }, 880);
       }
       function revealShellWhenReady(img) {
         const myToken = ++shellRevealToken;
@@ -1963,6 +2219,9 @@
         storyImage.classList.add("is-fpo");
         storyImageShell?.classList.toggle("has-real-image", Boolean(story.image && !story.isCloserToWorkStory && !story.gallery?.length));
         storyImageShell?.classList.toggle("has-fpo-ui", !story.image || story.isCloserToWorkStory || story.gallery?.length);
+        // Cap multi-image story shells at 340px tall (CSS handles desktop;
+        // wide-gallery applyShellAspect honors the same cap in JS).
+        storyImageShell?.classList.toggle("is-multi-gallery", (story.gallery?.length || 0) > 1);
         storyImage.innerHTML = "";
         if (story.isCloserToWorkStory) {
           storyImage.style.backgroundImage = "none";
@@ -2969,6 +3228,14 @@
           }
         });
 
+        // If the user just selected a specific entry, force it as active
+        // until the lock expires (or is cleared by a manual scroll).
+        if (timelineLockEntry && performance.now() < timelineLockUntil
+            && activeCandidates.includes(timelineLockEntry)) {
+          active = timelineLockEntry;
+          if (timelineLockEntry.dataset.story) storyActive = timelineLockEntry;
+        }
+
         if (!active.dataset.story) {
           activeTimelineEntry?.classList.remove("active");
           activeTimelineEntry = null;
@@ -3043,6 +3310,7 @@
         if (!id || !storyContent[id]) return;
         const entry = getStoryEntryById(id);
         if (entry) {
+          if (behavior === "smooth") lockTimelineSelection(entry);
           scrollToTimelineEntry(entry, behavior);
         }
         renderStory(id);
@@ -3059,12 +3327,24 @@
         scrollToTimelineEntry(storyEntries[nextIndex], "smooth");
       }
 
+      function lockTimelineSelection(entry, ms = 900) {
+        if (!entry) return;
+        timelineLockEntry = entry;
+        timelineLockUntil = performance.now() + ms;
+      }
+      function clearTimelineSelectionLock() {
+        timelineLockEntry = null;
+        timelineLockUntil = 0;
+      }
+
       function handleTimelineTap(event) {
         const pill = event.target.closest(".entry-pill");
         if (!pill || !track?.contains(pill)) return;
         const entry = pill.closest(".timeline-entry.minor, .timeline-entry.callout");
         if (!entry) return;
+        lockTimelineSelection(entry);
         scrollToTimelineEntry(entry, "smooth");
+        scheduleTimelineUpdate();
       }
 
       function handleStorySwipeStart(event) {
@@ -3147,6 +3427,10 @@
         updateTimelineMobileHint();
         scheduleTimelineUpdate();
       }, { passive: true });
+      // Manual scroll input releases the selection lock so the user can
+      // immediately scroll past a programmatically-picked entry.
+      track.addEventListener("wheel", clearTimelineSelectionLock, { passive: true });
+      track.addEventListener("touchstart", clearTimelineSelectionLock, { passive: true });
       timelineBackToTop?.addEventListener("click", () => {
         if (isCompactTimeline()) {
           track.scrollTo({ left: 0, behavior: "smooth" });

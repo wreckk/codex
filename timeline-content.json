@@ -157,12 +157,13 @@
       },
       {
         "order": 3,
-        "title": "🏥 Price Page Refresh",
+        "title": "🏥 Price Page Evolution",
         "company": "GoodRx",
         "type": "primary",
         "gallery": [
+          "/assets/images/examples-price-page/01 - Price Page 2022.webp",
           "/assets/images/examples-price-page/02 - Price Page 2024.webp",
-          "/assets/images/examples-price-page/03 - Price Page 2026.webp"
+          "/assets/images/examples-price-page/03 - Price Page 2025.webp"
         ],
         "chips": ["Core Product", "Experimentation", "Conversion", "Pricing"],
         "description": "From early versions through ongoing A/B testing to the final experience.",
@@ -223,7 +224,7 @@
         "galleryType": "wide",
         "noPan": true,
         "gallery": [
-          "/assets/images/examples-joined-goodrx/goodrx-sign.webp"
+          "/assets/images/examples-joined-goodrx/team-photo.webp"
         ],
         "chips": ["Leadership", "Scale"],
         "notes": [
@@ -236,10 +237,10 @@
         "title": "🖌️ Brand Redesign",
         "company": "Outreach",
         "type": "primary",
-        "noLabel": true,
         "gallery": [
-          "/assets/images/examples-outreach-brand/01 - Refreshed Brand.webp",
-          "/assets/images/examples-outreach-brand/02 - Previous Brand.webp"
+          "/assets/images/examples-outreach-brand/01 - Original Branding.webp",
+          "/assets/images/examples-outreach-brand/02 - Updated Branding 01.webp",
+          "/assets/images/examples-outreach-brand/03 - Updated Branding 02.webp"
         ],
         "chips": ["Brand", "Marketing", "Visual Design"],
         "notes": [
@@ -659,7 +660,7 @@
         ],
         "chips": [],
         "notes": [
-          "Worked at <mark>McDonald's</mark>, saving every paycheck for a Nintendo 64. Moved through a few department store jobs after that, but most of my time was spent at home teaching myself how to build websites and mastering my pirated copy of Photoshop. Around then I started picking up early freelance work as a digital graphic designer, figuring it out as I went."
+          "In my late teens, I worked at McDonald’s as a <mark>burger artist</mark>, stacking paychecks toward a Nintendo 64 and my first Packard Bell PC. Nights were spent teaching myself web design and mastering a pirated copy of Photoshop. Kept saving and leveling up my setup, eventually landing on a Mac G4 Quicksilver tower and starting freelance work as a digital graphic designer."
         ]
       }
     ]

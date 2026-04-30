@@ -23,7 +23,7 @@
 
 @font-face {
   font-family: "SF Pro Text Local";
-  src: url("/fonts/SF-Pro-Text-Regular.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Text-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -31,7 +31,7 @@
 
 @font-face {
   font-family: "SF Pro Text Local";
-  src: url("/fonts/SF-Pro-Text-Light.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Text-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -39,15 +39,7 @@
 
 @font-face {
   font-family: "SF Pro Text Local";
-  src: url("/fonts/SF-Pro-Text-Ultralight.otf") format("opentype");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Text Local";
-  src: url("/fonts/SF-Pro-Rounded-Bold.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Rounded-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -55,7 +47,7 @@
 
 @font-face {
   font-family: "SF Pro Display Local";
-  src: url("/fonts/SF-Pro-Display-Thin.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Display-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -63,7 +55,7 @@
 
 @font-face {
   font-family: "SF Pro Rounded Local";
-  src: url("/fonts/SF-Pro-Rounded-Bold.otf") format("opentype");
+  src: url("/fonts/SF-Pro-Rounded-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -71,7 +63,7 @@
 
 @font-face {
   font-family: "SF Compact Text Local";
-  src: url("/fonts/SF-Compact-Text-Regular.otf") format("opentype");
+  src: url("/fonts/SF-Compact-Text-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -483,7 +475,7 @@ body.preload-layout .page-loader {
 .rail-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 3px;
   margin-top: 16px;
 }
 
@@ -506,16 +498,16 @@ body.preload-layout .page-loader {
 .mini-pills span {
   display: inline-flex;
   align-items: center;
-  padding: 9px 10px;
+  padding: 5px 8px;
   border: 1px solid #d4d4d8;
   border-radius: 999px;
   background: #fff;
   color: #86868b;
   font-family: "SF Pro Rounded Local";
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.045em;
   font-weight: 600;
 }
 
@@ -1470,16 +1462,16 @@ body.preload-layout .page-loader {
 .story-pills a {
   display: inline-flex;
   align-items: center;
-  padding: 9px 10px;
+  padding: 5px 8px;
   border: 1px solid #d4d4d8;
   border-radius: 999px;
   background: #f2f2f4;
   color: #86868b;
   font-family: "SF Pro Rounded Local";
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.045em;
   font-weight: 600;
   text-decoration: none;
   transition:
@@ -1525,6 +1517,21 @@ body.preload-layout .page-loader {
   flex-shrink: 0;
   scrollbar-width: thin;
   scrollbar-color: rgba(116, 102, 118, 0.22) transparent;
+}
+
+/* Multi-image gallery shells cap at 340px (wide-gallery JS applies the same
+   cap and narrows shell width to keep aspect; tall-scroll FPO uses this).
+   Mobile cap is tighter — 300px — to leave room for headline + copy. */
+.story-image-shell.is-multi-gallery {
+  height: 340px;
+  max-height: 340px;
+}
+
+@media (max-width: 720px) {
+  .story-image-shell.is-multi-gallery {
+    height: 300px;
+    max-height: 300px;
+  }
 }
 
 .story-image-shell.has-real-image {
@@ -1895,6 +1902,17 @@ body.preload-layout .page-loader {
 
 .story-image-shell {
   transition: aspect-ratio 2200ms cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.story-image-shell img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
 }
 
 .story-image-shell .story-image-fpo,
@@ -1912,11 +1930,22 @@ body.preload-layout .page-loader {
     filter 820ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Once the blur fade-in finishes, drop filter entirely so Safari releases the
+   filter compositor layer (which otherwise rasterizes at reduced sharpness). */
+.story-image-shell.is-revealed .story-image-fpo,
+.story-image-shell.is-revealed.has-real-image .story-image img {
+  filter: none;
+}
+
 .story-image-fpo--wide .story-image-fpo__glp1-slide img {
   display: block;
-  width: 100%;
+  /* Oversize to 2x display so the compositor rasterizes at zoom resolution
+     (WebKit/Safari otherwise stretches the base-scale texture, blurring the
+     quadrant zoom). Base state uses scale(0.5) to show at 1:1 visually. */
+  width: 200%;
   height: auto;
-  transform: translate(0, 0) scale(1);
+  min-height: 0;
+  transform: translate(0, 0) scale(0.5);
   transform-origin: top left;
 }
 
